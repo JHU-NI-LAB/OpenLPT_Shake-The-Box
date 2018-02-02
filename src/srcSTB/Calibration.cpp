@@ -14,7 +14,7 @@
 #include <vector>
 #include <cmath>
 #include <ctime>
-// Temporary modification by Shiyong Tan 1/31/18 TODO
+// TODO:Temporary modification by Shiyong Tan 1/31/18
 //#include <matio.h>
 
 #include <Calibration.h>
@@ -949,7 +949,7 @@ bool Calibration::ParticleCheck1to1(int camid0, int camid1, Position P0world, Fr
 
 void Calibration::Load_cleanlist(string path, int frame, deque<Frame>& corrFrames_pixel, deque<Frame>& corrFrames, vector<Frame::const_iterator>*& cleanlist) {
 
-	// Temporary modification by Shiyong Tan 1/31/18 TODO
+	// TODO: Temporary modification by Shiyong Tan 1/31/18
 	
 //	cout << "break1" << endl;
 //	stringstream s; s << path << "random_updatedCams_Spherical100000" << ".mat";
