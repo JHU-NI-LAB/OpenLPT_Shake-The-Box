@@ -95,7 +95,7 @@ public:
 	// first and last frames
 	int first, last;
 	deque<string> imgNameFiles;
-	deque<deque<string>> imgSequence;
+	deque< deque<string> > imgSequence;
 
 	// ################## initialization phase #################
 	string iprfile;

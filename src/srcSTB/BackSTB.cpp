@@ -164,8 +164,9 @@ void BackSTB::Predictor(STB& s, int prevFrame, deque<Track>::iterator& Ltr,
 	double mindistsqr = 1e6;
 	deque<deque<Track>::iterator> matches;
 
-	vector<vector<double>> predCoeff(3);													// using polynomial fit / Wiener filter to predict the particle position at prevFrame
-	vector<string> direction = { "X", "Y", "Z" };
+	vector< vector<double> > predCoeff(3);													// using polynomial fit / Wiener filter to predict the particle position at prevFrame
+	vector<string> direction;
+	direction[0] = "X"; direction[1] = "Y"; direction[2] = "Z";
 	vector<double> est(3);
 	for (int i = 0; i < 3; i++) {
 		predCoeff[i] = Polyfit(*Ltr, direction[i], prevFrame);								// predictor coefficients for X->0, Y->1 and Z->2

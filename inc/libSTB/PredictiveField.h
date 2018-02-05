@@ -32,14 +32,14 @@ public:
 	void GridPoints();
 	void Field();
 	void SearchVolumeParticles(deque<Frame::const_iterator>& Frame, double rsqr, vector<double>* gridPoint, int grid, int frame);
-	void DisplacementMap(double*** &dispMap, deque<deque<double>> displacements);
+	void DisplacementMap(double*** &dispMap, deque< deque<double> > displacements);
 	deque<double> DisplacementMapPeak(double*** &dispMap);
 	deque<int> IndexofLargestElement(double*** &array);
 	double Gaussian1DPeak(double y1, double v1, double y2, double v2, double y3, double v3);
 
 	// getting the necessary variables
-	vector<vector<double>> GetGrid() {
-		vector<vector<double>> Grids;
+	vector< vector<double> > GetGrid() {
+		vector< vector<double> > Grids;
 		for (int n = 0; n < 3; n++) {
 			vector<double> temp(totalGridPoints);
 			for (int i = 0; i < totalGridPoints; i++) {
@@ -49,8 +49,8 @@ public:
 		}
 		return Grids;
 	}
-	vector<vector<double>> GetField() {
-		vector<vector<double>> Field;
+	vector< vector<double> > GetField() {
+		vector< vector<double> > Field;
 		for (int n = 0; n < 3; n++) {
 			vector<double> temp(totalGridPoints);
 			for (int i = 0; i < totalGridPoints; i++) {
@@ -72,7 +72,7 @@ public:
 
 	void MatfileSave(vector<double*> pos, string name);
 	void MatfileSave(vector<double> pos[3], string name);
-	void MatfileSave(vector<vector<double>> pos, string name);
+	void MatfileSave(vector< vector<double> > pos, string name);
 
 	void Load_field(string path, int frame);
 
@@ -101,7 +101,7 @@ private:
 	double m, c;
 
 	vector<double*> field;
-	vector<vector<double>> particleDisplacements;
+	vector< vector<double> > particleDisplacements;
 
 	// variables for data from .mat file
 };

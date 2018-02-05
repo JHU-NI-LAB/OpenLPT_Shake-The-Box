@@ -61,7 +61,7 @@ void ForwardSTB::UpdateTracks(STB& s) {
 		deque<string> filename(s.ncams);															// connect them using the residual images
 																									// loading the actual cameras images at nextFrame for connecting links forward in time 
 		for (int i = 0; i < s.ncams; i++) 															// getting the tiff image names
-			filename[i] = s.tiffaddress + "frame" + to_string(nextFrame) + "cam" + to_string(i + 1) + ".tif";
+			filename[i] = s.tiffaddress + "frame" ; //+ to_string(nextFrame) + "cam" + to_string(i + 1) + ".tif"; TODO: Temporary modification Shiyong Tan 2/2/18
 
 		Tiff2DFinder t(s.ncams, s._ipr.Get_threshold(), filename);
 		t.FillPixels(pixels_orig);
@@ -137,8 +137,9 @@ void ForwardSTB::Predictor(STB& s, int nextFrame, deque<Track>::iterator& Ltr,
 	deque<deque<Track>::iterator>& unlinkedTracks, Frame& predictions,
 	deque<double>& intensity) {
 
-	vector<vector<double>> predCoeff(3);													// using polynomial fit / Wiener filter to predict the particle position at nextFrame
-	vector<string> direction = { "X", "Y", "Z" };
+	vector< vector<double> > predCoeff(3);													// using polynomial fit / Wiener filter to predict the particle position at nextFrame
+	vector<string> direction;
+	direction[0] = "X"; direction[1] = "Y"; direction[2] = "Z";
 	vector<double> est(3);
 	for (int i = 0; i < 3; i++) {
 		predCoeff[i] = s.Polyfit(*Ltr, direction[i],4,3);										// predictor coefficients for X->0, Y->1 and Z->2
