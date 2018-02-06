@@ -11,6 +11,7 @@
 #define DOUBLEDATAIO_H_
 
 #include "DataIO.h"
+#include <fstream>
 
 class DoubleDataIO : public DataIO<double> {
 public:
