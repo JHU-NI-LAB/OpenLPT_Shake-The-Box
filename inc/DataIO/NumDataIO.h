@@ -7,16 +7,16 @@
  *      ATTENTION: data should be defined clearly before using this class method.
  */
 
-#ifndef DOUBLEDATAIO_H_
-#define DOUBLEDATAIO_H_
+#ifndef NUMDATAIO_H_
+#define NUMDATAIO_H_
 
 #include "DataIO.h"
-#include <fstream>
 
-class DoubleDataIO : public DataIO<double> {
+template <class T>
+class NumDataIO : public DataIO<T> {
 public:
-	DoubleDataIO(){} ;
-	~DoubleDataIO() {};
+	NumDataIO() {};
+	~NumDataIO() {};
 
 	/*
 	 * Function: a realization to the virtual function
@@ -24,7 +24,7 @@ public:
 	 * Input: Data to be saved to the file.
 	 * Output: An int to indicate the error state.
 	 */
-	int WriteData(double* data);
+	int WriteData(T* data);
 
 	/*
 	 * Function: a realization to the virtual function
@@ -32,7 +32,7 @@ public:
 	 * Input: Data to save the data from file.
 	 * Output: An int to indicate the error state.
 	 */
-	int ReadData(double* data);
+	int ReadData(T* data);
 
 	/*
 	 * Function: set the total number of elements.
@@ -50,4 +50,7 @@ private:
 
 
 
-#endif /* DOUBLEDATAIO_H_ */
+
+#endif /* NUMDATAIO_H_ */
+
+
