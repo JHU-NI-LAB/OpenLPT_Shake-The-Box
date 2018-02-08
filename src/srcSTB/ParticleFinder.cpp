@@ -20,8 +20,15 @@
 #include <ParticleFinder.h>
 #include <Logs.h>
 #include <Position.h>
-//TODO Temporary modification by Shiyong Tan 1/31/18
+
+/*
+ * Modified by Shiyong Tan, 2/5/18
+ * The matio library is discarded and use DataIO instead.
+ * Start:
+ */
 //#include <matio.h>
+#include "NumDataIO.h"
+// End
 
 using namespace std;
 
@@ -55,8 +62,13 @@ ParticleFinder::ParticleFinder(int**& p, int rows, int cols, int depth, int thre
 					// this is a serious problem: we can't continue
 					stringstream s;
 					s << "Pixel [" << i << "," << j << "] out of range with " << colors;
-					//TODO Temporary modification by Shiyong Tan 1/31/18
-//					MatfileImage(pixels, "ErrorImage.mat");
+					/*
+					 * Modified by Shiyong Tan, 2/5/18
+					 * Update the IO interface.
+					 * Start:
+					 */
+					MatfileImage(pixels, "ErrorImage");
+					// End
 					throw out_of_range(s.str());
 				}
 				
@@ -284,7 +296,12 @@ bool ParticleFinder::IsLocalMax(int r, int c)
   return true;
 }
 
-//TODO Temporary modification by Shiyong Tan 1/31/18
+
+/*
+ * Modified by Shiyong Tan, 2/5/18
+ * The matio library is discarded and use DataIO instead.
+ * Start:
+ */
 // creates a matfile for images
 //void ParticleFinder::MatfileImage(int** pix, string name) {
 //
@@ -330,3 +347,12 @@ bool ParticleFinder::IsLocalMax(int r, int c)
 //	}
 //	Mat_Close(matfp);
 //}
+
+//TODO check whether it works Shiyong Tan 2/5/18
+void ParticleFinder::MatfileImage(int** pix, string name) {
+	NumDataIO<int> data_io;
+	data_io.SetFilePath(name + ".txt");
+	data_io.SetTotalNumber(rows * cols);
+	data_io.WriteData((int*) pix);
+}
+//End

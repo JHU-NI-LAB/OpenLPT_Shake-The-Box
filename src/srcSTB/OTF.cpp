@@ -3,8 +3,15 @@
 #include <string>
 #include <tuple>
 #include<vector>
-//TODO: Temporary Modification by Shiyong Tan, 1/31/18
+/*
+ * Modified by Shiyong Tan, 2/7/18
+ * Discard using matio, use DataIO instead
+ * Start:
+ */
 //#include <matio.h>
+#include "NumDataIO.h"
+// End
+
 //#include <C:/Program Files/MATLAB/R2016a/extern/include/mat.h> //Look for the path of mat.h
 #include <Position.h>
 #include <linterp.h>
@@ -109,8 +116,12 @@ void OTF::OTF_txtdata() {
 }
 // obtaning the OTF parameter data from mat file
 void OTF::OTF_matdata() {
-	const char *fileName = mat_path.c_str();
-	// TODO: Temporary Modification by Shiyong Tan, 1/31/18
+//	const char *fileName = mat_path.c_str();
+	/*
+	 * Modified by Shiyong Tan, 2/7/18
+	 * Discard using matio, using DataIO instead.
+	 * Start:
+	 */
 //	mat_t *mat = Mat_Open(fileName, MAT_ACC_RDONLY);
 //
 //	if (mat == NULL) {
@@ -199,6 +210,30 @@ void OTF::OTF_matdata() {
 //
 //	}
 //	Mat_Close(mat);
+	// TODO: to check whether it works.
+	aData = new double*[ncams];
+	bData = new double*[ncams];
+	cData = new double*[ncams];
+	alphaData = new double*[ncams];
+
+	// Data Format: A1, A2, A3, A4, B1, B2, B3, B4, C1, C2, C3, C4, Alpha1, Alpha2, Alpha3, Alpha4
+	NumDataIO<double> data_io;
+	data_io.SetFilePath(mat_path);
+	int total_num = data_io.GetTotalNumber();
+	double cam_data[total_num];
+	data_io.SetTotalNumber(total_num);
+	data_io.ReadData((double*) cam_data);
+
+	for (int i = 0; i < ncams; i++) {
+		int rows = total_num / 16;
+		for (int j = 0; j < rows; j++ ) {
+			aData[i][j] = cam_data[i * rows + j];
+			bData[i][j] = cam_data[(i + 4) * rows + j];
+			cData[i][j] = cam_data[(i + 8) * rows + j];
+			alphaData[i][j] = cam_data[(i + 12) * rows + j];
+		}
+	}
+	// End
 }
 
 //tuple<InterpMultilinear<3, double>, InterpMultilinear<3, double>, InterpMultilinear<3, double>, InterpMultilinear<3, double>> OTF::OTFgrid(int camid) {

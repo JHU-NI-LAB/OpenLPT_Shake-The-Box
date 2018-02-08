@@ -61,7 +61,7 @@ void ForwardSTB::UpdateTracks(STB& s) {
 		deque<string> filename(s.ncams);															// connect them using the residual images
 																									// loading the actual cameras images at nextFrame for connecting links forward in time 
 		for (int i = 0; i < s.ncams; i++) 															// getting the tiff image names
-			filename[i] = s.tiffaddress + "frame" ; //+ to_string(nextFrame) + "cam" + to_string(i + 1) + ".tif"; TODO: Temporary modification Shiyong Tan 2/2/18
+			filename[i] = s.tiffaddress + "frame" + to_string(nextFrame) + "cam" + to_string(i + 1) + ".tif";
 
 		Tiff2DFinder t(s.ncams, s._ipr.Get_threshold(), filename);
 		t.FillPixels(pixels_orig);

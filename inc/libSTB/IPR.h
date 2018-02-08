@@ -118,6 +118,9 @@ protected:
 
 	// for testing:
 	deque<Position> ghost3D;
+
+private:
+	void Position2Array(deque<Position> pos, double array[][12]);
 };
 
 

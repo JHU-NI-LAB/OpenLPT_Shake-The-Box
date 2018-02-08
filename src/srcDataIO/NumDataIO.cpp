@@ -23,7 +23,11 @@
 template <class T>
 int NumDataIO <T>::WriteData(T* data) {
 	std::ofstream outfile;
-	outfile.open(this->m_file_path);
+	if (m_save_mode == 1) {
+		outfile.open(this->m_file_path, std::ios::app);
+	} else {
+		outfile.open(this->m_file_path);
+	}
 	for (int i = 0; i < m_total_number; i++ ) {
 		outfile<<*(data + i)<<","; //using comma as the delimiter.
 	}
@@ -40,12 +44,31 @@ int NumDataIO <T>::ReadData(T* data) {
 	std::getline(infile, line); // reading a line into line.
 	std::stringstream ss(line); // make the line as a stringstream to separate the line
 	std::string cell; //to save each element
-	for (int i = 0; i < m_total_number; i++ ) {
+	for (int i = 0; i < m_total_number + m_skip_data_num; i++ ) {
 		getline(ss, cell, ',');
-		*(data + i) = stod(cell);
+		if (i > m_skip_data_num - 1) {  // skip the set number of data
+			if (std::is_integral<T>::value) { // pass the value of cell according to different data type
+				*(data + i) = stoi(cell);
+			} else {
+				*(data + i) = stod(cell);
+			}
+		}
 	}
 	infile.close();
 	return 0;
+}
+
+template<class T>
+int NumDataIO<T>::GetTotalNumber() {
+	std::ifstream infile;
+	infile.open(this->m_file_path);
+	std::string line;
+	std::getline(infile, line); // reading a line into line.
+	std::stringstream ss(line); // make the line as a stringstream to separate the line
+	std::string cell; //to save each element
+	int total_number = 0;
+	while (getline(ss, cell, ',')) total_number++;
+	return total_number;
 }
 
 template class NumDataIO<int>;

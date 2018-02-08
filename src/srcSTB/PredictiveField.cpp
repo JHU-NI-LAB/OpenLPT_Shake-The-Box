@@ -13,6 +13,7 @@
 
 #include <linterp.h>
 #include <PredictiveField.h>
+#include "NumDataIO.h"
 
 #define PREV_FRAME 0
 #define CURR_FRAME 1
@@ -60,8 +61,8 @@ PredictiveField::PredictiveField(Frame prevFramePos, Frame currFramePos, std::st
 		parsed >> path;
 		cout << "\t\tLoading predictive field from matfile" << endl;
 		// geting the field from matfile
-		// TODO: Temporary Modification Shiyong Tan, 2/1/18
-		//Load_field(path, frame);
+		// TODO: to check whether it works.
+		Load_field(path, frame);
 	}
 	else {
 		cout << "\t\tCalculating predictive field" << endl;
@@ -394,8 +395,11 @@ std::vector<double> PredictiveField::linspace(double first, double last, int len
 
 
 // ########################################### MAT FILES #########################################
-//// TODO: Temporary modification by Shiyong Tan, 2/1/18
-//void PredictiveField::MatfileSave(vector<double*> pos, string name) {
+void PredictiveField::MatfileSave(vector<double*> pos, string name) {
+	/*
+	 * Modified by Shiyong Tan, 2/7/18
+	 * Discard using matio, use DataIO instead.
+	 */
 //	// Create a .mat file with pos3D
 //	size_t sizeofpos3D = totalGridPoints;
 //	mat_t    *matfp;
@@ -431,9 +435,28 @@ std::vector<double> PredictiveField::linspace(double first, double last, int len
 //	Mat_VarWrite(matfp, cell_array, MAT_COMPRESSION_NONE);
 //	Mat_VarFree(cell_array);
 //	Mat_Close(matfp);
-//}
-//
-//void PredictiveField::MatfileSave(vector<double> pos[3], string name) {
+// TODO: to check whether it works
+	// Convert pos into 2D matrix
+	size_t sizeofpos3D = totalGridPoints;
+	double point_array[sizeofpos3D][3];
+	for (int i = 0; i < sizeofpos3D; i++) {
+		point_array[i][0] = pos[0][i];
+		point_array[i][1] = pos[1][i];
+		point_array[i][2] = pos[2][i];
+	}
+
+	NumDataIO<double> data_io;
+	data_io.SetFilePath(name + ".txt");
+	data_io.SetTotalNumber(sizeofpos3D * 3);
+	data_io.WriteData((double*) point_array);
+	// END
+}
+
+void PredictiveField::MatfileSave(vector<double> pos[3], string name) {
+	/*
+	 * Modified by Shiyong Tan, 2/7/18
+	 * Discard using matio, use DataIO instead.
+	 */
 //	// Create a .mat file with pos3D
 //	size_t sizeofpos3D = totalGridPoints;
 //	mat_t    *matfp;
@@ -469,9 +492,27 @@ std::vector<double> PredictiveField::linspace(double first, double last, int len
 //	Mat_VarWrite(matfp, cell_array, MAT_COMPRESSION_NONE);
 //	Mat_VarFree(cell_array);
 //	Mat_Close(matfp);
-//}
+	// Convert pos into 2D matrix
+	size_t sizeofpos3D = totalGridPoints;
+	double point_array[sizeofpos3D][3];
+	for (int i = 0; i < sizeofpos3D; i++) {
+		point_array[i][0] = pos[0][i];
+		point_array[i][1] = pos[1][i];
+		point_array[i][2] = pos[2][i];
+	}
+
+	NumDataIO<double> data_io;
+	data_io.SetFilePath(name + ".txt");
+	data_io.SetTotalNumber(sizeofpos3D * 3);
+	data_io.WriteData((double*) point_array);
+	// END
+}
 //
-//void PredictiveField::MatfileSave(vector<vector<double>> pos, string name) {
+void PredictiveField::MatfileSave(vector<vector<double>> pos, string name) {
+	/*
+	 * Modified by Shiyong Tan, 2/7/18
+	 * Discard using matio, use DataIO instead.
+	 */
 //	// Create a .mat file with pos3D
 //	size_t sizeofpos3D = pos.size();
 //	mat_t    *matfp;
@@ -507,13 +548,30 @@ std::vector<double> PredictiveField::linspace(double first, double last, int len
 //	Mat_VarWrite(matfp, cell_array, MAT_COMPRESSION_NONE);
 //	Mat_VarFree(cell_array);
 //	Mat_Close(matfp);
-//}
-//
-//
-//
+	size_t sizeofpos3D = totalGridPoints;
+	double point_array[sizeofpos3D][6];
+	for (int i = 0; i < sizeofpos3D; i++) {
+		point_array[i][0] = pos[i][0];
+		point_array[i][1] = pos[i][1];
+		point_array[i][2] = pos[i][2];
+		point_array[i][3] = pos[i][3];
+		point_array[i][4] = pos[i][4];
+		point_array[i][5] = pos[i][5];
+	}
+
+	NumDataIO<double> data_io;
+	data_io.SetFilePath(name + ".txt");
+	data_io.SetTotalNumber(sizeofpos3D * 6);
+	data_io.WriteData((double*) point_array);
+	// END
+}
+
 //// Load field from field.mat
-//
-//void PredictiveField::Load_field(string path, int frame) {
+void PredictiveField::Load_field(string path, int frame) {
+	/*
+	 * Modified by Shiyong Tan, 2/7/18
+	 * Discard using matio, use DataIO instead.
+	 */
 //	string file = path + to_string(frame) + ".mat";
 //	const char *fileName = file.c_str();
 //	mat_t *mat = Mat_Open(fileName, MAT_ACC_RDONLY);
@@ -550,4 +608,18 @@ std::vector<double> PredictiveField::linspace(double first, double last, int len
 //	}
 //
 //	Mat_Close(mat);
-//}
+	string file = path + to_string(frame) + ".txt";
+
+	NumDataIO<double> data_io;
+	data_io.SetFilePath(file);
+	int total_num = data_io.GetTotalNumber();
+	double field_data[total_num / 3][3];  // data format: rows * 3
+	data_io.SetTotalNumber(total_num);
+	data_io.ReadData((double*) field_data);
+	for (int i = 0; i < total_num /3; i++) {
+		field[0][i] = field_data[0][i];
+		field[1][i] = field_data[1][i];
+		field[2][i] = field_data[2][i];
+	}
+//END
+}

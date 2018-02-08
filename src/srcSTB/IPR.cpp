@@ -1,10 +1,11 @@
+#include <NumDataIO.h>
 #include <sstream>
 #include <iomanip>
 #include <iostream>
 #include <cmath>
 #include <ctime>
 
-#include <IPR.h>
+#include "IPR.h"
 
 using namespace std;
 #define ALL_CAMS 100
@@ -214,7 +215,7 @@ Frame IPR::FindPos3D(deque< deque<string> > imgNames, int frameNumber)  {
 // FOR TESTING 
 	// saving pos3D as a .mat file
 	if (triangulationOnly || IPROnly) {
-		string reproj = "ReprojectedImage", res = "ResidualImage"; //+ to_string(frame); cannot find to_string TODO: Temporary Modification,
+		string reproj = "ReprojectedImage", res = "ResidualImage"+ to_string(frame);
 		stringstream mat_name1; mat_name1 << tiffaddress << "posframe" << frameNumber;
 		stringstream mat_name2; mat_name2 << tiffaddress << "cleanlistpos2Dframe" << frameNumber;
 		MatfilePositions(pos3D, mat_name1.str());
@@ -472,7 +473,11 @@ void IPR::FullData(Position& pos, double intensity, int Cams, int ignoreCam) {
 
 // creates a matfile of positions
 void IPR::MatfilePositions(deque<Position> pos, string name) {
-	// TODO: Temporary Modification. Shiyong Tan 1/31/18
+/*
+ * Modified by Shiyong Tan, 2/6/18
+ * Discard using matio, use DataIO instead
+ * Start:
+ */
 //	// Create a .mat file with pos3D
 //	size_t sizeofpos3D = pos.size();
 //	mat_t    *matfp;
@@ -509,11 +514,28 @@ void IPR::MatfilePositions(deque<Position> pos, string name) {
 //	Mat_VarWrite(matfp, cell_array, MAT_COMPRESSION_NONE);
 //	Mat_VarFree(cell_array);
 //	Mat_Close(matfp);
+
+	// TODO: Check whether it works. Shiyong Tan
+	size_t sizeofpos3D = pos.size();
+	double array[sizeofpos3D][12];
+	//Convert Position into array
+	Position2Array(pos, array);
+
+	NumDataIO<double> data_io;
+	data_io.SetFilePath(name + ".txt");  // setting the path to save the data.
+	data_io.SetTotalNumber(sizeofpos3D * 12);
+	data_io.WriteData((double*) array);
+// END
 }
 
 // creates a matfile for images
 void IPR::MatfileImage(deque<int**>& pix, string name) {
-	// TODO: Temporary Modification. Shiyong Tan 1/31/18
+
+	/*
+	 * Modified by Shiyong Tan, 2/7/18
+	 * Matio is discared. Use DataIO instead.
+	 * Start:
+	 */
 //	size_t sizeofpos3D = pix.size();
 //	mat_t    *matfp;
 //	size_t dims[2] = { Npixw, 1 };
@@ -562,10 +584,28 @@ void IPR::MatfileImage(deque<int**>& pix, string name) {
 //		//Mat_VarFree(cell_array);
 //	}
 //	Mat_Close(matfp);
+	// TODO: check whether it works.
+	size_t sizeofpos3D = pix.size();
+	// get all the values of pixels into 3D matrix
+	int tmp[sizeofpos3D][Npixw][Npixh];
+	for (int i = 0; i < sizeofpos3D; i++) {
+		for (int j = 0; j < Npixw; j++ ) {
+			for (int k = 0; k < Npixh; k++) tmp[i][j][k] = pix[i][j][k];
+		}
+	}
+	NumDataIO<int> data_io;
+	data_io.SetFilePath(name + ".txt");
+	data_io.SetTotalNumber(sizeofpos3D * Npixw * Npixh);
+	data_io.WriteData((int*) tmp);
+// End
 }
 
 void IPR::Load_2Dpoints(string path, int frame, int ignoreCam) {
-	// TODO: Temporary Modification. Shiyong Tan 1/31/18
+	/*
+	 * Modified by Shiyong Tan, 2/7/18
+	 * Discard using matio, use DataIo istead.
+	 * Start:
+	 */
 //	stringstream s; s << path << ".mat";
 //	string file = s.str();
 //
@@ -616,4 +656,35 @@ void IPR::Load_2Dpoints(string path, int frame, int ignoreCam) {
 //	}
 //
 //	Mat_Close(mat);
+	//TODO: to check whether it works.
+	NumDataIO<double> data_io;
+	data_io.SetFilePath(path + ".txt");
+	int total_number = data_io.GetTotalNumber(); //get the total number of elements in txt file
+	// suppose the data format is: X1, Y1, X2, Y2, X3, Y3, X4, Y4
+	int rows = total_number / 8;
+	double points_array[rows][8];
+	data_io.ReadData((double*) points_array);
+	for (int id = 0; id < ncams; id++) {
+		Frame pos2D;
+		if (id != ignoreCam) {
+			for (int i = 0; i < rows; i++) {
+				Position pos(points_array[i][2 * id], points_array[i][2 * id + 1], 0);
+				pos2D.Add(pos);
+			}
+		}
+		iframes.push_back(pos2D);
+	}
+	// End
 }
+
+void IPR::Position2Array(deque<Position> pos, double array[][12]) {
+	size_t sizeofpos3D = pos.size();
+	for (int i = 0; i < sizeofpos3D; i++) {
+		array[i][0] = pos[i].X(); array[i][1] =pos[i].Y(); array[i][2] = pos[i].Z();
+		array[i][3] = pos[i].X1(); array[i][4] = pos[i].Y1(); array[i][5] = pos[i].X2(); array[i][6] =pos[i].Y2();
+		array[i][7] = pos[i].X3(); array[i][8] = pos[i].Y3(); array[i][9] = pos[i].X4(); array[i][10] = pos[i].Y4();
+		array[i][11] = pos[i].Info();
+	}
+
+}
+

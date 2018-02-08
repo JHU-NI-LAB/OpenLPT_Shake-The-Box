@@ -14,8 +14,14 @@
 #include <vector>
 #include <cmath>
 #include <ctime>
-// TODO:Temporary modification by Shiyong Tan 1/31/18
+/*
+ * Modified by Shiyong Tan, 2/5/18
+ * Matio library has been descared. Use DataIO instead
+ * Start:
+ */
 //#include <matio.h>
+#include "NumDataIO.h"
+// End
 
 #include <Calibration.h>
 #include <GDF.h>
@@ -949,7 +955,11 @@ bool Calibration::ParticleCheck1to1(int camid0, int camid1, Position P0world, Fr
 
 void Calibration::Load_cleanlist(string path, int frame, deque<Frame>& corrFrames_pixel, deque<Frame>& corrFrames, vector<Frame::const_iterator>*& cleanlist) {
 
-	// TODO: Temporary modification by Shiyong Tan 1/31/18
+/*
+ * Modified by Shiyong Tan, 2/6/18
+ * Discard using matio, use DataIO instead.
+ * Start:
+ */
 	
 //	cout << "break1" << endl;
 //	stringstream s; s << path << "random_updatedCams_Spherical100000" << ".mat";
@@ -986,7 +996,31 @@ void Calibration::Load_cleanlist(string path, int frame, deque<Frame>& corrFrame
 //		}
 //	}
 //	else
-		cout << "Cannot open file\n";
+//		cout << "Cannot open file\n";
+
+	//TODO: check whether it works. Shiyong Tan
+	NumDataIO<double> data_io;
+	data_io.SetFilePath(path + "random_updatedCams_Spherical100000.txt"); // Read txt file.
+	//data format: 3D position(X,Y,Z) + 2D position(X,Y) for 4 Cameras, 10000 points
+	int num_camera = 4; int num_points = 10000;
+	int cols = 3 + 2 * num_camera; int rows = num_points;
+	data_io.SetTotalNumber(cols * rows);
+	double points_array[rows][cols];
+	data_io.ReadData((double*) points_array);
+
+	// Put points_array into pos
+	for (int id = 0; id < num_camera; id++) {
+		Frame pos2D, pos2D_pixel;
+		for (int i = 0; i < num_points; i++) {
+			Position pos(points_array[2 * id + 3][i], points_array[2 * id + 4][i], 0);
+			pos2D_pixel.Add(pos);
+			pos2D.Add(cams[id].UnDistort(pos));
+		}
+		corrFrames.push_back(pos2D);
+		corrFrames_pixel.push_back(pos2D_pixel);
+	}
+// End
+
 	Frame::const_iterator pA = corrFrames[0].begin();
 	Frame::const_iterator pB = corrFrames[1].begin();
 	Frame::const_iterator pC = corrFrames[2].begin();

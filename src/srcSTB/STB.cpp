@@ -1,6 +1,7 @@
 
 
 #include <STB.h>
+#include "NumDataIO.h"
 
 #define ALL_CAMS 100
 #define REDUCED_CAMS 0
@@ -859,7 +860,11 @@ void STB::MatTracksSave(string address, string s, int lastFrame) {
 
 
 void STB::MatfileSave(deque<Track> tracks, string address, string name, int size) {
-	//TODO: Temporary Modification by Shiyong Tan 2/1/18
+/*
+ * Modified by Shiyong Tan, 2/8/18
+ * Discard using matio, use Data_IO instead
+ * Start:
+ */
 //	// Create a .mat file with pos3D
 //	size_t sizeofpos3D = tracks.size();
 //	double* tempX = new double[size];
@@ -923,6 +928,48 @@ void STB::MatfileSave(deque<Track> tracks, string address, string name, int size
 //	Mat_VarFree(cell_arrayX); Mat_VarFree(cell_arrayY); Mat_VarFree(cell_arrayZ);
 //	Mat_Close(matfp);
 //	delete[] tempX, tempY, tempZ;
+	// TODO: to check whether it works.
+
+	// convert track into 3D matrix the time for each track is the same.
+	size_t sizeofpos3D = tracks.size(); // the number of particle
+	double track_data[sizeofpos3D][size][3];  // size is the total number of frames
+	for(int i = 0; i < sizeofpos3D; i++) {
+		int absolute_starttime = tracks[i].GetTime(0); // 0 is the starting time of the begining of the motion of a particle
+							// absolute start time is the start time of a particle in the overall time reference for all particles.
+		int absolute_endtime = tracks[i].GetTime(tracks[i].Length());
+							//tracks[i].Length() is the end of the motion of a particle
+							// absolute end time is the end time of a particle in the overall time reference for all particle
+		for(int j = 0; j < size; j++) {
+			if (absolute_starttime <= j + 1 && j + 1 <= absolute_endtime) {
+				track_data[i][j][0] = tracks[i][j].X();
+				track_data[i][j][1] = tracks[i][j].Y();
+				track_data[i][j][2] = tracks[i][j].Z();
+			} else { // the frame the particle doesn't show up is set as 0.
+				track_data[i][j][0] = 0;
+				track_data[i][j][1] = 0;
+				track_data[i][j][2] = 0;
+			}
+		}
+	}
+
+	double dimension_info[3]; // a vector to save dimension info, this vector will tell how to read data
+	dimension_info[0] = sizeofpos3D; // number of elements in 1st dimension
+	dimension_info[1] = size; // number of elements in 2nd dimension
+	dimension_info[2] = 3; // number of elements in 3rd dimension
+
+	NumDataIO<double> data_io;
+	data_io.SetFilePath(address + ".txt");
+
+	// to save dimension info
+	data_io.SetTotalNumber(4);
+	data_io.WriteData((double*) dimension_info);
+
+	// to append data
+	data_io.SaveMode(1); //to set the save mode as append
+	data_io.SetTotalNumber(sizeofpos3D * size * 3);
+	data_io.WriteData((double*) track_data);
+
+	// End
 }
 
 
@@ -930,7 +977,11 @@ void STB::MatfileSave(deque<Track> tracks, string address, string name, int size
 
 // to load 3D positions without IPR
 Frame STB::Load_3Dpoints(string path) {
-	// TODO: Temporary modification by shiyong Tan, 2/1/18
+	/*
+	 * Modified by Shiyong Tan, 2/8/18
+	 * Discard using matio, use Data_IO instead
+	 * Start:
+	 */
 	Frame iprFrame;
 //	//string file = "S:/Projects/Bubble/10.31.17/Run1/BubblesNParticlesLow_4000fps/ParticlesOnly/" + path + ".mat";
 //	string file = tiffaddress + path + ".mat";
@@ -966,12 +1017,29 @@ Frame STB::Load_3Dpoints(string path) {
 //	}
 //
 //	Mat_Close(mat);
+	// TODO: to check whether it works.
+	string file = tiffaddress + path + ".txt";
+	NumDataIO<double> data_io;
+	data_io.SetFilePath(file);
+	int total_num = data_io.GetTotalNumber();
+	int rows = total_num / 3;
+	double points_array[rows][3];
+	data_io.ReadData((double*) points_array);
+	for (int i = 0; i < rows; i++) {
+		Position pos(points_array[i][0], points_array[i][1], points_array[i][2]);
+		iprFrame.Add(pos);
+	}
 	return iprFrame;
+	// END
 }
 
 // Loading the tracks from .mat file (For Testing)
 void STB::Load_Tracks(string path, TrackType trackType) {
-	// TODO: Temporary modification by shiyong Tan, 2/1/18
+	/*
+	 * Modified by Shiyong Tan, 2/8/18
+	 * Discard using matio, use Data_IO instead
+	 * Start:
+	 */
 //	cout << "Loading the tracks from .mat files" << endl;
 //	string file = tiffaddress + path + ".mat";
 //	const char *fileName = file.c_str();
@@ -1038,4 +1106,44 @@ void STB::Load_Tracks(string path, TrackType trackType) {
 //
 //	Mat_Close(mat);
 
+	NumDataIO<double> data_io;
+	data_io.SetFilePath(tiffaddress + path + ".txt");
+
+	//read the dimension info
+	double dimension_info[3];
+	data_io.SetTotalNumber(3);
+	data_io.ReadData((double*) dimension_info);
+
+	int num_particles = (int) dimension_info[0];
+	int num_frames = (int) dimension_info[1];
+
+	double track_data[num_particles][num_frames][3];
+	data_io.SetTotalNumber(num_particles * num_frames * 3);
+	data_io.SetSkipDataNum(3); // skip the dimension info
+	data_io.ReadData((double*) track_data);
+
+	// convert 3D data into track
+	for (int i = 0; i < num_particles; i++) {
+		Track track;
+		int time = 0;
+		for (int j = 0; j < num_frames; j++) {
+			if (track_data[i][j][0] == 0 &&
+				track_data[i][j][1] == 0 &&
+				track_data[i][j][2] == 0 ) { // if all of the data is 0, that means there is no track
+				time++; continue;
+			}
+			Position pos(track_data[i][j][0], track_data[i][j][1], track_data[i][j][2]);
+			track.AddNext(pos, time);
+			time++;
+		}
+		switch (trackType)
+		{
+			case ActiveLong : activeLongTracks.push_back(track); break;
+			case ActiveShort: activeShortTracks.push_back(track);break;
+			case Inactive: inactiveTracks.push_back(track);break;
+			case Exit: exitTracks.push_back(track);break;
+			case InactiveLong: inactiveLongTracks.push_back(track);break;
+		}
+}
+	//END
 }

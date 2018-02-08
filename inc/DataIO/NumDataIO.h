@@ -43,9 +43,35 @@ public:
 		m_total_number = total_number;
 	}
 
+	/*
+	 * Function: get the total number of elements in txt file.
+	 * Input: None
+	 * Output: the total number.
+	 */
+	int GetTotalNumber();
+
+	/*
+	 * Function: to set saving mode, like to overwrite or to append
+	 * Input: integer 0 means to overwrite, 1 to append
+	 * Output: None
+	 */
+	void SaveMode(int mode) {
+		m_save_mode = mode;
+	}
+
+	/*
+	 * Function: to set the number of data to be skipped
+	 * Input: int to indicate the number of data to be skipped
+	 * Output: None.
+	 */
+	void SetSkipDataNum(int num) {
+		m_skip_data_num = num;
+	}
 
 private:
 	int m_total_number;	// total number of the matrix elements
+	int m_save_mode;    // save mode:0 means to overwrite, 1 to append
+	int m_skip_data_num = 0; // the number of data to be skipped
 };
 
 
