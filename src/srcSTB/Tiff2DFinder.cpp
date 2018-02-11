@@ -124,6 +124,7 @@ void Tiff2DFinder::FillPixels(deque<int**>& pixels) throw(runtime_error)
 	}
 
 	for (int i = 0; i < filename.size(); ++i) {
-		delete[] images[i];
+//		delete[] images[i];  //TODO: comments for debug.
+		images.erase(images.begin() + i);
 	}
 }

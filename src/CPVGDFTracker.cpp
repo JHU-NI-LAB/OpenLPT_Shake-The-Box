@@ -19,6 +19,8 @@
 #include <GDF.h>
 #include <Frame.h>
 #include <STB.h>
+#include <gnu/libc-version.h>
+
 
 using namespace std;
 
@@ -55,6 +57,7 @@ struct ConfigFile config;
 void ImportConfiguration(struct ConfigFile* config, char* name);
 
  int main(int argc, char** argv) {
+//	 printf("GNU libc version: %s\n", gnu_get_libc_version());
 		if (argc < 2) {
 
 			cerr << "Usage: " << argv[0] << " <configuration file>" << endl;
@@ -73,6 +76,7 @@ void ImportConfiguration(struct ConfigFile* config, char* name);
 	// do the stereomatching
 	//cout << "Stereomatching..." << endl;
 	//calib.writeGDFHeader(config.stereomatched);
+
 
 	// tracking using STB
 	STB s(config.first, config.last, config.pfieldfile, config.iprfile, config.ncams, config.camIDs, config.imgNameFiles,

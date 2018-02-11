@@ -21,7 +21,7 @@
 using namespace std;
 PredictiveField::PredictiveField(Frame prevFramePos, Frame currFramePos, std::string& fname, int frame) :
 	matchedPrev(prevFramePos), matchedCurr(currFramePos) {
-
+//TODO: report err when cannot open file.
 	// remove comments from the file
 	ifstream infile(fname.c_str(), ios::in);
 	string line;

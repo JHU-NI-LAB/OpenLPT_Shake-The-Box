@@ -936,14 +936,16 @@ void STB::MatfileSave(deque<Track> tracks, string address, string name, int size
 	for(int i = 0; i < sizeofpos3D; i++) {
 		int absolute_starttime = tracks[i].GetTime(0); // 0 is the starting time of the begining of the motion of a particle
 							// absolute start time is the start time of a particle in the overall time reference for all particles.
-		int absolute_endtime = tracks[i].GetTime(tracks[i].Length());
+		int absolute_endtime = tracks[i].GetTime(tracks[i].Length() - 1);
 							//tracks[i].Length() is the end of the motion of a particle
 							// absolute end time is the end time of a particle in the overall time reference for all particle
+		int time = 0;
 		for(int j = 0; j < size; j++) {
 			if (absolute_starttime <= j + 1 && j + 1 <= absolute_endtime) {
-				track_data[i][j][0] = tracks[i][j].X();
-				track_data[i][j][1] = tracks[i][j].Y();
-				track_data[i][j][2] = tracks[i][j].Z();
+				track_data[i][j][0] = tracks[i][time].X();
+				track_data[i][j][1] = tracks[i][time].Y();
+				track_data[i][j][2] = tracks[i][time].Z();
+				time ++;
 			} else { // the frame the particle doesn't show up is set as 0.
 				track_data[i][j][0] = 0;
 				track_data[i][j][1] = 0;

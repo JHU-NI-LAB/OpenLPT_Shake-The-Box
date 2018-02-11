@@ -135,17 +135,17 @@ Frame IPR::FindPos3D(deque< deque<string> > imgNames, int frameNumber)  {
 	
 // converting the images to 2D dynamic array and finding 2D particle centers
 	Tiff2DFinder t(ncams, threshold, filename);
-	//t.FillPixels(pixels_orig);	// pixels_orig will be filled with pixel intensities for all cameras
-	//for (int camID = 0; camID < ncams; camID++) {		// filling iframes with the 2D positions on each camera
-	//		try {
-	//			ParticleFinder p(pixels_orig[camID], Npixh, Npixw, t.Get_colors(), threshold);
-	//			iframes.push_back(p.CreateFrame());
-	//		}
-	//		catch (out_of_range& e) {
-	//			cerr << e.what() << endl;
-	//			throw runtime_error("Caught out_of_range in ImageSequence::Particle2DList()");
-	//		}
-	//} 
+	t.FillPixels(pixels_orig);	// pixels_orig will be filled with pixel intensities for all cameras
+	for (int camID = 0; camID < ncams; camID++) {		// filling iframes with the 2D positions on each camera
+			try {
+				ParticleFinder p(pixels_orig[camID], Npixh, Npixw, t.Get_colors(), threshold);
+				iframes.push_back(p.CreateFrame());
+			}
+			catch (out_of_range& e) {
+				cerr << e.what() << endl;
+				throw runtime_error("Caught out_of_range in ImageSequence::Particle2DList()");
+			}
+	}
 	//Load_2Dpoints("S:/Projects/Bubble/09.28.17/Bubbles and Particles - 250fps/frame", frame, ALL_CAMS);
 
 	int ncams4 = (ncams > 4) ? 4 : ncams;
@@ -259,23 +259,23 @@ Frame IPR::IPRLoop(Calibration& calib, OTF& OTFcalib,  deque<int> camNums, int i
 	int id = 0;
 	// getting 2D particles from the updated original image (residual after removing identified particles) on reduced cams
 	iframes.clear();
-	//for (int camID = 0; camID < camNums.size(); camID++) 
-	//	if (camNums[camID] != ignoreCam) {
-	//		try {
-	//			ParticleFinder p(orig[camNums[camID]], Npixh, Npixw, colors, threshold);
-	//			iframes.push_back(p.CreateFrame());
-	//		}
-	//		catch (out_of_range& e) {
-	//			cerr << e.what() << endl;
-	//			throw runtime_error("Caught out_of_range in ImageSequence::Particle2DList()");
-	//		}
-	//	}
+	for (int camID = 0; camID < camNums.size(); camID++)
+		if (camNums[camID] != ignoreCam) {
+			try {
+				ParticleFinder p(orig[camNums[camID]], Npixh, Npixw, colors, threshold);
+				iframes.push_back(p.CreateFrame());
+			}
+			catch (out_of_range& e) {
+				cerr << e.what() << endl;
+				throw runtime_error("Caught out_of_range in ImageSequence::Particle2DList()");
+			}
+		}
 		
 	Load_2Dpoints("S:/Projects/Bubble/Cam_Config_of_10.22.17/10.29.17/BubblesNParticlesHigh_4000fps/BubblesNParicleswithBreakup/Bubble_Reconstruction_Corrected/Bubble_2D_centers", frame, ignoreCam);
 	cout << iframes[0].NumParticles() << endl;
 	cout << iframes[1].NumParticles() << endl;
 	cout << iframes[2].NumParticles() << endl;
-	cout << iframes[3].NumParticles() << endl;
+//	cout << iframes[3].NumParticles() << endl;
 	// stereomatching to give 3D positions from triangulation
 	pos3Dnew = calib.Stereomatch(iframes, frame, ignoreCam);
 

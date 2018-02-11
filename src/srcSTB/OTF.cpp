@@ -30,11 +30,12 @@ std::vector<double> linspace(double first, double last, int len) {
 //OTF::OTF(int cams, string& path) {
 OTF::OTF(int ncams, string matfile) : ncams(ncams), mat_path(matfile) {
 
-	OTF_matdata();
-	//OTF_txtdata();
+//	OTF_matdata();
+	OTF_txtdata();
 }
 
 void OTF::OTF_txtdata() {
+	// TODO Add error if no it does not find a text file
 	// remove comments from the file 
 	ifstream infile(mat_path.c_str(), ios::in);
 	//ofstream outfile("parsed.txt");
@@ -262,6 +263,7 @@ vector <double> OTF::OTFgrid(int camID, Position& pos3D) {
 	int num_elements = grid_sizes[0] * grid_sizes[1] * grid_sizes[2];
 
 	// construct the interpolator, the last two arguments are pointers to the underlying data
+	double* test = aData[camID];
 	InterpMultilinear<3, double> otfgrid_a(grid_iter_list.begin(), grid_sizes.begin(), aData[camID], aData[camID] + num_elements);
 	InterpMultilinear<3, double> otfgrid_b(grid_iter_list.begin(), grid_sizes.begin(), bData[camID], bData[camID] + num_elements);
 	InterpMultilinear<3, double> otfgrid_c(grid_iter_list.begin(), grid_sizes.begin(), cData[camID], cData[camID] + num_elements);
