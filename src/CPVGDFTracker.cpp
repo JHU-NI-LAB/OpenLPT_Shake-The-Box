@@ -21,8 +21,9 @@
 #include <STB.h>
 #include <gnu/libc-version.h>
 
-
 using namespace std;
+
+char* version = "0.0.021218"; //Version of this project
 
 // configuration parameters
 struct ConfigFile {
@@ -57,7 +58,7 @@ struct ConfigFile config;
 void ImportConfiguration(struct ConfigFile* config, char* name);
 
  int main(int argc, char** argv) {
-//	 printf("GNU libc version: %s\n", gnu_get_libc_version());
+	 printf("Code version: %s\n", version);
 		if (argc < 2) {
 
 			cerr << "Usage: " << argv[0] << " <configuration file>" << endl;
