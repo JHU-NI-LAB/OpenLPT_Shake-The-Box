@@ -512,7 +512,7 @@ Frame Calibration::Stereomatch(const deque<Frame>& iframes, int framenumber, int
 
 	duration = (std::clock() - start) / (double)CLOCKS_PER_SEC;
 	//cout << "\tmindist_2D: " << mindist_2D << endl;
-	//cout << "\tNumber of triangulated particles = " << goodPos.size() << endl;
+	cout << "\tNumber of triangulated particles = " << goodPos.size() << endl;
 	std::cout << "\tMatching time: " << duration << endl;
 
 	delete[] cleanlist;
