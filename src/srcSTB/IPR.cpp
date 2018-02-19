@@ -181,7 +181,7 @@ Frame IPR::FindPos3D(deque< deque<string> > imgNames, int frameNumber)  {
 
 		double duration = clock() - start;
 		cout << "\t# of particles detected in outerloop" << loopOuter << ": " << pos3Dnew.NumParticles() << endl;
-		//cout << "\t Time taken for outerloop " << loopOuter << ": " << duration/1000 << "s" << endl;
+		cout << "\t Time taken for outerloop " << loopOuter << ": " << duration/(double) CLOCKS_PER_SEC << "s" << endl;
 		cout << "\tTotal particles (" << pos3D.size() << ")" << endl;
 
 	} 
@@ -210,7 +210,7 @@ Frame IPR::FindPos3D(deque< deque<string> > imgNames, int frameNumber)  {
 
 	double duration0 = clock() - start0;
 	cout << "\t Total # of particles detected: " << pos3D.size() << endl;
-	cout << "\t Total time taken by IPR: " << duration0/1000 << "s" << endl;
+	cout << "\t Total time taken by IPR: " << duration0/(double) CLOCKS_PER_SEC << "s" << endl;
 
 // FOR TESTING 
 	// saving pos3D as a .mat file

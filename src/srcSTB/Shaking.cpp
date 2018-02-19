@@ -71,11 +71,12 @@ void Shaking::Pos() {
 	/*
 	 * Modified by Shiyong Tan, 1/31/18
 	 * Illegal initialization with {...}
-	 * State:
+	 * Start:
 	 */
 //	deque<double> del = { -corrSize, 0, +corrSize }; // mm correction in 3D
 	deque<double> del(3);
 	del[0] = -corrSize; del[1] = 0; del[2] = +corrSize;
+	// END
 	pos3Dnew = pos3Dold;
 	deque < double > R(4); //saves the residual at -del, 0, +del and local minima
 	int size;

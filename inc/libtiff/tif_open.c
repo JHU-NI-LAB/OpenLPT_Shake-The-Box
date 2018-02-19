@@ -98,7 +98,7 @@ TIFFClientOpen(
 	assert(sizeof(int32)==4);
 	assert(sizeof(uint64)==8);
 	assert(sizeof(int64)==8);
-//	assert(sizeof(tmsize_t)==sizeof(void*));
+//	assert(sizeof(tmsize_t)==sizeof(void*));  // remove this in order to make it work under gcc 5.3.1
 	{
 		union{
 			uint8 a8[2];

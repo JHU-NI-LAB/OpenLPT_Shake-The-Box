@@ -510,10 +510,10 @@ Frame Calibration::Stereomatch(const deque<Frame>& iframes, int framenumber, int
 		goodPos.push_back(matchedPos[i]);
 	}
 
-	//duration = (std::clock() - start);// / (double)CLOCKS_PER_SEC;
+	duration = (std::clock() - start) / (double)CLOCKS_PER_SEC;
 	//cout << "\tmindist_2D: " << mindist_2D << endl;
 	//cout << "\tNumber of triangulated particles = " << goodPos.size() << endl;
-	//std::cout << "\tMatching time: " << duration << endl;
+	std::cout << "\tMatching time: " << duration << endl;
 
 	delete[] cleanlist;
 
@@ -523,7 +523,7 @@ Frame Calibration::Stereomatch(const deque<Frame>& iframes, int framenumber, int
 pair<double,Position> Calibration::WorldPosition(deque<Position> ipos, int ignoreCam) throw(runtime_error)
 {
 	/*if (ipos.size() != cams.size()) {
-		throw runtime_error("Number of cameras and number of images do not match!");
+		throw runtime_error("Number of cameras and number of images do not match!");o
 	}*/
 
 	// solve, in a least-squares sense, the intersection of the three lines of sight.

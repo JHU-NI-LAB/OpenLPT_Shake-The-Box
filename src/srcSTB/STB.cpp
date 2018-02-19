@@ -202,7 +202,7 @@ void STB::ConvergencePhase() {
 		Prediction(nextFrame, estPos, estInt);														// getting the prediction list for all the activLongTrakcs (>4)
 
 		start2 = clock();
-		cout << "Done (" << (clock() - start1)/1000 << "s)" << endl << "\t\t\tShaking the predictions: " ;
+		cout << "Done (" << (clock() - start1)/(double) CLOCKS_PER_SEC << "s)" << endl << "\t\t\tShaking the predictions: " ;
 
 		/* TESTING */ tempPredictions = estPos;
 
@@ -220,7 +220,7 @@ void STB::ConvergencePhase() {
 			activeLongTracks[i].AddNext(estPos[i], nextFrame);
 		
 		start3 = clock();
-		cout << "Done (" << (clock() - start2)/1000 << "s)" << endl << "\t\t\tShort tracks from residuals: ";
+		cout << "Done (" << (clock() - start2)/(double) CLOCKS_PER_SEC << "s)" << endl << "\t\t\tShort tracks from residuals: ";
 
 
 // IPR ON RESIDUALS		
@@ -245,7 +245,7 @@ void STB::ConvergencePhase() {
 		}
 
 		start4 = clock();
-		cout << "Done (" << (clock() - start3) / 1000 << "s)" << endl << "\t\t\tPruning the tracks: ";
+		cout << "Done (" << (clock() - start3) / (double) CLOCKS_PER_SEC << "s)" << endl << "\t\t\tPruning the tracks: ";
 
 // PRUNING / ARRANGING THE TRACKS
 		double thresh = 1.5 * largestShift;													
@@ -281,7 +281,7 @@ void STB::ConvergencePhase() {
 			activeShortTracks.push_back(startTrack); a_as++;
 		}
 
-		cout << "Done (" << (clock() - start4) / 1000 << "s)" << endl;
+		cout << "Done (" << (clock() - start4) / (double) CLOCKS_PER_SEC << "s)" << endl;
 
 		cout << "\t\tNo. of active Short tracks:	" << c1 << " + " << a_as << " - (" << s_as1 << " + " << a_as2 << " + " << s_as3 << ") = " << activeShortTracks.size() << endl;
 		cout << "\t\tNo. of active Long tracks:	" << c2 << " + " << a_al << " - " << s_al << " = " << activeLongTracks.size() << endl;
@@ -289,7 +289,7 @@ void STB::ConvergencePhase() {
 		cout << "\t\tNo. of inactive tracks:		" << c3 << " + " << a_is << " = " << inactiveTracks.size() << endl;
 		cout << "\t\tNo. of inactive Long tracks:	" << c4 << " + " << a_il << " = " << inactiveLongTracks.size() << endl;
 
-		cout << "\t\tTime taken for STB at frame " << nextFrame << ": " << (clock() - start0) / 1000 << "s" << endl;
+		cout << "\t\tTime taken for STB at frame " << nextFrame << ": " << (clock() - start0) / (double) CLOCKS_PER_SEC << "s" << endl;
 
 		//time_t t = time(0);
 		if (nextFrame % 5 == 0) {
