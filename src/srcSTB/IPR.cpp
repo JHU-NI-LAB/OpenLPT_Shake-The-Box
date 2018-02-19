@@ -289,6 +289,7 @@ Frame IPR::IPRLoop(Calibration& calib, OTF& OTFcalib,  deque<int> camNums, int i
 		for (int loopInner = 0; loopInner < it_innerloop; loopInner++) {
 
 			//pair<int, int> bad = Rem(pos3Dnew, intensity3Dnew, mindist_3D);
+			double start = clock();
 
 			if (pos3Dnew.NumParticles() == 0) 
 				break;		
@@ -321,6 +322,9 @@ Frame IPR::IPRLoop(Calibration& calib, OTF& OTFcalib,  deque<int> camNums, int i
 				intensity3Dnew[index] = s.Get_int();
 				index++;
 			}
+			double duration = (clock() - start) / (double) CLOCKS_PER_SEC;
+			cout<<"Time taken for shaking in each loop:"<<duration<<endl;
+
 		} // ############# Innerloop ends here #############
 
 

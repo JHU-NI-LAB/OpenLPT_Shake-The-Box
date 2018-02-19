@@ -90,7 +90,7 @@ STB::STB(int firstFrame, int lastFrame, string pfieldfile, string iprfile, int n
 
 		double duration = clock() - start0;
 
-		cout << endl << endl << "\tTotal time taken by STB convergence phase: " << duration / 1000 << "s" << endl;
+		cout << endl << endl << "\tTotal time taken by STB convergence phase: " << duration / (double) CLOCKS_PER_SEC << "s" << endl;
 
 
 	}
@@ -122,10 +122,13 @@ void STB::InitialPhase(string pfieldfile) {
 			int currFrame = frame, nextFrame = frame + 1;
 			cout << "STB initial phase tracking b/w frames: " << currFrame << " & " << nextFrame << endl;
 
+			double start = clock();
 																									// getting the predictive velocity field b/w the current and next frames
 			PredictiveField pField(iprMatched[currFrame - first], iprMatched[nextFrame - first], pfieldfile, currFrame);	// either calulating it or from .mat files
-
+			double duration = (clock() - start) / (double) CLOCKS_PER_SEC;
+			cout<<"time to get predictive field:"<< duration << endl;
 																									// extending all the tracks that are active in current frame
+			start = clock();
 			for (deque<Track>::iterator tr = activeShortTracks.begin(); tr != activeShortTracks.end(); ) {
 				bool active;
 				Position currVelocity(pField.ParticleInterpolation(tr->Last()));
@@ -139,6 +142,8 @@ void STB::InitialPhase(string pfieldfile) {
 			}
 
 			StartTrack(currFrame, pField);															// starting a track for all particles left untracked in current frame
+			duration = (clock() - start) / (double) CLOCKS_PER_SEC;
+			cout<<"time to link parcticles in two frames:"<< duration<<endl;
 		}
 																									// moving all tracks longer than 3 from activeShortTracks to activeLongTracks
 		for (deque<Track>::iterator tr = activeShortTracks.begin(); tr != activeShortTracks.end(); ) {
@@ -555,12 +560,15 @@ void STB::Shake(Frame& estimate, deque<double>& intensity) {
 
 
 			int index = 0;																	// correcting the estimated positions and their intensity by shaking
+			double start = clock();
 			for (Frame::const_iterator pID = estimate.begin(); pID != estimate.end(); ++pID) {
 				Shaking s(ncams, ignoreCam[index], OTFcalib, Npixw, Npixh, _ipr.psize, del, *pID, cams, pixels_res, intensity[index]);
 				estimate[index] = s.Get_posnew();
 				intensity[index] = s.Get_int();
 				index++;
 			}
+			double duration = (clock() - start) / (double) CLOCKS_PER_SEC;
+			cout<<"time to do shaking for each loop:"<<duration<<endl;
 		}
 
 		for (int index = 0; index < estimate.NumParticles(); index++) {						// adding 2D image centers and intensity data after shaking
