@@ -55,7 +55,34 @@ struct ConfigFile {
 // globals
 struct ConfigFile config;
 
+enum DebugMode {
+		NO_SKIP = 0,
+		SKIP_IPR_2D_POSITION,
+		SKIP_IPR_TRIANGULATION,
+		SKIP_IPR,
+		SKIP_PREDITIVE_FIELD,
+		SKIP_INITIAL_PHASE,
+		SKIP_PREVIOUS_TRACKS
+};
+
+DebugMode debug_mode;
+
 void ImportConfiguration(struct ConfigFile* config, char* name);
+
+void GetDebugMode() {
+	cout<<"Select debug mode:\n"
+			<<"0. No debug\n"
+			<<"1. Load the 2D position \n"
+			<<"2. Load the 3D position \n"
+			<<"3. Load the 3D positions for predictive field \n"
+			<<"4. Load the predictive field \n"
+			<<"5. Load the tracks from the initial phase \n"
+			<<"6. Load the tracks from specific frames \n"
+			<<"Enter the NO. of the option:";
+	int NO = 0;
+	cin>>NO;
+	if (NO < 7) debug_mode = DebugMode(NO); else debug_mode = DebugMode(0);
+}
 
  int main(int argc, char** argv) {
 	 printf("Code version: %s\n", version);
@@ -66,6 +93,8 @@ void ImportConfiguration(struct ConfigFile* config, char* name);
 	}
 
 	ImportConfiguration(&config, argv[1]);
+
+	GetDebugMode();
 
 	// read the camera calibration information
 	//Calibration calib(config.iprfile);
@@ -246,3 +275,5 @@ void ImportConfiguration(struct ConfigFile* config, char* name) {
 		line.erase(line.find_first_of(' '));
 		config->lowerInt = stof(line.c_str());
 }
+
+
