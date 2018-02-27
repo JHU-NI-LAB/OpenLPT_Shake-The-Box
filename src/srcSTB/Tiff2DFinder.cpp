@@ -67,7 +67,8 @@ void Tiff2DFinder::Particle2DList(deque<int**>& pixels, deque<Frame>& iframes) t
 		}
 
 		try {
-			ParticleFinder p(pixels[camID], Npixh, Npixw, colors, threshold);
+			ParticleFinder p(pixels[camID], Npixh, Npixw);//, colors, threshold);
+			p.GetParticle2DCenter(colors, threshold);
 			iframes.push_back(p.CreateFrame());
 		}
 		catch (out_of_range& e) {

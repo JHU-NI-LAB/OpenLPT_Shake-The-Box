@@ -8,6 +8,7 @@
 #include <sstream>
 #include <string>
 #include "NumDataIO.h"
+#include "Common.h"
 
 /*
  * The code of template class in this file is insufficient for compiler to produce the methods
@@ -40,21 +41,26 @@ template <class T>
 int NumDataIO <T>::ReadData(T* data) {
 	std::ifstream infile;
 	infile.open(this->m_file_path);
-	std::string line;
-	std::getline(infile, line); // reading a line into line.
-	std::stringstream ss(line); // make the line as a stringstream to separate the line
-	std::string cell; //to save each element
-	for (int i = 0; i < m_total_number + m_skip_data_num; i++ ) {
-		getline(ss, cell, ',');
-		if (i > m_skip_data_num - 1) {  // skip the set number of data
-			if (std::is_integral<T>::value) { // pass the value of cell according to different data type
-				*(data + i) = stoi(cell);
-			} else {
-				*(data + i) = stod(cell);
+	if (infile.is_open()) {
+		std::string line;
+		std::getline(infile, line); // reading a line into line.
+		std::stringstream ss(line); // make the line as a stringstream to separate the line
+		std::string cell; //to save each element
+		if (m_total_number < 0) m_total_number = GetTotalNumber();
+		for (int i = 0; i < m_total_number + m_skip_data_num; i++ ) {
+			getline(ss, cell, ',');
+			if (i > m_skip_data_num - 1) {  // skip the set number of data
+				if (std::is_integral<T>::value) { // pass the value of cell according to different data type
+					*(data + i) = stoi(cell);
+				} else {
+					*(data + i) = stod(cell);
+				}
 			}
 		}
+		infile.close();
+	} else {
+		error = NO_FILE;
 	}
-	infile.close();
 	return 0;
 }
 

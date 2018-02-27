@@ -20,6 +20,7 @@
 #include <Frame.h>
 #include <STB.h>
 #include <gnu/libc-version.h>
+#include "Common.h"
 
 using namespace std;
 
@@ -54,18 +55,10 @@ struct ConfigFile {
 
 // globals
 struct ConfigFile config;
-
-enum DebugMode {
-		NO_SKIP = 0,
-		SKIP_IPR_2D_POSITION,
-		SKIP_IPR_TRIANGULATION,
-		SKIP_IPR,
-		SKIP_PREDITIVE_FIELD,
-		SKIP_INITIAL_PHASE,
-		SKIP_PREVIOUS_TRACKS
-};
-
+// debug
 DebugMode debug_mode;
+int debug_frame_number;
+ERROR error = ERROR(0);
 
 void ImportConfiguration(struct ConfigFile* config, char* name);
 
@@ -73,15 +66,20 @@ void GetDebugMode() {
 	cout<<"Select debug mode:\n"
 			<<"0. No debug\n"
 			<<"1. Load the 2D position \n"
-			<<"2. Load the 3D position \n"
-			<<"3. Load the 3D positions for predictive field \n"
-			<<"4. Load the predictive field \n"
-			<<"5. Load the tracks from the initial phase \n"
-			<<"6. Load the tracks from specific frames \n"
+			<<"2. Load the 3D position before shaking\n"
+			<<"3. Load the 3D position after shaking\n"
+			<<"4. Load the 3D positions for predictive field \n"
+			<<"5. Load the predictive field \n"
+			<<"6. Load the tracks from the initial phase \n"
+			<<"7. Load the tracks from specific frames \n"
 			<<"Enter the NO. of the option:";
 	int NO = 0;
 	cin>>NO;
 	if (NO < 7) debug_mode = DebugMode(NO); else debug_mode = DebugMode(0);
+	if (!(NO == 0)) {
+		cout<<"Enter the frame number to be debugged:";
+		cin>>debug_frame_number;
+	}
 }
 
  int main(int argc, char** argv) {

@@ -27,9 +27,17 @@ class ParticleFinder {
 
 public:
   // constructor: process the given pixel array
-  ParticleFinder(int**& p, int rows, int cols, int depth, int threshold /*int thresh*/) throw(std::out_of_range);
+  ParticleFinder(int**& p, int rows, int cols) : pixels(p), rows(rows), cols(cols) {};
   // destructor
   ~ParticleFinder() {};
+
+  /*
+   * Function: to get the 2D center of particles in a image
+   * Input: depth:
+   * 		threshold:
+   * Output: None.
+   */
+  void GetParticle2DCenter(int depth, int threshold);
 
   // write the particle centers to a file
   void WriteToFile(std::string filename);
@@ -42,7 +50,21 @@ public:
   // remove large clusters
   void Squash(double rad);
 
-  void MatfileImage(int** pix, std::string name);
+  void SaveImage(int** pix, std::string name);
+
+  /*
+   * Function: to save the 2D center of particles in a image to txt file
+   * Input: file_path: the path to save the data
+   * Output: None.
+   */
+  void SaveParticle2DCenter(std::string file_path);
+
+  /*
+   * Function: to read the 2D center of particles in a image from txt file
+   * Input: file_path: the path to read the data
+   * Output: a frame format data with a list of particle 2D centers
+   */
+  Frame ReadParticle2DCenter(std::string file_path);
 
 private:
 	int** pixels;

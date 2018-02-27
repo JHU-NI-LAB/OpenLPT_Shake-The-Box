@@ -6,6 +6,7 @@
 #include <ctime>
 
 #include "IPR.h"
+#include "Common.h"
 
 using namespace std;
 #define ALL_CAMS 100
@@ -138,8 +139,14 @@ Frame IPR::FindPos3D(deque< deque<string> > imgNames, int frameNumber)  {
 	t.FillPixels(pixels_orig);	// pixels_orig will be filled with pixel intensities for all cameras
 	for (int camID = 0; camID < ncams; camID++) {		// filling iframes with the 2D positions on each camera
 			try {
-				ParticleFinder p(pixels_orig[camID], Npixh, Npixw, t.Get_colors(), threshold);
-				iframes.push_back(p.CreateFrame());
+				ParticleFinder p(pixels_orig[camID], Npixh, Npixw);//, t.Get_colors(), threshold);
+				if (debug_mode == SKIP_IPR_2D_POSITION && frame - 1 < debug_frame_number) { // read 2D position directly
+					iframes.push_back(p.ReadParticle2DCenter(imgNames[camID][frame - 1]));
+				} else {
+					p.GetParticle2DCenter(t.Get_colors(), threshold);
+					iframes.push_back(p.CreateFrame());
+					p.SaveParticle2DCenter(imgNames[camID][frame - 1]);
+				}
 			}
 			catch (out_of_range& e) {
 				cerr << e.what() << endl;
@@ -262,7 +269,8 @@ Frame IPR::IPRLoop(Calibration& calib, OTF& OTFcalib,  deque<int> camNums, int i
 	for (int camID = 0; camID < camNums.size(); camID++)
 		if (camNums[camID] != ignoreCam) {
 			try {
-				ParticleFinder p(orig[camNums[camID]], Npixh, Npixw, colors, threshold);
+				ParticleFinder p(orig[camNums[camID]], Npixh, Npixw);//, colors, threshold);
+				p.GetParticle2DCenter(colors, threshold);
 				iframes.push_back(p.CreateFrame());
 			}
 			catch (out_of_range& e) {
@@ -271,7 +279,7 @@ Frame IPR::IPRLoop(Calibration& calib, OTF& OTFcalib,  deque<int> camNums, int i
 			}
 		}
 		
-	Load_2Dpoints("S:/Projects/Bubble/Cam_Config_of_10.22.17/10.29.17/BubblesNParticlesHigh_4000fps/BubblesNParicleswithBreakup/Bubble_Reconstruction_Corrected/Bubble_2D_centers", frame, ignoreCam);
+//	Load_2Dpoints("S:/Projects/Bubble/Cam_Config_of_10.22.17/10.29.17/BubblesNParticlesHigh_4000fps/BubblesNParicleswithBreakup/Bubble_Reconstruction_Corrected/Bubble_2D_centers", frame, ignoreCam);
 	cout << iframes[0].NumParticles() << endl;
 	cout << iframes[1].NumParticles() << endl;
 	cout << iframes[2].NumParticles() << endl;
