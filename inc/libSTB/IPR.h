@@ -70,6 +70,7 @@ public:
 	 * output: a frame with a list of particle positions
 	 */
 	Frame ReadParticlePositions(string file_path);
+
 	void MatfileImage(deque<int**>& pix, string name);
 	void Load_2Dpoints(string name, int frame, int ignoreCam);
 
@@ -136,6 +137,19 @@ protected:
 private:
 	void Position2Array(deque<Position> pos, double array[][12]);
 	deque<Position> Array2Position(int num_particle, double array[][12]);
+	/*
+		 * Function: Save particle intensity to txt file
+		 * Input: intensity
+		 * 		  file_path
+		 * Output: None.
+		 */
+	void SaveParticleIntensity(deque<double> intensity, string file_path);
+		/*
+		 * Function: read particle intensity from txt file
+		 * Input: file_path
+		 * Output: deque of particle intensity
+		 */
+	deque<double> ReadParticleIntensity(string file_path);
 };
 
 

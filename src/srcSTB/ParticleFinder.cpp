@@ -518,10 +518,6 @@ Frame ParticleFinder::ReadParticle2DCenter(string file_path) {
 	deque<Position> pos;
 	data_io.SetTotalNumber(num);
 	data_io.ReadData((double *) particle_2Dcenter);
-	if (error == NO_FILE) {
-		cout<<"The file for reading particle 2D center can't be opened!";
-		exit(0);
-	}
 	for (int i = 0; i < num / 2; i++) {
 		pos.push_back(Position(particle_2Dcenter[i][0], particle_2Dcenter[i][1], 0));
 	}

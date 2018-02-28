@@ -143,7 +143,13 @@ Frame IPR::FindPos3D(deque< deque<string> > imgNames, int frameNumber)  {
 				ParticleFinder p(pixels_orig[camID], Npixh, Npixw);//, t.Get_colors(), threshold);
 				if (debug_mode == SKIP_IPR_2D_POSITION && frame - 1 < debug_frame_number) { // read 2D position directly
 					iframes.push_back(p.ReadParticle2DCenter(imgNames[camID][frame - 1]));
+					if (error == NO_FILE) {
+						cout<<"The file for reading particle 2D center can't be opened!";
+						error = 0;
+						goto Find2DCenter;
+					}
 				} else {
+					Find2DCenter:
 					p.GetParticle2DCenter(t.Get_colors(), threshold);
 					iframes.push_back(p.CreateFrame());
 					p.SaveParticle2DCenter(imgNames[camID][frame - 1]);
@@ -304,6 +310,7 @@ Frame IPR::IPRLoop(Calibration& calib, OTF& OTFcalib,  deque<int> camNums, int i
 							+ "Loop" + to_string(loop_time) + "can't be opened!\n";
 			}
 			cout<<message;
+			error = 0;
 			goto StereoMatch;
 		} else {
 			printf("Read in %i triangulated particles\n", pos3Dnew.NumParticles());
@@ -323,51 +330,88 @@ Frame IPR::IPRLoop(Calibration& calib, OTF& OTFcalib,  deque<int> camNums, int i
 	if (((!triangulationOnly) && IPROnly) || !(triangulationOnly || IPROnly)) {
 		// initializing the 3D intensity
 		deque<double> intensity3Dnew;
-		for (unsigned int i = 0; i < pos3Dnew.NumParticles(); i++)
-			intensity3Dnew.push_back(1.0);
-
-		// ######## Innerloop starts here ########
-		for (int loopInner = 0; loopInner < it_innerloop; loopInner++) {
-
-			//pair<int, int> bad = Rem(pos3Dnew, intensity3Dnew, mindist_3D);
-			double start = clock();
-
-			if (pos3Dnew.NumParticles() == 0) 
-				break;		
-
-			// Creating the reprojected images (pixels_reproj) by reprojecting the 3D particles onto all cameras using Gaussian ellipse.
-			ReprojImage(pos3Dnew, OTFcalib, reproj, IPRflag);
-
-			// residual image
-			for (int n = 0; n < camNums.size(); n++)
-				for (int i = 0; i < Npixh; i++) 
-					for (int j = 0; j < Npixw; j++) {
-						int residual = (orig[camNums[n]][i][j] - reproj[camNums[n]][i][j]);
-						res[camNums[n]][i][j] = residual;// (residual < 0) ? 0 : residual;
-					}
-						
-
-			// updating the 3D position and intensity field by shaking
-			Frame::const_iterator pIDend = pos3Dnew.end();
-			int index = 0;
-			// shaking
-			for (Frame::const_iterator pID = pos3Dnew.begin(); pID != pIDend; ++pID) {
-
-				if (loopInner < 2)  del = mindist_3D;
-				else if (loopInner < 5)  del = mindist_3D / 10;
-				else  del = mindist_3D / 100;
-
-				Shaking s(ncams, ignoreCam, OTFcalib, Npixw, Npixh, psize, del, *pID, camsAll, res, intensity3Dnew[index]);
-
-				pos3Dnew[index] = s.Get_posnew();
-				intensity3Dnew[index] = s.Get_int();
-				index++;
+		if (debug_mode == SKIP_IPR_SHAKING && frame - 1< debug_frame_number) {
+			string file_path, file_path1;
+			if (!m_reduce_cam_begin ) {
+				file_path =  m_particle_position_addr + "frame" + to_string(frame) + "Loop" + to_string(loop_time) + "Shaking.txt";
+				file_path1 = m_particle_position_addr + "frame" + to_string(frame) + "Loop" + to_string(loop_time) + "ShakingIntensity.txt";
+			} else {
+				file_path = m_particle_position_addr + "frame" + to_string(frame) + "ReduceCam" + to_string(ignoreCam) + "Loop" + to_string(loop_time) +  "Shaking.txt";
+				file_path1 = m_particle_position_addr + "frame" + to_string(frame) + "ReduceCam" + to_string(ignoreCam) + "Loop" + to_string(loop_time) +  "ShakingIntensity.txt";
 			}
-			double duration = (clock() - start) / (double) CLOCKS_PER_SEC;
-			cout<<"Time taken for shaking in each loop:"<<duration<<endl;
+			pos3Dnew = ReadParticlePositions(file_path);
+			intensity3Dnew = ReadParticleIntensity(file_path1);
+			if (error == NO_FILE) {
+				string message;
+				if (!m_reduce_cam_begin) {
+					message = "The shaking file for frame" + to_string(frame) + "Loop" + to_string(loop_time) + "can't be opened!\n";
+				} else {
+					message = "The shaking file for frame" + to_string(frame) + "ReduceCam" + to_string(ignoreCam)
+										+ "Loop" + to_string(loop_time) + "can't be opened!\n";
+				}
+				cout<<message;
+				error = 0;
+				goto Shaking;
+			} else {
+				printf("Read in %i Shaked particles\n", pos3Dnew.NumParticles());
+			}
+		} else {
+			Shaking:
+			for (unsigned int i = 0; i < pos3Dnew.NumParticles(); i++)
+						intensity3Dnew.push_back(1.0);
 
-		} // ############# Innerloop ends here #############
+					// ######## Innerloop starts here ########
+					for (int loopInner = 0; loopInner < it_innerloop; loopInner++) {
 
+						//pair<int, int> bad = Rem(pos3Dnew, intensity3Dnew, mindist_3D);
+						double start = clock();
+
+						if (pos3Dnew.NumParticles() == 0)
+							break;
+
+						// Creating the reprojected images (pixels_reproj) by reprojecting the 3D particles onto all cameras using Gaussian ellipse.
+						ReprojImage(pos3Dnew, OTFcalib, reproj, IPRflag);
+
+						// residual image
+						for (int n = 0; n < camNums.size(); n++)
+							for (int i = 0; i < Npixh; i++)
+								for (int j = 0; j < Npixw; j++) {
+									int residual = (orig[camNums[n]][i][j] - reproj[camNums[n]][i][j]);
+									res[camNums[n]][i][j] = residual;// (residual < 0) ? 0 : residual;
+								}
+
+
+						// updating the 3D position and intensity field by shaking
+						Frame::const_iterator pIDend = pos3Dnew.end();
+						int index = 0;
+						// shaking
+						for (Frame::const_iterator pID = pos3Dnew.begin(); pID != pIDend; ++pID) {
+
+							if (loopInner < 2)  del = mindist_3D;
+							else if (loopInner < 5)  del = mindist_3D / 10;
+							else  del = mindist_3D / 100;
+
+							Shaking s(ncams, ignoreCam, OTFcalib, Npixw, Npixh, psize, del, *pID, camsAll, res, intensity3Dnew[index]);
+
+							pos3Dnew[index] = s.Get_posnew();
+							intensity3Dnew[index] = s.Get_int();
+							index++;
+						}
+						double duration = (clock() - start) / (double) CLOCKS_PER_SEC;
+						cout<<"Time taken for shaking in each loop:"<<duration<<endl;
+					} // ############# Innerloop ends here #############
+					// Save the data
+					string file_path, file_path1;
+					if (!m_reduce_cam_begin ) {
+						file_path =  m_particle_position_addr + "frame" + to_string(frame) + "Loop" + to_string(loop_time) + "Shaking.txt";
+						file_path1 = m_particle_position_addr + "frame" + to_string(frame) + "Loop" + to_string(loop_time) + "ShakingIntensity.txt";
+					} else {
+						file_path = m_particle_position_addr + "frame" + to_string(frame) + "ReduceCam" + to_string(ignoreCam) + "Loop" + to_string(loop_time) +  "Shaking.txt";
+						file_path1 = m_particle_position_addr + "frame" + to_string(frame) + "ReduceCam" + to_string(ignoreCam) + "Loop" + to_string(loop_time) +  "ShakingIntensity.txt";
+					}
+					SaveParticlePositions(pos3Dnew.Get_PosDeque(),file_path);
+					SaveParticleIntensity(intensity3Dnew, file_path1);
+		}
 
 		if (pos3Dnew.NumParticles() != 0) {
 			// save the 3D position, 3D intensity and their correspoding 2D positions
@@ -580,10 +624,6 @@ Frame IPR::ReadParticlePositions(string file_path) {
 	int num = data_io.GetTotalNumber(); //Get total data number
 	double array[num / 12][12];
 	data_io.ReadData((double*) array);
-	if (error == NO_FILE) {
-		cout<<"The file for particle positions can't be opened!\n";
-		exit(0);
-	}
 	deque<Position> pos = Array2Position(num / 12, array);
 	Frame frame(pos);
 	return frame;
@@ -759,3 +799,29 @@ deque<Position> IPR::Array2Position(int num_particle, double array[][12]) {
 	return pos;
 }
 
+//Save Particle intensity
+void IPR::SaveParticleIntensity(deque<double> intensity, string file_path) {
+	NumDataIO<double> data_io;
+	int num = intensity.size();
+	data_io.SetFilePath(file_path);
+	double intensity_array[num]; // Convert deque into double
+	for (int i = 0; i <  num; i++) {
+		intensity_array[i] = intensity[i];
+	}
+	data_io.SetTotalNumber(num);
+	data_io.WriteData((double*) intensity_array);
+}
+
+// Read the particle intensity
+deque<double> IPR::ReadParticleIntensity(string file_path) {
+	NumDataIO<double> data_io;
+	data_io.SetFilePath(file_path);
+	int num = data_io.GetTotalNumber();
+	double intensity_array[num];
+	data_io.ReadData((double*) intensity_array);
+	deque<double> intensity;
+	for (int i = 0; i < num; i++) {
+		intensity.push_back(intensity_array[i]);
+	}
+	return intensity;
+}
