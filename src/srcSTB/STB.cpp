@@ -233,7 +233,7 @@ void STB::ConvergencePhase() {
 
 // TESTING IPR AND TRACKING FROM RESIDUALS	
 		if (nextFrame % 100 == 97 || nextFrame % 100 == 98 || nextFrame % 100 == 99 || nextFrame % 100 == 0)
-			_ipr.MatfilePositions(candidates.Get_PosDeque(), tiffaddress + "pos3Dresframe" + to_string(nextFrame));																				
+			_ipr.SaveParticlePositions(candidates.Get_PosDeque(), tiffaddress + "pos3Dresframe" + to_string(nextFrame));
 // END TESTING
 																									// trying to link each activeShortTrack with a particle candidate
 		for (deque<Track>::iterator tr = activeShortTracks.begin(); tr != activeShortTracks.end(); ) 		
@@ -731,7 +731,7 @@ Frame STB::IPRonResidual(Calibration& calib, Tiff2DFinder& t, deque<int**>& pixe
 		calib.Set_min2D(pow(1.1, outerloop)*mindist_2D);
 
 		// running IPR on the residual images
-		Frame temp = _ipr.IPRLoop(calib, OTFcalib, camNums, ALL_CAMS, t.Get_colors(), pixels_orig, pixels_reproj, pixels_res);
+		Frame temp = _ipr.IPRLoop(calib, OTFcalib, camNums, ALL_CAMS, t.Get_colors(), pixels_orig, pixels_reproj, pixels_res, outerloop);
 		candidates.insert(candidates.end(), temp.begin(), temp.end());
 	}
 
@@ -744,7 +744,7 @@ Frame STB::IPRonResidual(Calibration& calib, Tiff2DFinder& t, deque<int**>& pixe
 
 																								// running IPR by ignoring cameras one by one
 			for (int ignoreCam = 0; ignoreCam < ncams; ignoreCam++) {
-				Frame temp = _ipr.IPRLoop(calibReduced, OTFcalib, camNums, ignoreCam, t.Get_colors(), pixels_orig, pixels_reproj, pixels_res);																								
+				Frame temp = _ipr.IPRLoop(calibReduced, OTFcalib, camNums, ignoreCam, t.Get_colors(), pixels_orig, pixels_reproj, pixels_res, outerloop);
 				
 				//if (ignoreCam == 0)																// if the projection of a particle candidate on ignored cam is within its bounds and finds no particle there,
 				//	for (int i = temp.NumParticles()-1; i >= 0 ; i--) 							// then delete the particle candidate						

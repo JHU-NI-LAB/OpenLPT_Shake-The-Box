@@ -119,6 +119,7 @@ IPR::IPR(string& fname, int ncams) : ncams(ncams)
 			pixels_res[n][i] = new int[Npixw] {};
 		}
 	}
+	m_particle_position_addr = tiffaddress + "/ParticlePositions/";
 }
 
 Frame IPR::FindPos3D(deque< deque<string> > imgNames, int frameNumber)  {
@@ -181,7 +182,7 @@ Frame IPR::FindPos3D(deque< deque<string> > imgNames, int frameNumber)  {
 		calib.Set_min2D(pow(1.1, loopOuter)*mindist_2D);
 		
 		// update pos3Dnew with 3D particles from IPR of current outerloop
-		Frame pos3Dnew = IPRLoop(calib, OTFcalib, camNums, ALL_CAMS, t.Get_colors(), pixels_orig, pixels_reproj, pixels_res);
+		Frame pos3Dnew = IPRLoop(calib, OTFcalib, camNums, ALL_CAMS, t.Get_colors(), pixels_orig, pixels_reproj, pixels_res, loopOuter);
 		
 		// add the current outerloop particles to pos3D
 		pos3D.insert(pos3D.end(), pos3Dnew.begin(), pos3Dnew.end());
@@ -195,6 +196,7 @@ Frame IPR::FindPos3D(deque< deque<string> > imgNames, int frameNumber)  {
 	
 // REDUCED CAMERA LOOP (ignoring 1 camera) 
 	if (reducedCams) {
+		m_reduce_cam_begin = 1;
 		cout << "\t\t\t\t Applying IPR for reduced cams" << endl;
 
 		Calibration calibReduced(calibfile, REDUCED_CAMS, mindist_2Dr, mindist_3Dr, ncams4); // new calibration file for reduced cameras	
@@ -205,14 +207,15 @@ Frame IPR::FindPos3D(deque< deque<string> > imgNames, int frameNumber)  {
 	
 			// running IPR by ignoring cameras one by one
 			for (int ignoreCam = 0; ignoreCam < ncams4; ignoreCam++) {
-				Frame pos3Dnew = IPRLoop(calibReduced, OTFcalib, camNums, ignoreCam, t.Get_colors(), pixels_orig, pixels_reproj, pixels_res);
+				Frame pos3Dnew = IPRLoop(calibReduced, OTFcalib, camNums, ignoreCam, t.Get_colors(), pixels_orig, pixels_reproj, pixels_res, loopOuter);
 				cout << "\t # of particles detected in outerloop" << loopOuter << ", ignoring cam" << ignoreCam << ": " << pos3Dnew.NumParticles() << endl;
 
 				pos3D.insert(pos3D.end(), pos3Dnew.begin(), pos3Dnew.end());
 			}
 
 			cout << "\t Total particles (" << pos3D.size() << ")" << endl;
-		}	
+		}
+		m_reduce_cam_begin = 0;
 	}
 
 	double duration0 = clock() - start0;
@@ -225,8 +228,8 @@ Frame IPR::FindPos3D(deque< deque<string> > imgNames, int frameNumber)  {
 		string reproj = "ReprojectedImage", res = "ResidualImage"+ to_string(frame);
 		stringstream mat_name1; mat_name1 << tiffaddress << "posframe" << frameNumber;
 		stringstream mat_name2; mat_name2 << tiffaddress << "cleanlistpos2Dframe" << frameNumber;
-		MatfilePositions(pos3D, mat_name1.str());
-		MatfilePositions(calib.good2Dpos, mat_name2.str());
+		SaveParticlePositions(pos3D, mat_name1.str());
+		SaveParticlePositions(calib.good2Dpos, mat_name2.str());
 		//MatfilePositions(ghost3D, "ghost3D");
 
 
@@ -260,7 +263,7 @@ Frame IPR::FindPos3D(deque< deque<string> > imgNames, int frameNumber)  {
 
 // a function that gives the 3D position by applying a single outerloop of IPR
 Frame IPR::IPRLoop(Calibration& calib, OTF& OTFcalib,  deque<int> camNums, int ignoreCam, double colors,
-					deque<int**>& orig, deque<int**>& reproj, deque<int**>& res) {
+					deque<int**>& orig, deque<int**>& reproj, deque<int**>& res, int loop_time) {
 	Frame pos3Dnew;
 	double del;
 	int id = 0;
@@ -280,12 +283,42 @@ Frame IPR::IPRLoop(Calibration& calib, OTF& OTFcalib,  deque<int> camNums, int i
 		}
 		
 //	Load_2Dpoints("S:/Projects/Bubble/Cam_Config_of_10.22.17/10.29.17/BubblesNParticlesHigh_4000fps/BubblesNParicleswithBreakup/Bubble_Reconstruction_Corrected/Bubble_2D_centers", frame, ignoreCam);
-	cout << iframes[0].NumParticles() << endl;
-	cout << iframes[1].NumParticles() << endl;
-	cout << iframes[2].NumParticles() << endl;
+//	cout << iframes[0].NumParticles() << endl;
+//	cout << iframes[1].NumParticles() << endl;
+//	cout << iframes[2].NumParticles() << endl;
 //	cout << iframes[3].NumParticles() << endl;
 	// stereomatching to give 3D positions from triangulation
-	pos3Dnew = calib.Stereomatch(iframes, frame, ignoreCam);
+	if (debug_mode == SKIP_IPR_TRIANGULATION && frame - 1< debug_frame_number) {
+		if (!m_reduce_cam_begin) {
+			pos3Dnew = ReadParticlePositions(m_particle_position_addr + "frame" + to_string(frame) + "Loop" + to_string(loop_time) + ".txt");
+		} else {
+			pos3Dnew = ReadParticlePositions(m_particle_position_addr + "frame" + to_string(frame) + "ReduceCam" + to_string(ignoreCam)
+					+ "Loop" + to_string(loop_time) +  ".txt");
+		}
+		if (error == NO_FILE) {
+			string message;
+			if (!m_reduce_cam_begin) {
+				message = "The triangulation file for frame" + to_string(frame) + "Loop" + to_string(loop_time) + "can't be opened!\n";
+			} else {
+				message = "The triangulation file for frame" + to_string(frame) + "ReduceCam" + to_string(ignoreCam)
+							+ "Loop" + to_string(loop_time) + "can't be opened!\n";
+			}
+			cout<<message;
+			goto StereoMatch;
+		} else {
+			printf("Read in %i triangulated particles\n", pos3Dnew.NumParticles());
+		}
+	} else {
+		StereoMatch:
+		pos3Dnew = calib.Stereomatch(iframes, frame, ignoreCam);
+		if (!m_reduce_cam_begin ) {
+			SaveParticlePositions(pos3Dnew.Get_PosDeque(), m_particle_position_addr + "frame" + to_string(frame) + "Loop" + to_string(loop_time) + ".txt");
+		} else {
+			SaveParticlePositions(pos3Dnew.Get_PosDeque(),
+					m_particle_position_addr + "frame" + to_string(frame) + "ReduceCam" + to_string(ignoreCam) + "Loop" + to_string(loop_time) +  ".txt");
+		}
+
+	}
 
 	if (((!triangulationOnly) && IPROnly) || !(triangulationOnly || IPROnly)) {
 		// initializing the 3D intensity
@@ -443,6 +476,7 @@ pair<int,int> IPR::Rem(Frame& pos3D, deque<double>& int3D, double mindist_3D) {
 		}
 	}
 	avgInt = avgInt / int3D.size();
+//	cout<<"average intensity:"<<avgInt<<endl;
 
 	for (int index = int3D.size() - 1; index >= 0; index--) {
 		// removing a particle if its intensity falls below a % of the avg intensity
@@ -484,7 +518,7 @@ void IPR::FullData(Position& pos, double intensity, int Cams, int ignoreCam) {
 }
 
 // creates a matfile of positions
-void IPR::MatfilePositions(deque<Position> pos, string name) {
+void IPR::SaveParticlePositions(deque<Position> pos, string file_path) {
 /*
  * Modified by Shiyong Tan, 2/6/18
  * Discard using matio, use DataIO instead
@@ -534,10 +568,25 @@ void IPR::MatfilePositions(deque<Position> pos, string name) {
 	Position2Array(pos, array);
 
 	NumDataIO<double> data_io;
-	data_io.SetFilePath(name + ".txt");  // setting the path to save the data.
+	data_io.SetFilePath(file_path);  // setting the path to save the data.
 	data_io.SetTotalNumber(sizeofpos3D * 12);
 	data_io.WriteData((double*) array);
 // END
+}
+
+Frame IPR::ReadParticlePositions(string file_path) {
+	NumDataIO<double> data_io;
+	data_io.SetFilePath(file_path);
+	int num = data_io.GetTotalNumber(); //Get total data number
+	double array[num / 12][12];
+	data_io.ReadData((double*) array);
+	if (error == NO_FILE) {
+		cout<<"The file for particle positions can't be opened!\n";
+		exit(0);
+	}
+	deque<Position> pos = Array2Position(num / 12, array);
+	Frame frame(pos);
+	return frame;
 }
 
 // creates a matfile for images
@@ -698,5 +747,15 @@ void IPR::Position2Array(deque<Position> pos, double array[][12]) {
 		array[i][11] = pos[i].Info();
 	}
 
+}
+
+deque<Position> IPR::Array2Position(int num_particle, double array[][12]) {
+	deque<Position> pos;
+	for(int i = 0; i < num_particle; i++) {
+		Position point(array[i][0], array[i][1], array[i][2], array[i][3], array[i][4], array[i][5],  array[i][6],
+				array[i][7], array[i][8], array[i][9], array[i][10], array[i][11]);
+		pos.push_back(point);
+	}
+	return pos;
 }
 

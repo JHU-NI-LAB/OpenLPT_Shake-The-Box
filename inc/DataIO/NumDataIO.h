@@ -69,8 +69,8 @@ public:
 	}
 
 private:
-	int m_total_number;	// total number of the matrix elements
-	int m_save_mode;    // save mode:0 means to overwrite, 1 to append
+	int m_total_number = 0;	// total number of the matrix elements
+	int m_save_mode = 0;    // save mode:0 means to overwrite, 1 to append
 	int m_skip_data_num = 0; // the number of data to be skipped
 };
 

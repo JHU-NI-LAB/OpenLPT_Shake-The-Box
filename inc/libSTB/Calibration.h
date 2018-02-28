@@ -18,6 +18,7 @@
 #include <Camera.h>
 #include <Frame.h>
 #include <Position.h>
+#include "Common.h"
 
 using namespace std;
 class Calibration {
@@ -39,7 +40,11 @@ public:
 		}
 		delete[] is_Particle;
 		delete[] is_ParticlePos;
-		delete[] camID; delete[] rID;
+		if (!(debug_mode == SKIP_IPR_TRIANGULATION)) { // when skipping tragulation, then these two variables won't be asigned
+														// And thus no need to free its memory.
+			delete[] camID;
+			delete[] rID;
+		}
 		//cout << "deleted is_Particle and is_ParticlePos" << endl;
 	};
 

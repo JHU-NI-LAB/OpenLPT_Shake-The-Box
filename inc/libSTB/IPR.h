@@ -41,8 +41,14 @@ public:
 	};
 
 	Frame FindPos3D(deque< deque<string> > filename, int frameNumber);
+	/*
+	 * Modified by Shiyong Tan, 2/28/18
+	 * Add a parameter: loop_time, which is used for debug mode
+	 * Start:
+	 */
 	Frame IPRLoop(Calibration& calib, OTF& OTFcalib, deque<int> camNums, int ignoreCam, double colors,
-						deque<int**>& orig, deque<int**>& reproj, deque<int**>& res);
+						deque<int**>& orig, deque<int**>& reproj, deque<int**>& res, int loop_time);
+	// End
 
 	// a fuction that takes all the 3D positions and gives reprojected images: (I_proj)
 	void ReprojImage(Frame matched3D, OTF& OTFcalib, deque<int**>& pixels_reproj, bool STB);
@@ -56,8 +62,14 @@ public:
 	// adding the intesity and 2D position data
 	void FullData(Position& pos, double intensity, int cams, int ignoreCam);
 
-	// creating .mat files
-	void MatfilePositions(deque<Position> pos3D, string mat_name);
+	// output 3D and 2D positions of particles
+	void SaveParticlePositions(deque<Position> pos3D, string file_path);
+	/*
+	 * function: read particle positions from txt file
+	 * Input: file_path: the address of the txt file
+	 * output: a frame with a list of particle positions
+	 */
+	Frame ReadParticlePositions(string file_path);
 	void MatfileImage(deque<int**>& pix, string name);
 	void Load_2Dpoints(string name, int frame, int ignoreCam);
 
@@ -78,6 +90,7 @@ protected:
 
 	// addresses
 	string tiffaddress;
+	string m_particle_position_addr; // address to save particle 2D and 3D positions
 	string calibfile;
 	string otfFile;
 		
@@ -86,6 +99,7 @@ protected:
 	std::deque<Camera> camsReduced;
 	int ncams, Npixh, Npixw;
 	bool reducedCams;
+	bool m_reduce_cam_begin; // a flag to indicate that reducedcam loop begins
 
 	// customizable input parameteres
 	int it_outerloop, it_innerloop, it_reducedCam;
@@ -121,6 +135,7 @@ protected:
 
 private:
 	void Position2Array(deque<Position> pos, double array[][12]);
+	deque<Position> Array2Position(int num_particle, double array[][12]);
 };
 
 

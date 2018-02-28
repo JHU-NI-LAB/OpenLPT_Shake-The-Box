@@ -46,7 +46,7 @@ int NumDataIO <T>::ReadData(T* data) {
 		std::getline(infile, line); // reading a line into line.
 		std::stringstream ss(line); // make the line as a stringstream to separate the line
 		std::string cell; //to save each element
-		if (m_total_number < 0) m_total_number = GetTotalNumber();
+		if (m_total_number <= 0) m_total_number = GetTotalNumber();
 		for (int i = 0; i < m_total_number + m_skip_data_num; i++ ) {
 			getline(ss, cell, ',');
 			if (i > m_skip_data_num - 1) {  // skip the set number of data
