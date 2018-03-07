@@ -24,7 +24,7 @@
 
 using namespace std;
 
-char* version = "0.0.021218"; //Version of this project
+char* version = "0.1.030718"; //Version of this project
 
 // configuration parameters
 struct ConfigFile {
