@@ -74,6 +74,7 @@ public:
 
 	void MatTracksSave(string addres, string s, int lastFrame);
 	void MatfileSave(deque<Track> tracks, string address, string name, int size);
+	void LoadAllTracks(string address, string frame_number);
 
 	//###################### TEMPORARY FUNTIONS FOR TESTING ###############################
 

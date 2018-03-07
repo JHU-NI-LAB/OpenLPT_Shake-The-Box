@@ -19,7 +19,9 @@ using namespace std;
 class PredictiveField {
 public:
 	// constructor : To get predictive field( takes the previous frame 3D pos, field parameters from file, frame, matlabFlag )
-	PredictiveField(Frame prevFramePos, Frame currFramePos, std::string& fname, int frame);
+	PredictiveField(){};
+
+	void GetPredictiveField(Frame prevFramePos, Frame currFramePos, std::string& fname, int frame);
 
 	// destructor
 	~PredictiveField() {
@@ -73,8 +75,8 @@ public:
 	void MatfileSave(vector<double*> pos, string name);
 	void MatfileSave(vector<double> pos[3], string name);
 	void MatfileSave(vector< vector<double> > pos, string name);
-
-	void Load_field(string path, int frame);
+	void SaveField(string file_path);
+	void Load_field(string path);
 
 private:
 	bool getPredictiveField;
@@ -102,6 +104,7 @@ private:
 
 	vector<double*> field;
 	vector< vector<double> > particleDisplacements;
+
 
 	// variables for data from .mat file
 };

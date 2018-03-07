@@ -2,6 +2,7 @@
 
 #include <STB.h>
 #include "NumDataIO.h"
+#include "Common.h"
 
 #define ALL_CAMS 100
 #define REDUCED_CAMS 0
@@ -62,7 +63,17 @@ STB::STB(int firstFrame, int lastFrame, string pfieldfile, string iprfile, int n
 			cout << "could not open the image sequence file " << imageNameFiles[i] << endl;
 	}
 
-	InitialPhase(pfieldfile);														// Initial phase: obtaining tracks for first 4 time steps
+	string address = tiffaddress + "Tracks/InitialTracks/";
+	if ( !(debug_mode == SKIP_PREVIOUS_TRACKS && debug_frame_number >= 4)) {
+		if (debug_mode == SKIP_INITIAL_PHASE ) {
+			LoadAllTracks(address, "");
+		} else {
+			InitialPhase(pfieldfile);														// Initial phase: obtaining tracks for first 4 time steps
+			MatTracksSave(address, "", 4);
+		}
+	}
+
+
 
 	clock_t start0;
 	start0 = clock();
@@ -123,8 +134,21 @@ void STB::InitialPhase(string pfieldfile) {
 			cout << "STB initial phase tracking b/w frames: " << currFrame << " & " << nextFrame << endl;
 
 			double start = clock();
-																									// getting the predictive velocity field b/w the current and next frames
-			PredictiveField pField(iprMatched[currFrame - first], iprMatched[nextFrame - first], pfieldfile, currFrame);	// either calulating it or from .mat files
+			PredictiveField pField;
+			// getting the predictive velocity field b/w the current and next frames
+			string predict_file_path = tiffaddress + "PredictiveField" + to_string(currFrame - first) + "&"
+												+ to_string(nextFrame - first) + ".txt";
+			if (debug_mode == SKIP_PREDITIVE_FIELD) {
+				pField.Load_field(predict_file_path);
+				if (error == NO_FILE) {
+					cout<<"Predictive file for frame"<<currFrame - first<<"&"<<nextFrame - first<<"can't be opened!"<<endl;
+					goto PredictiveField;
+				}
+			} else {
+				PredictiveField:
+				pField.GetPredictiveField(iprMatched[currFrame - first], iprMatched[nextFrame - first], pfieldfile, currFrame);	// either calulating it or from .mat files
+//				pField.SaveField(predict_file_path);
+			}
 			double duration = (clock() - start) / (double) CLOCKS_PER_SEC;
 			cout<<"time to get predictive field:"<< duration << endl;
 																									// extending all the tracks that are active in current frame
@@ -143,7 +167,7 @@ void STB::InitialPhase(string pfieldfile) {
 
 			StartTrack(currFrame, pField);															// starting a track for all particles left untracked in current frame
 			duration = (clock() - start) / (double) CLOCKS_PER_SEC;
-			cout<<"time to link parcticles in two frames:"<< duration<<endl;
+			cout<<"time to link particles in two frames:"<< duration<<endl;
 		}
 																									// moving all tracks longer than 3 from activeShortTracks to activeLongTracks
 		for (deque<Track>::iterator tr = activeShortTracks.begin(); tr != activeShortTracks.end(); ) {
@@ -178,128 +202,136 @@ void STB::ConvergencePhase() {
 	Calibration calib(_ipr.calibfile, ALL_CAMS, _ipr.mindist_2D, _ipr.mindist_3D, ncams);
 
 	for (int currFrame = first + 3; currFrame < endFrame; currFrame++) {							// tracking frame by frame using Wiener / polynomial predictor along with shaking
-		// initializing some variables
-		int c1 = activeShortTracks.size(), c2 = activeLongTracks.size(), c3 = inactiveTracks.size(), c4 = inactiveLongTracks.size();
-		a_as = 0; a_al = 0; a_is = 0; s_as1 = 0; a_as2 = 0; s_as3 = 0; s_al = 0; a_il = 0;
-		// time
-		clock_t start0, start1, start2, start3, start4;
-		start0 = clock();
+		string address = tiffaddress + "Tracks/ConvergedTracks/";
+		if (debug_mode == SKIP_PREVIOUS_TRACKS && currFrame < debug_frame_number ) {
+				LoadAllTracks(address, to_string(debug_frame_number));
+				currFrame = debug_frame_number - 1;
+		} else {
+			// initializing some variables
+			int c1 = activeShortTracks.size(), c2 = activeLongTracks.size(), c3 = inactiveTracks.size(), c4 = inactiveLongTracks.size();
+			a_as = 0; a_al = 0; a_is = 0; s_as1 = 0; a_as2 = 0; s_as3 = 0; s_al = 0; a_il = 0;
+			// time
+			clock_t start0, start1, start2, start3, start4;
+			start0 = clock();
 
-		int nextFrame = currFrame + 1;
-		cout << "\tSTB convergence phase tracking at frame: " << nextFrame << endl;
-		cout << "\t\tCheck Points: " << endl;
+			int nextFrame = currFrame + 1;
+			cout << "\tSTB convergence phase tracking at frame: " << nextFrame << endl;
+			cout << "\t\tCheck Points: " << endl;
 
-// LOADING IMAGES 
-		deque<string> imgNames;
-		for (int i = 0; i < ncams; i++)
-			imgNames.push_back(imgSequence[i][nextFrame - 1]);
+	// LOADING IMAGES
+			deque<string> imgNames;
+			for (int i = 0; i < ncams; i++)
+				imgNames.push_back(imgSequence[i][nextFrame - 1]);
 
-		Tiff2DFinder t(ncams, _ipr.Get_threshold(), imgNames);
-		t.FillPixels(pixels_orig);																	// filled pixels_orig with the px of actual camera images, which will be used for shaking
-
-		
-// PREDICTION
-		cout << "\t\t\tPrediction: ";
-		Frame estPos;																				// a frame that saves all the positions estimated from track prediction
-		deque<double> estInt;																		// saving the intensity of estimated positions
-		start1 = clock();
-
-		Prediction(nextFrame, estPos, estInt);														// getting the prediction list for all the activLongTrakcs (>4)
-
-		start2 = clock();
-		cout << "Done (" << (clock() - start1)/(double) CLOCKS_PER_SEC << "s)" << endl << "\t\t\tShaking the predictions: " ;
-
-		/* TESTING */ tempPredictions = estPos;
-
-// SHAKING THE PREDICTIONS
-		Shake(estPos, estInt);																		// correcting the predicted positions by shaking, removing wrong / ambiguous predictions and updating the residual images
-
-// TESTING PREDICTIONS
-		/*_ipr.MatfilePositions(estPos.Get_PosDeque(), tiffaddress + "shakedframe" + to_string(nextFrame));
-		_ipr.MatfilePositions(temp.Get_PosDeque(), tiffaddress + "predictionsframe" + to_string(nextFrame));*/
-		//if (nextFrame % 100 == 97 || nextFrame % 100 == 98 || nextFrame % 100 == 99 || nextFrame % 100 == 0)
-		//	_ipr.MatfileImage(pixels_orig, tiffaddress + "resImg" + to_string(nextFrame));
-// END TESTING
-
-		for (int i = 0; i < estPos.NumParticles(); i++) 											// adding the corrected particle position in nextFrame to its respective track 
-			activeLongTracks[i].AddNext(estPos[i], nextFrame);
-		
-		start3 = clock();
-		cout << "Done (" << (clock() - start2)/(double) CLOCKS_PER_SEC << "s)" << endl << "\t\t\tShort tracks from residuals: ";
+			Tiff2DFinder t(ncams, _ipr.Get_threshold(), imgNames);
+			t.FillPixels(pixels_orig);																	// filled pixels_orig with the px of actual camera images, which will be used for shaking
 
 
-// IPR ON RESIDUALS		
-		Frame candidates = IPRonResidual(calib, t, pixels_orig, pixels_reproj, pixels_res, estPos);	// applying ipr on residual images to obtain particle candidates
+	// PREDICTION
+			cout << "\t\t\tPrediction: ";
+			Frame estPos;																				// a frame that saves all the positions estimated from track prediction
+			deque<double> estInt;																		// saving the intensity of estimated positions
+			start1 = clock();
 
-// TESTING IPR AND TRACKING FROM RESIDUALS	
-		if (nextFrame % 100 == 97 || nextFrame % 100 == 98 || nextFrame % 100 == 99 || nextFrame % 100 == 0)
-			_ipr.SaveParticlePositions(candidates.Get_PosDeque(), tiffaddress + "pos3Dresframe" + to_string(nextFrame));
-// END TESTING
-																									// trying to link each activeShortTrack with a particle candidate
-		for (deque<Track>::iterator tr = activeShortTracks.begin(); tr != activeShortTracks.end(); ) 		
-			MakeShortLinkResidual(nextFrame, candidates, tr, 5);																									
-																									// moving all activeShortTracks longer than 3 particles to activeLongTracks
-		for (deque<Track>::iterator tr = activeShortTracks.begin(); tr != activeShortTracks.end(); ) {
-			if (tr->Length() > 3) {
-				activeLongTracks.push_back(*tr);
-				tr = activeShortTracks.erase(tr);
-				s_as3++; a_al++;
-			}
-			else
-				++tr;
-		}
+			Prediction(nextFrame, estPos, estInt);														// getting the prediction list for all the activLongTrakcs (>4)
 
-		start4 = clock();
-		cout << "Done (" << (clock() - start3) / (double) CLOCKS_PER_SEC << "s)" << endl << "\t\t\tPruning the tracks: ";
+			start2 = clock();
+			cout << "Done (" << (clock() - start1)/(double) CLOCKS_PER_SEC << "s)" << endl << "\t\t\tShaking the predictions: " ;
 
-// PRUNING / ARRANGING THE TRACKS
-		double thresh = 1.5 * largestShift;													
-		for (deque<Track>::iterator tr = activeLongTracks.begin(); tr != activeLongTracks.end(); ) {
-			double d1 = pow(Distance(tr->Last(), tr->Penultimate()),0.5), d2 = pow(Distance(tr->Penultimate(), tr->Antepenultimate()),0.5);
-			double threshRel = maxRelShiftChange*d2, length = tr->Length();
-																									// moving all activeLongTracks with displacement more than LargestExp shift to inactiveTracks
-			if (d1 > thresh) {
-				inactiveTracks.push_back(*tr);
-				tr = activeLongTracks.erase(tr);
-				s_al++; a_is++;
-			}
-																									// moving all activeLongTracks with large change in particle shift to inactive/inactiveLong tracks 
-			else if (abs(d1 - d2) > maxAbsShiftChange || abs(d1 - d2) > threshRel) {
-				if (length >= 7) {
-					inactiveLongTracks.push_back(*tr);
-					tr = activeLongTracks.erase(tr);
-					s_al++; a_il++;
+			/* TESTING */ tempPredictions = estPos;
+
+	// SHAKING THE PREDICTIONS
+			Shake(estPos, estInt);																		// correcting the predicted positions by shaking, removing wrong / ambiguous predictions and updating the residual images
+
+	// TESTING PREDICTIONS
+			/*_ipr.MatfilePositions(estPos.Get_PosDeque(), tiffaddress + "shakedframe" + to_string(nextFrame));
+			_ipr.MatfilePositions(temp.Get_PosDeque(), tiffaddress + "predictionsframe" + to_string(nextFrame));*/
+			//if (nextFrame % 100 == 97 || nextFrame % 100 == 98 || nextFrame % 100 == 99 || nextFrame % 100 == 0)
+			//	_ipr.MatfileImage(pixels_orig, tiffaddress + "resImg" + to_string(nextFrame));
+	// END TESTING
+
+			for (int i = 0; i < estPos.NumParticles(); i++) 											// adding the corrected particle position in nextFrame to its respective track
+				activeLongTracks[i].AddNext(estPos[i], nextFrame);
+
+			start3 = clock();
+			cout << "Done (" << (clock() - start2)/(double) CLOCKS_PER_SEC << "s)" << endl << "\t\t\tShort tracks from residuals: ";
+
+
+	// IPR ON RESIDUALS
+			_ipr.SetFrameNumber(currFrame + 1);  // frame number is used for debug.
+			Frame candidates = IPRonResidual(calib, t, pixels_orig, pixels_reproj, pixels_res, estPos);	// applying ipr on residual images to obtain particle candidates
+
+	// TESTING IPR AND TRACKING FROM RESIDUALS
+			if (nextFrame % 100 == 97 || nextFrame % 100 == 98 || nextFrame % 100 == 99 || nextFrame % 100 == 0)
+				_ipr.SaveParticlePositions(candidates.Get_PosDeque(), tiffaddress + "pos3Dresframe" + to_string(nextFrame));
+	// END TESTING
+																										// trying to link each activeShortTrack with a particle candidate
+			for (deque<Track>::iterator tr = activeShortTracks.begin(); tr != activeShortTracks.end(); )
+				MakeShortLinkResidual(nextFrame, candidates, tr, 5);
+																										// moving all activeShortTracks longer than 3 particles to activeLongTracks
+			for (deque<Track>::iterator tr = activeShortTracks.begin(); tr != activeShortTracks.end(); ) {
+				if (tr->Length() > 3) {
+					activeLongTracks.push_back(*tr);
+					tr = activeShortTracks.erase(tr);
+					s_as3++; a_al++;
 				}
-				else {
+				else
+					++tr;
+			}
+
+			start4 = clock();
+			cout << "Done (" << (clock() - start3) / (double) CLOCKS_PER_SEC << "s)" << endl << "\t\t\tPruning the tracks: ";
+
+	// PRUNING / ARRANGING THE TRACKS
+			double thresh = 1.5 * largestShift;
+			for (deque<Track>::iterator tr = activeLongTracks.begin(); tr != activeLongTracks.end(); ) {
+				double d1 = pow(Distance(tr->Last(), tr->Penultimate()),0.5), d2 = pow(Distance(tr->Penultimate(), tr->Antepenultimate()),0.5);
+				double threshRel = maxRelShiftChange*d2, length = tr->Length();
+																										// moving all activeLongTracks with displacement more than LargestExp shift to inactiveTracks
+				if (d1 > thresh) {
 					inactiveTracks.push_back(*tr);
 					tr = activeLongTracks.erase(tr);
 					s_al++; a_is++;
 				}
+																										// moving all activeLongTracks with large change in particle shift to inactive/inactiveLong tracks
+				else if (abs(d1 - d2) > maxAbsShiftChange || abs(d1 - d2) > threshRel) {
+					if (length >= 7) {
+						inactiveLongTracks.push_back(*tr);
+						tr = activeLongTracks.erase(tr);
+						s_al++; a_il++;
+					}
+					else {
+						inactiveTracks.push_back(*tr);
+						tr = activeLongTracks.erase(tr);
+						s_al++; a_is++;
+					}
+				}
+
+				else
+					++tr;
 			}
 
-			else
-				++tr;
-		}																						
+			for (Frame::const_iterator pID = candidates.begin(); pID != candidates.end(); ++pID) {		// adding all the untracked candidates to a new short track
+				Track startTrack(*pID, nextFrame);
+				activeShortTracks.push_back(startTrack); a_as++;
+			}
 
-		for (Frame::const_iterator pID = candidates.begin(); pID != candidates.end(); ++pID) {		// adding all the untracked candidates to a new short track 	
-			Track startTrack(*pID, nextFrame);
-			activeShortTracks.push_back(startTrack); a_as++;
-		}
+			cout << "Done (" << (clock() - start4) / (double) CLOCKS_PER_SEC << "s)" << endl;
 
-		cout << "Done (" << (clock() - start4) / (double) CLOCKS_PER_SEC << "s)" << endl;
+			cout << "\t\tNo. of active Short tracks:	" << c1 << " + " << a_as << " - (" << s_as1 << " + " << a_as2 << " + " << s_as3 << ") = " << activeShortTracks.size() << endl;
+			cout << "\t\tNo. of active Long tracks:	" << c2 << " + " << a_al << " - " << s_al << " = " << activeLongTracks.size() << endl;
+			cout << "\t\tNo. of exited tracks:		 = " << exitTracks.size() << endl;
+			cout << "\t\tNo. of inactive tracks:		" << c3 << " + " << a_is << " = " << inactiveTracks.size() << endl;
+			cout << "\t\tNo. of inactive Long tracks:	" << c4 << " + " << a_il << " = " << inactiveLongTracks.size() << endl;
 
-		cout << "\t\tNo. of active Short tracks:	" << c1 << " + " << a_as << " - (" << s_as1 << " + " << a_as2 << " + " << s_as3 << ") = " << activeShortTracks.size() << endl;
-		cout << "\t\tNo. of active Long tracks:	" << c2 << " + " << a_al << " - " << s_al << " = " << activeLongTracks.size() << endl;
-		cout << "\t\tNo. of exited tracks:		 = " << exitTracks.size() << endl;
-		cout << "\t\tNo. of inactive tracks:		" << c3 << " + " << a_is << " = " << inactiveTracks.size() << endl;
-		cout << "\t\tNo. of inactive Long tracks:	" << c4 << " + " << a_il << " = " << inactiveLongTracks.size() << endl;
+			cout << "\t\tTime taken for STB at frame " << nextFrame << ": " << (clock() - start0) / (double) CLOCKS_PER_SEC << "s" << endl;
 
-		cout << "\t\tTime taken for STB at frame " << nextFrame << ": " << (clock() - start0) / (double) CLOCKS_PER_SEC << "s" << endl;
+			//time_t t = time(0);
+	//		if (nextFrame % 5 == 0) {  // to debug, every frame should be saved
+	//			cout << "\tSaving the tracks" << endl;
 
-		//time_t t = time(0);
-		if (nextFrame % 5 == 0) {
-			cout << "\tSaving the tracks" << endl;
-			MatTracksSave(tiffaddress, "", nextFrame);
+			MatTracksSave(address, to_string(nextFrame), nextFrame);
+	//		}
 		}
 	}
 }
@@ -866,6 +898,17 @@ void STB::MatTracksSave(string address, string s, int lastFrame) {
 	
 }
 
+void STB::LoadAllTracks(string address, string frame_number) {
+	string s = frame_number + ".txt";
+	string X1 = "ActiveLongTracks" + s, X2 = "ActiveShortTracks" + s, X3 = "InactiveTracks" + s, X4 = "exitTracks" + s, X5 = "InactiveLongTracks" + s;
+
+	Load_Tracks(address + X1, ActiveLong);
+	Load_Tracks(address + X2, ActiveShort);
+	Load_Tracks(address + X3, Inactive);
+	Load_Tracks(address + X4, Exit);
+	Load_Tracks(address + X5, InactiveLong);
+}
+
 
 void STB::MatfileSave(deque<Track> tracks, string address, string name, int size) {
 /*
@@ -971,7 +1014,8 @@ void STB::MatfileSave(deque<Track> tracks, string address, string name, int size
 	data_io.SetFilePath(address + ".txt");
 
 	// to save dimension info
-	data_io.SetTotalNumber(4);
+	data_io.SetTotalNumber(3);
+	data_io.SetNumPrecsion(12);
 	data_io.WriteData((double*) dimension_info);
 
 	// to append data
@@ -1117,7 +1161,7 @@ void STB::Load_Tracks(string path, TrackType trackType) {
 //	Mat_Close(mat);
 
 	NumDataIO<double> data_io;
-	data_io.SetFilePath(tiffaddress + path + ".txt");
+	data_io.SetFilePath(path);
 
 	//read the dimension info
 	double dimension_info[3];
@@ -1128,32 +1172,34 @@ void STB::Load_Tracks(string path, TrackType trackType) {
 	int num_frames = (int) dimension_info[1];
 
 	double track_data[num_particles][num_frames][3];
-	data_io.SetTotalNumber(num_particles * num_frames * 3);
-	data_io.SetSkipDataNum(3); // skip the dimension info
-	data_io.ReadData((double*) track_data);
+	if (num_particles != 0)  {
+		data_io.SetTotalNumber(num_particles * num_frames * 3);
+			data_io.SetSkipDataNum(3); // skip the dimension info
+			data_io.ReadData((double*) track_data);
 
-	// convert 3D data into track
-	for (int i = 0; i < num_particles; i++) {
-		Track track;
-		int time = 0;
-		for (int j = 0; j < num_frames; j++) {
-			if (track_data[i][j][0] == 0 &&
-				track_data[i][j][1] == 0 &&
-				track_data[i][j][2] == 0 ) { // if all of the data is 0, that means there is no track
-				time++; continue;
-			}
-			Position pos(track_data[i][j][0], track_data[i][j][1], track_data[i][j][2]);
-			track.AddNext(pos, time);
-			time++;
+			// convert 3D data into track
+			for (int i = 0; i < num_particles; i++) {
+				Track track;
+				int time = 1;
+				for (int j = 0; j < num_frames; j++) {
+					if (track_data[i][j][0] == 0 &&
+						track_data[i][j][1] == 0 &&
+						track_data[i][j][2] == 0 ) { // if all of the data is 0, that means there is no track
+						time++; continue;
+					}
+					Position pos(track_data[i][j][0], track_data[i][j][1], track_data[i][j][2]);
+					track.AddNext(pos, time);
+					time++;
+				}
+				switch (trackType)
+				{
+					case ActiveLong : activeLongTracks.push_back(track); break;
+					case ActiveShort: activeShortTracks.push_back(track);break;
+					case Inactive: inactiveTracks.push_back(track);break;
+					case Exit: exitTracks.push_back(track);break;
+					case InactiveLong: inactiveLongTracks.push_back(track);break;
+				}
 		}
-		switch (trackType)
-		{
-			case ActiveLong : activeLongTracks.push_back(track); break;
-			case ActiveShort: activeShortTracks.push_back(track);break;
-			case Inactive: inactiveTracks.push_back(track);break;
-			case Exit: exitTracks.push_back(track);break;
-			case InactiveLong: inactiveLongTracks.push_back(track);break;
-		}
-}
+	}
 	//END
 }

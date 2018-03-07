@@ -75,7 +75,7 @@ void GetDebugMode() {
 			<<"Enter the NO. of the option:";
 	int NO = 0;
 	cin>>NO;
-	if (NO < 7) debug_mode = DebugMode(NO); else debug_mode = DebugMode(0);
+	if (NO < 8) debug_mode = DebugMode(NO); else debug_mode = DebugMode(0);
 	if (!(NO == 0)) {
 		cout<<"Enter the frame number to be debugged:";
 		cin>>debug_frame_number;
@@ -111,7 +111,7 @@ void GetDebugMode() {
 		config.initialPhaseRadius, config.avgSpace, config.largestShift, config.maxAbsShiftChange,
 		config.maxRelShiftChange, config.fpt, config.lowerInt, config.iprFlag);
 	// saving the tracks
-	s.MatTracksSave(s.tiffaddress,"", config.last);
+	//s.MatTracksSave(s.tiffaddress,"", config.last);
 	// applying a pass of BackSTB
 /*	BackSTB bs(first, last, config.initialPhaseRadius);
 	bs.UpdateTracks(s);

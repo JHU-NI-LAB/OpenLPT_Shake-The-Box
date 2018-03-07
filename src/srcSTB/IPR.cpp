@@ -294,7 +294,8 @@ Frame IPR::IPRLoop(Calibration& calib, OTF& OTFcalib,  deque<int> camNums, int i
 //	cout << iframes[2].NumParticles() << endl;
 //	cout << iframes[3].NumParticles() << endl;
 	// stereomatching to give 3D positions from triangulation
-	if (debug_mode == SKIP_IPR_TRIANGULATION && frame - 1< debug_frame_number) {
+	if ((debug_mode == SKIP_IPR_TRIANGULATION || debug_mode == SKIP_IPR_SHAKING)
+			&& frame - 1< debug_frame_number) {
 		if (!m_reduce_cam_begin) {
 			pos3Dnew = ReadParticlePositions(m_particle_position_addr + "frame" + to_string(frame) + "Loop" + to_string(loop_time) + ".txt");
 		} else {
@@ -330,7 +331,7 @@ Frame IPR::IPRLoop(Calibration& calib, OTF& OTFcalib,  deque<int> camNums, int i
 	if (((!triangulationOnly) && IPROnly) || !(triangulationOnly || IPROnly)) {
 		// initializing the 3D intensity
 		deque<double> intensity3Dnew;
-		if (debug_mode == SKIP_IPR_SHAKING && frame - 1< debug_frame_number) {
+		if (debug_mode == SKIP_IPR_SHAKING && frame - 1 < debug_frame_number) {
 			string file_path, file_path1;
 			if (!m_reduce_cam_begin ) {
 				file_path =  m_particle_position_addr + "frame" + to_string(frame) + "Loop" + to_string(loop_time) + "Shaking.txt";

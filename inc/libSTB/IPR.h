@@ -85,6 +85,8 @@ public:
 	bool triangulationOnly;
 	bool IPROnly;
 
+	void SetFrameNumber(int number) { frame = number;}
+
 protected:
 	int frame;
 	deque<string> filename;

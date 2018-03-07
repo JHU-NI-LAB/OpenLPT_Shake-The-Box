@@ -29,6 +29,7 @@ int NumDataIO <T>::WriteData(T* data) {
 	} else {
 		outfile.open(this->m_file_path);
 	}
+	outfile.precision(m_num_precision);
 	for (int i = 0; i < m_total_number; i++ ) {
 		outfile<<*(data + i)<<","; //using comma as the delimiter.
 	}
@@ -51,9 +52,9 @@ int NumDataIO <T>::ReadData(T* data) {
 			getline(ss, cell, ',');
 			if (i > m_skip_data_num - 1) {  // skip the set number of data
 				if (std::is_integral<T>::value) { // pass the value of cell according to different data type
-					*(data + i) = stoi(cell);
+					*(data + i - m_skip_data_num) = stoi(cell);
 				} else {
-					*(data + i) = stod(cell);
+					*(data + i - m_skip_data_num) = stod(cell);
 				}
 			}
 		}

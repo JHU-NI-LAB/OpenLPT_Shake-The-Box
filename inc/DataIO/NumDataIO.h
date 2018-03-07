@@ -68,10 +68,20 @@ public:
 		m_skip_data_num = num;
 	}
 
+	/*
+	 * Function: to set the precision of data
+	 * Input: int for the precision
+	 * Output: None.
+	 */
+	void SetNumPrecsion(int num) {
+		m_num_precision = num;
+	}
+
 private:
 	int m_total_number = 0;	// total number of the matrix elements
 	int m_save_mode = 0;    // save mode:0 means to overwrite, 1 to append
 	int m_skip_data_num = 0; // the number of data to be skipped
+	int m_num_precision = 8; // the precision to save the data.
 };
 
 

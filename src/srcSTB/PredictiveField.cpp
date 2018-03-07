@@ -19,8 +19,9 @@
 #define CURR_FRAME 1
 
 using namespace std;
-PredictiveField::PredictiveField(Frame prevFramePos, Frame currFramePos, std::string& fname, int frame) :
-	matchedPrev(prevFramePos), matchedCurr(currFramePos) {
+void PredictiveField::GetPredictiveField(Frame prevFramePos, Frame currFramePos, std::string& fname, int frame) {
+	matchedPrev = prevFramePos;
+	matchedCurr = currFramePos;
 //TODO: report err when cannot open file.
 	// remove comments from the file
 	ifstream infile(fname.c_str(), ios::in);
@@ -62,12 +63,13 @@ PredictiveField::PredictiveField(Frame prevFramePos, Frame currFramePos, std::st
 		cout << "\t\tLoading predictive field from matfile" << endl;
 		// geting the field from matfile
 		// TODO: to check whether it works.
-		Load_field(path, frame);
+		Load_field(path);
 	}
 	else {
 		cout << "\t\tCalculating predictive field" << endl;
 		// calculating the field
 		Field();
+//		cout<<field[0][1];
 	}
 
 
@@ -567,7 +569,7 @@ void PredictiveField::MatfileSave(vector<vector<double>> pos, string name) {
 }
 
 //// Load field from field.mat
-void PredictiveField::Load_field(string path, int frame) {
+void PredictiveField::Load_field(string path) {
 	/*
 	 * Modified by Shiyong Tan, 2/7/18
 	 * Discard using matio, use DataIO instead.
@@ -608,18 +610,32 @@ void PredictiveField::Load_field(string path, int frame) {
 //	}
 //
 //	Mat_Close(mat);
-	string file = path + to_string(frame) + ".txt";
+//	string file = path + to_string(frame) + ".txt";
 
 	NumDataIO<double> data_io;
-	data_io.SetFilePath(file);
+	data_io.SetFilePath(path);
 	int total_num = data_io.GetTotalNumber();
 	double field_data[total_num / 3][3];  // data format: rows * 3
 	data_io.SetTotalNumber(total_num);
 	data_io.ReadData((double*) field_data);
 	for (int i = 0; i < total_num /3; i++) {
-		field[0][i] = field_data[0][i];
-		field[1][i] = field_data[1][i];
-		field[2][i] = field_data[2][i];
+		field[0][i] = field_data[i][0];
+		field[1][i] = field_data[i][1];
+		field[2][i] = field_data[i][2];
 	}
 //END
+}
+
+void PredictiveField::SaveField(string file_path) {
+	NumDataIO<double> data_io;
+	data_io.SetFilePath(file_path);
+	data_io.SetTotalNumber(totalGridPoints * 3);
+	double field_data[totalGridPoints][3];
+	for (int i = 0; i < totalGridPoints; i++) {
+//
+//		field_data[i][0] = field[0][i];
+//		field_data[i][1] = field[1][i];
+//		field_data[i][2] = field[2][i];
+	}
+//	data_io.WriteData((double*) field_data);
 }
