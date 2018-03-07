@@ -24,7 +24,7 @@ extern int debug_frame_number;
 
 //Data for error
 enum ERROR {
-	None = 0,
+	NONE = 0,
 	NO_FILE, //Can't find required file
 };
 

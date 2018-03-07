@@ -205,7 +205,16 @@ void STB::ConvergencePhase() {
 		string address = tiffaddress + "Tracks/ConvergedTracks/";
 		if (debug_mode == SKIP_PREVIOUS_TRACKS && currFrame < debug_frame_number ) {
 				LoadAllTracks(address, to_string(debug_frame_number));
-				currFrame = debug_frame_number - 1;
+
+				if (error == NO_FILE) {
+					cout<<"The file of tracks can't be opened! The code will load the previous one!\n";
+					debug_frame_number --;
+					currFrame --;
+					error = NONE;
+				} else {
+					currFrame = debug_frame_number - 1;
+				}
+
 		} else {
 			// initializing some variables
 			int c1 = activeShortTracks.size(), c2 = activeLongTracks.size(), c3 = inactiveTracks.size(), c4 = inactiveLongTracks.size();
