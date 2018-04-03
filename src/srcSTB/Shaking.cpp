@@ -82,12 +82,13 @@ void Shaking::Pos() {
 	int size;
 															// for X first
 	deque<double> X(4), Y(4), Z(4);
+
 	for (int i = 0; i < 3; i++) {
 		X[i] = (pos3Dold).X() + del[i];
 		pos3Dnew.Set_X(X[i]); // shifting by del in X-direction
 		R[i] = Res(pos3Dnew);
 	}
-	
+
 	deque<double> coeffx = Quadratic(X, R);	// finding the coefficients of a quadratic that passes through the three residual values
 	X[3] = -coeffx[1] / (2 * coeffx[0]); // finding the minima of the quadratic 
 
@@ -102,11 +103,13 @@ void Shaking::Pos() {
 	int x3D = IndexofSmallestElement(R, size); pos3Dnew.Set_X(X[x3D]);	// setting X to the position with smallest residual
 
 															// then update Y
+
 	for (int i = 0; i < 3; i++) {
 		Y[i] = (pos3Dold).Y() + del[i];
 		pos3Dnew.Set_Y(Y[i]);
 		R[i] = Res(pos3Dnew);
 	}
+
 	deque<double> coeffy = Quadratic(Y, R);
 	Y[3] = -coeffy[1] / (2 * coeffy[0]); 
 
@@ -119,11 +122,13 @@ void Shaking::Pos() {
 	int y3D = IndexofSmallestElement(R, size); pos3Dnew.Set_Y(Y[y3D]);
 	
 															// then update Z
+
 	for (int i = 0; i < 3; i++) {
 		Z[i] = (pos3Dold).Z() + del[i];
 		pos3Dnew.Set_Z(Z[i]);
 		R[i] = Res(pos3Dnew);
 	}
+
 	deque<double> coeffz = Quadratic(Z, R);
 	Z[3] = -coeffz[1] / (2 * coeffz[0]); 
 

@@ -1,6 +1,7 @@
 
 
 #include <STB.h>
+#include <omp.h>
 #include "NumDataIO.h"
 #include "Common.h"
 
@@ -600,14 +601,22 @@ void STB::Shake(Frame& estimate, deque<double>& intensity) {
 						pixels_res[n][i][j] = (pixels_orig[n][i][j] - abs(pixels_reproj[n][i][j]));
 
 
-			int index = 0;																	// correcting the estimated positions and their intensity by shaking
+//			int index = 0;																	// correcting the estimated positions and their intensity by shaking
 			double start = clock();
-			for (Frame::const_iterator pID = estimate.begin(); pID != estimate.end(); ++pID) {
-				Shaking s(ncams, ignoreCam[index], OTFcalib, Npixw, Npixh, _ipr.psize, del, *pID, cams, pixels_res, intensity[index]);
-				estimate[index] = s.Get_posnew();
-				intensity[index] = s.Get_int();
-				index++;
+#pragma omp parallel num_threads(20)
+						{
+//							int TID = omp_get_thread_num();
+//							printf("Thread %d is runing\n", TID);
+#pragma omp for
+//			for (Frame::const_iterator pID = estimate.begin(); pID != estimate.end(); ++pID) {
+			for (int i = 0; i < estimate.NumParticles(); ++i) {
+				Frame::const_iterator pID = estimate.begin() + i;
+				Shaking s(ncams, ignoreCam[i], OTFcalib, Npixw, Npixh, _ipr.psize, del, *pID, cams, pixels_res, intensity[i]);
+				estimate[i] = s.Get_posnew();
+				intensity[i] = s.Get_int();
+//				index++;
 			}
+						}
 			double duration = (clock() - start) / (double) CLOCKS_PER_SEC;
 			cout<<"time to do shaking for each loop:"<<duration<<endl;
 		}

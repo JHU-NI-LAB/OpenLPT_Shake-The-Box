@@ -4,6 +4,9 @@
 #include <iostream>
 #include <cmath>
 #include <ctime>
+#include <omp.h>
+#include <ratio>
+#include <chrono>
 
 #include "IPR.h"
 #include "Common.h"
@@ -128,6 +131,13 @@ Frame IPR::FindPos3D(deque< deque<string> > imgNames, int frameNumber)  {
 	pos3D.clear();
 	ghost3D.clear();
 	intensity3D.clear();
+	/*
+	 * Modified by Shiyong Tan, 3/30/2018
+	 * iframes should be cleared before writing new data into it.
+	 * Start:
+	 */
+	iframes.clear();
+	// End
 	
 	frame = frameNumber;
 	// creating a filename with all tiff image names at a particular frame
@@ -160,6 +170,7 @@ Frame IPR::FindPos3D(deque< deque<string> > imgNames, int frameNumber)  {
 				throw runtime_error("Caught out_of_range in ImageSequence::Particle2DList()");
 			}
 	}
+
 	//Load_2Dpoints("S:/Projects/Bubble/09.28.17/Bubbles and Particles - 250fps/frame", frame, ALL_CAMS);
 
 	int ncams4 = (ncams > 4) ? 4 : ncams;
@@ -274,6 +285,7 @@ Frame IPR::IPRLoop(Calibration& calib, OTF& OTFcalib,  deque<int> camNums, int i
 	double del;
 	int id = 0;
 	// getting 2D particles from the updated original image (residual after removing identified particles) on reduced cams
+	if (loop_time >= 1 && ignoreCam == ALL_CAMS) {
 	iframes.clear();
 	for (int camID = 0; camID < camNums.size(); camID++)
 		if (camNums[camID] != ignoreCam) {
@@ -287,7 +299,9 @@ Frame IPR::IPRLoop(Calibration& calib, OTF& OTFcalib,  deque<int> camNums, int i
 				throw runtime_error("Caught out_of_range in ImageSequence::Particle2DList()");
 			}
 		}
-		
+	}
+
+
 //	Load_2Dpoints("S:/Projects/Bubble/Cam_Config_of_10.22.17/10.29.17/BubblesNParticlesHigh_4000fps/BubblesNParicleswithBreakup/Bubble_Reconstruction_Corrected/Bubble_2D_centers", frame, ignoreCam);
 //	cout << iframes[0].NumParticles() << endl;
 //	cout << iframes[1].NumParticles() << endl;
@@ -365,7 +379,7 @@ Frame IPR::IPRLoop(Calibration& calib, OTF& OTFcalib,  deque<int> camNums, int i
 					for (int loopInner = 0; loopInner < it_innerloop; loopInner++) {
 
 						//pair<int, int> bad = Rem(pos3Dnew, intensity3Dnew, mindist_3D);
-						double start = clock();
+//						double start = clock();
 
 						if (pos3Dnew.NumParticles() == 0)
 							break;
@@ -384,22 +398,37 @@ Frame IPR::IPRLoop(Calibration& calib, OTF& OTFcalib,  deque<int> camNums, int i
 
 						// updating the 3D position and intensity field by shaking
 						Frame::const_iterator pIDend = pos3Dnew.end();
-						int index = 0;
-						// shaking
-						for (Frame::const_iterator pID = pos3Dnew.begin(); pID != pIDend; ++pID) {
+//						int index = 0;
 
+						// shaking
+//						Frame::const_iterator pID = pos3Dnew.begin();
+						auto start = std::chrono::system_clock::now();
+#pragma omp parallel num_threads(8)
+						{//2 4 6 8 10 20 15
+//							int TID = omp_get_thread_num();
+//							printf("Thread %d is runing\n", TID);
+#pragma omp for
+						for (int i = 0; i < pos3Dnew.NumParticles(); ++i) {
+//						for (Frame::const_iterator pID = pos3Dnew.begin(); pID != pIDend; ++pID) {
+							Frame::const_iterator pID = pos3Dnew.begin() + i;
 							if (loopInner < 2)  del = mindist_3D;
 							else if (loopInner < 5)  del = mindist_3D / 10;
 							else  del = mindist_3D / 100;
 
-							Shaking s(ncams, ignoreCam, OTFcalib, Npixw, Npixh, psize, del, *pID, camsAll, res, intensity3Dnew[index]);
+							Shaking s(ncams, ignoreCam, OTFcalib, Npixw, Npixh, psize, del, *pID, camsAll, res, intensity3Dnew[i]);
 
-							pos3Dnew[index] = s.Get_posnew();
-							intensity3Dnew[index] = s.Get_int();
-							index++;
+							pos3Dnew[i] = s.Get_posnew();
+							intensity3Dnew[i] = s.Get_int();
+//							index++;
+//							pID++;
 						}
-						double duration = (clock() - start) / (double) CLOCKS_PER_SEC;
-						cout<<"Time taken for shaking in each loop:"<<duration<<endl;
+						}
+//						double duration = (clock() - start) / (double) CLOCKS_PER_SEC;
+//						cout<<"Time taken for shaking in each loop:"<<duration<<endl;
+						auto end = std::chrono::system_clock::now();
+						auto elapsed = std::chrono::duration_cast<std::chrono::milliseconds>(end - start);
+						cout << elapsed.count() << '\n';
+
 					} // ############# Innerloop ends here #############
 					// Save the data
 					string file_path, file_path1;

@@ -127,15 +127,19 @@ void PredictiveField::Field() {
 	m = (Size - 1) / (4 * radius); 
 	c = (Size - 1) / 2;
 
-	double*** dispMap = new double**[Size];
-	for (int j = 0; j < Size; j++) {
-		dispMap[j] = new double*[Size];
-			for (int k = 0; k < Size; k++) {
-				dispMap[j][k] = new double[Size];
-			}
-	}
-
+#pragma omp parallel //num_threads(8)
+						{
+#pragma omp for
 	for (int i = 0; i < totalGridPoints; i++) {
+
+		double*** dispMap = new double**[Size];
+		for (int j = 0; j < Size; j++) {
+			dispMap[j] = new double*[Size];
+				for (int k = 0; k < Size; k++) {
+					dispMap[j][k] = new double[Size];
+				}
+		}
+
 		deque<Frame::const_iterator> prevFrame;
 		deque<Frame::const_iterator> currFrame;
 		deque<deque<double>> displacements;
@@ -183,15 +187,17 @@ void PredictiveField::Field() {
 			field[1][i] = peak[1];
 			field[2][i] = peak[2];
 		}
-	}
-
-	for (int j = 0; j < Size; j++) {
-		for (int k = 0; k < Size; k++) {
-			delete[] dispMap[j][k];
+		for (int j = 0; j < Size; j++) {
+			for (int k = 0; k < Size; k++) {
+				delete[] dispMap[j][k];
+			}
+			delete[] dispMap[j];
 		}
-		delete[] dispMap[j];
+		delete[] dispMap;
 	}
-	delete[] dispMap;
+						}
+
+
 	
 }
 
