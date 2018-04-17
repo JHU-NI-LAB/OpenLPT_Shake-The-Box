@@ -422,7 +422,6 @@ Frame Calibration::Stereomatch(const deque<Frame>& iframes, int framenumber, int
 //	for (long int p = 0; p < cleanlist[0].size(); p++) {
 	for (unsigned int p = 0; p < cleanlist_num; p++) {
 //		double percent = p/total_cleanlist;
-		printf("Part One: %d / %d\n", p, cleanlist_num);
 		deque<Position> PosToMatch;
 		deque<int> indices;
 		for (int i = 0; i < rcams; ++i) {
@@ -458,54 +457,56 @@ Frame Calibration::Stereomatch(const deque<Frame>& iframes, int framenumber, int
 	}
 						}
 	
-	printf("Part One done!\n");
 	// finally, prune the matched positions so that we only allow one per 2D point
 	deque<unsigned int> bad;
 	int match_num =  matchedPos.size();
-#pragma omp parallel shared(bad) //num_threads(8)
+#pragma omp parallel shared(bad) num_threads(20)
 						{
 #pragma omp for
 	for (unsigned int i = 0; i < match_num; ++i) {
-		printf("Part two: %d / %d!\n", i, match_num);
+		//printf("Part two: %d / %d!\n", i, match_num);
 		// have we already thrown out this point?
+//		printf("%d\n",i);
 		if (find(bad.begin(), bad.end(), i) != bad.end()) {
 			continue;
 		}
 		double min = raydists[i]; 
-		bool goon = true;
-		for (unsigned int j = i + 1; j < match_num && goon; ++j) {
-			if (find(bad.begin(), bad.end(), j) != bad.end()) {
-				continue;
-			}
+//		bool goon = true;
+		int throw_index = i;
+		for (unsigned int j = i + 1; j < match_num; ++j) {
+//			if (find(bad.begin(), bad.end(), j) != bad.end()) {
+//				continue;
+//			}
 			bool flag = false;
 			for (int k = 0; k < rcams; ++k) {
 				flag |= frame_indices[i][k] == frame_indices[j][k];
 			}
 			if (flag) {
-#pragma omp critical(bad)
-						{
 				// point j uses at least one of the same 2D particles
 				if (min < raydists[j]) {
 					// throw out j                                                                                           
-					bad.push_back(j);
+//					bad.push_back(j);
+					throw_index = j;
 				} else {
 					// throw out i
 					min = raydists[j];
-					bad.push_back(i);
+//					bad.push_back(i);
 //					break;
-					goon = false; // another way to jump out of loop for parallelization.
+					j = match_num; // another way to jump out of loop for parallelization.
 				}
+#pragma omp critical(bad)
+						{
+				bad.push_back(throw_index);
 						}
 			}
 		}
 	}
 						}
 
-	printf("Part Two done!\n");
 	match_num =  matchedPos.size();
 	deque<Position> goodPos;
 	for (unsigned int i = 0; i < matchedPos.size(); ++i) {
-		printf("Part three: %d / %d\n", i, match_num);
+//		printf("Part three: %d / %d\n", i, match_num);
 		if (i>=matchedPos.size())
 			break;
 		// have we already thrown out this point?
