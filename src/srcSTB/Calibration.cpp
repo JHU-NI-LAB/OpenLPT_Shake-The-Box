@@ -457,107 +457,146 @@ Frame Calibration::Stereomatch(const deque<Frame>& iframes, int framenumber, int
 	}
 						}
 	
+	printf("Part One Done!\n");
 	// finally, prune the matched positions so that we only allow one per 2D point
 	deque<unsigned int> bad;
 	int match_num =  matchedPos.size();
-#pragma omp parallel shared(bad) num_threads(20)
-						{
-#pragma omp for
-	for (unsigned int i = 0; i < match_num; ++i) {
-		//printf("Part two: %d / %d!\n", i, match_num);
-		// have we already thrown out this point?
-//		printf("%d\n",i);
-		if (find(bad.begin(), bad.end(), i) != bad.end()) {
-			continue;
-		}
-		double min = raydists[i]; 
-//		bool goon = true;
-		int throw_index = i;
-		for (unsigned int j = i + 1; j < match_num; ++j) {
-//			if (find(bad.begin(), bad.end(), j) != bad.end()) {
-//				continue;
-//			}
-			bool flag = false;
-			for (int k = 0; k < rcams; ++k) {
-				flag |= frame_indices[i][k] == frame_indices[j][k];
-			}
-			if (flag) {
-				// point j uses at least one of the same 2D particles
-				if (min < raydists[j]) {
-					// throw out j                                                                                           
-//					bad.push_back(j);
-					throw_index = j;
-				} else {
-					// throw out i
-					min = raydists[j];
-//					bad.push_back(i);
-//					break;
-					j = match_num; // another way to jump out of loop for parallelization.
-				}
-#pragma omp critical(bad)
-						{
-				bad.push_back(throw_index);
-						}
-			}
-		}
-	}
-						}
-
-	match_num =  matchedPos.size();
-	deque<Position> goodPos;
-	for (unsigned int i = 0; i < matchedPos.size(); ++i) {
-//		printf("Part three: %d / %d\n", i, match_num);
-		if (i>=matchedPos.size())
-			break;
-		// have we already thrown out this point?
-		if (find(bad.begin(), bad.end(), i) != bad.end()) {
-			continue;
-		}
-		//cout << "\n\tMatched 3D pos (in mm):\t" << wpos.second << "\n\tIntersect error (in mm):\t" << wpos.first << endl;
-//		float tmp = framenumber;
-//		outfile.write(reinterpret_cast<const char*>(&tmp), 4);
-//		tmp = matchedPos[i].X();
-//		outfile.write(reinterpret_cast<const char*>(&tmp), 4);
-//		tmp = matchedPos[i].Y();
-//		outfile.write(reinterpret_cast<const char*>(&tmp), 4);
-//		tmp = matchedPos[i].Z();
-//		outfile.write(reinterpret_cast<const char*>(&tmp), 4);
-//		//cout << "\tInfo: " << wpos.second.Info() << endl;
-//		tmp = raydists[i];
-//		outfile.write(reinterpret_cast<const char*>(&tmp), 4);
-//		for (int id = 0; id < rcams; ++id) {
-//			//cout << "\t\tPosToMatch (in px):\t" << cams[i].Distort(*((*tm)[i])) << endl;
-//			tmp = cams[id].Distort((PosTouse[i])[id]).X();
-//			outfile.write(reinterpret_cast<const char*>(&tmp), 4);
-//			tmp = cams[id].Distort((PosTouse[i])[id]).Y();
-//			outfile.write(reinterpret_cast<const char*>(&tmp), 4);
+//#pragma omp parallel shared(bad) num_threads(20)
+//						{
+//#pragma omp for
+//	for (unsigned int i = 0; i < match_num; ++i) {
+//		//printf("Part two: %d / %d!\n", i, match_num);
+//		// have we already thrown out this point?
+////		printf("%d\n",i);
+//		if (find(bad.begin(), bad.end(), i) != bad.end()) {
+//			continue;
 //		}
-		// saving the 2D position from cleanlist (for good particles)
+//		double min = raydists[i];
+////		bool goon = true;
+//		int throw_index = i;
+//		for (unsigned int j = i + 1; j < match_num; ++j) {
+////			if (find(bad.begin(), bad.end(), j) != bad.end()) {
+////				continue;
+////			}
+//			bool flag = false;
+//			for (int k = 0; k < rcams; ++k) {
+//				flag |= frame_indices[i][k] == frame_indices[j][k];
+//			}
+//			if (flag) {
+//				// point j uses at least one of the same 2D particles
+//				if (min < raydists[j]) {
+//					// throw out j
+////					bad.push_back(j);
+//					throw_index = j;
+//				} else {
+//					// throw out i
+//					min = raydists[j];
+////					bad.push_back(i);
+////					break;
+//					j = match_num; // another way to jump out of loop for parallelization.
+//				}
+//#pragma omp critical(bad)
+//						{
+//				bad.push_back(throw_index);
+//						}
+//			}
+//		}
+//	}
+//						}
+	int* minimum_list;
+	int list_size;
+	int num_particle = 0;
+	for (int i = 0; i < rcams; i++) {
+		num_particle = corrframes[rID[i]].NumParticles();
+		int buffer[num_particle]; // the buffer is used to save the match index with smaller error
+		for (int j = 0; j < num_particle; j++) buffer[j] = -1; // initialize buffer with -1
+		GroupAndPickMin(minimum_list, raydists, frame_indices, buffer, list_size, num_particle, match_num, i);
+		minimum_list = new int[num_particle];
+		for (int j = 0; j < num_particle; j++) minimum_list[j] = buffer[j];
+		list_size = num_particle;
+	}
+
+	printf("Part two done!\n");
+
+//	match_num =  matchedPos.size();
+//	deque<Position> goodPos;
+//	for (unsigned int i = 0; i < matchedPos.size(); ++i) {
+////		printf("Part three: %d / %d\n", i, match_num);
+//		if (i>=matchedPos.size())
+//			break;
+//		// have we already thrown out this point?
+//		if (find(bad.begin(), bad.end(), i) != bad.end()) {
+//			continue;
+//		}
+//		//cout << "\n\tMatched 3D pos (in mm):\t" << wpos.second << "\n\tIntersect error (in mm):\t" << wpos.first << endl;
+////		float tmp = framenumber;
+////		outfile.write(reinterpret_cast<const char*>(&tmp), 4);
+////		tmp = matchedPos[i].X();
+////		outfile.write(reinterpret_cast<const char*>(&tmp), 4);
+////		tmp = matchedPos[i].Y();
+////		outfile.write(reinterpret_cast<const char*>(&tmp), 4);
+////		tmp = matchedPos[i].Z();
+////		outfile.write(reinterpret_cast<const char*>(&tmp), 4);
+////		//cout << "\tInfo: " << wpos.second.Info() << endl;
+////		tmp = raydists[i];
+////		outfile.write(reinterpret_cast<const char*>(&tmp), 4);
+////		for (int id = 0; id < rcams; ++id) {
+////			//cout << "\t\tPosToMatch (in px):\t" << cams[i].Distort(*((*tm)[i])) << endl;
+////			tmp = cams[id].Distort((PosTouse[i])[id]).X();
+////			outfile.write(reinterpret_cast<const char*>(&tmp), 4);
+////			tmp = cams[id].Distort((PosTouse[i])[id]).Y();
+////			outfile.write(reinterpret_cast<const char*>(&tmp), 4);
+////		}
+//		// saving the 2D position from cleanlist (for good particles)
+//		deque< deque<double> > pos2D(4);
+//		for (int id = 0; id < 4; id++) {
+//			if (id < rcams) {
+//				deque<double> tmp2D(2);
+//				Position temp = cams[id].Distort((PosTouse[i])[id]);
+//				tmp2D[0] = temp.X(); tmp2D[1] = temp.Y();
+//				pos2D[id] = tmp2D;
+//			}
+//			else {
+//				/*
+//				 * Modified by Shiyong Tan, 1/30/18
+//				 * Initialization tmp = {0.0, 0.0} is not permited by c++98
+//				 * Use tmp(0.0, 0.0) instead
+//				 * Start;
+//				 */
+////				deque<double> tmp = { 0.0, 0.0 };
+//				deque<double> tmp(2); //TODO: Check such initialization is valid.
+//				tmp[0] = 0.0; tmp[1] = 0.0;
+//				// End
+//				pos2D[id] = tmp;
+//			}
+//		}
+//		Position worldposi(matchedPos[i].X(), matchedPos[i].Y(), matchedPos[i].Z(), pos2D[0][0], pos2D[0][1], pos2D[1][0], pos2D[1][1], pos2D[2][0], pos2D[2][1], pos2D[3][0], pos2D[3][1], 0);
+//		good2Dpos.push_back(worldposi);
+//		goodPos.push_back(matchedPos[i]);
+//	}
+
+	deque<Position> goodPos;
+	int match_index = 0;
+	for (int i = 0; i < list_size; i++) {
+		match_index = minimum_list[i];
+		if (match_index == -1) continue;
 		deque< deque<double> > pos2D(4);
 		for (int id = 0; id < 4; id++) {
 			if (id < rcams) {
 				deque<double> tmp2D(2);
-				Position temp = cams[id].Distort((PosTouse[i])[id]);
+				Position temp = cams[id].Distort((PosTouse[match_index])[id]);
 				tmp2D[0] = temp.X(); tmp2D[1] = temp.Y();
 				pos2D[id] = tmp2D;
-			}
-			else {
-				/*
-				 * Modified by Shiyong Tan, 1/30/18
-				 * Initialization tmp = {0.0, 0.0} is not permited by c++98
-				 * Use tmp(0.0, 0.0) instead
-				 * Start;
-				 */
-//				deque<double> tmp = { 0.0, 0.0 };
-				deque<double> tmp(2); //TODO: Check such initialization is valid.
+			} else {
+				deque<double> tmp(2);
 				tmp[0] = 0.0; tmp[1] = 0.0;
-				// End
 				pos2D[id] = tmp;
 			}
 		}
-		Position worldposi(matchedPos[i].X(), matchedPos[i].Y(), matchedPos[i].Z(), pos2D[0][0], pos2D[0][1], pos2D[1][0], pos2D[1][1], pos2D[2][0], pos2D[2][1], pos2D[3][0], pos2D[3][1], 0);
+		Position worldposi(matchedPos[match_index].X(), matchedPos[match_index].Y(), matchedPos[match_index].Z(),
+				pos2D[0][0], pos2D[0][1], pos2D[1][0], pos2D[1][1], pos2D[2][0], pos2D[2][1], pos2D[3][0], pos2D[3][1], 0);
 		good2Dpos.push_back(worldposi);
-		goodPos.push_back(matchedPos[i]);
+		goodPos.push_back(matchedPos[match_index]);
 	}
 
 	duration = (std::clock() - start) / (double)CLOCKS_PER_SEC;
@@ -568,6 +607,40 @@ Frame Calibration::Stereomatch(const deque<Frame>& iframes, int framenumber, int
 	delete[] cleanlist;
 
 	return Frame(goodPos);
+}
+
+int Calibration::GroupAndPickMin(int* minimum_list, deque<double>& raydists, deque< deque<int> >& frame_index, int* buffer,
+		int list_size, int num_particle, int num_match, int camera_num) {
+
+	int particle_index = 0;
+	if (camera_num == 0) {
+		for (int i = 0; i < num_match; i++) {
+			particle_index = frame_index[i][camera_num];
+			if (buffer[particle_index] == -1) {
+				buffer[particle_index] = i;
+			} else {
+				if (raydists[buffer[particle_index]] > raydists[i]) {
+					buffer[particle_index] = i; // replace the buffer with a match with smaller error
+				}
+			}
+		}
+	} else {
+		int match_index = 0;
+		for (int i = 0; i < list_size; i++) {
+			match_index = minimum_list[i];
+			if (match_index == -1) continue; // skip those empty index;
+			particle_index = frame_index[match_index][camera_num];
+			if (buffer[particle_index] == -1) {
+					buffer[particle_index] = match_index;
+			} else {
+					if (raydists[buffer[particle_index]] > raydists[match_index]) {
+						buffer[particle_index] = match_index; // replace the buffer with a match with smaller error
+					}
+			}
+		}
+	}
+
+	return 0;
 }
 
 pair<double,Position> Calibration::WorldPosition(deque<Position> ipos, int ignoreCam) throw(runtime_error)
