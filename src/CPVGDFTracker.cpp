@@ -61,6 +61,7 @@ struct ConfigFile config;
 DebugMode debug_mode;
 int debug_frame_number;
 ERROR error = ERROR(0);
+bool to_save_data;
 
 void ImportConfiguration(struct ConfigFile* config, char* name);
 
@@ -82,7 +83,11 @@ void GetDebugMode() {
 		cout<<"Enter the frame number to be debugged:";
 		cin>>debug_frame_number;
 	}
+	cout<<"To save data(1):";
+	cin>>to_save_data;
 }
+
+const time_t ctt = time(0);
 
  int main(int argc, char** argv) {
 	 printf("Code version: %s\n", version);
@@ -109,6 +114,7 @@ void GetDebugMode() {
 
 
 	// tracking using STB
+	std::cout << asctime(localtime(&ctt)) << std::endl;
 	auto start = std::chrono::system_clock::now();
 	STB s(config.first, config.last, config.pfieldfile, config.iprfile, config.ncams, config.camIDs, config.imgNameFiles,
 		config.initialPhaseRadius, config.avgSpace, config.largestShift, config.maxAbsShiftChange,
@@ -116,6 +122,7 @@ void GetDebugMode() {
 	auto end = std::chrono::system_clock::now();
 	auto elapsed = std::chrono::duration_cast<std::chrono::milliseconds>(end - start);
 	cout << "Total time: "<<elapsed.count() << '\n';
+	std::cout << asctime(localtime(&ctt)) << std::endl;
 	// saving the tracks
 	//s.MatTracksSave(s.tiffaddress,"", config.last);
 	// applying a pass of BackSTB

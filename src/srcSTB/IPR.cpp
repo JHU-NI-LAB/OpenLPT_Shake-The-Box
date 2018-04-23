@@ -431,16 +431,18 @@ Frame IPR::IPRLoop(Calibration& calib, OTF& OTFcalib,  deque<int> camNums, int i
 
 					} // ############# Innerloop ends here #############
 					// Save the data
+					if (to_save_data) {
 					string file_path, file_path1;
-					if (!m_reduce_cam_begin ) {
-						file_path =  m_particle_position_addr + "frame" + to_string(frame) + "Loop" + to_string(loop_time) + "Shaking.txt";
-						file_path1 = m_particle_position_addr + "frame" + to_string(frame) + "Loop" + to_string(loop_time) + "ShakingIntensity.txt";
-					} else {
-						file_path = m_particle_position_addr + "frame" + to_string(frame) + "ReduceCam" + to_string(ignoreCam) + "Loop" + to_string(loop_time) +  "Shaking.txt";
-						file_path1 = m_particle_position_addr + "frame" + to_string(frame) + "ReduceCam" + to_string(ignoreCam) + "Loop" + to_string(loop_time) +  "ShakingIntensity.txt";
+						if (!m_reduce_cam_begin ) {
+							file_path =  m_particle_position_addr + "frame" + to_string(frame) + "Loop" + to_string(loop_time) + "Shaking.txt";
+							file_path1 = m_particle_position_addr + "frame" + to_string(frame) + "Loop" + to_string(loop_time) + "ShakingIntensity.txt";
+						} else {
+							file_path = m_particle_position_addr + "frame" + to_string(frame) + "ReduceCam" + to_string(ignoreCam) + "Loop" + to_string(loop_time) +  "Shaking.txt";
+							file_path1 = m_particle_position_addr + "frame" + to_string(frame) + "ReduceCam" + to_string(ignoreCam) + "Loop" + to_string(loop_time) +  "ShakingIntensity.txt";
+						}
+						SaveParticlePositions(pos3Dnew.Get_PosDeque(),file_path);
+						SaveParticleIntensity(intensity3Dnew, file_path1);
 					}
-					SaveParticlePositions(pos3Dnew.Get_PosDeque(),file_path);
-					SaveParticleIntensity(intensity3Dnew, file_path1);
 		}
 
 		if (pos3Dnew.NumParticles() != 0) {

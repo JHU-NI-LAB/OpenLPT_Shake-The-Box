@@ -21,6 +21,7 @@ enum DebugMode {
 };
 extern DebugMode debug_mode;
 extern int debug_frame_number;
+extern bool to_save_data;
 
 //Data for error
 enum ERROR {

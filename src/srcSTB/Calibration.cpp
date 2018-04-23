@@ -420,7 +420,7 @@ Frame Calibration::Stereomatch(const deque<Frame>& iframes, int framenumber, int
 						{
 #pragma omp for
 //	for (long int p = 0; p < cleanlist[0].size(); p++) {
-	for (unsigned int p = 0; p < cleanlist_num; p++) {
+	for (unsigned long int p = 0; p < cleanlist_num; p++) {
 //		double percent = p/total_cleanlist;
 		deque<Position> PosToMatch;
 		deque<int> indices;
@@ -457,7 +457,7 @@ Frame Calibration::Stereomatch(const deque<Frame>& iframes, int framenumber, int
 	}
 						}
 	
-	printf("Part One Done!\n");
+//	printf("Part One Done!\n");
 	// finally, prune the matched positions so that we only allow one per 2D point
 	deque<unsigned int> bad;
 	int match_num =  matchedPos.size();
@@ -509,14 +509,14 @@ Frame Calibration::Stereomatch(const deque<Frame>& iframes, int framenumber, int
 	for (int i = 0; i < rcams; i++) {
 		num_particle = corrframes[rID[i]].NumParticles();
 		int buffer[num_particle]; // the buffer is used to save the match index with smaller error
-		for (int j = 0; j < num_particle; j++) buffer[j] = -1; // initialize buffer with -1
+		for (unsigned int j = 0; j < num_particle; j++) buffer[j] = -1; // initialize buffer with -1
 		GroupAndPickMin(minimum_list, raydists, frame_indices, buffer, list_size, num_particle, match_num, i);
 		minimum_list = new int[num_particle];
-		for (int j = 0; j < num_particle; j++) minimum_list[j] = buffer[j];
+		for (unsigned int j = 0; j < num_particle; j++) minimum_list[j] = buffer[j];
 		list_size = num_particle;
 	}
 
-	printf("Part two done!\n");
+//	printf("Part two done!\n");
 
 //	match_num =  matchedPos.size();
 //	deque<Position> goodPos;
@@ -577,7 +577,7 @@ Frame Calibration::Stereomatch(const deque<Frame>& iframes, int framenumber, int
 
 	deque<Position> goodPos;
 	int match_index = 0;
-	for (int i = 0; i < list_size; i++) {
+	for (unsigned int i = 0; i < list_size; i++) {
 		match_index = minimum_list[i];
 		if (match_index == -1) continue;
 		deque< deque<double> > pos2D(4);
