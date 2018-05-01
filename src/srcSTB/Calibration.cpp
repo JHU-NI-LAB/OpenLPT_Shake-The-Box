@@ -504,15 +504,17 @@ Frame Calibration::Stereomatch(const deque<Frame>& iframes, int framenumber, int
 //	}
 //						}
 	int* minimum_list;
+	bool is_list_empty = true;
 	int list_size;
 	int num_particle = 0;
 	for (int i = 0; i < rcams; i++) {
 		num_particle = corrframes[rID[i]].NumParticles();
 		int buffer[num_particle]; // the buffer is used to save the match index with smaller error
 		for (unsigned int j = 0; j < num_particle; j++) buffer[j] = -1; // initialize buffer with -1
-		GroupAndPickMin(minimum_list, raydists, frame_indices, buffer, list_size, num_particle, match_num, i);
+		GroupAndPickMin(minimum_list, raydists, frame_indices, buffer, list_size, num_particle, match_num, i, is_list_empty);
 		minimum_list = new int[num_particle];
 		for (unsigned int j = 0; j < num_particle; j++) minimum_list[j] = buffer[j];
+		is_list_empty = false;
 		list_size = num_particle;
 	}
 
@@ -610,10 +612,10 @@ Frame Calibration::Stereomatch(const deque<Frame>& iframes, int framenumber, int
 }
 
 int Calibration::GroupAndPickMin(int* minimum_list, deque<double>& raydists, deque< deque<int> >& frame_index, int* buffer,
-		int list_size, int num_particle, int num_match, int camera_num) {
+		int list_size, int num_particle, int num_match, int camera_num, bool is_list_empty) {
 
 	int particle_index = 0;
-	if (camera_num == 0) {
+	if (is_list_empty) {
 		for (int i = 0; i < num_match; i++) {
 			particle_index = frame_index[i][camera_num];
 			if (buffer[particle_index] == -1) {

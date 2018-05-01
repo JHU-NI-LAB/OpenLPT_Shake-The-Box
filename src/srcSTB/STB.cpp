@@ -336,12 +336,17 @@ void STB::ConvergencePhase() {
 
 			cout << "\t\tTime taken for STB at frame " << nextFrame << ": " << (clock() - start0) / (double) CLOCKS_PER_SEC << "s" << endl;
 
-			//time_t t = time(0);
-	//		if (nextFrame % 5 == 0) {  // to debug, every frame should be saved
-	//			cout << "\tSaving the tracks" << endl;
+			if (to_save_data) {
+				deque<Track>::iterator begin = activeShortTracks.begin();
+				MatTracksSave(address, to_string(nextFrame), nextFrame);
+			} else {
+				//time_t t = time(0);
+				if (nextFrame % 100 == 0) {  // to debug, every frame should be saved
+					cout << "\tSaving the tracks" << endl;
 
-			MatTracksSave(address, to_string(nextFrame), nextFrame);
-	//		}
+				MatTracksSave(address, to_string(nextFrame), nextFrame);
+				}
+			}
 		}
 	}
 }
@@ -602,8 +607,8 @@ void STB::Shake(Frame& estimate, deque<double>& intensity) {
 
 
 //			int index = 0;																	// correcting the estimated positions and their intensity by shaking
-			double start = clock();
-#pragma omp parallel num_threads(20)
+//			double start = clock();
+#pragma omp parallel //num_threads(20)
 						{
 //							int TID = omp_get_thread_num();
 //							printf("Thread %d is runing\n", TID);
@@ -617,8 +622,8 @@ void STB::Shake(Frame& estimate, deque<double>& intensity) {
 //				index++;
 			}
 						}
-			double duration = (clock() - start) / (double) CLOCKS_PER_SEC;
-			cout<<"time to do shaking for each loop:"<<duration<<endl;
+//			double duration = (clock() - start) / (double) CLOCKS_PER_SEC;
+//			cout<<"time to do shaking for each loop:"<<duration<<endl;
 		}
 
 		for (int index = 0; index < estimate.NumParticles(); index++) {						// adding 2D image centers and intensity data after shaking
@@ -909,7 +914,8 @@ void STB::MatTracksSave(string address, string s, int lastFrame) {
 	string X1 = "ActiveLongTracks" + s, X2 = "ActiveShortTracks" + s, X3 = "InactiveTracks" + s, X4 = "exitTracks" + s, X5 = "InactiveLongTracks" + s;
 	
 	MatfileSave(activeLongTracks, address + X1, X1, lastFrame);
-	MatfileSave(activeShortTracks, address + X2, X2, lastFrame);
+	int x = activeShortTracks.at(0).GetTime(0);
+	MatfileSave(activeShortTracks, address + X2, X2, lastFrame);  //TODO: figure why
 	MatfileSave(inactiveTracks, address + X3, X3, lastFrame);
 	MatfileSave(exitTracks, address + X4, X4, lastFrame);
 	MatfileSave(inactiveLongTracks, address + X5, X5, lastFrame);
@@ -1003,17 +1009,19 @@ void STB::MatfileSave(deque<Track> tracks, string address, string name, int size
 	size_t sizeofpos3D = tracks.size(); // the number of particle
 	double track_data[sizeofpos3D][size][3];  // size is the total number of frames
 	for(int i = 0; i < sizeofpos3D; i++) {
-		int absolute_starttime = tracks[i].GetTime(0); // 0 is the starting time of the begining of the motion of a particle
-							// absolute start time is the start time of a particle in the overall time reference for all particles.
-		int absolute_endtime = tracks[i].GetTime(tracks[i].Length() - 1);
-							//tracks[i].Length() is the end of the motion of a particle
-							// absolute end time is the end time of a particle in the overall time reference for all particle
+		int absolute_starttime;
+		int absolute_endtime;
+		absolute_starttime = tracks.at(i).GetTime(0); // 0 is the starting time of the begining of the motion of a particle
+										// absolute start time is the start time of a particle in the overall time reference for all particles.
+		absolute_endtime = tracks.at(i).GetTime(tracks.at(i).Length() - 1);
+										//tracks[i].Length() is the end of the motion of a particle
+										// absolute end time is the end time of a particle in the overall time reference for all particle
 		int time = 0;
 		for(int j = 0; j < size; j++) {
 			if (absolute_starttime <= j + 1 && j + 1 <= absolute_endtime) {
-				track_data[i][j][0] = tracks[i][time].X();
-				track_data[i][j][1] = tracks[i][time].Y();
-				track_data[i][j][2] = tracks[i][time].Z();
+				track_data[i][j][0] = tracks.at(i)[time].X();
+				track_data[i][j][1] = tracks.at(i)[time].Y();
+				track_data[i][j][2] = tracks.at(i)[time].Z();
 				time ++;
 			} else { // the frame the particle doesn't show up is set as 0.
 				track_data[i][j][0] = 0;

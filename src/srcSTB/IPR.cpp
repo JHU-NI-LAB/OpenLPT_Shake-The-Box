@@ -402,8 +402,8 @@ Frame IPR::IPRLoop(Calibration& calib, OTF& OTFcalib,  deque<int> camNums, int i
 
 						// shaking
 //						Frame::const_iterator pID = pos3Dnew.begin();
-						auto start = std::chrono::system_clock::now();
-#pragma omp parallel num_threads(8)
+//						auto start = std::chrono::system_clock::now();
+#pragma omp parallel //num_threads(8)
 						{//2 4 6 8 10 20 15
 //							int TID = omp_get_thread_num();
 //							printf("Thread %d is runing\n", TID);
@@ -425,9 +425,9 @@ Frame IPR::IPRLoop(Calibration& calib, OTF& OTFcalib,  deque<int> camNums, int i
 						}
 //						double duration = (clock() - start) / (double) CLOCKS_PER_SEC;
 //						cout<<"Time taken for shaking in each loop:"<<duration<<endl;
-						auto end = std::chrono::system_clock::now();
-						auto elapsed = std::chrono::duration_cast<std::chrono::milliseconds>(end - start);
-						cout << elapsed.count() << '\n';
+//						auto end = std::chrono::system_clock::now();
+//						auto elapsed = std::chrono::duration_cast<std::chrono::milliseconds>(end - start);
+//						cout << elapsed.count() << '\n';
 
 					} // ############# Innerloop ends here #############
 					// Save the data
