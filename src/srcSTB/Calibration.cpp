@@ -607,6 +607,7 @@ Frame Calibration::Stereomatch(const deque<Frame>& iframes, int framenumber, int
 	std::cout << "\tMatching time: " << duration << endl;
 
 	delete[] cleanlist;
+	delete[] minimum_list; // delete the pointer.
 
 	return Frame(goodPos);
 }
