@@ -632,7 +632,7 @@ int Calibration::GroupAndPickMin(int* minimum_list, deque<double>& raydists, deq
 		for (int i = 0; i < list_size; i++) {
 			match_index = minimum_list[i];
 			if (match_index == -1) continue; // skip those empty index;
-			particle_index = frame_index[match_index][camera_num];
+			particle_index = frame_index[match_index][camera_num]; // get the particle index of the match in the specific camera
 			if (buffer[particle_index] == -1) {
 					buffer[particle_index] = match_index;
 			} else {
