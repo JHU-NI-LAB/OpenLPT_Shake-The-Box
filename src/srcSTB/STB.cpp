@@ -341,7 +341,7 @@ void STB::ConvergencePhase() {
 				MatTracksSave(address, to_string(nextFrame), nextFrame);
 			} else {
 				//time_t t = time(0);
-				if (nextFrame % 100 == 0) {  // to debug, every frame should be saved
+				if (nextFrame % 10 == 0) {  // to debug, every frame should be saved
 					cout << "\tSaving the tracks" << endl;
 
 				MatTracksSave(address, to_string(nextFrame), nextFrame);

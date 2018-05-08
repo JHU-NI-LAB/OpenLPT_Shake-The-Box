@@ -415,7 +415,7 @@ Frame Calibration::Stereomatch(const deque<Frame>& iframes, int framenumber, int
 	deque<double> raydists;
 	//std::cout << "\tPerforming 3D triangulation..." << endl;
 			// we can match it!
-	int cleanlist_num = cleanlist[0].size();
+	unsigned long int cleanlist_num = cleanlist[0].size();
 #pragma omp parallel shared(matchedPos, frame_indices, raydists, PosTouse) //num_threads(8)
 						{
 #pragma omp for
@@ -451,7 +451,7 @@ Frame Calibration::Stereomatch(const deque<Frame>& iframes, int framenumber, int
 			for (int i = 0; i < rcams; ++i) {
 				ttmp.push_back(*cleanlist[i][p]);
 			}
-			PosTouse.push_back(ttmp);
+			PosTouse.push_back(ttmp); // the sequences of frame_indices, raydists and PosTouse are corresponding to each other
 		}
 							}
 	}
@@ -459,8 +459,8 @@ Frame Calibration::Stereomatch(const deque<Frame>& iframes, int framenumber, int
 	
 //	printf("Part One Done!\n");
 	// finally, prune the matched positions so that we only allow one per 2D point
-	deque<unsigned int> bad;
-	int match_num =  matchedPos.size();
+//	deque<unsigned int> bad;
+
 //#pragma omp parallel shared(bad) num_threads(20)
 //						{
 //#pragma omp for
@@ -503,17 +503,20 @@ Frame Calibration::Stereomatch(const deque<Frame>& iframes, int framenumber, int
 //		}
 //	}
 //						}
+
+	int match_num =  matchedPos.size();
 	int* minimum_list;
+	int* buffer;
 	bool is_list_empty = true;
-	int list_size;
-	int num_particle = 0;
-	for (int i = 0; i < rcams; i++) {
+	unsigned int list_size;
+	unsigned int num_particle = 0;
+	for (int i = 0; i < rcams; ++i) {
 		num_particle = corrframes[rID[i]].NumParticles();
-		int buffer[num_particle]; // the buffer is used to save the match index with smaller error
-		for (unsigned int j = 0; j < num_particle; j++) buffer[j] = -1; // initialize buffer with -1
+		buffer = new int[num_particle]; // the buffer is used to save the match index with smaller error
+		for (unsigned int j = 0; j < num_particle; ++j) buffer[j] = -1; // initialize buffer with -1
 		GroupAndPickMin(minimum_list, raydists, frame_indices, buffer, list_size, num_particle, match_num, i, is_list_empty);
-		minimum_list = new int[num_particle];
-		for (unsigned int j = 0; j < num_particle; j++) minimum_list[j] = buffer[j];
+		if (!is_list_empty) delete[] minimum_list; // release the previous memory
+		minimum_list = buffer; // pass the buffer memory to the minimum_list for the next loop
 		is_list_empty = false;
 		list_size = num_particle;
 	}
@@ -566,7 +569,7 @@ Frame Calibration::Stereomatch(const deque<Frame>& iframes, int framenumber, int
 //				 * Start;
 //				 */
 ////				deque<double> tmp = { 0.0, 0.0 };
-//				deque<double> tmp(2); //TODO: Check such initialization is valid.
+//				deque<double> tmp(2);
 //				tmp[0] = 0.0; tmp[1] = 0.0;
 //				// End
 //				pos2D[id] = tmp;
@@ -617,7 +620,7 @@ int Calibration::GroupAndPickMin(int* minimum_list, deque<double>& raydists, deq
 
 	int particle_index = 0;
 	if (is_list_empty) {
-		for (int i = 0; i < num_match; i++) {
+		for (int i = 0; i < num_match; ++i) {
 			particle_index = frame_index[i][camera_num];
 			if (buffer[particle_index] == -1) {
 				buffer[particle_index] = i;
@@ -629,7 +632,7 @@ int Calibration::GroupAndPickMin(int* minimum_list, deque<double>& raydists, deq
 		}
 	} else {
 		int match_index = 0;
-		for (int i = 0; i < list_size; i++) {
+		for (int i = 0; i < list_size; ++i) {
 			match_index = minimum_list[i];
 			if (match_index == -1) continue; // skip those empty index;
 			particle_index = frame_index[match_index][camera_num]; // get the particle index of the match in the specific camera
