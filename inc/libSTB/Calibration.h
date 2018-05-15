@@ -110,8 +110,8 @@ private:
 	// create a 3D world position from multiple positions on image planes
 	std::pair<double,Position> WorldPosition(std::deque<Position> ipos, int ignoreCam) throw(std::runtime_error);
 
-	int GroupAndPickMin(int* minimum_list, deque<double>& raydists, deque< deque<int> >& frame_index, int* buffer,
-		int list_size, int num_particle, int num_match, int camera_num, bool is_list_empty);
+	int GroupAndPickMin( deque<double>& raydists, deque< deque<int> >& frame_index, int* buffer,
+		 int num_particle, int num_match, int camera_num);
 
 };
 

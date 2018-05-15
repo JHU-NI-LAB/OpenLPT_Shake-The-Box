@@ -221,12 +221,12 @@ void STB::ConvergencePhase() {
 			int c1 = activeShortTracks.size(), c2 = activeLongTracks.size(), c3 = inactiveTracks.size(), c4 = inactiveLongTracks.size();
 			a_as = 0; a_al = 0; a_is = 0; s_as1 = 0; a_as2 = 0; s_as3 = 0; s_al = 0; a_il = 0;
 			// time
-			clock_t start0, start1, start2, start3, start4;
-			start0 = clock();
+//			clock_t start0, start1, start2, start3, start4;
+//			start0 = clock();
 
 			int nextFrame = currFrame + 1;
 			cout << "\tSTB convergence phase tracking at frame: " << nextFrame << endl;
-			cout << "\t\tCheck Points: " << endl;
+//			cout << "\t\tCheck Points: " << endl;
 
 	// LOADING IMAGES
 			deque<string> imgNames;
@@ -241,13 +241,13 @@ void STB::ConvergencePhase() {
 			cout << "\t\t\tPrediction: ";
 			Frame estPos;																				// a frame that saves all the positions estimated from track prediction
 			deque<double> estInt;																		// saving the intensity of estimated positions
-			start1 = clock();
+//			start1 = clock();
 
 			Prediction(nextFrame, estPos, estInt);														// getting the prediction list for all the activLongTrakcs (>4)
 
-			start2 = clock();
-			cout << "Done (" << (clock() - start1)/(double) CLOCKS_PER_SEC << "s)" << endl << "\t\t\tShaking the predictions: " ;
-
+//			start2 = clock();
+//			cout << "Done (" << (clock() - start1)/(double) CLOCKS_PER_SEC << "s)" << endl << "\t\t\tShaking the predictions: " ;
+			cout<<"Done.\n";
 			/* TESTING */ tempPredictions = estPos;
 
 	// SHAKING THE PREDICTIONS
@@ -263,9 +263,9 @@ void STB::ConvergencePhase() {
 			for (int i = 0; i < estPos.NumParticles(); i++) 											// adding the corrected particle position in nextFrame to its respective track
 				activeLongTracks[i].AddNext(estPos[i], nextFrame);
 
-			start3 = clock();
-			cout << "Done (" << (clock() - start2)/(double) CLOCKS_PER_SEC << "s)" << endl << "\t\t\tShort tracks from residuals: ";
-
+//			start3 = clock();
+//			cout << "Done (" << (clock() - start2)/(double) CLOCKS_PER_SEC << "s)" << endl << "\t\t\tShort tracks from residuals: ";
+			cout<<"Done.\n";
 
 	// IPR ON RESIDUALS
 			_ipr.SetFrameNumber(currFrame + 1);  // frame number is used for debug.
@@ -289,8 +289,9 @@ void STB::ConvergencePhase() {
 					++tr;
 			}
 
-			start4 = clock();
-			cout << "Done (" << (clock() - start3) / (double) CLOCKS_PER_SEC << "s)" << endl << "\t\t\tPruning the tracks: ";
+//			start4 = clock();
+//			cout << "Done (" << (clock() - start3) / (double) CLOCKS_PER_SEC << "s)" << endl << "\t\t\tPruning the tracks: ";
+			cout<<"Done.\n";
 
 	// PRUNING / ARRANGING THE TRACKS
 			double thresh = 1.5 * largestShift;
@@ -326,7 +327,7 @@ void STB::ConvergencePhase() {
 				activeShortTracks.push_back(startTrack); a_as++;
 			}
 
-			cout << "Done (" << (clock() - start4) / (double) CLOCKS_PER_SEC << "s)" << endl;
+//			cout << "Done (" << (clock() - start4) / (double) CLOCKS_PER_SEC << "s)" << endl;
 
 			cout << "\t\tNo. of active Short tracks:	" << c1 << " + " << a_as << " - (" << s_as1 << " + " << a_as2 << " + " << s_as3 << ") = " << activeShortTracks.size() << endl;
 			cout << "\t\tNo. of active Long tracks:	" << c2 << " + " << a_al << " - " << s_al << " = " << activeLongTracks.size() << endl;
@@ -334,7 +335,7 @@ void STB::ConvergencePhase() {
 			cout << "\t\tNo. of inactive tracks:		" << c3 << " + " << a_is << " = " << inactiveTracks.size() << endl;
 			cout << "\t\tNo. of inactive Long tracks:	" << c4 << " + " << a_il << " = " << inactiveLongTracks.size() << endl;
 
-			cout << "\t\tTime taken for STB at frame " << nextFrame << ": " << (clock() - start0) / (double) CLOCKS_PER_SEC << "s" << endl;
+//			cout << "\t\tTime taken for STB at frame " << nextFrame << ": " << (clock() - start0) / (double) CLOCKS_PER_SEC << "s" << endl;
 
 			if (to_save_data) {
 				deque<Track>::iterator begin = activeShortTracks.begin();
@@ -913,9 +914,10 @@ void STB::MatTracksSave(string address, string s, int lastFrame) {
 	// Saving tracks for Matlab
 	string X1 = "ActiveLongTracks" + s, X2 = "ActiveShortTracks" + s, X3 = "InactiveTracks" + s, X4 = "exitTracks" + s, X5 = "InactiveLongTracks" + s;
 	
+
 	MatfileSave(activeLongTracks, address + X1, X1, lastFrame);
-	int x = activeShortTracks.at(0).GetTime(0);
-	MatfileSave(activeShortTracks, address + X2, X2, lastFrame);  //TODO: figure why
+//	int x = activeShortTracks.at(0).GetTime(0);
+//	MatfileSave(activeShortTracks, address + X2, X2, lastFrame);  //TODO: figure why
 	MatfileSave(inactiveTracks, address + X3, X3, lastFrame);
 	MatfileSave(exitTracks, address + X4, X4, lastFrame);
 	MatfileSave(inactiveLongTracks, address + X5, X5, lastFrame);

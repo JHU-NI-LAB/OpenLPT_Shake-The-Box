@@ -114,13 +114,13 @@ void GetDebugMode() {
 
 
 	// tracking using STB
-	auto start = std::chrono::system_clock::now();
+//	auto start = std::chrono::system_clock::now();
 	STB s(config.first, config.last, config.pfieldfile, config.iprfile, config.ncams, config.camIDs, config.imgNameFiles,
 		config.initialPhaseRadius, config.avgSpace, config.largestShift, config.maxAbsShiftChange,
 		config.maxRelShiftChange, config.fpt, config.lowerInt, config.iprFlag);
-	auto end = std::chrono::system_clock::now();
-	auto elapsed = std::chrono::duration_cast<std::chrono::milliseconds>(end - start);
-	cout << "Total time: "<<elapsed.count() << '\n';
+//	auto end = std::chrono::system_clock::now();
+//	auto elapsed = std::chrono::duration_cast<std::chrono::milliseconds>(end - start);
+//	cout << "Total time: "<<elapsed.count() << '\n';
 
 	// saving the tracks
 	//s.MatTracksSave(s.tiffaddress,"", config.last);

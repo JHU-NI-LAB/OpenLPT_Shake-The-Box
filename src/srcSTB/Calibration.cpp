@@ -181,7 +181,56 @@ void Calibration::fixHeader(int nr, int cols){
 	//std::cout << "\nHeader information updated!" << endl;
 }
 
+/*
+ * ********************************************************************************************************
+ * Following is the merge sort algorithm designed for ranging the matches according to the match preference
+ */
+void CopyArray(int* A, int iBegin, int iEnd, int* B) {
+	for (int k = iBegin; k < iEnd; ++k) {
+		B[k] = A[k];
+	}
+}
 
+void Merge(int* A, int iBegin, int iMiddle, int iEnd, int* B, double C[][2]) {
+	int i = iBegin, j = iMiddle;
+	for(int k = iBegin; k < iEnd; ++k) {
+		if (i < iMiddle && j >= iEnd) {
+			B[k] = A[i];
+			i = i + 1;
+		} else if (i < iMiddle && C[A[i]][0] >= C[A[j]][0]) {
+			if (C[A[i]][0] > C[A[j]][0]) {
+				B[k] = A[i];
+				i = i + 1;
+			} else { // when the preference numbers are the same, then compare the error
+				if (C[A[i]][1] < C[A[j]][1]) {  // the smaller error should rank the first
+					B[k] = A[i];
+					i = i + 1;
+				} else {
+					B[k] = A[j];
+					j = j + 1;
+				}
+			}
+		} else {
+			B[k] = A[j];
+			j = j + 1;
+		}
+	}
+}
+
+void SplitMerge(int* B, int iBegin, int iEnd, int* A, double C[][2]) {
+	if (iEnd - iBegin < 2) return;
+	int iMiddle = (iEnd + iBegin) / 2;
+	SplitMerge(A, iBegin, iMiddle, B, C);
+	SplitMerge(A, iMiddle, iEnd, B, C);
+	Merge(B, iBegin, iMiddle, iEnd, A, C);
+}
+
+void MergeSort(int* A, double C[][2], int n) {
+	int B[n];
+	CopyArray(A, 0, n, B);
+	SplitMerge(B, 0, n, A, C);
+}
+//********************************************* Merge Sort Ends here ***************************************************//
 
 Frame Calibration::Stereomatch(const deque<Frame>& iframes, int framenumber, int ignoreCam = 100) throw(runtime_error) {
 
@@ -209,10 +258,10 @@ Frame Calibration::Stereomatch(const deque<Frame>& iframes, int framenumber, int
 		corrframes_Pixel.push_back(Frame(corrpos_Pixel));
 	}
 
-	double duration;
-	clock_t start;
-	clock_t start1;
-	start = clock();
+//	double duration;
+//	clock_t start;
+//	clock_t start1;
+//	start = clock();
 
 	camID = new int[rcams]; rID = new int[rcams];
 	int id = 0;
@@ -457,139 +506,138 @@ Frame Calibration::Stereomatch(const deque<Frame>& iframes, int framenumber, int
 	}
 						}
 	
-//	printf("Part One Done!\n");
-	// finally, prune the matched positions so that we only allow one per 2D point
-//	deque<unsigned int> bad;
-
-//#pragma omp parallel shared(bad) num_threads(20)
-//						{
-//#pragma omp for
-//	for (unsigned int i = 0; i < match_num; ++i) {
-//		//printf("Part two: %d / %d!\n", i, match_num);
-//		// have we already thrown out this point?
-////		printf("%d\n",i);
-//		if (find(bad.begin(), bad.end(), i) != bad.end()) {
-//			continue;
-//		}
-//		double min = raydists[i];
-////		bool goon = true;
-//		int throw_index = i;
-//		for (unsigned int j = i + 1; j < match_num; ++j) {
-////			if (find(bad.begin(), bad.end(), j) != bad.end()) {
-////				continue;
-////			}
-//			bool flag = false;
-//			for (int k = 0; k < rcams; ++k) {
-//				flag |= frame_indices[i][k] == frame_indices[j][k];
-//			}
-//			if (flag) {
-//				// point j uses at least one of the same 2D particles
-//				if (min < raydists[j]) {
-//					// throw out j
-////					bad.push_back(j);
-//					throw_index = j;
-//				} else {
-//					// throw out i
-//					min = raydists[j];
-////					bad.push_back(i);
-////					break;
-//					j = match_num; // another way to jump out of loop for parallelization.
-//				}
-//#pragma omp critical(bad)
-//						{
-//				bad.push_back(throw_index);
-//						}
-//			}
-//		}
-//	}
-//						}
-
-	int match_num =  matchedPos.size();
-	int* minimum_list;
-	int* buffer;
-	bool is_list_empty = true;
-	unsigned int list_size;
+	unsigned int num_match =  matchedPos.size();
 	unsigned int num_particle = 0;
-	for (int i = 0; i < rcams; ++i) {
+	double preference[num_match][2];
+	for (unsigned int i = 0; i < num_match; ++i) {
+		preference[i][0] = 0; preference[i][1] = 0;
+	}
+	for (unsigned int i = 0; i < rcams; i++) {
 		num_particle = corrframes[rID[i]].NumParticles();
-		buffer = new int[num_particle]; // the buffer is used to save the match index with smaller error
-		for (unsigned int j = 0; j < num_particle; ++j) buffer[j] = -1; // initialize buffer with -1
-		GroupAndPickMin(minimum_list, raydists, frame_indices, buffer, list_size, num_particle, match_num, i, is_list_empty);
-		if (!is_list_empty) delete[] minimum_list; // release the previous memory
-		minimum_list = buffer; // pass the buffer memory to the minimum_list for the next loop
-		is_list_empty = false;
-		list_size = num_particle;
+		int buffer[num_particle]; // the buffer is used to save the match index with smaller error
+		for (unsigned int j = 0; j < num_particle; j++) buffer[j] = -1; // initialize buffer with -1
+			GroupAndPickMin(raydists, frame_indices, buffer, num_particle, num_match, i);
+			for (unsigned int j = 0; j < num_particle; ++j) {
+				if (buffer[j] == -1) continue;
+				preference[buffer[j]][1] = preference[buffer[j]][1] * preference[buffer[j]][0] + raydists[buffer[j]]
+					                       / (preference[buffer[j]][0] + 1);
+				preference[buffer[j]][0] = preference[buffer[j]][0] + 1;
+			}
+		}
+
+	// Sorting the matches sequence according to its preference
+	int match_sequence[num_match];
+	for (int i = 0; i < num_match; ++i) match_sequence[i] = i;
+	MergeSort(match_sequence, preference, num_match);
+
+//	double error[num_match];
+//	int frameindex[num_match][4];
+//	int matchindex[num_match];
+//	int preference_num[num_match];
+//	for (int i = 0; i < num_match; ++i) {
+//		int index = match_sequence[i];
+//		error[i] = raydists[index];
+//		frameindex[i][0] = frame_indices[index][0];frameindex[i][1] = frame_indices[index][1];
+//		frameindex[i][2] = frame_indices[index][2];frameindex[i][3] = frame_indices[index][3];
+//		matchindex[i] = index;
+//		preference_num[i] = preference[index][0];
+//	}
+//
+//			NumDataIO<double> error_io;
+//			error_io.SetFilePath("/storage/home/sut210/work/Experiment/EXP7/error.txt");
+//			error_io.SetTotalNumber(num_match);
+//			error_io.WriteData((double*) error);
+//
+//			NumDataIO<int> index_io;
+//			index_io.SetFilePath("/storage/home/sut210/work/Experiment/EXP7/frameindex.txt");
+//			index_io.SetTotalNumber(num_match * 4);
+//			index_io.WriteData((int*) frameindex);
+//			index_io.SetFilePath("/storage/home/sut210/work/Experiment/EXP7/matchindex.txt");
+//			index_io.SetTotalNumber(num_match);
+//			index_io.WriteData((int*) matchindex);
+//			index_io.SetFilePath("/storage/home/sut210/work/Experiment/EXP7/preferencenum.txt");
+//						index_io.SetTotalNumber(num_match);
+//						index_io.WriteData((int*) preference_num);
+
+
+	int* fill_in[rcams];
+	for (unsigned int i = 0; i < rcams; ++i) {
+		num_particle = corrframes[rID[i]].NumParticles();
+		fill_in[i] = new int[num_particle];
+		for (unsigned int j = 0; j < num_particle; ++j) fill_in[i][j] = -1;
+	}
+	bool selection[num_match];
+	for (unsigned int i = 0; i < num_match; ++i) {
+		int sequence_math_index = match_sequence[i];  // get the new match index
+		selection[sequence_math_index] =false;
+		int empty_times = 0;
+		double sum_error = 0;
+		int equal_times = 0;
+		for (unsigned int j = 0; j < rcams; ++j) {  // to check each of the particles in the new match
+			int particle_index = frame_indices[sequence_math_index][j];
+			int match_index = fill_in[j][particle_index];
+
+			// when there is no match for the checked particle
+			if (match_index == -1) {
+				empty_times = empty_times + 1;
+				if (empty_times < rcams) {
+					goto final_out;
+				} else {  // all of the particles have no match
+					for (unsigned int k = 0; k < rcams; ++k) {
+						fill_in[k][frame_indices[sequence_math_index][k]] = sequence_math_index; // fill in the match index if it is all empty
+					}
+					selection[sequence_math_index] = true;
+					break;
+				}
+			}
+
+			// when there has already been a match for the checked particle
+			// the preference # is less than ONE of the preference # of those filled match, then discard the new match
+			if (preference[sequence_math_index][0] < preference[match_index][0]) {
+				break;
+			} else if (preference[sequence_math_index][0] == preference[match_index][0]) {
+				// when the preference # is the same as the current preference # of those filled matches,
+				// then we should calculate the average of the preference error of those filled matches
+				equal_times = equal_times + 1;
+				sum_error = sum_error + preference[match_index][1];
+			}
+
+			final_out:
+			if (j < rcams - 1) continue; // continue to next camera when it haven't reached out to the final camera
+
+			if (equal_times > 0) { // when there is no larger preference number,
+				//if the preference error is larger than the averaged of those filled match, then discard the new match
+				if (preference[sequence_math_index][1] > sum_error / equal_times) break;
+			}
+
+			// if the new match run through all of the checks above:
+			// the preference # is at least equal or larger than the current preference #
+			// the preference error is less than the current average preference error
+			for (unsigned int k = 0; k < rcams; ++k) {
+				match_index = fill_in[k][frame_indices[sequence_math_index][k]];
+				if (match_index != -1) selection[match_index] = false;
+				fill_in[k][frame_indices[sequence_math_index][k]] = sequence_math_index; // replace the match index
+			}
+			selection[sequence_math_index] = true;
+		}
 	}
 
-//	printf("Part two done!\n");
+	for (int i = 0; i < rcams; ++i) delete[] fill_in[i];
 
-//	match_num =  matchedPos.size();
-//	deque<Position> goodPos;
-//	for (unsigned int i = 0; i < matchedPos.size(); ++i) {
-////		printf("Part three: %d / %d\n", i, match_num);
-//		if (i>=matchedPos.size())
-//			break;
-//		// have we already thrown out this point?
-//		if (find(bad.begin(), bad.end(), i) != bad.end()) {
-//			continue;
-//		}
-//		//cout << "\n\tMatched 3D pos (in mm):\t" << wpos.second << "\n\tIntersect error (in mm):\t" << wpos.first << endl;
-////		float tmp = framenumber;
-////		outfile.write(reinterpret_cast<const char*>(&tmp), 4);
-////		tmp = matchedPos[i].X();
-////		outfile.write(reinterpret_cast<const char*>(&tmp), 4);
-////		tmp = matchedPos[i].Y();
-////		outfile.write(reinterpret_cast<const char*>(&tmp), 4);
-////		tmp = matchedPos[i].Z();
-////		outfile.write(reinterpret_cast<const char*>(&tmp), 4);
-////		//cout << "\tInfo: " << wpos.second.Info() << endl;
-////		tmp = raydists[i];
-////		outfile.write(reinterpret_cast<const char*>(&tmp), 4);
-////		for (int id = 0; id < rcams; ++id) {
-////			//cout << "\t\tPosToMatch (in px):\t" << cams[i].Distort(*((*tm)[i])) << endl;
-////			tmp = cams[id].Distort((PosTouse[i])[id]).X();
-////			outfile.write(reinterpret_cast<const char*>(&tmp), 4);
-////			tmp = cams[id].Distort((PosTouse[i])[id]).Y();
-////			outfile.write(reinterpret_cast<const char*>(&tmp), 4);
-////		}
-//		// saving the 2D position from cleanlist (for good particles)
-//		deque< deque<double> > pos2D(4);
-//		for (int id = 0; id < 4; id++) {
-//			if (id < rcams) {
-//				deque<double> tmp2D(2);
-//				Position temp = cams[id].Distort((PosTouse[i])[id]);
-//				tmp2D[0] = temp.X(); tmp2D[1] = temp.Y();
-//				pos2D[id] = tmp2D;
-//			}
-//			else {
-//				/*
-//				 * Modified by Shiyong Tan, 1/30/18
-//				 * Initialization tmp = {0.0, 0.0} is not permited by c++98
-//				 * Use tmp(0.0, 0.0) instead
-//				 * Start;
-//				 */
-////				deque<double> tmp = { 0.0, 0.0 };
-//				deque<double> tmp(2);
-//				tmp[0] = 0.0; tmp[1] = 0.0;
-//				// End
-//				pos2D[id] = tmp;
-//			}
-//		}
-//		Position worldposi(matchedPos[i].X(), matchedPos[i].Y(), matchedPos[i].Z(), pos2D[0][0], pos2D[0][1], pos2D[1][0], pos2D[1][1], pos2D[2][0], pos2D[2][1], pos2D[3][0], pos2D[3][1], 0);
-//		good2Dpos.push_back(worldposi);
-//		goodPos.push_back(matchedPos[i]);
-//	}
+//	vector<int> goodindex;
 
 	deque<Position> goodPos;
 	int match_index = 0;
-	for (unsigned int i = 0; i < list_size; i++) {
-		match_index = minimum_list[i];
-		if (match_index == -1) continue;
+	for (unsigned int i = 0; i < num_match; ++i) {
+		if (!selection[i]) continue;
+
+//		goodindex.push_back(i);
+
 		deque< deque<double> > pos2D(4);
 		for (int id = 0; id < 4; id++) {
 			if (id < rcams) {
 				deque<double> tmp2D(2);
-				Position temp = cams[id].Distort((PosTouse[match_index])[id]);
+				Position temp = cams[id].Distort((PosTouse[i])[id]);
 				tmp2D[0] = temp.X(); tmp2D[1] = temp.Y();
 				pos2D[id] = tmp2D;
 			} else {
@@ -598,28 +646,53 @@ Frame Calibration::Stereomatch(const deque<Frame>& iframes, int framenumber, int
 				pos2D[id] = tmp;
 			}
 		}
-		Position worldposi(matchedPos[match_index].X(), matchedPos[match_index].Y(), matchedPos[match_index].Z(),
-				pos2D[0][0], pos2D[0][1], pos2D[1][0], pos2D[1][1], pos2D[2][0], pos2D[2][1], pos2D[3][0], pos2D[3][1], 0);
+		Position worldposi(matchedPos[i].X(), matchedPos[i].Y(), matchedPos[i].Z(),
+							pos2D[0][0], pos2D[0][1], pos2D[1][0], pos2D[1][1], pos2D[2][0], pos2D[2][1], pos2D[3][0], pos2D[3][1], 0);
 		good2Dpos.push_back(worldposi);
-		goodPos.push_back(matchedPos[match_index]);
+		goodPos.push_back(matchedPos[i]);
 	}
 
-	duration = (std::clock() - start) / (double)CLOCKS_PER_SEC;
+//	int num_good = goodindex.size();
+//		double error[num_good];
+//		int frameindex[num_good][4];
+//		int matchindex[num_good];
+//		for (int i = 0; i < num_good; ++i) {
+//			int index = goodindex[i];
+//			error[i] = raydists[index];
+//			frameindex[i][0] = frame_indices[index][0];frameindex[i][1] = frame_indices[index][1];
+//			frameindex[i][2] = frame_indices[index][2];frameindex[i][3] = frame_indices[index][3];
+//			matchindex[i] = index;
+//		}
+//
+//
+//		NumDataIO<double> error_io;
+//		error_io.SetFilePath("/storage/home/sut210/work/Experiment/EXP7/error.txt");
+//		error_io.SetTotalNumber(num_good);
+//		error_io.WriteData((double*) error);
+//
+//		NumDataIO<int> index_io;
+//		index_io.SetFilePath("/storage/home/sut210/work/Experiment/EXP7/frameindex.txt");
+//		index_io.SetTotalNumber(num_good * 4);
+//		index_io.WriteData((int*) frameindex);
+//		index_io.SetFilePath("/storage/home/sut210/work/Experiment/EXP7/matchindex.txt");
+//		index_io.SetTotalNumber(num_good);
+//		index_io.WriteData((int*) matchindex);
+
+//	duration = (std::clock() - start) / (double)CLOCKS_PER_SEC;
 	//cout << "\tmindist_2D: " << mindist_2D << endl;
 	cout << "\tNumber of triangulated particles = " << goodPos.size() << endl;
-	std::cout << "\tMatching time: " << duration << endl;
+//	std::cout << "\tMatching time: " << duration << endl;
 
 	delete[] cleanlist;
-	delete[] minimum_list; // delete the pointer.
 
 	return Frame(goodPos);
 }
 
-int Calibration::GroupAndPickMin(int* minimum_list, deque<double>& raydists, deque< deque<int> >& frame_index, int* buffer,
-		int list_size, int num_particle, int num_match, int camera_num, bool is_list_empty) {
+int Calibration::GroupAndPickMin( deque<double>& raydists, deque< deque<int> >& frame_index, int* buffer,
+		int num_particle, int num_match, int camera_num) {
 
 	int particle_index = 0;
-	if (is_list_empty) {
+//	if (is_list_empty) {
 		for (int i = 0; i < num_match; ++i) {
 			particle_index = frame_index[i][camera_num];
 			if (buffer[particle_index] == -1) {
@@ -630,21 +703,21 @@ int Calibration::GroupAndPickMin(int* minimum_list, deque<double>& raydists, deq
 				}
 			}
 		}
-	} else {
-		int match_index = 0;
-		for (int i = 0; i < list_size; ++i) {
-			match_index = minimum_list[i];
-			if (match_index == -1) continue; // skip those empty index;
-			particle_index = frame_index[match_index][camera_num]; // get the particle index of the match in the specific camera
-			if (buffer[particle_index] == -1) {
-					buffer[particle_index] = match_index;
-			} else {
-					if (raydists[buffer[particle_index]] > raydists[match_index]) {
-						buffer[particle_index] = match_index; // replace the buffer with a match with smaller error
-					}
-			}
-		}
-	}
+//	} else {
+//		int match_index = 0;
+//		for (int i = 0; i < list_size; ++i) {
+//			match_index = minimum_list[i];
+//			if (match_index == -1) continue; // skip those empty index;
+//			particle_index = frame_index[match_index][camera_num]; // get the particle index of the match in the specific camera
+//			if (buffer[particle_index] == -1) {
+//					buffer[particle_index] = match_index;
+//			} else {
+//					if (raydists[buffer[particle_index]] > raydists[match_index]) {
+//						buffer[particle_index] = match_index; // replace the buffer with a match with smaller error
+//					}
+//			}
+//		}
+//	}
 
 	return 0;
 }
