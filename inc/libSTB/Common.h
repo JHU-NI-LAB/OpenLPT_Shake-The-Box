@@ -7,6 +7,41 @@
 
 #ifndef INC_LIBSTB_COMMON_H_
 #define INC_LIBSTB_COMMON_H_
+#include <string>
+#include <deque>
+#include "BoundaryCheck.h"
+using namespace std;
+
+// configuration parameters
+struct ConfigFile {
+	int ncams;
+	deque<int> camIDs;
+	deque<string> imgNameFiles;
+	string iprfile;
+	string pfieldfile;
+	//double fps;
+	double threshold;
+	//double cluster_rad;
+	//int npredict;
+	//double max_disp;
+	//int memory;
+	int first;
+	int last;
+	string stereomatched;
+	string outname;
+	double x_upper_limt, x_lower_limit;
+	double y_upper_limt, y_lower_limit;
+	double z_upper_limt, z_lower_limit;
+	double factor; // using to converse voxel into mm.
+	bool iprFlag;
+	double initialPhaseRadius;
+	double avgSpace;
+	double largestShift;
+	double maxAbsShiftChange;
+	double maxRelShiftChange;
+	double fpt;
+	double lowerInt;
+};
 
 // Data for debug
 enum DebugMode {
@@ -22,6 +57,8 @@ enum DebugMode {
 extern DebugMode debug_mode;
 extern int debug_frame_number;
 extern bool to_save_data;
+extern BoundaryCheck boundary_check;
+extern ConfigFile config;
 
 //Data for error
 enum ERROR {

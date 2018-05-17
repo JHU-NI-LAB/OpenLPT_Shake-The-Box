@@ -77,6 +77,9 @@ IPR::IPR(string& fname, int ncams) : ncams(ncams)
 	parsed >> intensityLower;											// ghost particle intensity threshold
 	parsed >> mindist_2D;												// reading in tolerences
 	parsed >> mindist_3D;
+	mindist_2D = mindist_2D * config.factor; // unit conversion
+	mindist_3D = mindist_3D * config.factor;
+
 	int reduced;														// reduced cams?
 	parsed >> reduced;
 	if (reduced == 1) 
@@ -85,6 +88,8 @@ IPR::IPR(string& fname, int ncams) : ncams(ncams)
 	parsed >> it_reducedCam;											// reading in tolerences for reduced cams
 	parsed >> mindist_2Dr;
 	parsed >> mindist_3Dr;
+	mindist_2Dr = mindist_2Dr * config.factor;
+	mindist_3Dr = mindist_3Dr * config.factor;
 	
 	ifstream infile2(calibfile.c_str(), ios::in);						// getting camera parameters
 	string line2;

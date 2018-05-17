@@ -12,56 +12,30 @@
 #include <fstream>
 #include <cstdlib>
 #include <cstring>
-#include <string>
-#include <deque>
 #include <vector>
 #include <ratio>
 #include <chrono>
-
 #include <GDF.h>
 #include <Frame.h>
 #include <STB.h>
 #include <gnu/libc-version.h>
 #include "Common.h"
+#include "BoundaryCheck.h"
 
 using namespace std;
 
 char* version = "0.1.030718"; //Version of this project
 
-// configuration parameters
-struct ConfigFile {
-	int ncams;
-	deque<int> camIDs;
-	deque<string> imgNameFiles;
-	string iprfile;
-	string pfieldfile;
-	//double fps;
-	double threshold;
-	//double cluster_rad;
-	//int npredict;
-	//double max_disp;
-	//int memory;
-	int first;
-	int last;
-	string stereomatched;
-	string outname;
-	bool iprFlag;
-	double initialPhaseRadius;
-	double avgSpace;
-	double largestShift;
-	double maxAbsShiftChange;
-	double maxRelShiftChange;
-	double fpt;
-	double lowerInt;
-};
-
 // globals
-struct ConfigFile config;
+ConfigFile config;
 // debug
 DebugMode debug_mode;
 int debug_frame_number;
 ERROR error = ERROR(0);
 bool to_save_data;
+// Boundary check
+BoundaryCheck boundary_check;
+
 
 void ImportConfiguration(struct ConfigFile* config, char* name);
 
@@ -98,6 +72,9 @@ void GetDebugMode() {
 	}
 
 	ImportConfiguration(&config, argv[1]);
+
+	boundary_check.SetLimit(config.x_upper_limt, config.x_lower_limit, config.y_upper_limt, config.y_lower_limit,
+			config.z_upper_limt, config.z_lower_limit);
 
 	GetDebugMode();
 
@@ -252,6 +229,33 @@ void ImportConfiguration(struct ConfigFile* config, char* name) {
 
 		getline(file, line);
 		line.erase(line.find_first_of(' '));
+		config->x_lower_limit = atof(line.c_str());
+
+		getline(file, line);
+		line.erase(line.find_first_of(' '));
+		config->x_upper_limt = atof(line.c_str());
+
+		getline(file, line);
+		line.erase(line.find_first_of(' '));
+		config->y_lower_limit = atof(line.c_str());
+
+		getline(file, line);
+		line.erase(line.find_first_of(' '));
+		config->y_upper_limt = atof(line.c_str());
+
+		getline(file, line);
+		line.erase(line.find_first_of(' '));
+		config->z_lower_limit = atof(line.c_str());
+
+		getline(file, line);
+		line.erase(line.find_first_of(' '));
+		config->z_upper_limt = atof(line.c_str());
+
+		getline(file, line);
+		line.erase(line.find_first_of(' '));
+
+		getline(file, line);
+		line.erase(line.find_first_of(' '));
 		config->iprFlag = stoi(line.c_str());
 
 		getline(file, line);
@@ -264,14 +268,17 @@ void ImportConfiguration(struct ConfigFile* config, char* name) {
 		getline(file, line);
 		line.erase(line.find_first_of(' '));
 		config->avgSpace = stof(line.c_str());
+		//unit conversion from voxel to mm
+		config->factor = (config->x_upper_limt - config->x_lower_limit) / 1000;
+		config->avgSpace = config->avgSpace * config->factor;
 
 		getline(file, line);
 		line.erase(line.find_first_of(' '));
-		config->largestShift = stof(line.c_str());
+		config->largestShift = stof(line.c_str()) * config->factor;
 
 		getline(file, line);
 		line.erase(line.find_first_of(' '));
-		config->maxAbsShiftChange = stof(line.c_str());
+		config->maxAbsShiftChange = stof(line.c_str()) * config->factor;
 
 		getline(file, line);
 		line.erase(line.find_first_of(' '));

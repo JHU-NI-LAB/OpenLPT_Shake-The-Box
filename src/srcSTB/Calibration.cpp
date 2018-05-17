@@ -27,6 +27,8 @@
 #include <Calibration.h>
 #include <GDF.h>
 
+#include "Common.h"
+
 #define PI 3.14159
 using namespace std;
 
@@ -486,7 +488,8 @@ Frame Calibration::Stereomatch(const deque<Frame>& iframes, int framenumber, int
 		pair<double,Position> wpos = WorldPosition(PosToMatch, ignoreCam);
 #pragma omp critical
 						{
-		if (wpos.first < mindist_3D * mindist_3D) {
+		if (wpos.first < mindist_3D * mindist_3D && boundary_check.Check(wpos.second)) {
+			// keep the matches which are inside the boundary and tolerant error
 			try {
 				matchedPos.push_back(wpos.second);
 			}

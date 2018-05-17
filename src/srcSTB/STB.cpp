@@ -486,8 +486,10 @@ void STB::Prediction(int frame, Frame& estPos, deque<double>& estInt) {
 			}
 		}
 		Position estimate(est[0], est[1], est[2]);												// estimated position at nextFrame
-		estInt.push_back(1);																	// setting initial intensity to 1
-		estPos.Add(estimate);
+		if (boundary_check.Check(estimate)) { // if the estimate particle is inside the boundary
+			estInt.push_back(1);																	// setting initial intensity to 1
+			estPos.Add(estimate);
+		}
 	}
 }
 
