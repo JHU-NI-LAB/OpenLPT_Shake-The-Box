@@ -48,13 +48,19 @@ int NumDataIO <T>::ReadData(T* data) {
 		std::stringstream ss(line); // make the line as a stringstream to separate the line
 		std::string cell; //to save each element
 		if (m_total_number <= 0) m_total_number = GetTotalNumber();
-		for (int i = 0; i < m_total_number + m_skip_data_num; i++ ) {
+		for (unsigned int i = 0; i < m_total_number + m_skip_data_num; i++ ) {
 			getline(ss, cell, ',');
-			if (i > m_skip_data_num - 1) {  // skip the set number of data
+			if (i >= m_skip_data_num) {  // skip the set number of data
 				if (std::is_integral<T>::value) { // pass the value of cell according to different data type
 					*(data + i - m_skip_data_num) = stoi(cell);
 				} else {
-					*(data + i - m_skip_data_num) = stod(cell);
+					try {
+						*(data + i - m_skip_data_num) = stod(cell);
+					}
+					catch (const std::out_of_range& oor) {
+						*(data + i - m_skip_data_num) = 0;
+					}
+
 				}
 			}
 		}
