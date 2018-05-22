@@ -272,8 +272,8 @@ void STB::ConvergencePhase() {
 			Frame candidates = IPRonResidual(calib, t, pixels_orig, pixels_reproj, pixels_res, estPos);	// applying ipr on residual images to obtain particle candidates
 
 	// TESTING IPR AND TRACKING FROM RESIDUALS
-			if (nextFrame % 100 == 97 || nextFrame % 100 == 98 || nextFrame % 100 == 99 || nextFrame % 100 == 0)
-				_ipr.SaveParticlePositions(candidates.Get_PosDeque(), tiffaddress + "pos3Dresframe" + to_string(nextFrame));
+//			if (nextFrame % 100 == 97 || nextFrame % 100 == 98 || nextFrame % 100 == 99 || nextFrame % 100 == 0)
+//				_ipr.SaveParticlePositions(candidates.Get_PosDeque(), tiffaddress + "pos3Dresframe" + to_string(nextFrame));
 	// END TESTING
 																										// trying to link each activeShortTrack with a particle candidate
 			for (deque<Track>::iterator tr = activeShortTracks.begin(); tr != activeShortTracks.end(); )
@@ -1009,10 +1009,24 @@ void STB::MatfileSave(deque<Track> tracks, string address, string name, int size
 
 	// convert track into 3D matrix the time for each track is the same.
 	size_t sizeofpos3D = tracks.size(); // the number of particle
-	double track_data[sizeofpos3D][size][3];  // size is the total number of frames
+	/*
+	 * Modified by Shiyong Tan
+	 * date: 5/22/18
+	 * !!!!IMPORTANT!!!!
+	 *  it is a very difficult bug
+	 * double track_data will be saved in stack. Its size is unknown.
+	 * when its size is large, it may overwrite memory of other variable in the stack.
+	 * It is illegal to use it. But don't know why the compiler let it pass.
+	 * A way to avoid it is to put this data into heap instead of stack, so that it won't overwrite other variable.
+	 * Start:
+	 */
+//	double track_data[sizeofpos3D][size][3];  // size is the total number of frames
+	double* track_data = new double[sizeofpos3D * size * 3];
+	//END
+
 	for(int i = 0; i < sizeofpos3D; i++) {
-		int absolute_starttime;
-		int absolute_endtime;
+		int absolute_starttime = 0;
+		int absolute_endtime = 0;
 		absolute_starttime = tracks.at(i).GetTime(0); // 0 is the starting time of the begining of the motion of a particle
 										// absolute start time is the start time of a particle in the overall time reference for all particles.
 		absolute_endtime = tracks.at(i).GetTime(tracks.at(i).Length() - 1);
@@ -1021,14 +1035,14 @@ void STB::MatfileSave(deque<Track> tracks, string address, string name, int size
 		int time = 0;
 		for(int j = 0; j < size; j++) {
 			if (absolute_starttime <= j + 1 && j + 1 <= absolute_endtime) {
-				track_data[i][j][0] = tracks.at(i)[time].X();
-				track_data[i][j][1] = tracks.at(i)[time].Y();
-				track_data[i][j][2] = tracks.at(i)[time].Z();
+				track_data[i * size * 3 + j * 3 + 0] = tracks.at(i)[time].X();
+				track_data[i * size * 3 + j * 3 + 1] = tracks.at(i)[time].Y();
+				track_data[i * size * 3 + j * 3 + 2] = tracks.at(i)[time].Z();
 				time ++;
 			} else { // the frame the particle doesn't show up is set as 0.
-				track_data[i][j][0] = 0;
-				track_data[i][j][1] = 0;
-				track_data[i][j][2] = 0;
+				track_data[i * size * 3 + j * 3 + 0] = 0;
+				track_data[i * size * 3 + j * 3 + 1] = 0;
+				track_data[i * size * 3 + j * 3 + 2] = 0;
 			}
 		}
 	}
@@ -1050,6 +1064,8 @@ void STB::MatfileSave(deque<Track> tracks, string address, string name, int size
 	data_io.SaveMode(1); //to set the save mode as append
 	data_io.SetTotalNumber(sizeofpos3D * size * 3);
 	data_io.WriteData((double*) track_data);
+
+	delete[] track_data;
 
 	// End
 }
@@ -1198,8 +1214,14 @@ void STB::Load_Tracks(string path, TrackType trackType) {
 
 	int num_particles = (int) dimension_info[0];
 	int num_frames = (int) dimension_info[1];
-
-	double track_data[num_particles][num_frames][3];
+	/*
+		 * Modified by Shiyong Tan
+		 * date: 5/22/18
+		 * declare an unknown variable in stack should be forbidden
+		 * Start:
+	 */
+//	double track_data[num_particles][num_frames][3];
+	double* track_data = new double[num_particles * num_frames * 3];
 	if (num_particles != 0)  {
 		data_io.SetTotalNumber(num_particles * num_frames * 3);
 			data_io.SetSkipDataNum(3); // skip the dimension info
@@ -1210,12 +1232,13 @@ void STB::Load_Tracks(string path, TrackType trackType) {
 				Track track;
 				int time = 1;
 				for (int j = 0; j < num_frames; j++) {
-					if (track_data[i][j][0] == 0 &&
-						track_data[i][j][1] == 0 &&
-						track_data[i][j][2] == 0 ) { // if all of the data is 0, that means there is no track
+					if (track_data[i * num_frames * 3 + j * 3 + 0] == 0 &&
+						track_data[i * num_frames * 3 + j * 3 + 1] == 0 &&
+						track_data[i * num_frames * 3 + j * 3 + 2] == 0 ) { // if all of the data is 0, that means there is no track
 						time++; continue;
 					}
-					Position pos(track_data[i][j][0], track_data[i][j][1], track_data[i][j][2]);
+					Position pos(track_data[i * num_frames * 3 + j * 3 + 0],
+							track_data[i * num_frames * 3 + j * 3 + 1], track_data[i * num_frames * 3 + j * 3 + 2]);
 					track.AddNext(pos, time);
 					time++;
 				}
@@ -1229,5 +1252,6 @@ void STB::Load_Tracks(string path, TrackType trackType) {
 				}
 		}
 	}
+	delete[] track_data;
 	//END
 }
