@@ -338,7 +338,6 @@ void STB::ConvergencePhase() {
 //			cout << "\t\tTime taken for STB at frame " << nextFrame << ": " << (clock() - start0) / (double) CLOCKS_PER_SEC << "s" << endl;
 
 			if (to_save_data) {
-				deque<Track>::iterator begin = activeShortTracks.begin();
 				MatTracksSave(address, to_string(nextFrame), nextFrame);
 			} else {
 				//time_t t = time(0);
@@ -918,8 +917,7 @@ void STB::MatTracksSave(string address, string s, int lastFrame) {
 	
 
 	MatfileSave(activeLongTracks, address + X1, X1, lastFrame);
-//	int x = activeShortTracks.at(0).GetTime(0);
-//	MatfileSave(activeShortTracks, address + X2, X2, lastFrame);  //TODO: figure why
+	MatfileSave(activeShortTracks, address + X2, X2, lastFrame);  //TODO: figure why
 	MatfileSave(inactiveTracks, address + X3, X3, lastFrame);
 	MatfileSave(exitTracks, address + X4, X4, lastFrame);
 	MatfileSave(inactiveLongTracks, address + X5, X5, lastFrame);

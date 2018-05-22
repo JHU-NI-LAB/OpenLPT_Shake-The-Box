@@ -260,17 +260,16 @@ void ImportConfiguration(struct ConfigFile* config, char* name) {
 
 		getline(file, line);
 		line.erase(line.find_first_of(' '));
-		config->initialPhaseRadius = stof(line.c_str());
-
-		getline(file, line);
-		line.erase(line.find_first_of(' '));
-
-		getline(file, line);
-		line.erase(line.find_first_of(' '));
-		config->avgSpace = stof(line.c_str());
 		//unit conversion from voxel to mm
 		config->factor = (config->x_upper_limt - config->x_lower_limit) / 1000;
-		config->avgSpace = config->avgSpace * config->factor;
+		config->initialPhaseRadius = stof(line.c_str()) * config->factor;
+
+		getline(file, line);
+		line.erase(line.find_first_of(' '));
+
+		getline(file, line);
+		line.erase(line.find_first_of(' '));
+		config->avgSpace = stof(line.c_str()) * config->factor;
 
 		getline(file, line);
 		line.erase(line.find_first_of(' '));
