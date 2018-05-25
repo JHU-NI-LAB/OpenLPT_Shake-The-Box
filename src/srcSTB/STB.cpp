@@ -467,8 +467,15 @@ void STB::Prediction(int frame, Frame& estPos, deque<double>& estInt) {
 	vector<vector<double>> predCoeff(3);													// using polynomial fit / Wiener filter to predict the particle position at nextFrame
 	vector<string> direction = { "X", "Y", "Z" };
 	vector<double> est(3);
-	deque<Track>::const_iterator tr_end = activeLongTracks.end();								// for each track in activeLongTracks (at least 4 particles long) 
-	for (deque<Track>::iterator tr = activeLongTracks.begin(); tr != tr_end; ++tr) {
+//	deque<Track>::const_iterator tr_end = activeLongTracks.end();								// for each track in activeLongTracks (at least 4 particles long)
+//	int debug_index = 0;
+	/*
+	 * Modified by: Shiyong Tan
+	 * After boundary Check, if the prediction is out of boundary, then move the track into exit track.
+	 * start:
+	 */
+	for (deque<Track>::iterator tr = activeLongTracks.begin(); tr != activeLongTracks.end(); ) {
+//		++ debug_index;
 		for (int i = 0; i < 3; i++) {															// getting predictor coefficients for X->0, Y->1 and Z->2
 			if (tr->Length() < 6) {																// if length is 4 or 5, use all points to get 2nd degree polynomial
 				predCoeff[i] = Polyfit(*tr, direction[i], tr->Length(), 2);
@@ -488,7 +495,12 @@ void STB::Prediction(int frame, Frame& estPos, deque<double>& estInt) {
 		if (boundary_check.Check(estimate)) { // if the estimate particle is inside the boundary
 			estInt.push_back(1);																	// setting initial intensity to 1
 			estPos.Add(estimate);
+			++tr;
+		} else { //the track should be put into exit tracks since it is outside the boundary
+			exitTracks.push_back(*tr);
+			tr = activeLongTracks.erase(tr);
 		}
+		//End
 	}
 }
 
