@@ -254,22 +254,22 @@ deque<double> PredictiveField::DisplacementMapPeak(double*** &dispMap) {
 	// finding the peak using 1D Gaussian in x, y & z direction
 	if (x == 0)
 		peak[0] = 0;
-	else if (x == Size)
-		peak[0] == Size;
+	else if (x == Size - 1)
+		peak[0] == Size - 1;
 	else
 		peak[0] = Gaussian1DPeak(x - 1, dispMap[x - 1][y][z], x, dispMap[x][y][z], x + 1, dispMap[x + 1][y][z]);
 
 	if (y == 0)
 		peak[1] = 0;
-	else if (y == Size)
-		peak[1] == Size;
+	else if (y == Size - 1)
+		peak[1] == Size - 1;
 	else
 		peak[1] = Gaussian1DPeak(y - 1, dispMap[x][y - 1][z], y, dispMap[x][y][z], y + 1, dispMap[x][y + 1][z]);
 	
 	if (z == 0)
 		peak[2] = 0;
-	else if (z == Size)
-		peak[2] == Size;
+	else if (z == Size - 1)
+		peak[2] == Size - 1;
 	else
 		peak[2] = Gaussian1DPeak(z - 1, dispMap[x][y][z - 1], z, dispMap[x][y][z], z + 1, dispMap[x][y][z + 1]);
 	
