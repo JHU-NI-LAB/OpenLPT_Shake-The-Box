@@ -338,11 +338,13 @@ Frame IPR::IPRLoop(Calibration& calib, OTF& OTFcalib,  deque<int> camNums, int i
 	} else {
 		StereoMatch:
 		pos3Dnew = calib.Stereomatch(iframes, frame, ignoreCam);
-		if (!m_reduce_cam_begin ) {
-			SaveParticlePositions(pos3Dnew.Get_PosDeque(), m_particle_position_addr + "frame" + to_string(frame) + "Loop" + to_string(loop_time) + ".txt");
-		} else {
-			SaveParticlePositions(pos3Dnew.Get_PosDeque(),
-					m_particle_position_addr + "frame" + to_string(frame) + "ReduceCam" + to_string(ignoreCam) + "Loop" + to_string(loop_time) +  ".txt");
+		if (frame < 4) {  // we save the data only for the first 4 frames.
+			if (!m_reduce_cam_begin ) {
+				SaveParticlePositions(pos3Dnew.Get_PosDeque(), m_particle_position_addr + "frame" + to_string(frame) + "Loop" + to_string(loop_time) + ".txt");
+			} else {
+				SaveParticlePositions(pos3Dnew.Get_PosDeque(),
+						m_particle_position_addr + "frame" + to_string(frame) + "ReduceCam" + to_string(ignoreCam) + "Loop" + to_string(loop_time) +  ".txt");
+			}
 		}
 
 	}
