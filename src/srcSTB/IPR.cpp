@@ -290,7 +290,8 @@ Frame IPR::IPRLoop(Calibration& calib, OTF& OTFcalib,  deque<int> camNums, int i
 	double del;
 	int id = 0;
 	// getting 2D particles from the updated original image (residual after removing identified particles) on reduced cams
-	if (loop_time >= 1 && ignoreCam == ALL_CAMS) {
+	// for the first loop we should not clear iframes
+	if (loop_time >= 1 || m_reduce_cam_begin) {
 	iframes.clear();
 	for (int camID = 0; camID < camNums.size(); camID++)
 		if (camNums[camID] != ignoreCam) {
@@ -465,11 +466,12 @@ Frame IPR::IPRLoop(Calibration& calib, OTF& OTFcalib,  deque<int> camNums, int i
 
 			// updating the original image by removing correctly identified 3D particles
 			for (int n = 0; n < camNums.size(); n++)
-				for (int i = 0; i < Npixh; i++)
+				for (int i = 0; i < Npixh; i++) {
 					for (int j = 0; j < Npixw; j++) {
 						int residual = (orig[camNums[n]][i][j] - reproj[camNums[n]][i][j]);
 						orig[camNums[n]][i][j] = (residual < 0) ? 0 : residual;
 					}
+				}
 		}
 	} 
 	filename.clear();
