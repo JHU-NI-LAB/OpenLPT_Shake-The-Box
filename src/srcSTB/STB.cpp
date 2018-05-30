@@ -269,6 +269,7 @@ void STB::ConvergencePhase() {
 
 	// IPR ON RESIDUALS
 			_ipr.SetFrameNumber(currFrame + 1);  // frame number is used for debug.
+			_ipr.DoingSTB(true);  // to indicate the IPR is called by STB.
 			Frame candidates = IPRonResidual(calib, t, pixels_orig, pixels_reproj, pixels_res, estPos);	// applying ipr on residual images to obtain particle candidates
 
 	// TESTING IPR AND TRACKING FROM RESIDUALS

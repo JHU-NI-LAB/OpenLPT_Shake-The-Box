@@ -193,7 +193,7 @@ void CopyArray(int* A, int iBegin, int iEnd, int* B) {
 	}
 }
 
-void Merge(int* A, int iBegin, int iMiddle, int iEnd, int* B, double C[][2]) {
+void Merge(int* A, int iBegin, int iMiddle, int iEnd, int* B, double** C) {
 	int i = iBegin, j = iMiddle;
 	for(int k = iBegin; k < iEnd; ++k) {
 		if (i < iMiddle && j >= iEnd) {
@@ -219,7 +219,7 @@ void Merge(int* A, int iBegin, int iMiddle, int iEnd, int* B, double C[][2]) {
 	}
 }
 
-void SplitMerge(int* B, int iBegin, int iEnd, int* A, double C[][2]) {
+void SplitMerge(int* B, int iBegin, int iEnd, int* A, double** C) {
 	if (iEnd - iBegin < 2) return;
 	int iMiddle = (iEnd + iBegin) / 2;
 	SplitMerge(A, iBegin, iMiddle, B, C);
@@ -227,7 +227,7 @@ void SplitMerge(int* B, int iBegin, int iEnd, int* A, double C[][2]) {
 	Merge(B, iBegin, iMiddle, iEnd, A, C);
 }
 
-void MergeSort(int* A, double C[][2], int n) {
+void MergeSort(int* A, double** C, int n) {
 	int B[n];
 	CopyArray(A, 0, n, B);
 	SplitMerge(B, 0, n, A, C);
@@ -511,8 +511,10 @@ Frame Calibration::Stereomatch(const deque<Frame>& iframes, int framenumber, int
 	
 	unsigned int num_match =  matchedPos.size();
 	unsigned int num_particle = 0;
-	double preference[num_match][2];
+//	double preference[num_match][2];
+	double** preference = new double*[num_match];
 	for (unsigned int i = 0; i < num_match; ++i) {
+		preference[i] =  new double[2];
 		preference[i][0] = 0; preference[i][1] = 0;
 	}
 	for (unsigned int i = 0; i < rcams; i++) {
@@ -529,7 +531,7 @@ Frame Calibration::Stereomatch(const deque<Frame>& iframes, int framenumber, int
 		}
 
 	// Sorting the matches sequence according to its preference
-	int match_sequence[num_match];
+	int* match_sequence = new int[num_match];
 	for (int i = 0; i < num_match; ++i) match_sequence[i] = i;
 	MergeSort(match_sequence, preference, num_match);
 
@@ -569,7 +571,7 @@ Frame Calibration::Stereomatch(const deque<Frame>& iframes, int framenumber, int
 		fill_in[i] = new int[num_particle];
 		for (unsigned int j = 0; j < num_particle; ++j) fill_in[i][j] = -1;
 	}
-	bool selection[num_match];
+	bool* selection = new bool[num_match]; // to avoid segmentation fault
 	for (unsigned int i = 0; i < num_match; ++i) {
 		int sequence_math_index = match_sequence[i];  // get the new match index
 		selection[sequence_math_index] =false;
@@ -625,7 +627,9 @@ Frame Calibration::Stereomatch(const deque<Frame>& iframes, int framenumber, int
 		}
 	}
 
+	for (unsigned int i = 0; i < num_match; ++i) delete[] preference[i];
 	for (int i = 0; i < rcams; ++i) delete[] fill_in[i];
+	delete[] match_sequence;
 
 //	vector<int> goodindex;
 
@@ -654,6 +658,8 @@ Frame Calibration::Stereomatch(const deque<Frame>& iframes, int framenumber, int
 		good2Dpos.push_back(worldposi);
 		goodPos.push_back(matchedPos[i]);
 	}
+
+	delete[] selection;
 
 //	int num_good = goodindex.size();
 //		double error[num_good];

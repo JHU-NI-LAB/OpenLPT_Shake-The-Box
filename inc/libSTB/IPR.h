@@ -87,9 +87,13 @@ public:
 
 	void SetFrameNumber(int number) { frame = number;}
 
+	void DoingSTB(bool doing_STB) { m_doing_STB = doing_STB;}
+
 protected:
 	int frame;
 	deque<string> filename;
+	bool m_doing_STB;  // this variable is to indicate whether the IPR is called by STB. 
+						// if it is called by STB, then iframes needs to be refreshed for every loop.
 
 	// addresses
 	string tiffaddress;

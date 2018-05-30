@@ -128,6 +128,7 @@ IPR::IPR(string& fname, int ncams) : ncams(ncams)
 		}
 	}
 	m_particle_position_addr = tiffaddress + "/ParticlePositions/";
+	m_doing_STB = false;
 }
 
 Frame IPR::FindPos3D(deque< deque<string> > imgNames, int frameNumber)  {
@@ -291,7 +292,9 @@ Frame IPR::IPRLoop(Calibration& calib, OTF& OTFcalib,  deque<int> camNums, int i
 	int id = 0;
 	// getting 2D particles from the updated original image (residual after removing identified particles) on reduced cams
 	// for the first loop we should not clear iframes
-	if (loop_time >= 1 || m_reduce_cam_begin) {
+	// for the following loop of IPR in initial phase as well as every loop in the convergence phase, 
+	// it should be refreshed by using residual images.
+	if (loop_time >= 1 || m_reduce_cam_begin || m_doing_STB) {
 	iframes.clear();
 	for (int camID = 0; camID < camNums.size(); camID++)
 		if (camNums[camID] != ignoreCam) {
