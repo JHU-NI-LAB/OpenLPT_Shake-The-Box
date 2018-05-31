@@ -1,3 +1,5 @@
 Debug
 /Debug-Local/
 /Debug-Unparallel/
+/Debug-Parallel/
+/Release/
