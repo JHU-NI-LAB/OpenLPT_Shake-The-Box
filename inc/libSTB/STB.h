@@ -67,6 +67,15 @@ public:
 	void ConvergencePhase();
 	void Prediction(int frame, Frame& estPos, deque<double>& estInt);
 	vector<double> Polyfit(Track tracks, string direction, int datapoints, int polydegree);		// predictor for convergence phase
+	/*
+	 * Function: predict the next point with Wiener Predictor using LMS algorithm
+	 * Input: tracks: the track to be predicted
+	 * 		  direction: to indicate the axis to be predicted
+	 * 		  order: the order of the Wiener Predictor
+	 * Notice: the order should be less than the length of track.
+	 * Output: the next point
+	 */
+	double LMSWienerPredictor(Track tracks, string direction, int order);
 	void Shake(Frame& estimate, deque<double>& intensity);
 	deque<int> Rem(Frame& pos3D, deque<double>& int3D, double mindist_3D);
 	Frame IPRonResidual(Calibration& calib, Tiff2DFinder& t, deque<int**>& pixels_orig, deque<int**>& pixels_reproj, deque<int**>& pixels_res, Frame& estimates);

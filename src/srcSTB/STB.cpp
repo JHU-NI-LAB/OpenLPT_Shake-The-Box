@@ -469,27 +469,30 @@ void STB::Prediction(int frame, Frame& estPos, deque<double>& estInt) {
 	vector<string> direction = { "X", "Y", "Z" };
 	vector<double> est(3);
 //	deque<Track>::const_iterator tr_end = activeLongTracks.end();								// for each track in activeLongTracks (at least 4 particles long)
-//	int debug_index = 0;
+	int debug_index = 0;
 	/*
 	 * Modified by: Shiyong Tan
 	 * After boundary Check, if the prediction is out of boundary, then move the track into exit track.
 	 * start:
 	 */
 	for (deque<Track>::iterator tr = activeLongTracks.begin(); tr != activeLongTracks.end(); ) {
-//		++ debug_index;
+		++ debug_index;
 		for (int i = 0; i < 3; i++) {															// getting predictor coefficients for X->0, Y->1 and Z->2
-			if (tr->Length() < 6) {																// if length is 4 or 5, use all points to get 2nd degree polynomial
-				predCoeff[i] = Polyfit(*tr, direction[i], tr->Length(), 2);
-				est[i] = predCoeff[i][0] + predCoeff[i][1] * t + predCoeff[i][2] * pow(t, 2);
+			if (tr->Length() < 4) {																// if length is 4 or 5, use all points to get 2nd degree polynomial
+//				predCoeff[i] = Polyfit(*tr, direction[i], tr->Length(), 2);
+//				est[i] = predCoeff[i][0] + predCoeff[i][1] * t + predCoeff[i][2] * pow(t, 2);
+				est[i] = LMSWienerPredictor(*tr, direction[i], 3);
 			}
 			else if (tr->Length() < 11) {														// if length is 6 to 10, use all points to get 3rd degree polynomial
-				predCoeff[i] = Polyfit(*tr, direction[i], tr->Length(), 3);
-				//cout << "break" << tr->Length() << endl;
-				est[i] = predCoeff[i][0] + predCoeff[i][1] * t + predCoeff[i][2] * pow(t, 2) + predCoeff[i][3] * pow(t, 3);
+//				predCoeff[i] = Polyfit(*tr, direction[i], tr->Length(), 3);
+//				//cout << "break" << tr->Length() << endl;
+//				est[i] = predCoeff[i][0] + predCoeff[i][1] * t + predCoeff[i][2] * pow(t, 2) + predCoeff[i][3] * pow(t, 3);
+				est[i] = LMSWienerPredictor(*tr, direction[i], tr->Length() - 1);
 			}
 			else {																				// if length is more than 11, use last 10 points to get 3rd degree polynomial
-				predCoeff[i] = Polyfit(*tr, direction[i], 10, 3);
-				est[i] = predCoeff[i][0] + predCoeff[i][1] * t + predCoeff[i][2] * pow(t, 2) + predCoeff[i][3] * pow(t, 3);
+//				predCoeff[i] = Polyfit(*tr, direction[i], 10, 3);
+//				est[i] = predCoeff[i][0] + predCoeff[i][1] * t + predCoeff[i][2] * pow(t, 2) + predCoeff[i][3] * pow(t, 3);
+				est[i] = LMSWienerPredictor(*tr, direction[i], 10);
 			}
 		}
 		Position estimate(est[0], est[1], est[2]);												// estimated position at nextFrame
@@ -597,6 +600,55 @@ vector<double> STB::Polyfit(Track tracks, string direction, int datapoints, int 
 	return coeff;
 }
 
+// predict the next point with Wiener Predictor using LMS algorithm
+double STB::LMSWienerPredictor(Track tracks, string direction, int order) {
+	int size = tracks.Length();
+	double* series = new double[order + 1];
+
+	// get the series to be predicted
+	for (unsigned int i = 0; i < order + 1; ++i) {
+		if (direction == "X" || direction == "x")
+			series[i] = tracks[size - order - 1 + i].X();	//x-values or
+		else if (direction == "Y" || direction == "y")
+			series[i] = tracks[size - order - 1 + i].Y();	//y-values or
+		else if (direction == "Z" || direction == "z")
+			series[i] = tracks[size - order - 1 + i].Z();	//z-values
+	}
+
+	double* filter_param = new double[order]; // the filter parameter
+	for (unsigned int i = 0; i < order; ++i) filter_param[i] = 0; // initialize the filter
+	// calculate  the step
+	double sum = 0;
+	for (unsigned int i = 0; i < order; ++i) {
+		sum = sum + series[i] * series[i];
+	}
+	double step = 1 / sum;
+
+	double prediction = 0;
+	for (unsigned int i = 0; i < order; ++i) {
+		prediction = prediction + filter_param[i] * series[i];
+	}
+
+	double error = series[order] - prediction;
+
+	while (fabs(error) > 1e-8) {
+		for (unsigned int i = 0; i < order; ++i) {
+			filter_param[i] = filter_param[i] + step * series[i] * error;
+		}
+		//calculate the prediction using the new filter parameters
+		prediction = 0;
+		for (unsigned int i = 0; i < order; ++i) {
+			prediction = prediction + filter_param[i] * series[i];
+		}
+		error = series[order] - prediction;
+	}
+	prediction = 0;
+	for (unsigned int i = 0; i < order; ++i) {
+		prediction = prediction + filter_param[i] * series[i + 1];
+	}
+	return prediction;
+}
+
 // For shaking the predicted estimates
 void STB::Shake(Frame& estimate, deque<double>& intensity) {
 	
@@ -607,10 +659,11 @@ void STB::Shake(Frame& estimate, deque<double>& intensity) {
 
 		deque<int> ignoreCam = Rem(estimate, intensity, _ipr.mindist_3D);					// removing ambiguous, ghost and particles that disappear on at least 2 cams
 
+
 		for (int loopInner = 0; loopInner < _ipr.it_innerloop; loopInner++) {
 			double del;
-			if (loopInner < 1)  del = _ipr.mindist_2D;			// initial shake
-			else if (loopInner < 5)  del = _ipr.mindist_2D/10;	// normal shakes
+			if (loopInner < 1)  del = _ipr.mindist_2D * 2;			// initial shake TODO
+			else if (loopInner < 5)  del = _ipr.mindist_2D / pow(2,loopInner - 1);//_ipr.mindist_2D/10;	// normal shakes TODO
 			else  del = _ipr.mindist_2D/100;
 
 			_ipr.ReprojImage(estimate, OTFcalib, pixels_reproj, IPRflag);					// adding the estimated particles to the reprojected image
