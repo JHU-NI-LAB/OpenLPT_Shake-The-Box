@@ -299,7 +299,7 @@ Frame Calibration::Stereomatch(const deque<Frame>& iframes, int framenumber, int
 
 	// looping over each particle in 1st camera to find a match in subsequent cameras
 	Frame::const_iterator pAend = corrframes[rID[0]].end();
-#pragma omp parallel shared(cleanlist) num_threads(20)
+#pragma omp parallel shared(cleanlist)// num_threads(20)
 						{
 #pragma omp for
 	//for (Frame::const_iterator pA = corrframes[rID[0]].begin(); pA != pAend; ++pA) {
@@ -482,7 +482,6 @@ Frame Calibration::Stereomatch(const deque<Frame>& iframes, int framenumber, int
 			catch (bad_alloc&) {
 				throw runtime_error("Failure to allocate storage for PosToMatch");
 			}
-			
 			indices.push_back(cleanlist[i][p].where());
 		}
 		pair<double,Position> wpos = WorldPosition(PosToMatch, ignoreCam);
@@ -1133,9 +1132,10 @@ bool Calibration::ParticleCheck2to1(int camid0, int camid1, int camid2, Position
 	if (angle > 180)
 		angle = 360 - angle;
 
+
 	double mindist = abs(mindist_1D / sin(PI*angle / 360));
-	if (mindist > 1.5)
-		mindist = 1.5;
+	if (mindist > 1200 * config.factor) //1200 voxels
+		mindist = 1200 * config.factor;
 
 	bool isMatch = false;
 	double dist = pow((x - (*P0).X()), 2) + pow((y - (*P0).Y()), 2);

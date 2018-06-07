@@ -113,6 +113,9 @@ IPR::IPR(string& fname, int ncams) : ncams(ncams)
 	if (ncams >= 4)														// if there are more than 4 cams, reading the first 4 cams into cams4
 		for (int i = 0; i < 4; ++i)
 			cams4.push_back(camsAll[i]);
+	else
+		for (int i = 0; i < ncams; ++i)
+			cams4.push_back(camsAll[i]);
 
 	Npixh = camsAll[0].Get_Npixh();										// # of pixels in each dimension
 	Npixw = camsAll[0].Get_Npixw();
