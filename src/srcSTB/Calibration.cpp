@@ -248,22 +248,6 @@ Frame Calibration::Stereomatch(const deque<Frame>& iframes, int framenumber, int
 	double mindist_1D = mindist_2D;
 	int temps = 0;
 	//std::cout << "\tCorrecting distortion..." << endl;
-	for (int i = 0; i < rcams; ++i) {
-		deque<Position> corrpos;
-		deque<Position> corrpos_Pixel;
-		Frame::const_iterator fitend = iframes[i].end();
-		for (Frame::const_iterator fit = iframes[i].begin(); fit != fitend; ++fit) {
-			corrpos.push_back(cams[i].UnDistort(*fit));
-			corrpos_Pixel.push_back(*fit);
-		}
-		corrframes.push_back(Frame(corrpos));
-		corrframes_Pixel.push_back(Frame(corrpos_Pixel));
-	}
-
-//	double duration;
-//	clock_t start;
-//	clock_t start1;
-//	start = clock();
 
 	camID = new int[rcams]; rID = new int[rcams];
 	int id = 0;
@@ -277,6 +261,44 @@ Frame Calibration::Stereomatch(const deque<Frame>& iframes, int framenumber, int
 	for (int n = 0; n < rcams; n++) {
 			rID[n] = n;
 	}
+
+	for (int i = 0; i < rcams; ++i) {
+		deque<Position> corrpos;
+		deque<Position> corrpos_Pixel;
+		Frame::const_iterator fitend = iframes[i].end();
+		for (Frame::const_iterator fit = iframes[i].begin(); fit != fitend; ++fit) {
+			/*
+			 * Modified by Shiyong Tan
+			 * date: 6.8.18
+			 * Cams[i] is not correct for reduced camera
+			 * Start:
+			 */
+//			corrpos.push_back(cams[i].UnDistort(*fit));
+			corrpos.push_back(cams[camID[i]].UnDistort(*fit));
+			// End
+			corrpos_Pixel.push_back(*fit);
+		}
+		corrframes.push_back(Frame(corrpos));
+		corrframes_Pixel.push_back(Frame(corrpos_Pixel));
+	}
+
+//	double duration;
+//	clock_t start;
+//	clock_t start1;
+//	start = clock();
+
+//	camID = new int[rcams]; rID = new int[rcams];
+//	int id = 0;
+//	for (int n = 0; n < ncams; n++) {
+//		if (n != ignoreCam) {
+//			camID[id] = n;
+//			id++;
+//		}
+//	}
+//	// for reduced cams
+//	for (int n = 0; n < rcams; n++) {
+//			rID[n] = n;
+//	}
 
 	// creating the logic matrix and its corresponding particle lists
 	for (int i = 0; i < rcams; i++)	
@@ -518,21 +540,22 @@ Frame Calibration::Stereomatch(const deque<Frame>& iframes, int framenumber, int
 	}
 	for (unsigned int i = 0; i < rcams; i++) {
 		num_particle = corrframes[rID[i]].NumParticles();
-		int buffer[num_particle]; // the buffer is used to save the match index with smaller error
+		int* buffer = new int[num_particle]; // the buffer is used to save the match index with smaller error
 		for (unsigned int j = 0; j < num_particle; j++) buffer[j] = -1; // initialize buffer with -1
-			GroupAndPickMin(raydists, frame_indices, buffer, num_particle, num_match, i);
-			for (unsigned int j = 0; j < num_particle; ++j) {
-				if (buffer[j] == -1) continue;
-				preference[buffer[j]][1] = preference[buffer[j]][1] * preference[buffer[j]][0] + raydists[buffer[j]]
-					                       / (preference[buffer[j]][0] + 1);
-				preference[buffer[j]][0] = preference[buffer[j]][0] + 1;
-			}
+		GroupAndPickMin(raydists, frame_indices, buffer, num_particle, num_match, i);
+		for (unsigned int j = 0; j < num_particle; ++j) {
+			if (buffer[j] == -1) continue;
+			preference[buffer[j]][1] = preference[buffer[j]][1] * preference[buffer[j]][0] + raydists[buffer[j]]
+				                       / (preference[buffer[j]][0] + 1);
+			preference[buffer[j]][0] = preference[buffer[j]][0] + 1;
 		}
+		delete[] buffer;
+	}
 
 	// Sorting the matches sequence according to its preference
 	int* match_sequence = new int[num_match];
 	for (int i = 0; i < num_match; ++i) match_sequence[i] = i;
-	MergeSort(match_sequence, preference, num_match);
+	MergeSort(match_sequence, preference, num_match); //TODO: confirm it is ranging correctly
 
 //	double error[num_match];
 //	int frameindex[num_match][4];
@@ -643,7 +666,8 @@ Frame Calibration::Stereomatch(const deque<Frame>& iframes, int framenumber, int
 		for (int id = 0; id < 4; id++) {
 			if (id < rcams) {
 				deque<double> tmp2D(2);
-				Position temp = cams[id].Distort((PosTouse[i])[id]);
+//				Position temp = cams[id].Distort((PosTouse[i])[id]);
+				Position temp = cams[camID[id]].Distort((PosTouse[i])[id]);
 				tmp2D[0] = temp.X(); tmp2D[1] = temp.Y();
 				pos2D[id] = tmp2D;
 			} else {
@@ -682,7 +706,7 @@ Frame Calibration::Stereomatch(const deque<Frame>& iframes, int framenumber, int
 //		index_io.SetFilePath("/storage/home/sut210/work/Experiment/EXP7/frameindex.txt");
 //		index_io.SetTotalNumber(num_good * 4);
 //		index_io.WriteData((int*) frameindex);
-//		index_io.SetFilePath("/storage/home/sut210/work/Experiment/EXP7/matchindex.txt");
+//		index_io.SetFilePath("/home/sut210/Documents/Experiment/EXP2/matchindex.txt");
 //		index_io.SetTotalNumber(num_good);
 //		index_io.WriteData((int*) matchindex);
 
@@ -1067,9 +1091,19 @@ void Calibration::ParticleFinder2to1(int camID, int rID, int camid1, int camid2,
 	if (angle > 180)
 		angle = 360 - angle;
 
+//	double mindist = abs(mindist_1D / sin(PI*angle / 360));
+//	if (mindist > 1.5)
+//		mindist = 1.5;
 	double mindist = abs(mindist_1D / sin(PI*angle / 360));
-	if (mindist > 1.5)
-		mindist = 1.5;
+	/*
+	 * Modified by Shiyong Tan
+	 * Date: 6.7.18
+	 * Increase the threshold to eliminate the gap
+	 * Start:
+	 */
+	if (mindist > 1200 * config.factor) //1200 voxels
+		mindist = 1200 * config.factor;
+	// End
 
 	int Npixw = cams[camID].Get_Npixw();
 	int Npixh = cams[camID].Get_Npixh();
@@ -1132,10 +1166,16 @@ bool Calibration::ParticleCheck2to1(int camid0, int camid1, int camid2, Position
 	if (angle > 180)
 		angle = 360 - angle;
 
-
+	/*
+	 * Modified by Shiyong Tan
+	 * Date: 6.7.18
+	 * Increase the threshold to eliminate the gap
+	 * Start:
+	 */
 	double mindist = abs(mindist_1D / sin(PI*angle / 360));
 	if (mindist > 1200 * config.factor) //1200 voxels
 		mindist = 1200 * config.factor;
+	// END
 
 	bool isMatch = false;
 	double dist = pow((x - (*P0).X()), 2) + pow((y - (*P0).Y()), 2);
