@@ -16,6 +16,7 @@
 #include <Position.h>
 #include <linterp.h>
 #include <OTF.h>
+#include "Common.h"
 
 using namespace std;
 
@@ -59,7 +60,7 @@ void OTF::OTF_txtdata() {
 	infile.close();
 
 	int nElements; parsed >> nElements;
-	int nsubvector; parsed >> nsubvector;
+//	int nsubvector; parsed >> nsubvector;
 
 	for (int camid = 0; camid < ncams; camid++) {
 		aData[camid] = new double[nElements];
@@ -97,20 +98,20 @@ void OTF::OTF_txtdata() {
 	}
 
 
-	for (int n = 0; n < nsubvector; n++) {
-		double x; parsed >> x;
-		gridx.push_back(x);
-	}
-
-	for (int n = 0; n < nsubvector; n++) {
-		double y; parsed >> y;
-		gridy.push_back(y);
-	}
-
-	for (int n = 0; n < nsubvector; n++) {
-		double z; parsed >> z;
-		gridz.push_back(z);
-	}
+//	for (int n = 0; n < nsubvector; n++) {
+//		double x; parsed >> x;
+//		gridx.push_back(x);
+//	}
+//
+//	for (int n = 0; n < nsubvector; n++) {
+//		double y; parsed >> y;
+//		gridy.push_back(y);
+//	}
+//
+//	for (int n = 0; n < nsubvector; n++) {
+//		double z; parsed >> z;
+//		gridz.push_back(z);
+//	}
 
 	/*outfile << parsed.rdbuf();
 	outfile.close();*/
@@ -241,8 +242,8 @@ void OTF::OTF_matdata() {
 
 vector <double> OTF::OTFgrid(int camID, Position& pos3D) {
 
-	double cornerx1 = -100, cornery1 = -100, cornerz1 = -60;
-	double cornerx2 = 100, cornery2 = 100, cornerz2 = -10;
+	double cornerx1 = config.x_lower_limit, cornery1 = config.y_lower_limit, cornerz1 = config.z_lower_limit;
+	double cornerx2 = config.x_upper_limt, cornery2 = config.y_upper_limt, cornerz2 = config.z_upper_limt;
 	// construct the grid in each dimension. 
 	// note that we will pass in a sequence of iterators pointing to the beginning of each grid
 	std::vector<double> gridx = linspace(cornerx1, cornerx2, 3);
