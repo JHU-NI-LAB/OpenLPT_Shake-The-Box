@@ -470,6 +470,7 @@ void STB::Prediction(int frame, Frame& estPos, deque<double>& estInt) {
 	vector<double> est(3);
 //	deque<Track>::const_iterator tr_end = activeLongTracks.end();								// for each track in activeLongTracks (at least 4 particles long)
 	int debug_index = 0;
+	int debug_index1 = 0;
 	/*
 	 * Modified by: Shiyong Tan
 	 * After boundary Check, if the prediction is out of boundary, then move the track into exit track.
@@ -483,7 +484,7 @@ void STB::Prediction(int frame, Frame& estPos, deque<double>& estInt) {
 //				est[i] = predCoeff[i][0] + predCoeff[i][1] * t + predCoeff[i][2] * pow(t, 2);
 				est[i] = LMSWienerPredictor(*tr, direction[i], 3);
 			}
-			else if (tr->Length() < 11) {														// if length is 6 to 10, use all points to get 3rd degree polynomial
+			else if (tr->Length() < 6) {														// if length is 6 to 10, use all points to get 3rd degree polynomial
 //				predCoeff[i] = Polyfit(*tr, direction[i], tr->Length(), 3);
 //				//cout << "break" << tr->Length() << endl;
 //				est[i] = predCoeff[i][0] + predCoeff[i][1] * t + predCoeff[i][2] * pow(t, 2) + predCoeff[i][3] * pow(t, 3);
@@ -492,7 +493,7 @@ void STB::Prediction(int frame, Frame& estPos, deque<double>& estInt) {
 			else {																				// if length is more than 11, use last 10 points to get 3rd degree polynomial
 //				predCoeff[i] = Polyfit(*tr, direction[i], 10, 3);
 //				est[i] = predCoeff[i][0] + predCoeff[i][1] * t + predCoeff[i][2] * pow(t, 2) + predCoeff[i][3] * pow(t, 3);
-				est[i] = LMSWienerPredictor(*tr, direction[i], 10);
+				est[i] = LMSWienerPredictor(*tr, direction[i], 5);
 			}
 		}
 		Position estimate(est[0], est[1], est[2]);												// estimated position at nextFrame
@@ -500,6 +501,7 @@ void STB::Prediction(int frame, Frame& estPos, deque<double>& estInt) {
 			estInt.push_back(1);																	// setting initial intensity to 1
 			estPos.Add(estimate);
 			++tr;
+			++ debug_index1;
 		} else { //the track should be put into exit tracks since it is outside the boundary
 			exitTracks.push_back(*tr);
 			tr = activeLongTracks.erase(tr);
@@ -666,12 +668,26 @@ void STB::Shake(Frame& estimate, deque<double>& intensity) {
 			else if (loopInner < 5)  del = _ipr.mindist_2D / pow(2,loopInner - 1);//_ipr.mindist_2D/10;	// normal shakes TODO
 			else  del = _ipr.mindist_2D/100;
 
-			_ipr.ReprojImage(estimate, OTFcalib, pixels_reproj, IPRflag);					// adding the estimated particles to the reprojected image
+			_ipr.ReprojImage(estimate, OTFcalib, pixels_reproj, STBflag);					// adding the estimated particles to the reprojected image
 
 			for (int n = 0; n < ncams; n++) 												// updating the residual image by removing the estimates
 				for (int i = 0; i < Npixh; i++)
 					for (int j = 0; j < Npixw; j++)
 						pixels_res[n][i][j] = (pixels_orig[n][i][j] - abs(pixels_reproj[n][i][j]));
+
+//			// output the residual image
+//			NumDataIO<int> image_output;
+//			string save_path;
+//			for (int n = 0; n < ncams; n++) {
+//				save_path = "/home/sut210/Documents/Experiment/EXP6/resimg" + to_string(n) +".txt";
+//				image_output.SetFilePath(save_path);
+//				image_output.SetTotalNumber(Npixh * Npixw);
+//				int* pixel_array = new int[Npixh * Npixw];
+//				for (int i = 0; i < Npixh; i++)
+//					for (int j = 0; j < Npixw; j++)
+//						pixel_array[i * Npixw + j] = pixels_res[n][i][j];
+//				image_output.WriteData(pixel_array);
+//			}
 
 
 //			int index = 0;																	// correcting the estimated positions and their intensity by shaking

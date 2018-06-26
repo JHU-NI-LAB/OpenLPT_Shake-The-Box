@@ -2,6 +2,7 @@
 #include <deque>
 
 #include <Shaking.h>
+#include "NumDataIO.h"
 
 using namespace std;
 
@@ -56,6 +57,20 @@ Shaking::Shaking(int Ncams, int ignoredCam, OTF& otfcalib, int NpixW, int NpixH,
 		}
 	}
 	
+	// output the residual image
+//	NumDataIO<int> image_output;
+//	string save_path;
+//	for (int n = 0; n < ncams; n++) {
+//		save_path = "/home/sut210/Documents/Experiment/EXP6/Augresimg" + to_string(n) +".txt";
+//		image_output.SetFilePath(save_path);
+//		image_output.SetTotalNumber(Npixh * Npixw);
+//		int* pixel_array = new int[Npixh * Npixw];
+//		for (int i = 0; i < Npixh; i++)
+//			for (int j = 0; j < Npixw; j++)
+//				pixel_array[i * Npixw + j] = pixels_PartAugRes[n][i][j];
+//		image_output.WriteData(pixel_array);
+//	}
+
 	//updating the particle position and intensity
 	Pos();
 	// pixel range on the cameras around the updated particle centers
@@ -204,7 +219,11 @@ void Shaking::PartAugResImage(int camID, int id, PixelRange p) {
 	for (int x = p.xmin2; x < p.xmax2; x++) {
 		for (int y = p.ymin2; y < p.ymax2; y++) {
 			int X = x - p.xmin2, Y = y - p.ymin2;
+//			cout<<x<<","<<y<<",";
+//			cout<<pixels_Res[camID][y][x]<<",";
+//			cout<<pixels_Part[id][Y][X]<<",";
 			pixels_PartAugRes[id][Y][X] = max(0,min(255,pixels_Res[camID][y][x] + pixels_Part[id][Y][X]));
+//			cout<<pixels_PartAugRes[id][Y][X]<<endl;
 		}		      //aug intensity   =  //residual intensity   +    //particle intensity
 	}
 }
@@ -251,13 +270,20 @@ void Shaking::Int() {
 	double ignore = IndexofLargestElement(peakIntensity, rcams);
 	for (int ID = 0; ID < rcams; ID++) {
 		if (ID != ignore) {
-			int xmin = max(pRangeOld[ID].xmin1, pRangeNew[ID].xmin1), xmax = min(pRangeNew[ID].xmax1, pRangeOld[ID].xmax1);
-			int ymin = max(pRangeOld[ID].ymin1, pRangeNew[ID].ymin1), ymax = min(pRangeNew[ID].ymax1, pRangeOld[ID].ymax1);
+//			int xmin = max(pRangeOld[ID].xmin1, pRangeNew[ID].xmin1), xmax = min(pRangeNew[ID].xmax1, pRangeOld[ID].xmax1);
+//			int ymin = max(pRangeOld[ID].ymin1, pRangeNew[ID].ymin1), ymax = min(pRangeNew[ID].ymax1, pRangeOld[ID].ymax1);
+			int xmin = pRangeNew[ID].xmin1, xmax = pRangeNew[ID].xmax1;
+			int ymin = pRangeNew[ID].ymin1, ymax = pRangeNew[ID].ymax1;
 			for (int x = xmin; x < xmax; x++) {
 				for (int y = ymin; y < ymax; y++) {
 					int X = x - pRangeOld[ID].xmin2, Y = y - pRangeOld[ID].ymin2;
-					num = num + pixels_PartAugRes[ID][Y][X];
-					denum = denum + PartReproj(pos2Dnew[ID], otfparam[ID], x, y);
+//					int X = x - xmin, Y = y - ymin;
+					if (Y < psize * 2 && Y >= 0 && X < psize * 2 && X >= 0) {
+						num = num + pixels_PartAugRes[ID][Y][X];
+					} else {
+						num = num + pixels_Res[ID][y][x];
+					}
+					denum = denum + round(PartReproj(pos2Dnew[ID], otfparam[ID], x, y));
 				}
 			}
 		}
