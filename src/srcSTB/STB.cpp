@@ -342,7 +342,7 @@ void STB::ConvergencePhase() {
 				MatTracksSave(address, to_string(nextFrame), nextFrame);
 			} else {
 				//time_t t = time(0);
-				if (nextFrame % 10 == 0) {  // to debug, every frame should be saved
+				if (nextFrame % 100 == 0 || nextFrame == endFrame - 1) {  // to debug, every frame should be saved
 					cout << "\tSaving the tracks" << endl;
 
 				MatTracksSave(address, to_string(nextFrame), nextFrame);
@@ -997,24 +997,46 @@ void STB::MatTracksSave(string address, string s, int lastFrame) {
 	// Saving tracks for Matlab
 	string X1 = "ActiveLongTracks" + s, X2 = "ActiveShortTracks" + s, X3 = "InactiveTracks" + s, X4 = "exitTracks" + s, X5 = "InactiveLongTracks" + s;
 	
-
-	MatfileSave(activeLongTracks, address + X1, X1, lastFrame);
-	MatfileSave(activeShortTracks, address + X2, X2, lastFrame);  //TODO: figure why
-	MatfileSave(inactiveTracks, address + X3, X3, lastFrame);
-	MatfileSave(exitTracks, address + X4, X4, lastFrame);
-	MatfileSave(inactiveLongTracks, address + X5, X5, lastFrame);
+/*
+ * Modified By Shiyong Tan, 8/12/18
+ * The previous saving method has a lot of zeros points, which make the file very large
+ * Thus, change the saving format.
+ * Start:
+ */
+//	MatfileSave(activeLongTracks, address + X1, X1, lastFrame);
+//	MatfileSave(activeShortTracks, address + X2, X2, lastFrame);
+//	MatfileSave(inactiveTracks, address + X3, X3, lastFrame);
+//	MatfileSave(exitTracks, address + X4, X4, lastFrame);
+//	MatfileSave(inactiveLongTracks, address + X5, X5, lastFrame);
 	
+	SaveTrackToTXT(activeLongTracks, address + X1);
+	SaveTrackToTXT(activeShortTracks, address + X2);
+	SaveTrackToTXT(inactiveTracks, address + X3);
+	SaveTrackToTXT(exitTracks, address + X4);
+	SaveTrackToTXT(inactiveLongTracks, address + X5);
+// End
 }
 
 void STB::LoadAllTracks(string address, string frame_number) {
 	string s = frame_number + ".txt";
 	string X1 = "ActiveLongTracks" + s, X2 = "ActiveShortTracks" + s, X3 = "InactiveTracks" + s, X4 = "exitTracks" + s, X5 = "InactiveLongTracks" + s;
-
-	Load_Tracks(address + X1, ActiveLong);
-	Load_Tracks(address + X2, ActiveShort);
-	Load_Tracks(address + X3, Inactive);
-	Load_Tracks(address + X4, Exit);
-	Load_Tracks(address + X5, InactiveLong);
+/*
+ * Modified by Shiyong Tan, 8/12/18
+ * Adapt to the change of the saving format.
+ * Start:
+ */
+//	Load_Tracks(address + X1, ActiveLong);
+//	Load_Tracks(address + X2, ActiveShort);
+//	Load_Tracks(address + X3, Inactive);
+//	Load_Tracks(address + X4, Exit);
+//	Load_Tracks(address + X5, InactiveLong);
+//
+	LoadTrackFromTXT(address + X1, ActiveLong);
+	LoadTrackFromTXT(address + X2, ActiveShort);
+	LoadTrackFromTXT(address + X3, Inactive);
+	LoadTrackFromTXT(address + X4, Exit);
+	LoadTrackFromTXT(address + X5, InactiveLong);
+// End
 }
 
 
@@ -1152,6 +1174,39 @@ void STB::MatfileSave(deque<Track> tracks, string address, string name, int size
 	// End
 }
 
+void STB::SaveTrackToTXT(deque<Track> tracks, string address) {
+	size_t num_track = tracks.size(); // number of tracks
+	unsigned int total_len = 0; // Total length of all the tracks
+	for (unsigned int i  = 0; i < num_track; ++ i) {
+		total_len = total_len + tracks.at(i).Length();
+	}
+	double* track_data = new double[total_len * 5];
+
+	unsigned int index = 0;
+	for (unsigned int i = 0; i <  num_track; ++ i) {
+		unsigned int len = tracks.at(i).Length();
+		unsigned int start_time = tracks.at(i).GetTime(0);
+		for (unsigned int j = 0; j < len; ++ j) {
+			track_data[index] = i; // the track NO.
+			++ index;
+			track_data[index] = j + start_time; // the current frame
+			++ index;
+			track_data[index] = tracks.at(i)[j].X();
+			++ index;
+			track_data[index] = tracks.at(i)[j].Y();
+			++ index;
+			track_data[index] = tracks.at(i)[j].Z();
+			++ index;
+		}
+	}
+
+	NumDataIO<double> data_io;
+	data_io.SetFilePath(address + ".txt");
+	data_io.SetTotalNumber(total_len * 5);
+	data_io.WriteData((double*) track_data);
+
+	delete[] track_data;
+}
 
 //###################### TEMPORARY FUNTIONS FOR TESTING ###############################
 
@@ -1336,4 +1391,43 @@ void STB::Load_Tracks(string path, TrackType trackType) {
 	}
 	delete[] track_data;
 	//END
+}
+
+void STB::LoadTrackFromTXT(string path, TrackType trackType) {
+	NumDataIO<double> data_io;
+	data_io.SetFilePath(path);
+	unsigned int total_num = data_io.GetTotalNumber();
+	unsigned int total_len = total_num / 5;
+	data_io.SetTotalNumber(total_num);
+	double* track_data = new double[total_num];
+	if (total_len != 0) {
+		data_io.ReadData((double*) track_data);
+
+		for (unsigned int i = 0; i < total_num; ) {
+			unsigned int track_no = track_data[i];
+			Track track;
+			while (track_data[i] == track_no) { // for the same track
+				++ i;
+				int time = track_data[i];
+				++ i;
+				double X = track_data[i];
+				++ i;
+				double Y = track_data[i];
+				++ i;
+				double Z = track_data[i];
+				++ i;
+				Position pos(X, Y, Z);
+				track.AddNext(pos, time);
+			}
+			// after getting the track
+			switch (trackType)
+			{
+				case ActiveLong : activeLongTracks.push_back(track); break;
+				case ActiveShort: activeShortTracks.push_back(track);break;
+				case Inactive: inactiveTracks.push_back(track);break;
+				case Exit: exitTracks.push_back(track);break;
+				case InactiveLong: inactiveLongTracks.push_back(track);break;
+			}
+		}
+	}
 }
