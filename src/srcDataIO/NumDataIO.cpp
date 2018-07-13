@@ -75,6 +75,10 @@ template<class T>
 int NumDataIO<T>::GetTotalNumber() {
 	std::ifstream infile;
 	infile.open(this->m_file_path);
+	if (!infile.is_open()) {
+		error = NO_FILE;
+		return 0;
+	}
 	std::string line;
 	std::getline(infile, line); // reading a line into line.
 	std::stringstream ss(line); // make the line as a stringstream to separate the line

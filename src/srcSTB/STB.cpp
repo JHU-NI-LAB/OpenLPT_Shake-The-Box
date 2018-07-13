@@ -192,7 +192,7 @@ void STB::InitialPhase(string pfieldfile) {
 		cout << "\t\tNo. of active Short tracks:	" << activeShortTracks.size() << endl;
 		cout << "\t\tNo. of active Long tracks:	" << activeLongTracks.size() << endl;
 		cout << "\t\tNo. of exited tracks:		" << exitTracks.size() << endl;
-		cout << "\t\tNo. of inactive tracks:		" << inactiveTracks.size() << endl;
+//		cout << "\t\tNo. of inactive tracks:		" << inactiveTracks.size() << endl;
 	}
 }
 
@@ -301,7 +301,7 @@ void STB::ConvergencePhase() {
 				double threshRel = maxRelShiftChange*d2, length = tr->Length();
 																										// moving all activeLongTracks with displacement more than LargestExp shift to inactiveTracks
 				if (d1 > thresh) {
-					inactiveTracks.push_back(*tr);
+//					inactiveTracks.push_back(*tr);
 					tr = activeLongTracks.erase(tr);
 					s_al++; a_is++;
 				}
@@ -313,7 +313,7 @@ void STB::ConvergencePhase() {
 						s_al++; a_il++;
 					}
 					else {
-						inactiveTracks.push_back(*tr);
+//						inactiveTracks.push_back(*tr);
 						tr = activeLongTracks.erase(tr);
 						s_al++; a_is++;
 					}
@@ -333,7 +333,7 @@ void STB::ConvergencePhase() {
 			cout << "\t\tNo. of active Short tracks:	" << c1 << " + " << a_as << " - (" << s_as1 << " + " << a_as2 << " + " << s_as3 << ") = " << activeShortTracks.size() << endl;
 			cout << "\t\tNo. of active Long tracks:	" << c2 << " + " << a_al << " - " << s_al << " = " << activeLongTracks.size() << endl;
 			cout << "\t\tNo. of exited tracks:		 = " << exitTracks.size() << endl;
-			cout << "\t\tNo. of inactive tracks:		" << c3 << " + " << a_is << " = " << inactiveTracks.size() << endl;
+//			cout << "\t\tNo. of inactive tracks:		" << c3 << " + " << a_is << " = " << inactiveTracks.size() << endl;
 			cout << "\t\tNo. of inactive Long tracks:	" << c4 << " + " << a_il << " = " << inactiveLongTracks.size() << endl;
 
 //			cout << "\t\tTime taken for STB at frame " << nextFrame << ": " << (clock() - start0) / (double) CLOCKS_PER_SEC << "s" << endl;
@@ -736,7 +736,7 @@ deque<int> STB::Rem(Frame& pos3D, deque<double>& int3D, double mindist_3D) {
 		for (int j = i + 1; j < pos3D.NumParticles(); ) {
 			if (Distance(pos3D[i], pos3D[j]) < thresh3D) {
 				pos3D.Delete(j); int3D.erase(int3D.begin() + j); tempPredictions.Delete(j);
-				inactiveTracks.push_back(activeLongTracks[j]);							// shifting the corresponding activeLongTrack to inactiveTracks
+//				inactiveTracks.push_back(activeLongTracks[j]);							// shifting the corresponding activeLongTrack to inactiveTracks
 				activeLongTracks.erase(activeLongTracks.begin() + j);
 				s_al++; a_is++;
 			}
@@ -771,7 +771,7 @@ deque<int> STB::Rem(Frame& pos3D, deque<double>& int3D, double mindist_3D) {
 				a_il++;
 			}
 			else {
-				inactiveTracks.push_back(activeLongTracks[index]);						// shifting the corresponding activeLongTrack to inactiveTracks
+//				inactiveTracks.push_back(activeLongTracks[index]);						// shifting the corresponding activeLongTrack to inactiveTracks
 				a_is++;
 			}
 			activeLongTracks.erase(activeLongTracks.begin() + index);
@@ -826,7 +826,7 @@ deque<int> STB::Rem(Frame& pos3D, deque<double>& int3D, double mindist_3D) {
 			if (Distance(activeLongTracks[i].Last(), activeLongTracks[i].Penultimate()) <= shiftThreshold && Distance(activeLongTracks[i].Penultimate(), activeLongTracks[i].Antepenultimate()) <= shiftThreshold)
 				exitTracks.push_back(activeLongTracks[i]);								// shift the corresponding activeLongTrack to exitTracks (or)
 			else {
-				inactiveTracks.push_back(activeLongTracks[i]);							// shift the corresponding activeLongTrack to inactiveTracks
+//				inactiveTracks.push_back(activeLongTracks[i]);							// shift the corresponding activeLongTrack to inactiveTracks
 				a_is++;
 			}
 			
@@ -977,7 +977,7 @@ void STB::MakeShortLinkResidual(int nextFrame, Frame& candidates, deque<Track>::
 
 	if (cost.second == UNLINKED) {																// if no link is found for the short track
 		if (tr->Length() > 3) {																	// and if the track has at least 4 particles
-			inactiveTracks.push_back(*tr);														// add it to inactive tracks
+//			inactiveTracks.push_back(*tr);														// add it to inactive tracks
 			a_is++;
 		}
 		if (tr->Length() == 1)
@@ -1011,7 +1011,7 @@ void STB::MatTracksSave(string address, string s, int lastFrame) {
 	
 	SaveTrackToTXT(activeLongTracks, address + X1);
 	SaveTrackToTXT(activeShortTracks, address + X2);
-	SaveTrackToTXT(inactiveTracks, address + X3);
+//	SaveTrackToTXT(inactiveTracks, address + X3);  // No longer save inactiveTracks which are useless
 	SaveTrackToTXT(exitTracks, address + X4);
 	SaveTrackToTXT(inactiveLongTracks, address + X5);
 // End
@@ -1033,7 +1033,7 @@ void STB::LoadAllTracks(string address, string frame_number) {
 //
 	LoadTrackFromTXT(address + X1, ActiveLong);
 	LoadTrackFromTXT(address + X2, ActiveShort);
-	LoadTrackFromTXT(address + X3, Inactive);
+//	LoadTrackFromTXT(address + X3, Inactive);  // no longer load inactive long tracks, which are useless
 	LoadTrackFromTXT(address + X4, Exit);
 	LoadTrackFromTXT(address + X5, InactiveLong);
 // End

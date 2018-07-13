@@ -315,7 +315,7 @@ Frame IPR::IPRLoop(Calibration& calib, OTF& OTFcalib,  deque<int> camNums, int i
 
 
 //	Load_2Dpoints("S:/Projects/Bubble/Cam_Config_of_10.22.17/10.29.17/BubblesNParticlesHigh_4000fps/BubblesNParicleswithBreakup/Bubble_Reconstruction_Corrected/Bubble_2D_centers", frame, ignoreCam);
-	cout <<"The 2D particle number in a image is: "<< iframes[0].NumParticles() << endl;
+	cout <<"\tThe 2D particle number in a image is: "<< iframes[0].NumParticles() << endl;
 //	cout << iframes[1].NumParticles() << endl;
 //	cout << iframes[2].NumParticles() << endl;
 //	cout << iframes[3].NumParticles() << endl;
