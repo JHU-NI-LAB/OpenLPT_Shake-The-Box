@@ -2,6 +2,7 @@
 
 #include <STB.h>
 #include <omp.h>
+#include <chrono>
 #include "NumDataIO.h"
 #include "Common.h"
 
@@ -220,9 +221,7 @@ void STB::ConvergencePhase() {
 			// initializing some variables
 			int c1 = activeShortTracks.size(), c2 = activeLongTracks.size(), c3 = inactiveTracks.size(), c4 = inactiveLongTracks.size();
 			a_as = 0; a_al = 0; a_is = 0; s_as1 = 0; a_as2 = 0; s_as3 = 0; s_al = 0; a_il = 0;
-			// time
-//			clock_t start0, start1, start2, start3, start4;
-//			start0 = clock();
+
 
 			int nextFrame = currFrame + 1;
 			cout << "\tSTB convergence phase tracking at frame: " << nextFrame << endl;
@@ -241,9 +240,10 @@ void STB::ConvergencePhase() {
 			cout << "\t\t\tPrediction: ";
 			Frame estPos;																				// a frame that saves all the positions estimated from track prediction
 			deque<double> estInt;																		// saving the intensity of estimated positions
-//			start1 = clock();
+			auto start = std::chrono::system_clock::now();
 
 			Prediction(nextFrame, estPos, estInt);														// getting the prediction list for all the activLongTrakcs (>4)
+			cout<<"Prediction  time:"<<std::chrono::duration_cast<std::chrono::seconds>(std::chrono::system_clock::now()- start) .count() << "s" << endl;
 
 //			start2 = clock();
 //			cout << "Done (" << (clock() - start1)/(double) CLOCKS_PER_SEC << "s)" << endl << "\t\t\tShaking the predictions: " ;
@@ -251,7 +251,9 @@ void STB::ConvergencePhase() {
 			/* TESTING */ tempPredictions = estPos;
 
 	// SHAKING THE PREDICTIONS
+			start =std::chrono::system_clock::now();
 			Shake(estPos, estInt);																		// correcting the predicted positions by shaking, removing wrong / ambiguous predictions and updating the residual images
+			cout<<"Shaking  time:"<<std::chrono::duration_cast<std::chrono::seconds>(std::chrono::system_clock::now() - start) .count()<< "s" << endl;
 
 	// TESTING PREDICTIONS
 			/*_ipr.MatfilePositions(estPos.Get_PosDeque(), tiffaddress + "shakedframe" + to_string(nextFrame));
@@ -268,17 +270,67 @@ void STB::ConvergencePhase() {
 			cout<<"Done.\n";
 
 	// IPR ON RESIDUALS
+			start =std::chrono::system_clock::now();
 			_ipr.SetFrameNumber(currFrame + 1);  // frame number is used for debug.
 			_ipr.DoingSTB(true);  // to indicate the IPR is called by STB.
 			Frame candidates = IPRonResidual(calib, t, pixels_orig, pixels_reproj, pixels_res, estPos);	// applying ipr on residual images to obtain particle candidates
+			cout<<"IPR time:"<<std::chrono::duration_cast<std::chrono::seconds>(std::chrono::system_clock::now() - start) .count() << "s" << endl;
 
 	// TESTING IPR AND TRACKING FROM RESIDUALS
 //			if (nextFrame % 100 == 97 || nextFrame % 100 == 98 || nextFrame % 100 == 99 || nextFrame % 100 == 0)
 //				_ipr.SaveParticlePositions(candidates.Get_PosDeque(), tiffaddress + "pos3Dresframe" + to_string(nextFrame));
 	// END TESTING
+			start  = std::chrono::system_clock::now();
+
+			/*
+			 *  Modified by Shiyong Tan
+			 *  Parallelizing this section in order to increase the processing speed
+			 *  Introduce variable erase_vector, candidate_used to label the tracks and candidate points which should be deleted after linking.
+			 *  It is used to avoid to erase them in the loop which would result in change of size of the loop that hinders parallelization.
+			 *  Start:
+			 */
 																										// trying to link each activeShortTrack with a particle candidate
-			for (deque<Track>::iterator tr = activeShortTracks.begin(); tr != activeShortTracks.end(); )
-				MakeShortLinkResidual(nextFrame, candidates, tr, 5);
+			unsigned int num_shorttrack = activeShortTracks.size();
+			bool* erase_vector = new bool[num_shorttrack];  				// Vector to label the tracks to be deleted.
+			unsigned int num_candidate = candidates.NumParticles();
+			bool* candidate_used = new bool[num_candidate];			// Vector to label the candidate points that are used and need to be deleted.
+			for (unsigned int i = 0; i < num_candidate; ++i) candidate_used[i] = false;
+#pragma omp parallel
+			{
+#pragma omp for
+			for (int i = 0; i < num_shorttrack; ++i) {
+				deque<Track>::iterator tr = activeShortTracks.begin() + i;
+				bool erase = false;
+				MakeShortLinkResidual(nextFrame, candidates, tr, 5, &erase, candidate_used);  // erase and candidate_used are updated for every loop
+				erase_vector[i] = erase;
+			}
+			}
+
+			// Delete labeled tracks
+			int shift = 0;
+			for (int i = 0; i < num_shorttrack; ++i) {
+				deque<Track>::iterator tr = activeShortTracks.begin();
+				if (erase_vector[i]) {
+					activeShortTracks.erase(tr + i - shift);
+					++ shift;
+				}
+			}
+			delete[] erase_vector;
+			// Delete labeled candidates
+			shift = 0;
+			for (int i = 0; i < num_candidate; ++i) {
+				if (candidate_used[i]) {
+					candidates.Delete(i - shift);
+					++ shift;
+				}
+			}
+			delete[] candidate_used;
+//			for (deque<Track>::iterator tr = activeShortTracks.begin(); tr != activeShortTracks.end(); )
+//				MakeShortLinkResidual(nextFrame, candidates, tr, 5);
+			// END
+
+			cout<<"linking shrot track time:"<<std::chrono::duration_cast<std::chrono::seconds>(std::chrono::system_clock::now()- start) .count() << "s" << endl;
+			start = std::chrono::system_clock::now();
 																										// moving all activeShortTracks longer than 3 particles to activeLongTracks
 			for (deque<Track>::iterator tr = activeShortTracks.begin(); tr != activeShortTracks.end(); ) {
 				if (tr->Length() > 3) {
@@ -327,6 +379,7 @@ void STB::ConvergencePhase() {
 				Track startTrack(*pID, nextFrame);
 				activeShortTracks.push_back(startTrack); a_as++;
 			}
+			cout<<"Pruning time:"<< std::chrono::duration_cast<std::chrono::seconds>(std::chrono::system_clock::now() - start).count() << "s" << endl;
 
 //			cout << "Done (" << (clock() - start4) / (double) CLOCKS_PER_SEC << "s)" << endl;
 
@@ -412,6 +465,66 @@ void STB::MakeLink(int nextFrame, const Position& currVelocity, double radius, T
 			activeTrack = true;																		// setting the track as still active
 			//cout << "(X,Y,Z) = (" << cost.first->X() << "," << cost.first->Y() << "," << cost.first->Z() << ")" << " and track is active: " << track.IsActive() << endl;
 		}
+}
+
+pair<Frame::const_iterator, float> STB::ComputeCost(Frame& fr1, Frame& fr2, double radius,
+									const Position& estimate,
+									const Position& prevVelocity,
+									const Position& currVelocity,
+									bool stopflag,
+									bool* candidate_used)
+{
+																									// find possible continuations in the next frame.
+
+	deque<Frame::const_iterator> matches;															// find possible matches
+	deque<float> match_costs;
+	deque<unsigned int>match_index;
+	float mincost = radius * radius;
+
+	unsigned int fr_no = 0;
+	Frame::const_iterator fitend = fr1.end();
+	for (Frame::const_iterator fit = fr1.begin(); fit != fitend; ++fit, ++fr_no) {
+		if (candidate_used[fr_no])  {
+//			++fr_no;
+			continue;
+		}
+//		++fr_no;
+		float mag = Distance(estimate, *fit);
+		if (mag > mincost) {
+			continue;
+		}
+		matches.push_back(fit);
+		match_index.push_back(fr_no);   //Shiyong Tan:  get the index of the candidate in order to label them later.
+		if (stopflag == true) {
+			match_costs.push_back(mag);																// don't look into the future any more
+			if (mincost > mag) {
+				mincost = mag;
+			}
+		}
+		else {
+			Position acceleration = currVelocity - prevVelocity;									// project again!
+			Position new_estimate = *fit + currVelocity + 0.5 * acceleration;
+			pair<Frame::const_iterator, float> cost = ComputeCost(fr2, fr2, radius, new_estimate, prevVelocity, currVelocity, true, candidate_used);
+			match_costs.push_back(cost.second);
+			if (mincost > cost.second) {
+				mincost = cost.second;
+			}
+		}
+	}
+
+	deque<Frame::const_iterator>::const_iterator m_end = matches.end();
+	pair<Frame::const_iterator, float> retval = make_pair(fitend-1, -1);
+	deque<float>::const_iterator mc = match_costs.begin();
+	unsigned int index_used = 0;
+	for (deque<Frame::const_iterator>::const_iterator m = matches.begin(); m != m_end; ++m, ++mc, ++index_used) {
+		if (*mc > mincost) {
+			continue;
+		}
+		retval = make_pair(*m, *mc);
+		candidate_used[match_index[index_used]]= true;
+	}
+
+	return retval;
 }
 
 pair<Frame::const_iterator, float> STB::ComputeCost(Frame& fr1, Frame& fr2, double radius,
@@ -692,7 +805,7 @@ void STB::Shake(Frame& estimate, deque<double>& intensity) {
 
 //			int index = 0;																	// correcting the estimated positions and their intensity by shaking
 //			double start = clock();
-#pragma omp parallel //num_threads(20)
+#pragma omp parallel num_threads(24)
 						{
 //							int TID = omp_get_thread_num();
 //							printf("Thread %d is runing\n", TID);
@@ -926,6 +1039,82 @@ Frame STB::IPRonResidual(Calibration& calib, Tiff2DFinder& t, deque<int**>& pixe
 }
 
 // linking short tracks with particle candidates in residual images
+void STB::MakeShortLinkResidual(int nextFrame, Frame& candidates, deque<Track>::iterator& tr, int iterations, bool* erase, bool* candidate_used) {
+
+	pair<Frame::const_iterator, float> cost;
+
+	for (int it = 0; it < iterations; it++) {													// iteratively trying to find a link for the short track from particle candidates
+		double rsqr = pow(pow(1.1, it) * 3 * avgIPDist, 2);
+		double shift = pow(1.1, it) * largestShift;
+		deque<double> dist;
+		double totalDist = 0;
+		deque<Position> disp;
+		Position vel(0, 0, 0);																	// calculating the predictive vel. field as an avg. of particle velocities from neighbouring tracks
+		double d;
+
+//#pragma omp parallel //shared(dist, disp)
+//		{
+//#pragma omp for
+		for (int j = 0; j < activeLongTracks.size(); ++j) {										// identifying the neighbouring tracks (using 3*avg interparticle dist.) and getting their particle velocities
+			double dsqr = Distance(tr->Last(), activeLongTracks[j].Penultimate());
+			if (dsqr < rsqr && dsqr > 0) {
+				d = pow(dsqr, 0.5);
+				totalDist = totalDist + d;
+//#pragma omp critical//(dist)
+//				{
+				dist.push_back(d);
+				disp.push_back(activeLongTracks[j].Last() - activeLongTracks[j].Penultimate());
+//				}
+//			}
+		}
+		}
+
+		if (dist.size() > 0) {															// if it finds neighbouring tracks
+			for (int j = 0; j < dist.size(); j++) {												// perform Gaussian wt. avg. to get velocity field
+				double weight = (dist[j] / totalDist);
+				vel.Set_X(vel.X() + weight*disp[j].X());
+				vel.Set_Y(vel.Y() + weight*disp[j].Y());
+				vel.Set_Z(vel.Z() + weight*disp[j].Z());
+			}
+
+			Position estimate = tr->Last() + vel;	
+																								// finding a link for this short track using the velocity field
+			cost = ComputeCost(candidates, candidates, searchRadiusSTB, estimate, vel, vel, true, candidate_used);
+		}
+
+		else {																			// if no neighbouring tracks are identified
+			Position estimate = tr->Last();														// using nearest neighbour to make a link
+			cost = ComputeCost(candidates, candidates, shift, estimate, vel, vel, true, candidate_used);
+		}
+
+		if (cost.second != UNLINKED) {															// if linked with a candidate
+			tr->AddNext(*cost.first, nextFrame);												// add the candidate to the track, delete it from list of untracked candidates and break the loop
+//			candidate_used[cost.first.where()] = true;
+//			candidates.Delete(cost.first.where());      // Shiyong Tan: Label them in ComputeCost instead of deleting them for the convenience of parallelization.
+//			++tr;
+			break;
+		}
+	}
+
+	if (cost.second == UNLINKED) {																// if no link is found for the short track
+		if (tr->Length() > 3) {																	// and if the track has at least 4 particles
+//			inactiveTracks.push_back(*tr);														// add it to inactive tracks
+			a_is++;
+		}
+		if (tr->Length() == 1)
+			s_as1++;
+		else if (tr->Length() == 2)
+			a_as2++;
+		else if (tr->Length() == 3)
+			s_as3++;
+
+//		tr = activeShortTracks.erase(tr);														// then delete from activeShortTracks
+		*erase= true;  // Shiyong Tan: Label them instead of deleting them for the convenience of parallelization.
+		
+	}
+}
+
+// linking short tracks with particle candidates in residual images
 void STB::MakeShortLinkResidual(int nextFrame, Frame& candidates, deque<Track>::iterator& tr, int iterations) {
 
 	pair<Frame::const_iterator, float> cost;
@@ -939,14 +1128,21 @@ void STB::MakeShortLinkResidual(int nextFrame, Frame& candidates, deque<Track>::
 		Position vel(0, 0, 0);																	// calculating the predictive vel. field as an avg. of particle velocities from neighbouring tracks
 		double d;
 
-		for (int j = 0; j < activeLongTracks.size(); j++) {										// identifying the neighbouring tracks (using 3*avg interparticle dist.) and getting their particle velocities
+//#pragma omp parallel //shared(dist, disp)
+//		{
+//#pragma omp for
+		for (int j = 0; j < activeLongTracks.size(); ++j) {										// identifying the neighbouring tracks (using 3*avg interparticle dist.) and getting their particle velocities
 			double dsqr = Distance(tr->Last(), activeLongTracks[j].Penultimate());
 			if (dsqr < rsqr && dsqr > 0) {
 				d = pow(dsqr, 0.5);
 				totalDist = totalDist + d;
+//#pragma omp critical//(dist)
+//				{
 				dist.push_back(d);
 				disp.push_back(activeLongTracks[j].Last() - activeLongTracks[j].Penultimate());
-			}
+//				}
+//			}
+		}
 		}
 
 		if (dist.size() > 0) {															// if it finds neighbouring tracks
@@ -957,9 +1153,9 @@ void STB::MakeShortLinkResidual(int nextFrame, Frame& candidates, deque<Track>::
 				vel.Set_Z(vel.Z() + weight*disp[j].Z());
 			}
 
-			Position estimate = tr->Last() + vel;	
+			Position estimate = tr->Last() + vel;
 																								// finding a link for this short track using the velocity field
-			cost = ComputeCost(candidates, candidates, searchRadiusSTB, estimate, vel, vel, true);			
+			cost = ComputeCost(candidates, candidates, searchRadiusSTB, estimate, vel, vel, true);
 		}
 
 		else {																			// if no neighbouring tracks are identified
@@ -986,8 +1182,9 @@ void STB::MakeShortLinkResidual(int nextFrame, Frame& candidates, deque<Track>::
 			a_as2++;
 		else if (tr->Length() == 3)
 			s_as3++;
+
 		tr = activeShortTracks.erase(tr);														// then delete from activeShortTracks
-		
+
 	}
 }
 

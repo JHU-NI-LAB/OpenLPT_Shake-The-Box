@@ -62,6 +62,12 @@ public:
 		const Position& velocity,
 		const Position& new_velocity,
 		bool stopflag);
+	pair<Frame::const_iterator, float> ComputeCost(Frame& fr1, Frame& fr2, double radius,
+		const Position& estimate,
+		const Position& velocity,
+		const Position& new_velocity,
+		bool stopflag,
+		bool* candidate_used);
 
 	// convergence phase
 	void ConvergencePhase();
@@ -79,6 +85,7 @@ public:
 	void Shake(Frame& estimate, deque<double>& intensity);
 	deque<int> Rem(Frame& pos3D, deque<double>& int3D, double mindist_3D);
 	Frame IPRonResidual(Calibration& calib, Tiff2DFinder& t, deque<int**>& pixels_orig, deque<int**>& pixels_reproj, deque<int**>& pixels_res, Frame& estimates);
+	void MakeShortLinkResidual(int nextFrame, Frame& candidates, deque<Track>::iterator& tr, int iterations, bool* erase, bool* candidate_used);
 	void MakeShortLinkResidual(int nextFrame, Frame& candidates, deque<Track>::iterator& tr, int iterations);
 
 	void MatTracksSave(string addres, string s, int lastFrame);
