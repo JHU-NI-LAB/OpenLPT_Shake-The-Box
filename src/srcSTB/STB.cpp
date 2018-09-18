@@ -391,15 +391,31 @@ void STB::ConvergencePhase() {
 
 //			cout << "\t\tTime taken for STB at frame " << nextFrame << ": " << (clock() - start0) / (double) CLOCKS_PER_SEC << "s" << endl;
 
+
+
 			if (to_save_data) {
 				MatTracksSave(address, to_string(nextFrame), nextFrame);
 			} else {
 				//time_t t = time(0);
-				if (nextFrame % 100 == 0 || nextFrame == endFrame - 1) {  // to debug, every frame should be saved
+				if (nextFrame % 100 == 0 || nextFrame == endFrame) {  // to debug, every frame should be saved
 					cout << "\tSaving the tracks" << endl;
 
 				MatTracksSave(address, to_string(nextFrame), nextFrame);
 				}
+			}
+
+			/*
+			 * Modified by Shiyong Tan
+			 * Save the inacitve long tracks for every 500 frames and empty it to avoid endless expansion of this variable
+			 * Start:
+			 */
+			if (nextFrame % 500 == 0 || nextFrame == endFrame) {
+				// save the inactive long tracks
+				string s = to_string(nextFrame);
+				string X5 = "InactiveLongTracks" + s;
+				SaveTrackToTXT(inactiveLongTracks, address + X5);
+				// empty inactiveLongTracks
+				inactiveLongTracks.erase(inactiveLongTracks.begin(), inactiveLongTracks.end());
 			}
 		}
 	}
