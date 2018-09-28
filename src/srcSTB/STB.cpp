@@ -3,6 +3,7 @@
 #include <STB.h>
 #include <omp.h>
 #include <chrono>
+#include <cstdio>
 #include "NumDataIO.h"
 #include "Common.h"
 
@@ -68,10 +69,10 @@ STB::STB(int firstFrame, int lastFrame, string pfieldfile, string iprfile, int n
 	string address = tiffaddress + "Tracks/InitialTracks/";
 	if ( !(debug_mode == SKIP_PREVIOUS_TRACKS && debug_frame_number >= 4)) {
 		if (debug_mode == SKIP_INITIAL_PHASE ) {
-			LoadAllTracks(address, "");
+			LoadAllTracks(address, to_string(firstFrame + 3));
 		} else {
 			InitialPhase(pfieldfile);														// Initial phase: obtaining tracks for first 4 time steps
-			MatTracksSave(address, "", 4);
+			MatTracksSave(address, to_string(firstFrame + 3), firstFrame + 3);
 		}
 	}
 
@@ -401,6 +402,14 @@ void STB::ConvergencePhase() {
 					cout << "\tSaving the tracks" << endl;
 
 				MatTracksSave(address, to_string(nextFrame), nextFrame);
+				// remove previous files except anyone that is multiple of 500 for active long track and exit track
+				std::remove((address + "ActiveLongTracks" + to_string(nextFrame - 100) + ".txt").c_str());
+				std::remove( (address + "ActiveShortTracks" + to_string(nextFrame - 100) + ".txt").c_str());
+				if ((nextFrame - 100) % 500 != 0) {
+					std::remove( (address + "InactiveLongTracks" + to_string(nextFrame - 100) + ".txt").c_str());
+					std::remove( (address + "ExitTracks" + to_string(nextFrame - 100) + ".txt").c_str());
+				}
+
 				}
 			}
 
@@ -416,6 +425,11 @@ void STB::ConvergencePhase() {
 				SaveTrackToTXT(inactiveLongTracks, address + X5);
 				// empty inactiveLongTracks
 				inactiveLongTracks.erase(inactiveLongTracks.begin(), inactiveLongTracks.end());
+				// save the inactive long tracks
+				string X6 = "ExitTracks" + s;
+				SaveTrackToTXT(exitTracks, address + X6);
+				// empty inactiveLongTracks
+				exitTracks.erase(exitTracks.begin(), exitTracks.end());
 			}
 		}
 	}
@@ -1208,7 +1222,7 @@ void STB::MakeShortLinkResidual(int nextFrame, Frame& candidates, deque<Track>::
 
 void STB::MatTracksSave(string address, string s, int lastFrame) {
 	// Saving tracks for Matlab
-	string X1 = "ActiveLongTracks" + s, X2 = "ActiveShortTracks" + s, X3 = "InactiveTracks" + s, X4 = "exitTracks" + s, X5 = "InactiveLongTracks" + s;
+	string X1 = "ActiveLongTracks" + s, X2 = "ActiveShortTracks" + s, X3 = "InactiveTracks" + s, X4 = "ExitTracks" + s, X5 = "InactiveLongTracks" + s;
 	
 /*
  * Modified By Shiyong Tan, 8/12/18
