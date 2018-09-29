@@ -24,7 +24,7 @@
 
 using namespace std;
 
-char* version = "1.2.071318"; //Version of this project
+char* version = "1.3.092918"; //Version of this project
 
 // globals
 ConfigFile config;
@@ -151,7 +151,7 @@ void GetDebugMode() {
 	config.outname);
 	t.MakeTracks(matched);*/
 	// Done!
-	cout << "Done." << endl;
+	cout << "All of images have been processed!" << endl;
 	return 0;
 }
 
