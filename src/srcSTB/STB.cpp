@@ -402,13 +402,24 @@ void STB::ConvergencePhase() {
 					cout << "\tSaving the tracks" << endl;
 
 				MatTracksSave(address, to_string(nextFrame), nextFrame);
-				// remove previous files except anyone that is multiple of 500 for active long track and exit track
-				std::remove((address + "ActiveLongTracks" + to_string(nextFrame - 100) + ".txt").c_str());
-				std::remove( (address + "ActiveShortTracks" + to_string(nextFrame - 100) + ".txt").c_str());
-				if ((nextFrame - 100) % 500 != 0) {
-					std::remove( (address + "InactiveLongTracks" + to_string(nextFrame - 100) + ".txt").c_str());
-					std::remove( (address + "ExitTracks" + to_string(nextFrame - 100) + ".txt").c_str());
+				if (nextFrame % 100 == 0) {
+					// remove previous files except anyone that is multiple of 500 for active long track and exit track
+					std::remove((address + "ActiveLongTracks" + to_string(nextFrame - 100) + ".txt").c_str());
+					std::remove( (address + "ActiveShortTracks" + to_string(nextFrame - 100) + ".txt").c_str());
+					// remove previous files except anyone that is multiple of 500 for active long track and exit track
+					if ((nextFrame - 100) % 500 != 0) {
+						std::remove( (address + "InactiveLongTracks" + to_string(nextFrame - 100) + ".txt").c_str());
+						std::remove( (address + "ExitTracks" + to_string(nextFrame - 100) + ".txt").c_str());
+					}
+				} else if (nextFrame == endFrame && nextFrame % 100 != 0) {
+					std::remove((address + "ActiveLongTracks" + to_string((int)(nextFrame / 100) * 100) + ".txt").c_str());
+					std::remove( (address + "ActiveShortTracks" + to_string((int)(nextFrame / 100) * 100) + ".txt").c_str());
+					if (((int)(nextFrame / 100) * 100) % 500 != 0) {
+						std::remove( (address + "InactiveLongTracks" + to_string((int)(nextFrame / 100) * 100) + ".txt").c_str());
+						std::remove( (address + "ExitTracks" + to_string((int)(nextFrame / 100) * 100) + ".txt").c_str());
+					}
 				}
+
 
 				}
 			}
