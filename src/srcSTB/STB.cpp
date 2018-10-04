@@ -207,6 +207,7 @@ void STB::ConvergencePhase() {
 	for (int currFrame = first + 3; currFrame < endFrame; currFrame++) {							// tracking frame by frame using Wiener / polynomial predictor along with shaking
 		string address = tiffaddress + "Tracks/ConvergedTracks/";
 		if (debug_mode == SKIP_PREVIOUS_TRACKS && currFrame < debug_frame_number ) {
+			if (currFrame < debug_frame_number - 1) continue; // skip those previous frame
 				LoadAllTracks(address, to_string(debug_frame_number));
 
 				if (error == NO_FILE) {
