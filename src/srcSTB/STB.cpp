@@ -216,7 +216,7 @@ void STB::ConvergencePhase() {
 					currFrame --;
 					error = NONE;
 				} else {
-					currFrame = debug_frame_number;
+					currFrame = debug_frame_number - 1;
 				}
 
 		} else {
@@ -1273,8 +1273,15 @@ void STB::LoadAllTracks(string address, string frame_number) {
 	LoadTrackFromTXT(address + X1, ActiveLong);
 	LoadTrackFromTXT(address + X2, ActiveShort);
 //	LoadTrackFromTXT(address + X3, Inactive);  // no longer load inactive long tracks, which are useless
-	LoadTrackFromTXT(address + X4, Exit);
-	LoadTrackFromTXT(address + X5, InactiveLong);
+	if (error == NONE) {
+		LoadTrackFromTXT(address + X4, Exit);
+		LoadTrackFromTXT(address + X5, InactiveLong);
+		error = NONE;
+	} else {
+		LoadTrackFromTXT(address + X4, Exit);
+		LoadTrackFromTXT(address + X5, InactiveLong);
+	}
+
 // End
 }
 
