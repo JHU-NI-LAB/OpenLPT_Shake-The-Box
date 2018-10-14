@@ -216,7 +216,7 @@ void STB::ConvergencePhase() {
 					currFrame --;
 					error = NONE;
 				} else {
-					currFrame = debug_frame_number - 1;
+					currFrame = debug_frame_number;
 				}
 
 		} else {
