@@ -23,7 +23,9 @@ public:
   // constructor: takes a filename for a tiff image
   Tiffload(std::string f) throw(std::invalid_argument, std::runtime_error);
   // destructor
-  ~Tiffload() {};
+  ~Tiffload() {
+	  delete[] buffer;
+  };
 	
 	void Open() throw(std::invalid_argument, std::runtime_error);
 		

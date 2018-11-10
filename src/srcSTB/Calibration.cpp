@@ -88,6 +88,7 @@ Calibration::Calibration(std::string& fname, int ignoredCam, double mindist2D, d
 		cams.push_back(Camera(parsed));
 	}
 
+	camID = new int[rcams]; rID = new int[rcams];
 	// initializing the logic matrix (is_Particle) and its corresponding particle vectors (is_ParticlePos) 
 	Calibration::is_Particle = new bool**[rcams];
 	Calibration::is_ParticlePos = new vector<Frame::const_iterator>**[rcams];
@@ -118,6 +119,8 @@ Calibration::Calibration(deque<Camera>& cams, double mindist2D, double mindist3D
 	: cams(cams), mindist_2D(mindist2D), mindist_3D(mindist3D), ncams(nCams)
 {
 	rcams = ncams;
+
+	camID = new int[rcams]; rID = new int[rcams];
 
 	// initializing the logic matrix (is_Particle) and its corresponding particle vectors (is_ParticlePos) 
 	Calibration::is_Particle = new bool**[rcams];
@@ -249,7 +252,7 @@ Frame Calibration::Stereomatch(const deque<Frame>& iframes, int framenumber, int
 	int temps = 0;
 	//std::cout << "\tCorrecting distortion..." << endl;
 
-	camID = new int[rcams]; rID = new int[rcams];
+
 	int id = 0;
 	for (int n = 0; n < ncams; n++) {
 		if (n != ignoreCam) {
@@ -652,6 +655,7 @@ Frame Calibration::Stereomatch(const deque<Frame>& iframes, int framenumber, int
 	for (unsigned int i = 0; i < num_match; ++i) delete[] preference[i];
 	for (int i = 0; i < rcams; ++i) delete[] fill_in[i];
 	delete[] match_sequence;
+	delete[] preference;
 
 //	vector<int> goodindex;
 

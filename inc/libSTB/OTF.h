@@ -16,12 +16,13 @@ public:
 
 	//constructor: does nothing
 	OTF() {};
+	OTF(OTF& otf);
 	//takes the number of cams and path to the .mat file (variable 'a' for cam0 should be saved as A0)
 	//OTF(int cams, string& path);
 	OTF(int cams, string matfile);
 	//OTF(OTF& o);
 	~OTF() {
-	/*	for (int n = 0; n < ncams; n++) {
+		for (int n = 0; n < ncams; n++) {
 			delete[] aData[n];
 			delete[] bData[n];
 			delete[] cData[n];
@@ -30,7 +31,7 @@ public:
 		delete[] aData;
 		delete[] bData;
 		delete[] cData;
-		delete[] alphaData;*/
+		delete[] alphaData;
 		//cout << "OTF destructor called" << endl;
 	};
 
@@ -38,6 +39,14 @@ public:
 	void OTF_matdata();
 	// extract OTF values from .txt file
 	void OTF_txtdata();
+
+	int GetNumElement() { return num_element; };
+	int GetNumCam() { return ncams; };
+
+	void GetAData(double** a_data);
+	void GetBData(double** b_data);
+	void GetCData(double** c_data);
+	void GetAlphaData(double** alpha_data);
 
 	// creating a grid for trilinear interpolation
 	//tuple<InterpMultilinear<3, double>, InterpMultilinear<3, double>, InterpMultilinear<3, double>, InterpMultilinear<3, double>> OTF::OTFgrid(int camid);
@@ -48,6 +57,7 @@ public:
 
 private:
 	int ncams;
+	int num_element = 0;
 	double **aData;
 	double **bData;
 	double **cData;

@@ -428,8 +428,9 @@ Frame IPR::IPRLoop(Calibration& calib, OTF& OTFcalib,  deque<int> camNums, int i
 							if (loopInner < 2)  del = mindist_3D;
 							else if (loopInner < 5)  del = mindist_3D / 10;
 							else  del = mindist_3D / 100;
+							OTF otf_calib(OTFcalib);
 
-							Shaking s(ncams, ignoreCam, OTFcalib, Npixw, Npixh, psize, del, *pID, camsAll, res, intensity3Dnew[i]);
+							Shaking s(ncams, ignoreCam, otf_calib, Npixw, Npixh, psize, del, *pID, camsAll, res, intensity3Dnew[i]);
 
 							pos3Dnew[i] = s.Get_posnew();
 							intensity3Dnew[i] = s.Get_int();

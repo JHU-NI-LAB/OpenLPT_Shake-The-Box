@@ -28,6 +28,56 @@ std::vector<double> linspace(double first, double last, int len) {
 	return result;
 }
 
+OTF::OTF(OTF& otf) {
+	num_element = otf.GetNumElement();
+	ncams = otf.GetNumCam();
+	aData = new double*[ncams];
+	bData = new double*[ncams];
+	cData = new double*[ncams];
+	alphaData = new double*[ncams];
+	otf.GetAData(aData);
+	otf.GetBData(bData);
+	otf.GetCData(cData);
+	otf.GetAlphaData(alphaData);
+}
+
+void OTF::GetAData(double** a_data) {
+	for (int camid = 0; camid < ncams; camid++) {
+		a_data[camid] = new double[num_element];
+		for (int n = 0; n < num_element; n++) {
+			a_data[camid][n] = aData[camid][n];
+		}
+	}
+}
+
+void OTF::GetBData(double** b_data) {
+	for (int camid = 0; camid < ncams; camid++) {
+		b_data[camid] = new double[num_element];
+		for (int n = 0; n < num_element; n++) {
+			b_data[camid][n] = bData[camid][n];
+		}
+	}
+}
+
+void OTF::GetCData(double** c_data) {
+	for (int camid = 0; camid < ncams; camid++) {
+		c_data[camid] = new double[num_element];
+		for (int n = 0; n < num_element; n++) {
+			c_data[camid][n] = cData[camid][n];
+		}
+	}
+}
+
+void OTF::GetAlphaData(double** alpha_data) {
+	for (int camid = 0; camid < ncams; camid++) {
+		alpha_data[camid] = new double[num_element];
+		for (int n = 0; n < num_element; n++) {
+			alpha_data[camid][n] = alphaData[camid][n];
+		}
+	}
+}
+
+
 //OTF::OTF(int cams, string& path) {
 OTF::OTF(int ncams, string matfile) : ncams(ncams), mat_path(matfile) {
 
@@ -60,6 +110,7 @@ void OTF::OTF_txtdata() {
 	infile.close();
 
 	int nElements; parsed >> nElements;
+	num_element = nElements;
 //	int nsubvector; parsed >> nsubvector;
 
 	for (int camid = 0; camid < ncams; camid++) {

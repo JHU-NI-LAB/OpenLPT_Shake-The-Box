@@ -803,6 +803,8 @@ double STB::LMSWienerPredictor(Track tracks, string direction, int order) {
 	for (unsigned int i = 0; i < order; ++i) {
 		prediction = prediction + filter_param[i] * series[i + 1];
 	}
+	delete[] series;
+	delete[] filter_param;
 	return prediction;
 }
 
@@ -855,7 +857,8 @@ void STB::Shake(Frame& estimate, deque<double>& intensity) {
 //			for (Frame::const_iterator pID = estimate.begin(); pID != estimate.end(); ++pID) {
 			for (int i = 0; i < estimate.NumParticles(); ++i) {
 				Frame::const_iterator pID = estimate.begin() + i;
-				Shaking s(ncams, ignoreCam[i], OTFcalib, Npixw, Npixh, _ipr.psize, del, *pID, cams, pixels_res, intensity[i]);
+				OTF otf_calib(OTFcalib);
+				Shaking s(ncams, ignoreCam[i], otf_calib, Npixw, Npixh, _ipr.psize, del, *pID, cams, pixels_res, intensity[i]);
 				estimate[i] = s.Get_posnew();
 				intensity[i] = s.Get_int();
 //				index++;
