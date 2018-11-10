@@ -217,6 +217,7 @@ void STB::ConvergencePhase() {
 					error = NONE;
 				} else {
 					currFrame = debug_frame_number - 1;
+					debug_mode = NO_SKIP; //when execute the debug requirement, then label it as done.
 				}
 
 		} else {
