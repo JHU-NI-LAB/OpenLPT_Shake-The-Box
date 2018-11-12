@@ -24,7 +24,7 @@
 
 using namespace std;
 
-char* version = "1.4.111018"; //Version of this project
+char* version = "2.0.111218"; //Version of this project
 
 // globals
 ConfigFile config;
