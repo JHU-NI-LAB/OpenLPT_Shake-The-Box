@@ -425,7 +425,7 @@ Frame IPR::IPRLoop(Calibration& calib, OTF& OTFcalib,  deque<int> camNums, int i
 						for (int i = 0; i < pos3Dnew.NumParticles(); ++i) {
 //						for (Frame::const_iterator pID = pos3Dnew.begin(); pID != pIDend; ++pID) {
 							Frame::const_iterator pID = pos3Dnew.begin() + i;
-							if (loopInner < 2)  del = mindist_2D * 2;
+							if (loopInner < 2)  del = mindist_2D;
 							else if (loopInner < 5)  del = mindist_2D / pow(2,loopInner - 1);
 							else  del = mindist_2D / 100;
 							OTF otf_calib(OTFcalib);

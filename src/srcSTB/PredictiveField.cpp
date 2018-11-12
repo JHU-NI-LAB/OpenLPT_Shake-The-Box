@@ -14,6 +14,7 @@
 #include <linterp.h>
 #include <PredictiveField.h>
 #include "NumDataIO.h"
+#include "Common.h"
 
 #define PREV_FRAME 0
 #define CURR_FRAME 1
@@ -38,14 +39,18 @@ void PredictiveField::GetPredictiveField(Frame prevFramePos, Frame currFramePos,
 	}
 	infile.close();
 
-	for (int i = 0; i < 6; i++) 
-		parsed >> viewAreaLimits[i];
 	
+	viewAreaLimits[0] = config.x_lower_limit; viewAreaLimits[1] = config.x_upper_limt;
+	viewAreaLimits[2] = config.y_lower_limit; viewAreaLimits[3] = config.y_upper_limt;
+	viewAreaLimits[4] = config.z_lower_limit; viewAreaLimits[5] = config.z_upper_limt;
 
-	for (int i = 0; i < 3; i++) 
+	for (int i = 0; i < 3; i++) {
 		parsed >> gridSize[i];
+		gridSize[i] = gridSize[i] * config.factor;
+	}
 	
 	parsed >> radius;
+	radius = radius * config.factor;
 
 	int mat; bool matlabFlag = false;
 	parsed >> mat;
