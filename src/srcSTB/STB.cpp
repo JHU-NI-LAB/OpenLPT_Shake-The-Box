@@ -819,12 +819,11 @@ void STB::Shake(Frame& estimate, deque<double>& intensity) {
 
 		deque<int> ignoreCam = Rem(estimate, intensity, _ipr.mindist_3D);					// removing ambiguous, ghost and particles that disappear on at least 2 cams
 
-
 		for (int loopInner = 0; loopInner < _ipr.it_innerloop; loopInner++) {
 			double del;
-			if (loopInner < 1)  del = _ipr.mindist_2D * 2;			// initial shake TODO
-			else if (loopInner < 5)  del = _ipr.mindist_2D / pow(2,loopInner - 1);//_ipr.mindist_2D/10;	// normal shakes TODO
-			else  del = _ipr.mindist_2D/100;
+			if (loopInner < 1)  del = config.shaking_shift;			// initial shake TODO
+			else if (loopInner < 5)  del = config.shaking_shift / pow(2,loopInner - 1);//_ipr.mindist_2D/10;	// normal shakes TODO
+			else  del = config.shaking_shift/100;
 
 			_ipr.ReprojImage(estimate, OTFcalib, pixels_reproj, STBflag);					// adding the estimated particles to the reprojected image
 

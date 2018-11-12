@@ -269,6 +269,10 @@ void ImportConfiguration(struct ConfigFile* config, char* name) {
 
 		getline(file, line);
 		line.erase(line.find_first_of(' '));
+		config->shaking_shift = stof(line.c_str()) * config->factor;
+
+		getline(file, line);
+		line.erase(line.find_first_of(' '));
 		config->avgSpace = stof(line.c_str()) * config->factor;
 
 		getline(file, line);

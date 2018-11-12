@@ -425,9 +425,9 @@ Frame IPR::IPRLoop(Calibration& calib, OTF& OTFcalib,  deque<int> camNums, int i
 						for (int i = 0; i < pos3Dnew.NumParticles(); ++i) {
 //						for (Frame::const_iterator pID = pos3Dnew.begin(); pID != pIDend; ++pID) {
 							Frame::const_iterator pID = pos3Dnew.begin() + i;
-							if (loopInner < 2)  del = mindist_3D;
-							else if (loopInner < 5)  del = mindist_3D / 10;
-							else  del = mindist_3D / 100;
+							if (loopInner < 2)  del = mindist_2D * 2;
+							else if (loopInner < 5)  del = mindist_2D / pow(2,loopInner - 1);
+							else  del = mindist_2D / 100;
 							OTF otf_calib(OTFcalib);
 
 							Shaking s(ncams, ignoreCam, otf_calib, Npixw, Npixh, psize, del, *pID, camsAll, res, intensity3Dnew[i]);

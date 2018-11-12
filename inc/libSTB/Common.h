@@ -35,6 +35,7 @@ struct ConfigFile {
 	double factor; // using to converse voxel into mm.
 	bool iprFlag;
 	double initialPhaseRadius;
+	double shaking_shift;
 	double avgSpace;
 	double largestShift;
 	double maxAbsShiftChange;
