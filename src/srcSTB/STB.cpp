@@ -773,6 +773,17 @@ double STB::LMSWienerPredictor(Track tracks, string direction, int order) {
 			series[i] = tracks[size - order - 1 + i].Z();	//z-values
 	}
 
+	// Wiener filter does badly near zero
+	bool shift_label = false;
+	double shift = 10;
+	if (fabs(series[order]) < 1) {
+		// make a shift to avoid zero-plane prediction
+		shift_label = true;
+		for (unsigned int i = 0; i < order + 1; ++i) {
+			series[i] = series[i] + shift;
+		}
+	}
+
 	double* filter_param = new double[order]; // the filter parameter
 	for (unsigned int i = 0; i < order; ++i) filter_param[i] = 0; // initialize the filter
 	// calculate  the step
@@ -803,6 +814,9 @@ double STB::LMSWienerPredictor(Track tracks, string direction, int order) {
 	prediction = 0;
 	for (unsigned int i = 0; i < order; ++i) {
 		prediction = prediction + filter_param[i] * series[i + 1];
+	}
+	if (shift_label) {
+		prediction = prediction - shift;
 	}
 	delete[] series;
 	delete[] filter_param;
