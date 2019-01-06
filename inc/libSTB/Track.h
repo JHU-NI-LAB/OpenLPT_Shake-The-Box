@@ -45,10 +45,16 @@ public:
   // Delete a point to the end of the Track
   void DeleteBack();
 
+  void DeleteFront();
+
   // Add a new point in the begining Track
   void AddFront(const Position& p, int t);
   // Add another Track onto the begining of this one
   void AddFront(const Track& t);
+
+  const Position First() const;
+  const Position Second() const;
+  const Position Third() const;
 
   // return the last point on the Track
   const Position Last() const;
@@ -142,12 +148,33 @@ inline void Track::DeleteBack() {
 	--npoints;
 }
 
+inline void Track::DeleteFront() {
+	pos.pop_front();
+	time.pop_front();
+	--npoints;
+}
+
 inline void Track::AddFront(const Position& p, int t)
 {
 	pos.push_front(p);
 	time.push_front(t);
 	//assert(active = true);
 	++npoints;
+}
+
+inline const Position Track::First() const
+{
+  return pos[0];
+}
+
+inline const Position Track::Second() const
+{
+  return pos[1];
+}
+
+inline const Position Track::Third() const
+{
+  return pos[2];
 }
 
 inline const Position Track::Last() const

@@ -42,6 +42,7 @@ struct ConfigFile {
 	double maxRelShiftChange;
 	double fpt;
 	double lowerInt;
+	bool backSTB;
 };
 
 // Data for debug

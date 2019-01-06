@@ -18,6 +18,7 @@
 #include <GDF.h>
 #include <Frame.h>
 #include <STB.h>
+#include "BackSTB.h"
 #include <gnu/libc-version.h>
 #include "Common.h"
 #include "BoundaryCheck.h"
@@ -102,16 +103,18 @@ void GetDebugMode() {
 	// saving the tracks
 	//s.MatTracksSave(s.tiffaddress,"", config.last);
 	// applying a pass of BackSTB
-/*	BackSTB bs(first, last, config.initialPhaseRadius);
-	bs.UpdateTracks(s);
+	if (config.backSTB) {
+		BackSTB bs(config.first, config.last, config.initialPhaseRadius);
+		bs.UpdateTracks(s);
+	}
 	// saving the tracks
-	s.MatTracksSave("back");
+//	s.MatTracksSave("back");
 	// applying a pass of ForwardSTB
-	ForwardSTB fs(first, last, config.initialPhaseRadius);
-	fs.UpdateTracks(s);
-	// saving the tracks
-	s.MatTracksSave("forward");
-*/
+//	ForwardSTB fs(first, last, config.initialPhaseRadius);
+//	fs.UpdateTracks(s);
+//	// saving the tracks
+//	s.MatTracksSave("forward");
+
 	//std::cout << "\tTotal number of stereomatched particles: " << nr << endl;
 	// first argument: total number of particles; second argument: number of columns in .gdf file;
 	// framenumber, x, y, z, intersect, xy, xy, xy, xy;
@@ -294,6 +297,10 @@ void ImportConfiguration(struct ConfigFile* config, char* name) {
 		getline(file, line);
 		line.erase(line.find_first_of(' '));
 		config->lowerInt = stof(line.c_str());
+
+		getline(file, line);
+		line.erase(line.find_first_of(' '));
+		config->backSTB = stoi(line.c_str());
 }
 
 

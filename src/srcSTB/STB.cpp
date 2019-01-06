@@ -72,7 +72,7 @@ STB::STB(int firstFrame, int lastFrame, string pfieldfile, string iprfile, int n
 			LoadAllTracks(address, to_string(firstFrame + 3));
 		} else {
 			InitialPhase(pfieldfile);														// Initial phase: obtaining tracks for first 4 time steps
-			MatTracksSave(address, to_string(firstFrame + 3), firstFrame + 3);
+			MatTracksSave(address, to_string(firstFrame + 3), 0);
 		}
 	}
 
@@ -357,11 +357,16 @@ void STB::ConvergencePhase() {
 																										// moving all activeLongTracks with displacement more than LargestExp shift to inactiveTracks
 				if (d1 > thresh) {
 //					inactiveTracks.push_back(*tr);
+					tr->DeleteBack();
+					if (length >= 7) {
+						inactiveLongTracks.push_back(*tr);
+					}
 					tr = activeLongTracks.erase(tr);
 					s_al++; a_is++;
 				}
 																										// moving all activeLongTracks with large change in particle shift to inactive/inactiveLong tracks
 				else if (abs(d1 - d2) > maxAbsShiftChange || abs(d1 - d2) > threshRel) {
+					tr->DeleteBack();
 					if (length >= 7) {
 						inactiveLongTracks.push_back(*tr);
 						tr = activeLongTracks.erase(tr);
@@ -397,13 +402,13 @@ void STB::ConvergencePhase() {
 
 
 			if (to_save_data) {
-				MatTracksSave(address, to_string(nextFrame), nextFrame);
+				MatTracksSave(address, to_string(nextFrame), 0);
 			} else {
 				//time_t t = time(0);
 				if (nextFrame % 100 == 0 || nextFrame == endFrame) {  // to debug, every frame should be saved
 					cout << "\tSaving the tracks" << endl;
 
-				MatTracksSave(address, to_string(nextFrame), nextFrame);
+				MatTracksSave(address, to_string(nextFrame), 0);
 				if (nextFrame % 100 == 0) {
 					// remove previous files except anyone that is multiple of 500 for active long track and exit track
 					std::remove((address + "ActiveLongTracks" + to_string(nextFrame - 100) + ".txt").c_str());
@@ -431,7 +436,7 @@ void STB::ConvergencePhase() {
 			 * Save the inacitve long tracks for every 500 frames and empty it to avoid endless expansion of this variable
 			 * Start:
 			 */
-			if (nextFrame % 500 == 0 || nextFrame == endFrame) {
+			if (nextFrame % 500 == 0) {
 				// save the inactive long tracks
 				string s = to_string(nextFrame);
 				string X5 = "InactiveLongTracks" + s;
@@ -908,7 +913,10 @@ deque<int> STB::Rem(Frame& pos3D, deque<double>& int3D, double mindist_3D) {
 		for (int j = i + 1; j < pos3D.NumParticles(); ) {
 			if (Distance(pos3D[i], pos3D[j]) < thresh3D) {
 				pos3D.Delete(j); int3D.erase(int3D.begin() + j); tempPredictions.Delete(j);
-//				inactiveTracks.push_back(activeLongTracks[j]);							// shifting the corresponding activeLongTrack to inactiveTracks
+//				inactiveTracks.push_back(activeLongTracks[j]); TODO					// shifting the corresponding activeLongTrack to inactiveTracks
+				if (activeLongTracks.at(j).Length() > 7) {
+					inactiveLongTracks.push_back(activeLongTracks.at(j));
+				}
 				activeLongTracks.erase(activeLongTracks.begin() + j);
 				s_al++; a_is++;
 			}
@@ -1005,6 +1013,7 @@ deque<int> STB::Rem(Frame& pos3D, deque<double>& int3D, double mindist_3D) {
 			activeLongTracks.erase(activeLongTracks.begin() + i); s_al++;
 			ignoreCam[i] = 100;
 		}
+		// TODO
 		//else if (belowIntensity + leftcams >= 2) {					//  if the particle disappears on at least 2 cams (out of bounds or below intensity thresh)
 		//	pos3D.Delete(i); int3D.erase(int3D.begin() + i); tempPredictions.Delete(i);	// delete the particle and
 		//																				// if the track is longer than 12 frames and particles' translation b/w frames is within the threshold of largestParticleShift
@@ -1249,7 +1258,7 @@ void STB::MakeShortLinkResidual(int nextFrame, Frame& candidates, deque<Track>::
 
 //########################### MAT / TXT FILES ###################################
 
-void STB::MatTracksSave(string address, string s, int lastFrame) {
+void STB::MatTracksSave(string address, string s, bool is_back_STB) {
 	// Saving tracks for Matlab
 	string X1 = "ActiveLongTracks" + s, X2 = "ActiveShortTracks" + s, X3 = "InactiveTracks" + s, X4 = "ExitTracks" + s, X5 = "InactiveLongTracks" + s;
 	
@@ -1270,12 +1279,15 @@ void STB::MatTracksSave(string address, string s, int lastFrame) {
 //	SaveTrackToTXT(inactiveTracks, address + X3);  // No longer save inactiveTracks which are useless
 	SaveTrackToTXT(exitTracks, address + X4);
 	SaveTrackToTXT(inactiveLongTracks, address + X5);
+	if (is_back_STB) {
+		SaveTrackToTXT(bufferTracks, address + "BufferTracks" + s);
+	}
 // End
 }
 
 void STB::LoadAllTracks(string address, string frame_number) {
 	string s = frame_number + ".txt";
-	string X1 = "ActiveLongTracks" + s, X2 = "ActiveShortTracks" + s, X3 = "InactiveTracks" + s, X4 = "exitTracks" + s, X5 = "InactiveLongTracks" + s;
+	string X1 = "ActiveLongTracks" + s, X2 = "ActiveShortTracks" + s, X3 = "InactiveTracks" + s, X4 = "ExitTracks" + s, X5 = "InactiveLongTracks" + s;
 /*
  * Modified by Shiyong Tan, 8/12/18
  * Adapt to the change of the saving format.
@@ -1690,6 +1702,7 @@ void STB::LoadTrackFromTXT(string path, TrackType trackType) {
 				case Inactive: inactiveTracks.push_back(track);break;
 				case Exit: exitTracks.push_back(track);break;
 				case InactiveLong: inactiveLongTracks.push_back(track);break;
+				case Buffer: bufferTracks.push_back(track);break;
 			}
 		}
 	}

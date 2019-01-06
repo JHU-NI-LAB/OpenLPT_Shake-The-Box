@@ -15,16 +15,16 @@
 #include <Track.h>
 #include <IPR.h>
 #include <PredictiveField.h>
-#include <BackSTB.h>
-#include <ForwardSTB.h>
+//#include <BackSTB.h>
+//#include <ForwardSTB.h>
 
 using namespace std;
 
 class STB {
 public:
 
-	friend class BackSTB;
-	friend class ForwardSTB;
+//	friend class BackSTB;
+//	friend class ForwardSTB;
 	// default constructor
 	STB() {};
 	// constructor
@@ -47,7 +47,7 @@ public:
 		}
 	};
 
-    enum TrackType{ Inactive = 0, ActiveShort = 1, ActiveLong = 2, Exit = 3, InactiveLong = 4};
+    enum TrackType{ Inactive = 0, ActiveShort = 1, ActiveLong = 2, Exit = 3, InactiveLong = 4, Buffer = 5};
 
 	//############################### FUNCTIONS ##############################
 	// to make tracks for the first four frames
@@ -88,7 +88,7 @@ public:
 	void MakeShortLinkResidual(int nextFrame, Frame& candidates, deque<Track>::iterator& tr, int iterations, bool* erase, bool* candidate_used);
 	void MakeShortLinkResidual(int nextFrame, Frame& candidates, deque<Track>::iterator& tr, int iterations);
 
-	void MatTracksSave(string addres, string s, int lastFrame);
+	void MatTracksSave(string addres, string s, bool is_back_STB);
 	void MatfileSave(deque<Track> tracks, string address, string name, int size);
 	void SaveTrackToTXT(deque<Track> tracks, string address);
 	void LoadAllTracks(string address, string frame_number);
@@ -150,7 +150,7 @@ public:
 	deque<Track> inactiveTracks;								// tracks that are inactive as they could not find the correct link
 	deque<Track> exitTracks;									// tracks that left the measurement domain (out of at least 2 cameras)
 	deque<Track> inactiveLongTracks;
-	deque<Track> activeLongNewTracks;							//  new long tracks added from Back or Forward STB (multi-pass)
+	deque<Track> bufferTracks;							//  new long tracks added from Back or Forward STB (multi-pass)
 
 	void Load_Tracks(string path, TrackType trackType);
 	// dummy variables to identify the no. of tracks added and subtracted 

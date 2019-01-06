@@ -11,7 +11,7 @@ using namespace std;
  * So, we have to declare STB here since this file is compiled ahead of STB.
  * Start:
  */
-class STB;
+//class STB;
 // End
 
 class BackSTB {
@@ -36,12 +36,13 @@ public:
 
 	//############################### FUNCTIONS ##############################
 	void UpdateTracks(STB& s);
-	void Predictor(STB& s, int prevFrame, deque<Track>::iterator& Ltr,
-		deque<deque<Track>::iterator>& unlinkedTracks, Frame& predictions,
+	bool Predictor(STB& s, int prevFrame, deque<Track>::iterator& Ltr,
+		deque<Track>& unlinkedTracks, Frame& predictions,
 		deque<double>& intensity);
+	double LMSWienerPredictor(Track tracks, string direction, int order);
 	vector<double> Polyfit(Track tracks, string direction, int prevFrame);
-	void Shake(STB& s, Frame& estimate, deque<double>& intensity, deque<deque<Track>::iterator>& unlinkedTracks);
-	deque<int> Rem(STB& s,Frame& pos3D, deque<double>& int3D, double mindist_3D, deque<deque<Track>::iterator>& unlinkedTracks);
+	void Shake(STB& s, Frame& estimate, deque<double>& intensity, deque<Track>& unlinkedTracks);
+	deque<int> Rem(STB& s,Frame& pos3D, deque<double>& int3D, double mindist_3D, deque<Track>& unlinkedTracks);
 	void MakeShortLinkResidual_backward(STB& s, int prevFrame, Frame& candidates, deque<Track>::iterator& tr, int iterations);
 	
 private:

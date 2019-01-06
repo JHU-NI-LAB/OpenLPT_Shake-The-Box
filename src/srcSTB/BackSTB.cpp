@@ -1,5 +1,7 @@
 #include <STB.h>
 #include <BackSTB.h>
+#include <chrono>
+#include <cstdio>
 
 #define ALL_CAMS 100
 #define STBflag true
@@ -12,8 +14,7 @@ BackSTB::BackSTB(int firstFrame, int lastFrame, double threshold) : first(firstF
 void BackSTB::UpdateTracks(STB& s) {
 	cout << "\tPerforming BackSTB" << endl;
 	s.activeShortTracks.clear();
-	clock_t start;
-	start = clock();
+	auto start = std::chrono::system_clock::now();
 
 	ncams = s.ncams;
 	Npixh = s.Npixh;
@@ -34,56 +35,85 @@ void BackSTB::UpdateTracks(STB& s) {
 
 	Calibration calib(s._ipr.Get_calibfile(), ALL_CAMS, s._ipr.Get_mindist2D(), s._ipr.Get_mindist3D(), ncams);
 
-	for (int currFrame = first + last; currFrame != first; currFrame--) {						// Linking the tracks back in time
+	// Move all tracks to active long new tracks
+	for (deque<Track>::iterator tr = s.activeLongTracks.begin(); tr != s.activeLongTracks.end(); ) {
+		s.bufferTracks.push_back(*tr);
+		tr = s.activeLongTracks.erase(tr);
+	}
 
-		clock_t start0, start1, start2;
-		start0 = clock();
+	for (deque<Track>::iterator tr = s.exitTracks.begin(); tr != s.exitTracks.end(); ) {
+		s.bufferTracks.push_back(*tr);
+		tr = s.exitTracks.erase(tr);
+	}
+
+	for (deque<Track>::iterator tr = s.inactiveLongTracks.begin(); tr != s.inactiveLongTracks.end(); ) {
+		s.bufferTracks.push_back(*tr);
+		tr = s.inactiveLongTracks.erase(tr);
+	}
+
+	for (int currFrame = last - 3; currFrame != first; currFrame--) {						// Linking the tracks back in time
+
+//		clock_t start0, start1, start2;
+//		start = clock();
 
 		int prevFrame = currFrame - 1;
+		if (prevFrame % 500 == 0) {
+			cout<<"Loading tracks..."<<endl;
+			// load inactive long tracks and exit tracks to buffer tracks
+			s.LoadTrackFromTXT(s.tiffaddress + "Tracks/ConvergedTracks/InactiveLongTracks" + to_string(prevFrame) + ".txt", s.Buffer);
+			s.LoadTrackFromTXT(s.tiffaddress + "Tracks/ConvergedTracks/ExitTracks" + to_string(prevFrame) + ".txt", s.Buffer);
+		}
 		cout << "\tBackSTB at frame: " << prevFrame << endl;
 		cout << "\t\tCheck Points: " << endl;
 
-		start1 = clock();
-		cout << "\t\t\tLinking Long/Exit tracks: ";
-		deque<deque<Track>::iterator> unlinkedTracks;
+//		start = clock();
+		start =std::chrono::system_clock::now();
+		cout << "\t\t\tLinking Long/Exit tracks: "<<endl;
+		deque<Track> unlinkedTracks;
 		Frame predictions; deque<double> intensity;						
 																							// for each track in activeLongTracks
-		for (deque<Track>::iterator Ltr = s.activeLongTracks.begin(); Ltr != s.activeLongTracks.end(); ++Ltr)
-			if (!(Ltr->Exists(prevFrame)) && Ltr->Exists(currFrame))					// if the track has no point in the prevFrame and has a point in the currFrame (unlinked track)
-				Predictor(s, prevFrame, Ltr, unlinkedTracks, predictions, intensity);		// predict its position in prevFrame (using 4 time steps after prevFrame)
-
-																							// repeating the same for exit tracks
-		for (deque<Track>::iterator Etr = s.exitTracks.begin(); Etr != s.exitTracks.end(); ++Etr)
-			if (!(Etr->Exists(prevFrame)) && Etr->Exists(currFrame))
-				Predictor(s, prevFrame, Etr, unlinkedTracks, predictions, intensity);
+//		for (deque<Track>::iterator Ltr = s.activeLongTracks.begin(); Ltr != s.activeLongTracks.end(); ++Ltr)
+//			if (!(Ltr->Exists(prevFrame)) && Ltr->Exists(currFrame))					// if the track has no point in the prevFrame and has a point in the currFrame (unlinked track)
+//				Predictor(s, prevFrame, Ltr, unlinkedTracks, predictions, intensity);		// predict its position in prevFrame (using 4 time steps after prevFrame)
+//
+//																							// repeating the same for exit tracks
+//		for (deque<Track>::iterator Etr = s.exitTracks.begin(); Etr != s.exitTracks.end(); ++Etr)
+//			if (!(Etr->Exists(prevFrame)) && Etr->Exists(currFrame))
+//				Predictor(s, prevFrame, Etr, unlinkedTracks, predictions, intensity);
 																							// repeating the same for ActiveLongNew tracks (new tracks added in BackSTB)
-		for (deque<Track>::iterator Ltr = s.activeLongNewTracks.begin(); Ltr != s.activeLongNewTracks.end(); ++Ltr)
-			if (!(Ltr->Exists(prevFrame)) && Ltr->Exists(currFrame))					
-				Predictor(s, prevFrame, Ltr, unlinkedTracks, predictions, intensity);
-		
 
-		deque<string> filename(s.ncams);													// connect them using the residual images
+		for (deque<Track>::iterator tr = s.bufferTracks.begin(); tr != s.bufferTracks.end(); ) {
+			if (!(tr->Exists(prevFrame)) && tr->Exists(currFrame)) {
+				if (Predictor(s, prevFrame, tr, unlinkedTracks, predictions, intensity)) {
+					++ tr;
+				} else {
+					tr = s.bufferTracks.erase(tr); //No track is connected, it is moved to unlinkedTracks temporarily.
+				}
+			} else {
+				++ tr;
+			}
+		}
+
+		deque<string> filename;													// connect them using the residual images
 																							// loading the actual cameras images at prev frame for connecting links back in time 
 		for (int i = 0; i < s.ncams; i++) {													// getting the tiff image names
-			int j = i + 1;
+//			int j = i + 1;
 			// exchanging images of camera 3 n 4
-			if (i == 2)
-				j = 4;
-			if (i == 3)
-				j = 3;
-			stringstream tiffname; tiffname << s.tiffaddress << "C00" << j << "H001S0001/" << "cam" << j << "frame" << setfill('0') << setw(4) << prevFrame << ".tif";
-			filename[i] = tiffname.str();
+//			if (i == 2)
+//				j = 4;
+//			if (i == 3)
+//				j = 3;
+//			stringstream tiffname; tiffname << s.tiffaddress << "C00" << j << "H001S0001/" << "cam" << j << "frame" << setfill('0') << setw(4) << prevFrame << ".tif";
+//			filename[i] = tiffname.str();
+			filename.push_back(s.imgSequence[i][prevFrame - 1]);
+
 			//filename[i] = s.tiffaddress + "frame" + to_string(prevFrame) + "cam" + to_string(i + 1) + ".tif";
 		}
 		Tiff2DFinder t(s.ncams, s._ipr.Get_threshold(), filename);
 		t.FillPixels(pixels_orig);
 
 		Frame tracked;																		// getting the list of tracked particles at prevFrame (from activeLong, activeLongNew and exit tracks)
-		for (deque<Track>::iterator tr = s.activeLongTracks.begin(); tr != s.activeLongTracks.end(); ++tr)
-			if (tr->Exists(prevFrame))
-				tracked.Add(tr->GetPos(prevFrame - tr->GetTime(0)));
-
-		for (deque<Track>::iterator tr = s.exitTracks.begin(); tr != s.exitTracks.end(); ++tr)
+		for (deque<Track>::iterator tr = s.bufferTracks.begin(); tr != s.bufferTracks.end(); ++tr)
 			if (tr->Exists(prevFrame))
 				tracked.Add(tr->GetPos(prevFrame - tr->GetTime(0)));
 
@@ -100,10 +130,13 @@ void BackSTB::UpdateTracks(STB& s) {
 		Shake(s, predictions, intensity, unlinkedTracks);									// shaking the predictions of unlinked tracks
 
 		for (int i = 0; i < predictions.NumParticles(); i++) 								// adding the corrected particle position in prevFrame to its respective track 
-			unlinkedTracks[i]->AddFront(predictions[i], prevFrame);
+			unlinkedTracks[i].AddFront(predictions[i], prevFrame);
 
-		start2 = clock();
-		cout << "Done (" << (clock() - start1) / 1000 << "s)" << endl << "\t\t\tIPR on residuals for new tracks: ";
+//		start2 = clock();
+		cout << "Done (" <<std::chrono::duration_cast<std::chrono::seconds>(std::chrono::system_clock::now()- start) .count() << "s)" << endl
+				<< "\t\tIPR on residuals for new tracks: "<<endl;
+
+		start =std::chrono::system_clock::now();
 
 		if (predictions.NumParticles() != 0) {
 			s._ipr.ReprojImage(predictions, s.OTFcalib, pixels_reproj, STBflag);			// updating the original image by removing the newly tracked particles (shaked predictions)
@@ -115,66 +148,173 @@ void BackSTB::UpdateTracks(STB& s) {
 					}
 		}
 																							// applying ipr on the remaining particles in orig images to obtain particle candidates
+		s._ipr.DoingSTB(true);
 		Frame candidates = s.IPRonResidual(calib, t, pixels_orig, pixels_reproj, pixels_res, predictions);
 																							// trying to link each activeShortTrack with a particle candidate in prevFrame
 		for (deque<Track>::iterator tr = s.activeShortTracks.begin(); tr != s.activeShortTracks.end(); )
 			MakeShortLinkResidual_backward(s, prevFrame, candidates, tr, 5);
-																							// moving all activeShortTracks longer than 3 particles to activeLongTracks
+
+		cout<<"Time for IPR on residual:"<<std::chrono::duration_cast<std::chrono::seconds>(std::chrono::system_clock::now()- start) .count() << "s" << endl;
+
+		start =std::chrono::system_clock::now();
+		// PRUNING / ARRANGING THE TRACKS
+		double thresh = 1.5 * s.largestShift;
+		for (deque<Track>::iterator tr = unlinkedTracks.begin(); tr != unlinkedTracks.end(); ) {
+			double d1 = pow(Distance(tr->First(), tr->Second()),0.5), d2 = pow(Distance(tr->Second(), tr->Third()),0.5);
+			double threshRel = s.maxRelShiftChange*d2, length = tr->Length();
+																											// moving all activeLongTracks with displacement more than LargestExp shift to inactiveTracks
+			if (d1 > thresh) {
+	//					inactiveTracks.push_back(*tr);
+				tr->DeleteFront(); //delete the last point
+				if (length >= 7) {
+					if (tr->Exists(s.last)) {
+						s.activeLongTracks.push_back(*tr);
+					} else {
+						s.inactiveLongTracks.push_back(*tr);
+					}
+				}
+//				s_al++; a_is++;
+			} else if (abs(d1 - d2) > s.maxAbsShiftChange || abs(d1 - d2) > threshRel) { // moving all activeLongTracks with large change in particle shift to inactive/inactiveLong tracks
+				tr->DeleteFront();
+				if (length >= 7) {
+					if (tr->Exists(s.last)) {
+						s.activeLongTracks.push_back(*tr);
+					} else {
+						s.inactiveLongTracks.push_back(*tr);
+					}
+				}
+			} else {
+				s.bufferTracks.push_back(*tr); // a new particle is kept and move back to bufferTracks
+			}
+			tr = unlinkedTracks.erase(tr);
+			}
+		// moving all activeShortTracks longer than 3 particles to activeLongTracks
 		for (deque<Track>::iterator tr = s.activeShortTracks.begin(); tr != s.activeShortTracks.end(); ) {
 			if (tr->Length() > 3) {
-				s.activeLongNewTracks.push_back(*tr);
+				s.bufferTracks.push_back(*tr);
 				tr = s.activeShortTracks.erase(tr);
 			}
-			else
+				else
 				++tr;
 		}
-
 		for (Frame::const_iterator pID = candidates.begin(); pID != candidates.end(); ++pID) {	// adding all the untracked candidates to a new short track 	
 			Track startTrack(*pID, prevFrame);
 			s.activeShortTracks.push_back(startTrack);
 		}
 
-		cout << "Done (" << (clock() - start2) / 1000 << "s)" << endl;
+		cout << "Time for pruning:"<<std::chrono::duration_cast<std::chrono::seconds>(std::chrono::system_clock::now()- start) .count() << "s" << endl;
+//		cout << "Done (" << (clock() - start2) / 1000 << "s)" << endl;
 
 		cout << "\t\tNo. of active Short tracks:	" << s.activeShortTracks.size() << endl;
 		cout << "\t\tNo. of active Long tracks:	" << s.activeLongTracks.size() << endl;
-		cout << "\t\tNo. of active Long new tracks:	" << s.activeLongNewTracks.size() << endl;
+		cout << "\t\tNo. of inactive Long tracks:	" << s.inactiveLongTracks.size() << endl;
+		cout << "\t\tNo. of buffer tracks:\t\t" << s.bufferTracks.size() << endl;
 		cout << "\t\tNo. of exited tracks:		" << s.exitTracks.size() << endl;
-		cout << "\t\tNo. of inactive tracks:		" << s.inactiveTracks.size() << endl;
-		cout << "\t\tTime taken for BackSTB at frame " << prevFrame << ": " << (clock() - start0) / 1000 << "s" << endl;
+//		cout << "\t\tNo. of inactive tracks:		" << s.inactiveTracks.size() << endl;
+//		cout << "\t\tTime taken for BackSTB at frame " << prevFrame << ": " << (clock() - start0) / 1000 << "s" << endl;
+
+		string address = s.tiffaddress + "Tracks/BackSTBTracks/";
+		if (to_save_data) {
+			s.MatTracksSave(address, to_string(prevFrame), 1);
+		} else {
+			//time_t t = time(0);
+			if (prevFrame % 100 == 0 || prevFrame == s.first) {  // to debug, every frame should be saved
+				cout << "\tSaving the tracks" << endl;
+
+			s.MatTracksSave(address, to_string(prevFrame), 1);
+			if (prevFrame % 100 == 0) {
+				// remove previous files except anyone that is multiple of 500 for active long track and exit track
+				std::remove((address + "ActiveLongTracks" + to_string(prevFrame + 100) + ".txt").c_str());
+				std::remove( (address + "ActiveShortTracks" + to_string(prevFrame + 100) + ".txt").c_str());
+				std::remove( (address + "BufferTracks" + to_string(prevFrame + 100) + ".txt").c_str());
+				// remove previous files except anyone that is multiple of 500 for active long track and exit track
+				if ((prevFrame + 100) % 500 != 0) {
+					std::remove( (address + "InactiveLongTracks" + to_string(prevFrame + 100) + ".txt").c_str());
+					std::remove( (address + "ExitTracks" + to_string(prevFrame + 100) + ".txt").c_str());
+				}
+			} else if (prevFrame == s.first && prevFrame % 100 != 0) {
+				std::remove((address + "ActiveLongTracks" + to_string(100) + ".txt").c_str());
+				std::remove( (address + "ActiveShortTracks" + to_string(100) + ".txt").c_str());
+				std::remove( (address + "BufferTracks" + to_string(100) + ".txt").c_str());
+				if (((int)(prevFrame / 100) * 100) % 500 != 0) {
+					std::remove( (address + "InactiveLongTracks" + to_string(100) + ".txt").c_str());
+					std::remove( (address + "ExitTracks" + to_string(100) + ".txt").c_str());
+				}
+			}
+			if (prevFrame % 500 == 0) {
+				// save the inactive long tracks
+				string str = to_string(prevFrame);
+				string X5 = "InactiveLongTracks" + str;
+				s.SaveTrackToTXT(s.inactiveLongTracks, address + X5);
+				// empty inactiveLongTracks
+				s.inactiveLongTracks.erase(s.inactiveLongTracks.begin(), s.inactiveLongTracks.end());
+				// save the inactive long tracks
+				string X6 = "ExitTracks" + str;
+				s.SaveTrackToTXT(s.exitTracks, address + X6);
+				// empty inactiveLongTracks
+				s.exitTracks.erase(s.exitTracks.begin(), s.exitTracks.end());
+			}
+
+			}
+		}
 	}
 
-	// moving all activeLongNewTracks to activeLongTracks
-	for (deque<Track>::iterator tr = s.activeLongNewTracks.begin(); tr != s.activeLongNewTracks.end(); ) {
-		s.activeLongTracks.push_back(*tr);
-		tr = s.activeLongNewTracks.erase(tr);
+	// moving all bufferTracks to activeLongTracks or inactive long tracks
+	for (deque<Track>::iterator tr = s.bufferTracks.begin(); tr != s.bufferTracks.end(); ) {
+		if (tr->Exists(s.last)) {
+			s.activeLongTracks.push_back(*tr);
+		} else {
+			s.inactiveLongTracks.push_back(*tr);
+		}
+		tr = s.bufferTracks.erase(tr);
 	}
+
+	string address = s.tiffaddress + "Tracks/BackSTBTracks/";
+	s.MatTracksSave(address, to_string(first), 0);
 
 	cout << "\t\tNo. of active Short tracks:	" << s.activeShortTracks.size() << endl;
 	cout << "\t\tNo. of active Long tracks:	" << s.activeLongTracks.size() << endl;
 	cout << "\t\tNo. of exited tracks:		" << s.exitTracks.size() << endl;
-	cout << "\t\tNo. of inactive tracks:		" << s.inactiveTracks.size() << endl;
-	cout << "\tTotal time taken for BackSTB: " << (clock() - start) / 1000 << "s" << endl;
+//	cout << "\t\tNo. of inactive tracks:		" << s.inactiveTracks.size() << endl;
+//	cout << "\tTotal time taken for BackSTB: " << (clock() - start) / 1000 << "s" << endl;
 }
 
-void BackSTB::Predictor(STB& s, int prevFrame, deque<Track>::iterator& Ltr,
-						deque<deque<Track>::iterator>& unlinkedTracks, Frame& predictions, 
+bool BackSTB::Predictor(STB& s, int prevFrame, deque<Track>::iterator& Ltr,
+						deque<Track>& unlinkedTracks, Frame& predictions,
 						deque<double>& intensity) {
 																								
 	double mindistsqr = 1e6;
 	deque<deque<Track>::iterator> matches;
 
 	vector< vector<double> > predCoeff(3);													// using polynomial fit / Wiener filter to predict the particle position at prevFrame
-	vector<string> direction;
-	direction[0] = "X"; direction[1] = "Y"; direction[2] = "Z";
-	vector<double> est(3);
+	vector<string> direction = { "X", "Y", "Z" };
+//	direction[0] = "X"; direction[1] = "Y"; direction[2] = "Z";
+	double est[3];
+//	for (int i = 0; i < 3; i++) {
+//		predCoeff[i] = Polyfit(*Ltr, direction[i], prevFrame);								// predictor coefficients for X->0, Y->1 and Z->2
+//		est[i] = predCoeff[i][0] + predCoeff[i][1] * prevFrame + predCoeff[i][2] * pow(prevFrame, 2) + predCoeff[i][3] * pow(prevFrame, 3);
+//	}
 	for (int i = 0; i < 3; i++) {
-		predCoeff[i] = Polyfit(*Ltr, direction[i], prevFrame);								// predictor coefficients for X->0, Y->1 and Z->2
-		est[i] = predCoeff[i][0] + predCoeff[i][1] * prevFrame + predCoeff[i][2] * pow(prevFrame, 2) + predCoeff[i][3] * pow(prevFrame, 3);
+		if (Ltr->Length() < 4) {																// if length is 4 or 5, use all points to get 2nd degree polynomial
+	//				predCoeff[i] = Polyfit(*tr, direction[i], tr->Length(), 2);
+	//				est[i] = predCoeff[i][0] + predCoeff[i][1] * t + predCoeff[i][2] * pow(t, 2);
+			est[i] = LMSWienerPredictor(*Ltr, direction[i], 3);
+		}
+		else if (Ltr->Length() < 6) {														// if length is 6 to 10, use all points to get 3rd degree polynomial
+	//				predCoeff[i] = Polyfit(*tr, direction[i], tr->Length(), 3);
+	//				//cout << "break" << tr->Length() << endl;
+	//				est[i] = predCoeff[i][0] + predCoeff[i][1] * t + predCoeff[i][2] * pow(t, 2) + predCoeff[i][3] * pow(t, 3);
+			est[i] = LMSWienerPredictor(*Ltr, direction[i], Ltr->Length() - 1);
+		}
+		else {																				// if length is more than 11, use last 10 points to get 3rd degree polynomial
+	//				predCoeff[i] = Polyfit(*tr, direction[i], 10, 3);
+	//				est[i] = predCoeff[i][0] + predCoeff[i][1] * t + predCoeff[i][2] * pow(t, 2) + predCoeff[i][3] * pow(t, 3);
+			est[i] = LMSWienerPredictor(*Ltr, direction[i], 5);
+		}
 	}
 	Position estimate(est[0], est[1], est[2]);												// estimated position at prevFrame
-/*																							// checking if it can link back to any inactive track
-	for (deque<Track>::iterator Itr = s.inactiveTracks.begin(); Itr != s.inactiveTracks.end(); ++Itr) {
+																							// checking if it can link back to any inactive track
+	for (deque<Track>::iterator Itr = Ltr; Itr != s.bufferTracks.end(); ++Itr) {
 		if (Itr->Exists(prevFrame)) {
 			Position potentialMatch(Itr->GetPos(prevFrame - Itr->GetTime(0)));
 			double distsqr = Distance(estimate, potentialMatch);
@@ -182,14 +322,15 @@ void BackSTB::Predictor(STB& s, int prevFrame, deque<Track>::iterator& Ltr,
 			if (distsqr < distThreshold) {
 				mindistsqr = min(mindistsqr, distsqr);
 				if (distsqr <= mindistsqr)
-					matches.push_back(Itr);
+					matches.push_back(Itr);  // if there are several tracks that meet the criteria,
+											// Add those which are smaller than the previous tracks to the match
 			}
 		}
 	}
 
 	if (matches.size() > 0) {																// if a link is found in inactiveTracks, 
 		int length = matches.back()->Length();
-		for (int t = length; t >= 0; t--) {													// delete all points after prevFrame on that inactive track,										
+		for (int t = length - 1; t >= 0; t--) {													// delete all points after prevFrame on that inactive track,
 			if (matches.back()->GetTime(t) > prevFrame)
 				matches.back()->DeleteBack();
 			else
@@ -197,14 +338,85 @@ void BackSTB::Predictor(STB& s, int prevFrame, deque<Track>::iterator& Ltr,
 		}
 
 		Ltr->AddFront(*matches.back());														// link the updated inactive track to the beginning of activeTrack and
-		s.inactiveTracks.erase(matches.back());												// delete the linked track from inactiveTracks
+		s.bufferTracks.erase(matches.back());												// delete the linked track from active long new Tracks
+		return true; // return true to indicate the track is linked to another track
 	}
-	else {																					// if no link is found,
-*/
-		unlinkedTracks.push_back(Ltr);														// add the unlinked active track and its prediction in prevFrame to a list
-		predictions.Add(estimate);															// this list will later be used to find links from the residual images	
-		intensity.push_back(1);
-	//}
+	else {
+		// if no link is found,
+		if (boundary_check.Check(estimate)) { // if the estimate particle is inside the boundary
+			unlinkedTracks.push_back(*Ltr);														// add the unlinked active track and its prediction in prevFrame to a list
+			predictions.Add(estimate);															// this list will later be used to find links from the residual images
+			intensity.push_back(1);
+		} else { //the track should be put into exit tracks since it is outside the boundary
+			s.exitTracks.push_back(*Ltr);
+		}
+		return false; // return false to indicate no track is connected
+	}
+}
+
+// predict the next point with Wiener Predictor using LMS algorithm
+double BackSTB::LMSWienerPredictor(Track tracks, string direction, int order) {
+	int size = tracks.Length();
+	double* series = new double[order + 1];
+
+	// get the series to be predicted
+	for (unsigned int i = 0; i < order + 1; ++i) {
+		if (direction == "X" || direction == "x")
+			series[order - i] = tracks[i].X();	//x-values or
+		else if (direction == "Y" || direction == "y")
+			series[order - i] = tracks[i].Y();	//y-values or
+		else if (direction == "Z" || direction == "z")
+			series[order - i] = tracks[i].Z();	//z-values
+	}
+
+	// Wiener filter does badly near zero
+	bool shift_label = false;
+	double shift = 10;
+	if (fabs(series[order]) < 1) {
+		// make a shift to avoid zero-plane prediction
+		shift_label = true;
+		for (unsigned int i = 0; i < order + 1; ++i) {
+			series[i] = series[i] + shift;
+		}
+	}
+
+	double* filter_param = new double[order]; // the filter parameter
+	for (unsigned int i = 0; i < order; ++i) filter_param[i] = 0; // initialize the filter
+	// calculate  the step
+	double sum = 0;
+	for (unsigned int i = 0; i < order; ++i) {
+		sum = sum + series[i] * series[i];
+	}
+	double step = 1 / sum;
+
+	double prediction = 0;
+	for (unsigned int i = 0; i < order; ++i) {
+		prediction = prediction + filter_param[i] * series[i];
+	}
+
+	double error = series[order] - prediction;
+
+	while (fabs(error) > 1e-8) {
+		for (unsigned int i = 0; i < order; ++i) {
+			filter_param[i] = filter_param[i] + step * series[i] * error;
+		}
+		//calculate the prediction using the new filter parameters
+		prediction = 0;
+		for (unsigned int i = 0; i < order; ++i) {
+			prediction = prediction + filter_param[i] * series[i];
+		}
+		error = series[order] - prediction;
+	}
+	prediction = 0;
+	for (unsigned int i = 0; i < order; ++i) {
+		prediction = prediction + filter_param[i] * series[i + 1];
+	}
+	if (shift_label) {
+		prediction = prediction - shift;
+	}
+	delete[] series;
+	delete[] filter_param;
+	return prediction;
 }
 
 // filter for prediction 
@@ -295,7 +507,7 @@ vector<double> BackSTB::Polyfit(Track tracks, string direction, int prevFrame) {
 }
 
 // For shaking the predicted estimates
-void BackSTB::Shake(STB& s, Frame& estimate, deque<double>& intensity, deque<deque<Track>::iterator>& unlinkedTracks) {
+void BackSTB::Shake(STB& s, Frame& estimate, deque<double>& intensity, deque<Track>& unlinkedTracks) {
 
 	if (estimate.NumParticles() > 0) {
 		for (int index = 0; index < estimate.NumParticles(); index++) 						// adding 2D image centers and intensity data to the estimates 
@@ -305,31 +517,40 @@ void BackSTB::Shake(STB& s, Frame& estimate, deque<double>& intensity, deque<deq
 
 		for (int loopInner = 0; loopInner < s.it_innerloop; loopInner++) {
 			double del;
-			if (loopInner < 2)  del = 0.01;
-			else if (loopInner < 5)  del = 0.001;
-			else  del = 0.0001;
+			if (loopInner < 1)  del = config.shaking_shift;
+			else if (loopInner < 5)  del = config.shaking_shift / pow(2,loopInner - 1);
+			else  del = config.shaking_shift/100;
 
-			s._ipr.ReprojImage(estimate, s.OTFcalib, pixels_reproj, IPRflag);				// adding the estimated particles to the reprojected image
+			s._ipr.ReprojImage(estimate, s.OTFcalib, pixels_reproj, STBflag);				// adding the estimated particles to the reprojected image
 
 			for (int n = 0; n < s.ncams; n++) 												// updating the residual image by removing the estimates
 				for (int i = 0; i < s.Npixh; i++)
 					for (int j = 0; j < s.Npixw; j++)
 						pixels_res[n][i][j] = (pixels_orig[n][i][j] - abs(pixels_reproj[n][i][j]));
 
-
-			int index = 0;																	// correcting the estimated positions and their intensity by shaking
-			for (Frame::const_iterator pID = estimate.begin(); pID != estimate.end(); ++pID) {
-				Shaking shake(s.ncams, ignoreCam[index], s.OTFcalib, s.Npixw, s.Npixh, s._ipr.Get_psize(), del, *pID, s.cams, pixels_res, intensity[index]);
-				estimate[index] = shake.Get_posnew();
-				intensity[index] = shake.Get_int();
-				index++;
+#pragma omp parallel num_threads(24)
+						{
+//			int index = 0;
+			// correcting the estimated positions and their intensity by shaking
+//			for (Frame::const_iterator pID = estimate.begin(); pID != estimate.end(); ++pID) {
+#pragma omp for
+			for (int i = 0; i < estimate.NumParticles(); ++i) {
+				Frame::const_iterator pID = estimate.begin() + i;
+				OTF otf_calib(s.OTFcalib);
+				Shaking shake(s.ncams, ignoreCam[i], otf_calib, s.Npixw, s.Npixh, s._ipr.Get_psize(), del, *pID, s.cams, pixels_res, intensity[i]);
+				estimate[i] = shake.Get_posnew();
+				intensity[i] = shake.Get_int();
+//				index++;
 			}
+						}
 		}
 
 		for (int index = 0; index < estimate.NumParticles(); index++) 						// adding 2D image centers and intensity data after shaking
 			s._ipr.FullData(estimate[index], intensity[index], s.ncams, ALL_CAMS);
 																							
 		Rem(s, estimate, intensity, s._ipr.Get_mindist3D(), unlinkedTracks);				// removing ambiguous particles and particles that did not find a match on the actual images	
+
+		s._ipr.ReprojImage(estimate, s.OTFcalib, pixels_reproj, STBflag);
 
 		for (int n = 0; n < ncams; n++) 													// updating the residual image
 			for (int i = 0; i < Npixh; i++)
@@ -341,80 +562,134 @@ void BackSTB::Shake(STB& s, Frame& estimate, deque<double>& intensity, deque<deq
 }
 
 // removing ghost,ambiguous and particles leaving measurement domain
-deque<int> BackSTB::Rem(STB& s, Frame& pos3D, deque<double>& int3D, double mindist_3D, deque<deque<Track>::iterator>& unlinkedTracks) {
+deque<int> BackSTB::Rem(STB& s, Frame& pos3D, deque<double>& int3D, double mindist_3D, deque<Track>& unlinkedTracks) {
 
 	for (int i = 0; i < pos3D.NumParticles(); i++) 										// deleting particles that are very close to each other
 		for (int j = i + 1; j < pos3D.NumParticles(); ) {
-			if (Distance(pos3D[i], pos3D[j]) < mindist_3D * mindist_3D) {
+			if (Distance(pos3D[i], pos3D[j]) < 4 * mindist_3D * mindist_3D) {
 				pos3D.Delete(j); int3D.erase(int3D.begin() + j);
 																						// checking if the particle belongs to activeLongNewTrack (track added in BackSTB)
-				//if (std::find(s.activeLongNewTracks.begin(), s.activeLongNewTracks.end(), *unlinkedTracks[j]) != s.activeLongNewTracks.end()) {
+				//if (std::find(s.bufferTracks.begin(), s.bufferTracks.end(), *unlinkedTracks[j]) != s.bufferTracks.end()) {
 				//	s.inactiveTracks.push_back(*unlinkedTracks[j]);						// shifting the corresponding activeLongNewTrack to inactiveTracks
-				//	s.activeLongNewTracks.erase(unlinkedTracks[j]);
+				//	s.bufferTracks.erase(unlinkedTracks[j]);
 				//}
-			unlinkedTracks.erase(unlinkedTracks.begin() + j);
+//				unlinkedTracks.at(j).DeleteFront();
+				if (unlinkedTracks.at(j).Length() > 7) {
+					if (unlinkedTracks.at(j).Exists(s.last)) {
+						s.activeLongTracks.push_back(unlinkedTracks.at(j));
+					} else {
+						s.inactiveLongTracks.push_back(unlinkedTracks.at(j));
+					}
+				}
+				unlinkedTracks.erase(unlinkedTracks.begin() + j);
 			}
 			else
 				j++;
 		}
 
 	int ghost = 0;
-	double avgInt = 0;																	// deleting based on intensity
+//	double avgInt = 0;																	// deleting based on intensity
+//	for (int i = 0; i < int3D.size(); i++)
+//		if (int3D[i] > 0)
+//			avgInt = avgInt + int3D[i];
+//
+//	avgInt = avgInt / int3D.size();
+
+	double avgIntTemp = 0, avgInt = 0, count = 0;										// deleting based on intensity
 	for (int i = 0; i < int3D.size(); i++) 
 		if (int3D[i] > 0) 
-			avgInt = avgInt + int3D[i];
+			avgIntTemp = avgIntTemp + int3D[i];
 
-	avgInt = avgInt / int3D.size();
+	avgInt = avgIntTemp;
+	avgIntTemp = avgIntTemp / int3D.size();
 
-	for (int index = int3D.size() - 1; index >= 0; index--)								// removing a particle if its intensity falls below a % of the avg intensity																				
+	for (int i = 0; i < int3D.size(); i++)												// removing the outliers (very bright particles and very dull particles for mean)
+		if (int3D[i] > 30*avgIntTemp) {
+			avgInt = avgInt - int3D[i];
+			count++;
+		}
+	avgInt = avgInt / (int3D.size()-count);
+
+	for (int index = 0; index < int3D.size(); ) {							// removing a particle if its intensity falls below a % of the avg intensity
 		if (int3D[index] < s._ipr.Get_intensityLower() * avgInt) {
 			pos3D.Delete(index); int3D.erase(int3D.begin() + index);
-																						// checking if the particle belongs to activeLongNewTrack (track added in BackSTB)
-			//TODO: to check this inorder to remove -fpermissive. Shiyong Tan, 2/1/18
-			deque<Track>::iterator it = *(std::find(&s.activeLongNewTracks.begin(), &s.activeLongNewTracks.end(), unlinkedTracks[index]));
-			if (it != s.activeLongNewTracks.end()) {
-			//	s.inactiveTracks.push_back(*unlinkedTracks[index]);						// shifting the corresponding activeLongNewTrack to inactiveTracks
-			//	s.activeLongNewTracks.erase(unlinkedTracks[index]);
+
+			// NO NEED TO CHECK, 01.05.2019 Since all unlinked tracks are moved out from the active long new tracks
+			// checking if the particle belongs to activeLongNewTrack (track added in BackSTB)
+//			//TODO: to check this inorder to remove -fpermissive. Shiyong Tan, 2/1/18
+//			deque<Track>::iterator it = *(std::find(&s.bufferTracks.begin(), &s.bufferTracks.end(), unlinkedTracks[index]));
+//			if (it != s.bufferTracks.end()) {
+//			//	s.inactiveTracks.push_back(*unlinkedTracks[index]);						// shifting the corresponding activeLongNewTrack to inactiveTracks
+//			//	s.bufferTracks.erase(unlinkedTracks[index]);
+//			}
+
+//			unlinkedTracks.at(index).DeleteFront();
+			if (unlinkedTracks.at(index).Length() > 7) {
+				if (unlinkedTracks.at(index).Exists(s.last)) {
+					s.activeLongTracks.push_back(unlinkedTracks.at(index));
+				} else {
+					s.inactiveLongTracks.push_back(unlinkedTracks.at(index));
+				}
 			}
+
 			unlinkedTracks.erase(unlinkedTracks.begin() + index);
 			ghost++;
+		} else {
+			++index;
 		}
+	}
 
 	deque<int> ignoreCam(pos3D.NumParticles());
+	double intensityThresh = 0.25*s._ipr.Get_threshold();
 
 	for (int i = 0; i < pos3D.NumParticles(); ) {										// deleting particles that are outside the image bounds on atleast 2 cameras
 		double xlim = (s.Npixh - 1) / 2, ylim = (s.Npixw - 1) / 2;
-		int leftcams = 0;																// if the particle disappears only on 1 cam, ignore that cam and perform shaking
+		int leftcams = 0, belowIntensity = 0; double shiftThreshold = pow(s.largestShift, 2);																	// if the particle disappears only on 1 cam, ignore that cam and perform shaking
 		ignoreCam[i] = 100;
 		if (abs(pos3D[i].X1() - xlim) > xlim || abs(pos3D[i].Y1() - ylim) > ylim) {
 			leftcams++; ignoreCam[i] = 0;
+		}else if (pixels_orig[0][(int)round(pos3D[i].Y1())][(int)round(pos3D[i].X1())] < intensityThresh) {
+					belowIntensity++; ignoreCam[i] = 0;
 		}
 
 		if (abs(pos3D[i].X2() - xlim) > xlim || abs(pos3D[i].Y2() - ylim) > ylim) {
 			leftcams++; ignoreCam[i] = 1;
+		}else if (pixels_orig[1][(int)round(pos3D[i].Y2())][(int)round(pos3D[i].X2())] < intensityThresh) {
+			belowIntensity++; ignoreCam[i] = 1;
 		}
 
 		if (abs(pos3D[i].X3() - xlim) > xlim || abs(pos3D[i].Y3() - ylim) > ylim) {
 			leftcams++; ignoreCam[i] = 2;
+		}else if (pixels_orig[2][(int)round(pos3D[i].Y3())][(int)round(pos3D[i].X3())] < intensityThresh) {
+			belowIntensity++; ignoreCam[i] = 2;
 		}
 
 		if (abs(pos3D[i].X4() - xlim) > xlim || abs(pos3D[i].Y4() - ylim) > ylim) {
 			leftcams++; ignoreCam[i] = 3;
+		}else if (pixels_orig[3][(int)round(pos3D[i].Y4())][(int)round(pos3D[i].X4())] < intensityThresh) {
+			belowIntensity++; ignoreCam[i] = 3;
 		}
 
-		if (leftcams >= 2) {															// if the particle disappears on at least 2 cams
+		if (leftcams >= 2 || belowIntensity >= 2) {															// if the particle disappears on at least 2 cams
 			pos3D.Delete(i); int3D.erase(int3D.begin() + i);							// delete the particle 
 																						// checking if the particle belongs to activeLongNewTrack (track added in BackSTB)
-			//if (std::find(s.activeLongNewTracks.begin(), s.activeLongNewTracks.end(), *unlinkedTracks[i]) != s.activeLongNewTracks.end()) {
+			//if (std::find(s.bufferTracks.begin(), s.bufferTracks.end(), *unlinkedTracks[i]) != s.bufferTracks.end()) {
 			//	s.exitTracks.push_back(*unlinkedTracks[i]);								// shifting the corresponding activeLongNewTrack to exitTracks
-			//	s.activeLongNewTracks.erase(unlinkedTracks[i]);
+			//	s.bufferTracks.erase(unlinkedTracks[i]);
 			//}																			// checking if the particle belongs to activeLongTrack 
 			//else if (std::find(s.activeLongTracks.begin(), s.activeLongTracks.end(), *unlinkedTracks[i]) != s.activeLongTracks.end()) {
 			//	s.exitTracks.push_back(*unlinkedTracks[i]);								// shifting the corresponding activeLongTrack to exitTracks
 			//	s.activeLongTracks.erase(unlinkedTracks[i]);
 			//}
-
+			if (unlinkedTracks.at(i).Length() > 7) {
+				if (unlinkedTracks.at(i).Exists(s.last)) {
+					s.activeLongTracks.push_back(unlinkedTracks.at(i));
+				} else {
+					s.inactiveLongTracks.push_back(unlinkedTracks.at(i));
+				}
+			}
 			unlinkedTracks.erase(unlinkedTracks.begin() + i);
+			ignoreCam[i] = 100;
 		}
 		else
 			i++;
@@ -433,31 +708,48 @@ void BackSTB::MakeShortLinkResidual_backward(STB& s,int prevFrame, Frame& candid
 		deque<double> dist;
 		double totalDist = 0;
 		deque<Position> disp;
-		Position vel(0, 0, 0);																	// calculating the predictive vel. field as an avg. of particle velocities from neighbouring tracks
+		Position vel(0, 0, 0);// calculating the predictive vel. field as an avg. of particle velocities from neighbouring tracks
+		double d;
 
-		for (int j = 0; j < s.activeLongTracks.size(); j++) {									// identifying the neighbouring tracks (using 3*avg interparticle dist.) and getting their particle velocities
+		for (unsigned int j = 0; j < s.activeLongTracks.size(); j++) {									// identifying the neighbouring tracks (using 3*avg interparticle dist.) and getting their particle velocities
 			int currFrameIndex = prevFrame + 1 - s.activeLongTracks[j].GetTime(0);
 			if (s.activeLongTracks[j].Exists(prevFrame + 1) && s.activeLongTracks[j].Exists(prevFrame)) {
 				double dsqr = Distance(tr->GetPos(0), s.activeLongTracks[j][currFrameIndex]);
 				if (dsqr < rsqr) {
-					totalDist = totalDist + dsqr;
-					dist.push_back(dsqr);
+					d = pow(dsqr, .5);
+					totalDist = totalDist + d;
+					dist.push_back(d);
 					disp.push_back(s.activeLongTracks[j][currFrameIndex - 1] - s.activeLongTracks[j][currFrameIndex]);
 				}
 			}		
 		}
 
-		for (int j = 0; j < s.exitTracks.size(); j++) {											// identifying the neighbouring tracks from exit tracks
+		for (unsigned int j = 0; j < s.exitTracks.size(); j++) {											// identifying the neighbouring tracks from exit tracks
 			int currFrameIndex = prevFrame + 1 - s.exitTracks[j].GetTime(0);
 			if (s.exitTracks[j].Exists(prevFrame + 1) && s.exitTracks[j].Exists(prevFrame)) {
 				double dsqr = Distance(tr->GetPos(0), s.exitTracks[j][currFrameIndex]);
 				if (dsqr < rsqr) {
-					totalDist = totalDist + dsqr;
-					dist.push_back(dsqr);
+					d = pow(dsqr, .5);
+					totalDist = totalDist + d;
+					dist.push_back(d);
 					disp.push_back(s.exitTracks[j][currFrameIndex - 1] - s.exitTracks[j][currFrameIndex]);
 				}
 			}
 		}
+
+		for (unsigned int j = 0; j < s.bufferTracks.size(); j++) {											// identifying the neighbouring tracks from exit tracks
+			int currFrameIndex = prevFrame + 1 - s.bufferTracks[j].GetTime(0);
+			if (s.bufferTracks[j].Exists(prevFrame + 1) && s.bufferTracks[j].Exists(prevFrame)) {
+				double dsqr = Distance(tr->GetPos(0), s.bufferTracks[j][currFrameIndex]);
+				if (dsqr < rsqr) {
+					d = pow(dsqr, .5);
+					totalDist = totalDist + d;
+					dist.push_back(d);
+					disp.push_back(s.bufferTracks[j][currFrameIndex - 1] - s.bufferTracks[j][currFrameIndex]);
+				}
+			}
+		}
+
 
 		if (dist.size() > 0) {																// if it finds neighbouring tracks
 			for (int j = 0; j < dist.size(); j++) {												// perform Gaussian wt. avg. to get velocity field (backward in time)
@@ -485,8 +777,8 @@ void BackSTB::MakeShortLinkResidual_backward(STB& s,int prevFrame, Frame& candid
 	}
 
 	if (cost.second == s.UNLINKED) {														// if no link is found for the short track
-		if (tr->Length() > 1) 																	// and if the track has at least 2 particles
-			s.inactiveTracks.push_back(*tr);													// add it to inactive tracks
+//		if (tr->Length() > 1) 																	// and if the track has at least 2 particles
+//			s.inactiveTracks.push_back(*tr);													// add it to inactive tracks
 
 		tr = s.activeShortTracks.erase(tr);														// then delete from activeShortTracks
 	}
