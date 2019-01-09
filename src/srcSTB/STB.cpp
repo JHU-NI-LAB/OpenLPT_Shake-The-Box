@@ -67,9 +67,9 @@ STB::STB(int firstFrame, int lastFrame, string pfieldfile, string iprfile, int n
 	}
 
 	string address = tiffaddress + "Tracks/InitialTracks/";
-	if ( !(debug_mode == SKIP_PREVIOUS_TRACKS && debug_frame_number >= 4)) {
+	if ( !((debug_mode == SKIP_PREVIOUS_TRACKS || debug_mode == SKIP_PREVIOUS_BACK_STB) && debug_frame_number >= 4)) {
 		if (debug_mode == SKIP_INITIAL_PHASE ) {
-			LoadAllTracks(address, to_string(firstFrame + 3));
+			LoadAllTracks(address, to_string(firstFrame + 3), 0);
 		} else {
 			InitialPhase(pfieldfile);														// Initial phase: obtaining tracks for first 4 time steps
 			MatTracksSave(address, to_string(firstFrame + 3), 0);
@@ -100,7 +100,9 @@ STB::STB(int firstFrame, int lastFrame, string pfieldfile, string iprfile, int n
 		cout << "\t\tNo. of inactive tracks:		= " << inactiveTracks.size() << endl;
 		cout << "\t\tNo. of inactive Long tracks:	= " << inactiveLongTracks.size() << endl;*/
 
-		ConvergencePhase();
+		if (!(debug_mode == SKIP_PREVIOUS_BACK_STB  && debug_frame_number >= 4 && debug_frame_number <= last)) {
+			ConvergencePhase();
+		}
 
 		double duration = clock() - start0;
 
@@ -208,7 +210,7 @@ void STB::ConvergencePhase() {
 		string address = tiffaddress + "Tracks/ConvergedTracks/";
 		if (debug_mode == SKIP_PREVIOUS_TRACKS && currFrame < debug_frame_number ) {
 			if (currFrame < debug_frame_number - 1) continue; // skip those previous frame
-				LoadAllTracks(address, to_string(debug_frame_number));
+				LoadAllTracks(address, to_string(debug_frame_number), 0);
 
 				if (error == NO_FILE) {
 					cout<<"The file of tracks can't be opened! The code will load the previous one!\n";
@@ -1285,9 +1287,9 @@ void STB::MatTracksSave(string address, string s, bool is_back_STB) {
 // End
 }
 
-void STB::LoadAllTracks(string address, string frame_number) {
+void STB::LoadAllTracks(string address, string frame_number, bool is_back_STB) {
 	string s = frame_number + ".txt";
-	string X1 = "ActiveLongTracks" + s, X2 = "ActiveShortTracks" + s, X3 = "InactiveTracks" + s, X4 = "ExitTracks" + s, X5 = "InactiveLongTracks" + s;
+	string X1 = "ActiveLongTracks" + s, X2 = "ActiveShortTracks" + s, X3 = "InactiveTracks" + s, X4 = "ExitTracks" + s, X5 = "InactiveLongTracks" + s, X6 = "BufferTracks" + s;
 /*
  * Modified by Shiyong Tan, 8/12/18
  * Adapt to the change of the saving format.
@@ -1305,10 +1307,12 @@ void STB::LoadAllTracks(string address, string frame_number) {
 	if (error == NONE) {
 		LoadTrackFromTXT(address + X4, Exit);
 		LoadTrackFromTXT(address + X5, InactiveLong);
+		if (is_back_STB) LoadTrackFromTXT(address + X6, Buffer);
 		error = NONE;
 	} else {
 		LoadTrackFromTXT(address + X4, Exit);
 		LoadTrackFromTXT(address + X5, InactiveLong);
+		if (is_back_STB) LoadTrackFromTXT(address + X6, Buffer);
 	}
 
 // End

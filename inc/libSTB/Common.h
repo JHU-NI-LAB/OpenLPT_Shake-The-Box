@@ -43,6 +43,7 @@ struct ConfigFile {
 	double fpt;
 	double lowerInt;
 	bool backSTB;
+	double dist_two_tracks;
 };
 
 // Data for debug
@@ -54,7 +55,8 @@ enum DebugMode {
 		SKIP_IPR,
 		SKIP_PREDITIVE_FIELD,
 		SKIP_INITIAL_PHASE,
-		SKIP_PREVIOUS_TRACKS
+		SKIP_PREVIOUS_TRACKS,
+		SKIP_PREVIOUS_BACK_STB
 };
 extern DebugMode debug_mode;
 extern int debug_frame_number;

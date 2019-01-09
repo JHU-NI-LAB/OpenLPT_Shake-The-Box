@@ -50,10 +50,11 @@ void GetDebugMode() {
 			<<"5. Load the predictive field \n"
 			<<"6. Load the tracks from the initial phase \n"
 			<<"7. Load the tracks from specific frames \n"
+			<<"8. Load the tracks from specific frames for back STB \n"
 			<<"Enter the NO. of the option:";
 	int NO = 0;
 	cin>>NO;
-	if (NO < 8) debug_mode = DebugMode(NO); else debug_mode = DebugMode(0);
+	if (NO < 9) debug_mode = DebugMode(NO); else debug_mode = DebugMode(0);
 	if (!(NO == 0)) {
 		cout<<"Enter the frame number to be debugged:";
 		cin>>debug_frame_number;
@@ -104,7 +105,7 @@ void GetDebugMode() {
 	//s.MatTracksSave(s.tiffaddress,"", config.last);
 	// applying a pass of BackSTB
 	if (config.backSTB) {
-		BackSTB bs(config.first, config.last, config.initialPhaseRadius);
+		BackSTB bs(config.first, config.last, config.dist_two_tracks);
 		bs.UpdateTracks(s);
 	}
 	// saving the tracks
@@ -301,6 +302,10 @@ void ImportConfiguration(struct ConfigFile* config, char* name) {
 		getline(file, line);
 		line.erase(line.find_first_of(' '));
 		config->backSTB = stoi(line.c_str());
+
+		getline(file, line);
+		line.erase(line.find_first_of(' '));
+		config->dist_two_tracks = stof(line.c_str()) * config->factor;
 }
 
 

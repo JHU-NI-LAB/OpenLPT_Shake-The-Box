@@ -40,7 +40,8 @@ public:
 		}
 		delete[] is_Particle;
 		delete[] is_ParticlePos;
-		if (!(debug_mode == SKIP_IPR_TRIANGULATION || debug_mode == SKIP_IPR_SHAKING || debug_mode == SKIP_PREVIOUS_TRACKS)) { // when skipping tragulation, then these two variables won't be asigned
+		if (!(debug_mode == SKIP_IPR_TRIANGULATION || debug_mode == SKIP_IPR_SHAKING || debug_mode == SKIP_PREVIOUS_TRACKS ||
+				debug_mode == SKIP_PREVIOUS_BACK_STB)) { // when skipping tragulation, then these two variables won't be asigned
 														// And thus no need to free its memory.
 			delete[] camID;
 			delete[] rID;

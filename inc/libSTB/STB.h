@@ -91,7 +91,7 @@ public:
 	void MatTracksSave(string addres, string s, bool is_back_STB);
 	void MatfileSave(deque<Track> tracks, string address, string name, int size);
 	void SaveTrackToTXT(deque<Track> tracks, string address);
-	void LoadAllTracks(string address, string frame_number);
+	void LoadAllTracks(string address, string frame_number, bool is_back_STB);
 	void LoadTrackFromTXT(string path, TrackType trackType);
 
 	//###################### TEMPORARY FUNTIONS FOR TESTING ###############################

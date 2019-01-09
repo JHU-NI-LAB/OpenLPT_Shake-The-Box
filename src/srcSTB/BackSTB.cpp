@@ -19,7 +19,21 @@ void BackSTB::UpdateTracks(STB& s) {
 	ncams = s.ncams;
 	Npixh = s.Npixh;
 	Npixw = s.Npixw;
-
+	string address = s.tiffaddress + "Tracks/BackSTBTracks/";
+	int frame_start = s.last;
+	bool debug_load_success = false;
+	if (debug_mode == SKIP_PREVIOUS_BACK_STB) {
+		s.LoadAllTracks(address, to_string(debug_frame_number), 1);
+		if (error == NO_FILE) {
+			cout<<"No track files for the specific frame is found\n";
+			error = NONE;
+			s.LoadAllTracks(s.tiffaddress + "Tracks/ConvergedTracks/", to_string(s.last), 0);
+		} else {
+			frame_start = debug_frame_number + 4;
+			debug_mode = NO_SKIP; //when execute the debug requirement, then label it as done.
+			debug_load_success = true;
+		}
+	}
 	// creating & initializing original, residual and reprojected image pixels
 	for (int n = 0; n < s.ncams; n++) {
 		pixels_orig.push_back(new int*[s.Npixh]);
@@ -35,229 +49,260 @@ void BackSTB::UpdateTracks(STB& s) {
 
 	Calibration calib(s._ipr.Get_calibfile(), ALL_CAMS, s._ipr.Get_mindist2D(), s._ipr.Get_mindist3D(), ncams);
 
-	// Move all tracks to active long new tracks
-	for (deque<Track>::iterator tr = s.activeLongTracks.begin(); tr != s.activeLongTracks.end(); ) {
-		s.bufferTracks.push_back(*tr);
-		tr = s.activeLongTracks.erase(tr);
+	if (!debug_load_success) { // if the data is loaded from previous back STB , then it doesn't need to be preprocessed.
+		// Move all tracks to active long new tracks
+		for (deque<Track>::iterator tr = s.activeLongTracks.begin(); tr != s.activeLongTracks.end(); ) {
+			s.bufferTracks.push_back(*tr);
+			tr = s.activeLongTracks.erase(tr);
+		}
+
+		for (deque<Track>::iterator tr = s.exitTracks.begin(); tr != s.exitTracks.end(); ) {
+			s.bufferTracks.push_back(*tr);
+			tr = s.exitTracks.erase(tr);
+		}
+
+		for (deque<Track>::iterator tr = s.inactiveLongTracks.begin(); tr != s.inactiveLongTracks.end(); ) {
+			s.bufferTracks.push_back(*tr);
+			tr = s.inactiveLongTracks.erase(tr);
+		}
+
+		// trim the tracks
+		cout<<"Trimming the tracks..." <<endl;
+		for (deque<Track>::iterator tr = s.bufferTracks.begin(); tr != s.bufferTracks.end(); ) {
+			if (tr->Length() > 15) {
+				tr->DeleteFront(); tr->DeleteFront(); tr->DeleteFront();tr->DeleteFront();
+				if (tr->GetTime(tr->Length() - 1) < s.last - 7) {
+					tr->DeleteBack(); tr->DeleteBack();tr->DeleteBack();tr->DeleteBack();
+				}
+				++ tr;
+			} else {
+				tr = s.bufferTracks.erase(tr); // delete the tracks which are less than 15 particles
+			}
+
+		}
 	}
-
-	for (deque<Track>::iterator tr = s.exitTracks.begin(); tr != s.exitTracks.end(); ) {
-		s.bufferTracks.push_back(*tr);
-		tr = s.exitTracks.erase(tr);
-	}
-
-	for (deque<Track>::iterator tr = s.inactiveLongTracks.begin(); tr != s.inactiveLongTracks.end(); ) {
-		s.bufferTracks.push_back(*tr);
-		tr = s.inactiveLongTracks.erase(tr);
-	}
-
-	for (int currFrame = last - 3; currFrame != first; currFrame--) {						// Linking the tracks back in time
-
+	for (int currFrame = frame_start - 3; currFrame != first; currFrame--) {						// Linking the tracks back in time
 //		clock_t start0, start1, start2;
 //		start = clock();
-
-		int prevFrame = currFrame - 1;
-		if (prevFrame % 500 == 0) {
-			cout<<"Loading tracks..."<<endl;
-			// load inactive long tracks and exit tracks to buffer tracks
-			s.LoadTrackFromTXT(s.tiffaddress + "Tracks/ConvergedTracks/InactiveLongTracks" + to_string(prevFrame) + ".txt", s.Buffer);
-			s.LoadTrackFromTXT(s.tiffaddress + "Tracks/ConvergedTracks/ExitTracks" + to_string(prevFrame) + ".txt", s.Buffer);
-		}
-		cout << "\tBackSTB at frame: " << prevFrame << endl;
-		cout << "\t\tCheck Points: " << endl;
-
-//		start = clock();
-		start =std::chrono::system_clock::now();
-		cout << "\t\t\tLinking Long/Exit tracks: "<<endl;
-		deque<Track> unlinkedTracks;
-		Frame predictions; deque<double> intensity;						
-																							// for each track in activeLongTracks
-//		for (deque<Track>::iterator Ltr = s.activeLongTracks.begin(); Ltr != s.activeLongTracks.end(); ++Ltr)
-//			if (!(Ltr->Exists(prevFrame)) && Ltr->Exists(currFrame))					// if the track has no point in the prevFrame and has a point in the currFrame (unlinked track)
-//				Predictor(s, prevFrame, Ltr, unlinkedTracks, predictions, intensity);		// predict its position in prevFrame (using 4 time steps after prevFrame)
-//
-//																							// repeating the same for exit tracks
-//		for (deque<Track>::iterator Etr = s.exitTracks.begin(); Etr != s.exitTracks.end(); ++Etr)
-//			if (!(Etr->Exists(prevFrame)) && Etr->Exists(currFrame))
-//				Predictor(s, prevFrame, Etr, unlinkedTracks, predictions, intensity);
-																							// repeating the same for ActiveLongNew tracks (new tracks added in BackSTB)
-
-		for (deque<Track>::iterator tr = s.bufferTracks.begin(); tr != s.bufferTracks.end(); ) {
-			if (!(tr->Exists(prevFrame)) && tr->Exists(currFrame)) {
-				if (Predictor(s, prevFrame, tr, unlinkedTracks, predictions, intensity)) {
-					++ tr;
-				} else {
-					tr = s.bufferTracks.erase(tr); //No track is connected, it is moved to unlinkedTracks temporarily.
+			int prevFrame = currFrame - 1;
+			if (prevFrame % 500 == 0) {
+				cout<<"Loading tracks..."<<endl;
+				// load inactive long tracks and exit tracks to buffer tracks
+				// get the start of new tracks
+//				deque<Track>::iterator tr_tr = s.bufferTracks.end(); // the address of the element after the end of the deque.
+				int index_old_end = s.bufferTracks.size();
+				s.LoadTrackFromTXT(s.tiffaddress + "Tracks/ConvergedTracks/InactiveLongTracks" + to_string(prevFrame) + ".txt", s.Buffer);
+				s.LoadTrackFromTXT(s.tiffaddress + "Tracks/ConvergedTracks/ExitTracks" + to_string(prevFrame) + ".txt", s.Buffer);
+				//  trim the tracks
+	//			++ tr_tr;
+				cout<<"Trimming the tracks..." <<endl;
+				int index_new_end = s.bufferTracks.size();
+				deque<Track>::iterator tr_tr = s.bufferTracks.end() - (index_new_end - index_old_end);
+				for (; tr_tr != s.bufferTracks.end(); ) {
+					if (tr_tr->Length() > 15) {
+						tr_tr->DeleteFront(); tr_tr->DeleteFront(); tr_tr->DeleteFront();tr_tr->DeleteFront();
+						tr_tr->DeleteBack(); tr_tr->DeleteBack();tr_tr->DeleteBack();tr_tr->DeleteBack();
+						++ tr_tr;
+					} else {
+						tr_tr = s.bufferTracks.erase(tr_tr); // delete the tracks which are less than 15 particles
+					}
 				}
-			} else {
-				++ tr;
 			}
-		}
+			cout << "\tBackSTB at frame: " << prevFrame << endl;
+			cout << "\t\tCheck Points: " << endl;
 
-		deque<string> filename;													// connect them using the residual images
-																							// loading the actual cameras images at prev frame for connecting links back in time 
-		for (int i = 0; i < s.ncams; i++) {													// getting the tiff image names
-//			int j = i + 1;
-			// exchanging images of camera 3 n 4
-//			if (i == 2)
-//				j = 4;
-//			if (i == 3)
-//				j = 3;
-//			stringstream tiffname; tiffname << s.tiffaddress << "C00" << j << "H001S0001/" << "cam" << j << "frame" << setfill('0') << setw(4) << prevFrame << ".tif";
-//			filename[i] = tiffname.str();
-			filename.push_back(s.imgSequence[i][prevFrame - 1]);
+	//		start = clock();
+			start =std::chrono::system_clock::now();
+			cout << "\t\t\tLinking Long/Exit tracks: "<<endl;
+			deque<Track> unlinkedTracks;
+			Frame predictions; deque<double> intensity;
+																								// for each track in activeLongTracks
+	//		for (deque<Track>::iterator Ltr = s.activeLongTracks.begin(); Ltr != s.activeLongTracks.end(); ++Ltr)
+	//			if (!(Ltr->Exists(prevFrame)) && Ltr->Exists(currFrame))					// if the track has no point in the prevFrame and has a point in the currFrame (unlinked track)
+	//				Predictor(s, prevFrame, Ltr, unlinkedTracks, predictions, intensity);		// predict its position in prevFrame (using 4 time steps after prevFrame)
+	//
+	//																							// repeating the same for exit tracks
+	//		for (deque<Track>::iterator Etr = s.exitTracks.begin(); Etr != s.exitTracks.end(); ++Etr)
+	//			if (!(Etr->Exists(prevFrame)) && Etr->Exists(currFrame))
+	//				Predictor(s, prevFrame, Etr, unlinkedTracks, predictions, intensity);
+																								// repeating the same for ActiveLongNew tracks (new tracks added in BackSTB)
 
-			//filename[i] = s.tiffaddress + "frame" + to_string(prevFrame) + "cam" + to_string(i + 1) + ".tif";
-		}
-		Tiff2DFinder t(s.ncams, s._ipr.Get_threshold(), filename);
-		t.FillPixels(pixels_orig);
-
-		Frame tracked;																		// getting the list of tracked particles at prevFrame (from activeLong, activeLongNew and exit tracks)
-		for (deque<Track>::iterator tr = s.bufferTracks.begin(); tr != s.bufferTracks.end(); ++tr)
-			if (tr->Exists(prevFrame))
-				tracked.Add(tr->GetPos(prevFrame - tr->GetTime(0)));
-
-
-		s._ipr.ReprojImage(tracked, s.OTFcalib, pixels_reproj, STBflag);
-
-		for (int n = 0; n < s.ncams; n++) 													// removing the tracked particles from original image
-			for (int i = 0; i < s.Npixh; i++)
-				for (int j = 0; j < s.Npixw; j++) {
-					int residual = (pixels_orig[n][i][j] - s.fpt*pixels_reproj[n][i][j]);	// using the multiplying factor (fpt) to remove all traces of tracked particles
-					pixels_orig[n][i][j] = (residual < 0) ? 0 : residual;
+			for (deque<Track>::iterator tr = s.bufferTracks.begin(); tr != s.bufferTracks.end(); ) {
+				if (!(tr->Exists(prevFrame)) && tr->Exists(currFrame)) {
+					if (Predictor(s, prevFrame, tr, unlinkedTracks, predictions, intensity)) {
+						++ tr;
+					} else {
+						tr = s.bufferTracks.erase(tr); //No track is connected, it is moved to unlinkedTracks temporarily.
+					}
+				} else {
+					++ tr;
 				}
-																						// trying to find a link for all the unlinked (exit and activeLong) tracks using residual images
-		Shake(s, predictions, intensity, unlinkedTracks);									// shaking the predictions of unlinked tracks
+			}
 
-		for (int i = 0; i < predictions.NumParticles(); i++) 								// adding the corrected particle position in prevFrame to its respective track 
-			unlinkedTracks[i].AddFront(predictions[i], prevFrame);
+			deque<string> filename;													// connect them using the residual images
+																								// loading the actual cameras images at prev frame for connecting links back in time
+			for (int i = 0; i < s.ncams; i++) {													// getting the tiff image names
+	//			int j = i + 1;
+				// exchanging images of camera 3 n 4
+	//			if (i == 2)
+	//				j = 4;
+	//			if (i == 3)
+	//				j = 3;
+	//			stringstream tiffname; tiffname << s.tiffaddress << "C00" << j << "H001S0001/" << "cam" << j << "frame" << setfill('0') << setw(4) << prevFrame << ".tif";
+	//			filename[i] = tiffname.str();
+				filename.push_back(s.imgSequence[i][prevFrame - 1]);
 
-//		start2 = clock();
-		cout << "Done (" <<std::chrono::duration_cast<std::chrono::seconds>(std::chrono::system_clock::now()- start) .count() << "s)" << endl
-				<< "\t\tIPR on residuals for new tracks: "<<endl;
+				//filename[i] = s.tiffaddress + "frame" + to_string(prevFrame) + "cam" + to_string(i + 1) + ".tif";
+			}
+			Tiff2DFinder t(s.ncams, s._ipr.Get_threshold(), filename);
+			t.FillPixels(pixels_orig);
 
-		start =std::chrono::system_clock::now();
+			Frame tracked;																		// getting the list of tracked particles at prevFrame (from activeLong, activeLongNew and exit tracks)
+			for (deque<Track>::iterator tr = s.bufferTracks.begin(); tr != s.bufferTracks.end(); ++tr)
+				if (tr->Exists(prevFrame))
+					tracked.Add(tr->GetPos(prevFrame - tr->GetTime(0)));
 
-		if (predictions.NumParticles() != 0) {
-			s._ipr.ReprojImage(predictions, s.OTFcalib, pixels_reproj, STBflag);			// updating the original image by removing the newly tracked particles (shaked predictions)
-			for (int n = 0; n < s.ncams; n++)
+
+			s._ipr.ReprojImage(tracked, s.OTFcalib, pixels_reproj, STBflag);
+
+			for (int n = 0; n < s.ncams; n++) 													// removing the tracked particles from original image
 				for (int i = 0; i < s.Npixh; i++)
 					for (int j = 0; j < s.Npixw; j++) {
-						int residual = (pixels_orig[n][i][j] - s.fpt*pixels_reproj[n][i][j]);
+						int residual = (pixels_orig[n][i][j] - s.fpt*pixels_reproj[n][i][j]);	// using the multiplying factor (fpt) to remove all traces of tracked particles
 						pixels_orig[n][i][j] = (residual < 0) ? 0 : residual;
 					}
-		}
-																							// applying ipr on the remaining particles in orig images to obtain particle candidates
-		s._ipr.DoingSTB(true);
-		Frame candidates = s.IPRonResidual(calib, t, pixels_orig, pixels_reproj, pixels_res, predictions);
-																							// trying to link each activeShortTrack with a particle candidate in prevFrame
-		for (deque<Track>::iterator tr = s.activeShortTracks.begin(); tr != s.activeShortTracks.end(); )
-			MakeShortLinkResidual_backward(s, prevFrame, candidates, tr, 5);
+																							// trying to find a link for all the unlinked (exit and activeLong) tracks using residual images
+			Shake(s, predictions, intensity, unlinkedTracks);									// shaking the predictions of unlinked tracks
 
-		cout<<"Time for IPR on residual:"<<std::chrono::duration_cast<std::chrono::seconds>(std::chrono::system_clock::now()- start) .count() << "s" << endl;
+			for (int i = 0; i < predictions.NumParticles(); i++) 								// adding the corrected particle position in prevFrame to its respective track
+				unlinkedTracks[i].AddFront(predictions[i], prevFrame);
 
-		start =std::chrono::system_clock::now();
-		// PRUNING / ARRANGING THE TRACKS
-		double thresh = 1.5 * s.largestShift;
-		for (deque<Track>::iterator tr = unlinkedTracks.begin(); tr != unlinkedTracks.end(); ) {
-			double d1 = pow(Distance(tr->First(), tr->Second()),0.5), d2 = pow(Distance(tr->Second(), tr->Third()),0.5);
-			double threshRel = s.maxRelShiftChange*d2, length = tr->Length();
-																											// moving all activeLongTracks with displacement more than LargestExp shift to inactiveTracks
-			if (d1 > thresh) {
-	//					inactiveTracks.push_back(*tr);
-				tr->DeleteFront(); //delete the last point
-				if (length >= 7) {
-					if (tr->Exists(s.last)) {
-						s.activeLongTracks.push_back(*tr);
-					} else {
-						s.inactiveLongTracks.push_back(*tr);
+	//		start2 = clock();
+			cout << "Done (" <<std::chrono::duration_cast<std::chrono::seconds>(std::chrono::system_clock::now()- start) .count() << "s)" << endl
+					<< "\t\tIPR on residuals for new tracks: "<<endl;
+
+			start =std::chrono::system_clock::now();
+
+			if (predictions.NumParticles() != 0) {
+				s._ipr.ReprojImage(predictions, s.OTFcalib, pixels_reproj, STBflag);			// updating the original image by removing the newly tracked particles (shaked predictions)
+				for (int n = 0; n < s.ncams; n++)
+					for (int i = 0; i < s.Npixh; i++)
+						for (int j = 0; j < s.Npixw; j++) {
+							int residual = (pixels_orig[n][i][j] - s.fpt*pixels_reproj[n][i][j]);
+							pixels_orig[n][i][j] = (residual < 0) ? 0 : residual;
+						}
+			}
+																								// applying ipr on the remaining particles in orig images to obtain particle candidates
+			s._ipr.DoingSTB(true);
+			Frame candidates = s.IPRonResidual(calib, t, pixels_orig, pixels_reproj, pixels_res, predictions);
+																								// trying to link each activeShortTrack with a particle candidate in prevFrame
+			for (deque<Track>::iterator tr = s.activeShortTracks.begin(); tr != s.activeShortTracks.end(); )
+				MakeShortLinkResidual_backward(s, prevFrame, candidates, tr, 5);
+
+			cout<<"Time for IPR on residual:"<<std::chrono::duration_cast<std::chrono::seconds>(std::chrono::system_clock::now()- start) .count() << "s" << endl;
+
+			start =std::chrono::system_clock::now();
+			// PRUNING / ARRANGING THE TRACKS
+			double thresh = 1.5 * s.largestShift;
+			for (deque<Track>::iterator tr = unlinkedTracks.begin(); tr != unlinkedTracks.end(); ) {
+				double d1 = pow(Distance(tr->First(), tr->Second()),0.5), d2 = pow(Distance(tr->Second(), tr->Third()),0.5);
+				double threshRel = s.maxRelShiftChange*d2, length = tr->Length();
+																												// moving all activeLongTracks with displacement more than LargestExp shift to inactiveTracks
+				if (d1 > thresh) {
+		//					inactiveTracks.push_back(*tr);
+					tr->DeleteFront(); //delete the last point
+					if (length >= 7) {
+						if (tr->Exists(s.last)) {
+							s.activeLongTracks.push_back(*tr);
+						} else {
+							s.inactiveLongTracks.push_back(*tr);
+						}
 					}
-				}
-//				s_al++; a_is++;
-			} else if (abs(d1 - d2) > s.maxAbsShiftChange || abs(d1 - d2) > threshRel) { // moving all activeLongTracks with large change in particle shift to inactive/inactiveLong tracks
-				tr->DeleteFront();
-				if (length >= 7) {
-					if (tr->Exists(s.last)) {
-						s.activeLongTracks.push_back(*tr);
-					} else {
-						s.inactiveLongTracks.push_back(*tr);
+	//				s_al++; a_is++;
+				} else if (abs(d1 - d2) > s.maxAbsShiftChange || abs(d1 - d2) > threshRel) { // moving all activeLongTracks with large change in particle shift to inactive/inactiveLong tracks
+					tr->DeleteFront();
+					if (length >= 7) {
+						if (tr->Exists(s.last)) {
+							s.activeLongTracks.push_back(*tr);
+						} else {
+							s.inactiveLongTracks.push_back(*tr);
+						}
 					}
+				} else {
+					s.bufferTracks.push_back(*tr); // a new particle is kept and move back to bufferTracks
 				}
+				tr = unlinkedTracks.erase(tr);
+				}
+			// moving all activeShortTracks longer than 3 particles to activeLongTracks
+			for (deque<Track>::iterator tr = s.activeShortTracks.begin(); tr != s.activeShortTracks.end(); ) {
+				if (tr->Length() > 3) {
+					s.bufferTracks.push_back(*tr);
+					tr = s.activeShortTracks.erase(tr);
+				}
+					else
+					++tr;
+			}
+			for (Frame::const_iterator pID = candidates.begin(); pID != candidates.end(); ++pID) {	// adding all the untracked candidates to a new short track
+				Track startTrack(*pID, prevFrame);
+				s.activeShortTracks.push_back(startTrack);
+			}
+
+			cout << "Time for pruning:"<<std::chrono::duration_cast<std::chrono::seconds>(std::chrono::system_clock::now()- start) .count() << "s" << endl;
+	//		cout << "Done (" << (clock() - start2) / 1000 << "s)" << endl;
+
+			cout << "\t\tNo. of active Short tracks:	" << s.activeShortTracks.size() << endl;
+			cout << "\t\tNo. of active Long tracks:	" << s.activeLongTracks.size() << endl;
+			cout << "\t\tNo. of inactive Long tracks:	" << s.inactiveLongTracks.size() << endl;
+			cout << "\t\tNo. of buffer tracks:\t\t" << s.bufferTracks.size() << endl;
+			cout << "\t\tNo. of exited tracks:		" << s.exitTracks.size() << endl;
+	//		cout << "\t\tNo. of inactive tracks:		" << s.inactiveTracks.size() << endl;
+	//		cout << "\t\tTime taken for BackSTB at frame " << prevFrame << ": " << (clock() - start0) / 1000 << "s" << endl;
+
+
+			if (to_save_data) {
+				s.MatTracksSave(address, to_string(prevFrame), 1);
 			} else {
-				s.bufferTracks.push_back(*tr); // a new particle is kept and move back to bufferTracks
-			}
-			tr = unlinkedTracks.erase(tr);
-			}
-		// moving all activeShortTracks longer than 3 particles to activeLongTracks
-		for (deque<Track>::iterator tr = s.activeShortTracks.begin(); tr != s.activeShortTracks.end(); ) {
-			if (tr->Length() > 3) {
-				s.bufferTracks.push_back(*tr);
-				tr = s.activeShortTracks.erase(tr);
-			}
-				else
-				++tr;
-		}
-		for (Frame::const_iterator pID = candidates.begin(); pID != candidates.end(); ++pID) {	// adding all the untracked candidates to a new short track 	
-			Track startTrack(*pID, prevFrame);
-			s.activeShortTracks.push_back(startTrack);
-		}
+				//time_t t = time(0);
+				if (prevFrame % 100 == 0 || prevFrame == s.first) {  // to debug, every frame should be saved
+					cout << "\tSaving the tracks" << endl;
 
-		cout << "Time for pruning:"<<std::chrono::duration_cast<std::chrono::seconds>(std::chrono::system_clock::now()- start) .count() << "s" << endl;
-//		cout << "Done (" << (clock() - start2) / 1000 << "s)" << endl;
-
-		cout << "\t\tNo. of active Short tracks:	" << s.activeShortTracks.size() << endl;
-		cout << "\t\tNo. of active Long tracks:	" << s.activeLongTracks.size() << endl;
-		cout << "\t\tNo. of inactive Long tracks:	" << s.inactiveLongTracks.size() << endl;
-		cout << "\t\tNo. of buffer tracks:\t\t" << s.bufferTracks.size() << endl;
-		cout << "\t\tNo. of exited tracks:		" << s.exitTracks.size() << endl;
-//		cout << "\t\tNo. of inactive tracks:		" << s.inactiveTracks.size() << endl;
-//		cout << "\t\tTime taken for BackSTB at frame " << prevFrame << ": " << (clock() - start0) / 1000 << "s" << endl;
-
-		string address = s.tiffaddress + "Tracks/BackSTBTracks/";
-		if (to_save_data) {
-			s.MatTracksSave(address, to_string(prevFrame), 1);
-		} else {
-			//time_t t = time(0);
-			if (prevFrame % 100 == 0 || prevFrame == s.first) {  // to debug, every frame should be saved
-				cout << "\tSaving the tracks" << endl;
-
-			s.MatTracksSave(address, to_string(prevFrame), 1);
-			if (prevFrame % 100 == 0) {
-				// remove previous files except anyone that is multiple of 500 for active long track and exit track
-				std::remove((address + "ActiveLongTracks" + to_string(prevFrame + 100) + ".txt").c_str());
-				std::remove( (address + "ActiveShortTracks" + to_string(prevFrame + 100) + ".txt").c_str());
-				std::remove( (address + "BufferTracks" + to_string(prevFrame + 100) + ".txt").c_str());
-				// remove previous files except anyone that is multiple of 500 for active long track and exit track
-				if ((prevFrame + 100) % 500 != 0) {
-					std::remove( (address + "InactiveLongTracks" + to_string(prevFrame + 100) + ".txt").c_str());
-					std::remove( (address + "ExitTracks" + to_string(prevFrame + 100) + ".txt").c_str());
+				s.MatTracksSave(address, to_string(prevFrame), 1);
+				if (prevFrame % 100 == 0) {
+					// remove previous files except anyone that is multiple of 500 for active long track and exit track
+					std::remove((address + "ActiveLongTracks" + to_string(prevFrame + 100) + ".txt").c_str());
+					std::remove( (address + "ActiveShortTracks" + to_string(prevFrame + 100) + ".txt").c_str());
+					std::remove( (address + "BufferTracks" + to_string(prevFrame + 100) + ".txt").c_str());
+					// remove previous files except anyone that is multiple of 500 for active long track and exit track
+					if ((prevFrame + 100) % 500 != 0) {
+						std::remove( (address + "InactiveLongTracks" + to_string(prevFrame + 100) + ".txt").c_str());
+						std::remove( (address + "ExitTracks" + to_string(prevFrame + 100) + ".txt").c_str());
+					}
+				} else if (prevFrame == s.first && prevFrame % 100 != 0) {
+					std::remove((address + "ActiveLongTracks" + to_string(100) + ".txt").c_str());
+					std::remove( (address + "ActiveShortTracks" + to_string(100) + ".txt").c_str());
+					std::remove( (address + "BufferTracks" + to_string(100) + ".txt").c_str());
+					if (((int)(prevFrame / 100) * 100) % 500 != 0) {
+						std::remove( (address + "InactiveLongTracks" + to_string(100) + ".txt").c_str());
+						std::remove( (address + "ExitTracks" + to_string(100) + ".txt").c_str());
+					}
 				}
-			} else if (prevFrame == s.first && prevFrame % 100 != 0) {
-				std::remove((address + "ActiveLongTracks" + to_string(100) + ".txt").c_str());
-				std::remove( (address + "ActiveShortTracks" + to_string(100) + ".txt").c_str());
-				std::remove( (address + "BufferTracks" + to_string(100) + ".txt").c_str());
-				if (((int)(prevFrame / 100) * 100) % 500 != 0) {
-					std::remove( (address + "InactiveLongTracks" + to_string(100) + ".txt").c_str());
-					std::remove( (address + "ExitTracks" + to_string(100) + ".txt").c_str());
+				if (prevFrame % 500 == 0) {
+					// save the inactive long tracks
+					string str = to_string(prevFrame);
+					string X5 = "InactiveLongTracks" + str;
+					s.SaveTrackToTXT(s.inactiveLongTracks, address + X5);
+					// empty inactiveLongTracks
+					s.inactiveLongTracks.erase(s.inactiveLongTracks.begin(), s.inactiveLongTracks.end());
+					// save the inactive long tracks
+					string X6 = "ExitTracks" + str;
+					s.SaveTrackToTXT(s.exitTracks, address + X6);
+					// empty inactiveLongTracks
+					s.exitTracks.erase(s.exitTracks.begin(), s.exitTracks.end());
+				}
+
 				}
 			}
-			if (prevFrame % 500 == 0) {
-				// save the inactive long tracks
-				string str = to_string(prevFrame);
-				string X5 = "InactiveLongTracks" + str;
-				s.SaveTrackToTXT(s.inactiveLongTracks, address + X5);
-				// empty inactiveLongTracks
-				s.inactiveLongTracks.erase(s.inactiveLongTracks.begin(), s.inactiveLongTracks.end());
-				// save the inactive long tracks
-				string X6 = "ExitTracks" + str;
-				s.SaveTrackToTXT(s.exitTracks, address + X6);
-				// empty inactiveLongTracks
-				s.exitTracks.erase(s.exitTracks.begin(), s.exitTracks.end());
-			}
-
-			}
 		}
-	}
 
 	// moving all bufferTracks to activeLongTracks or inactive long tracks
 	for (deque<Track>::iterator tr = s.bufferTracks.begin(); tr != s.bufferTracks.end(); ) {
@@ -269,13 +314,12 @@ void BackSTB::UpdateTracks(STB& s) {
 		tr = s.bufferTracks.erase(tr);
 	}
 
-	string address = s.tiffaddress + "Tracks/BackSTBTracks/";
 	s.MatTracksSave(address, to_string(first), 0);
 
 	cout << "\t\tNo. of active Short tracks:	" << s.activeShortTracks.size() << endl;
 	cout << "\t\tNo. of active Long tracks:	" << s.activeLongTracks.size() << endl;
 	cout << "\t\tNo. of exited tracks:		" << s.exitTracks.size() << endl;
-//	cout << "\t\tNo. of inactive tracks:		" << s.inactiveTracks.size() << endl;
+	cout << "\t\tNo. of inactive long tracks:		" << s.inactiveLongTracks.size() << endl;
 //	cout << "\tTotal time taken for BackSTB: " << (clock() - start) / 1000 << "s" << endl;
 }
 
