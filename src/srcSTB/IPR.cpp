@@ -130,7 +130,7 @@ IPR::IPR(string& fname, int ncams) : ncams(ncams)
 			pixels_res[n][i] = new int[Npixw] {};
 		}
 	}
-	m_particle_position_addr = tiffaddress + "/ParticlePositions/";
+	m_particle_position_addr = tiffaddress + "ParticlePositions/";
 	m_doing_STB = false;
 }
 
@@ -305,6 +305,7 @@ Frame IPR::IPRLoop(Calibration& calib, OTF& OTFcalib,  deque<int> camNums, int i
 				ParticleFinder p(orig[camNums[camID]], Npixh, Npixw);//, colors, threshold);
 				p.GetParticle2DCenter(colors, threshold);
 				iframes.push_back(p.CreateFrame());
+				//p.SaveParticle2DCenter("/home/tanshiyong/Documents/Data/Single-Phase/11.03.17/Run1/frame100_" + to_string(camID) + ".txt");
 			}
 			catch (out_of_range& e) {
 				cerr << e.what() << endl;
@@ -402,12 +403,31 @@ Frame IPR::IPRLoop(Calibration& calib, OTF& OTFcalib,  deque<int> camNums, int i
 						ReprojImage(pos3Dnew, OTFcalib, reproj, IPRflag);
 
 						// residual image
-						for (int n = 0; n < camNums.size(); n++)
-							for (int i = 0; i < Npixh; i++)
+						//NumDataIO<int> data_io;
+						//int* res_pixel = new int[Npixh * Npixw];
+						//int* orig_pixel = new int[Npixh * Npixw];
+						//int* proj_pixel = new int[Npixh * Npixw];
+						for (int n = 0; n < camNums.size(); n++) {
+							for (int i = 0; i < Npixh; i++) {
 								for (int j = 0; j < Npixw; j++) {
 									int residual = (orig[camNums[n]][i][j] - reproj[camNums[n]][i][j]);
 									res[camNums[n]][i][j] = residual;// (residual < 0) ? 0 : residual;
+									//res_pixel[i * Npixw + j] = residual;
+									//orig_pixel[i * Npixw + j] = orig[camNums[n]][i][j];
+									//proj_pixel[i * Npixw + j] = reproj[camNums[n]][i][j];
 								}
+							}
+							//data_io.SetTotalNumber(Npixh * Npixw);
+							//data_io.SetFilePath("/home/tanshiyong/Documents/Data/Single-Phase/11.03.17/Run1/Projection/res.txt");
+							//data_io.WriteData(res_pixel);
+							//data_io.SetFilePath("/home/tanshiyong/Documents/Data/Single-Phase/11.03.17/Run1/Projection/orig.txt");
+							//data_io.WriteData(orig_pixel);
+							//data_io.SetFilePath("/home/tanshiyong/Documents/Data/Single-Phase/11.03.17/Run1/Projection/proj.txt");
+							//data_io.WriteData(proj_pixel);
+						}
+						//delete[] res_pixel;
+						//delete[] orig_pixel;
+						//delete[] proj_pixel;
 
 
 						// updating the 3D position and intensity field by shaking
@@ -428,6 +448,10 @@ Frame IPR::IPRLoop(Calibration& calib, OTF& OTFcalib,  deque<int> camNums, int i
 							if (loopInner < 2)  del = mindist_2D;
 							else if (loopInner < 5)  del = mindist_2D / pow(2,loopInner - 1);
 							else  del = mindist_2D / 100;
+//							if (loopInner < 1)  del = config.shaking_shift;			// initial shake TODO
+//							else if (loopInner < 5)  del = config.shaking_shift / pow(2,loopInner - 1);//_ipr.mindist_2D/10;	// normal shakes TODO
+//							else  del = config.shaking_shift/100;
+
 							OTF otf_calib(OTFcalib);
 
 							Shaking s(ncams, ignoreCam, otf_calib, Npixw, Npixh, psize, del, *pID, camsAll, res, intensity3Dnew[i]);
@@ -489,7 +513,8 @@ Frame IPR::IPRLoop(Calibration& calib, OTF& OTFcalib,  deque<int> camNums, int i
 void IPR::ReprojImage(Frame matched3D, OTF& OTFcalib, deque<int**>& pixels_reproj, bool STB) {
 	int size = psize;
 	// doubling the area of reprojection for STB
-	if (STB)
+	// also double for IPR for consistency with Shaking.
+//	if (STB)
 		size = 2 * psize;
 
 	// intializing pixel_reproj to 0
@@ -521,6 +546,7 @@ void IPR::ReprojImage(Frame matched3D, OTF& OTFcalib, deque<int**>& pixels_repro
 			int ymin = max(1, (int)floor(particle2Dcenters[n].Y() - size / 2));
 			int xmax = min(Npixw, (int)floor(particle2Dcenters[n].X() + size / 2));
 			int ymax = min(Npixh, (int)floor(particle2Dcenters[n].Y() + size / 2));
+
 			for (int x = xmin; x < xmax; x++) {
 				for (int y = ymin; y < ymax; y++) {
 					// reprojecting the particle using Gaussian ellipse

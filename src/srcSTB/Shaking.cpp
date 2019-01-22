@@ -170,13 +170,35 @@ double Shaking::Res(Position posnew) {
 			//otf parameters at new position
 			vector <double> otfParamnew = OTFcalib.OTFgrid(camID, posnew);
 
+			//NumDataIO<int> data_io;
+			//int* pixels_partaugres;
+			//int* part_proj;
+			//if (pRangeOld[id].xmax2 > pRangeOld[id].xmin2 && pRangeOld[id].ymax2 > pRangeOld[id].ymin2) {
+			//	int num = (pRangeOld[id].ymax2 - pRangeOld[id].ymin2) * (pRangeOld[id].xmax2 - pRangeOld[id].xmin2 );
+			//	pixels_partaugres = new int[num];
+			//	part_proj= new int[num];
+			//}
+
+
 			// Calculating the residual for updated 3D position
 			for (int x = pRangeOld[id].xmin2; x < pRangeOld[id].xmax2; x++) {
 				for (int y = pRangeOld[id].ymin2; y < pRangeOld[id].ymax2; y++) {
 					int X = x - pRangeOld[id].xmin2, Y = y - pRangeOld[id].ymin2;
 					R = R + pow((pixels_PartAugRes[id][Y][X] - round(PartReproj(particle2Dnew[id], otfParamnew, x, y))), 2);
+					//pixels_partaugres[X * (pRangeOld[id].ymax2 - pRangeOld[id].ymin2) + Y] = pixels_PartAugRes[id][Y][X];
+					//part_proj[X * (pRangeOld[id].ymax2 - pRangeOld[id].ymin2) + Y] = round(PartReproj(particle2Dnew[id], otfParamnew, x, y));
 				}
 			}
+			//if (pRangeOld[id].xmax2 > pRangeOld[id].xmin2 && pRangeOld[id].ymax2 > pRangeOld[id].ymin2) {
+			//	int num = (pRangeOld[id].ymax2 - pRangeOld[id].ymin2) * (pRangeOld[id].xmax2 - pRangeOld[id].xmin2 );
+			//data_io.SetTotalNumber(num);
+			//data_io.SetFilePath("/home/tanshiyong/Documents/Data/Single-Phase/11.03.17/Run1/Projection/pixels_partaugres.txt");
+			//data_io.WriteData((int*) pixels_partaugres);
+			//data_io.SetFilePath("/home/tanshiyong/Documents/Data/Single-Phase/11.03.17/Run1/Projection/part_proj.txt");
+			//data_io.WriteData((int*) part_proj);
+			//delete[] pixels_partaugres;
+			//delete[] part_proj;
+			//}
 			id++;
 		}
 	}
@@ -216,6 +238,14 @@ double Shaking::PartReproj(Position particle2Dcenter, vector <double>& otfParam,
 
 // takes the camID, 2D projection center and gives particle augmented residual on that camera
 void Shaking::PartAugResImage(int camID, int id, PixelRange p) {
+	//NumDataIO<int> data_io;
+	//int num = (p.xmax2 - p.xmin2) * (p.ymax2 - p.ymin2);
+	//int* particle_res;
+	//int* part_proj;
+	//if (num > 0) {
+	//	particle_res = new int[num];
+	//	part_proj = new int[num];
+	//}
 	for (int x = p.xmin2; x < p.xmax2; x++) {
 		for (int y = p.ymin2; y < p.ymax2; y++) {
 			int X = x - p.xmin2, Y = y - p.ymin2;
@@ -223,9 +253,21 @@ void Shaking::PartAugResImage(int camID, int id, PixelRange p) {
 //			cout<<pixels_Res[camID][y][x]<<",";
 //			cout<<pixels_Part[id][Y][X]<<",";
 			pixels_PartAugRes[id][Y][X] = max(0,min(255,pixels_Res[camID][y][x] + pixels_Part[id][Y][X]));
-//			cout<<pixels_PartAugRes[id][Y][X]<<endl;
+//			particle_res[X * (p.ymax2 - p.ymin2) + Y] = pixels_Res[camID][y][x];
+//			part_proj[X * (p.ymax2 - p.ymin2) + Y] = pixels_Part[id][Y][X];
+//			cout<<pixels_PartAugRes[i[X * (p.ymax2 - p.ymin2) + Y]d][Y][X]<<endl;
 		}		      //aug intensity   =  //residual intensity   +    //particle intensity
 	}
+//	if (num > 0) {
+//		data_io.SetTotalNumber(num);
+//		data_io.SetFilePath("/home/tanshiyong/Documents/Data/Single-Phase/11.03.17/Run1/Projection/particle_res.txt");
+//		data_io.WriteData(particle_res);
+//		data_io.SetFilePath("/home/tanshiyong/Documents/Data/Single-Phase/11.03.17/Run1/Projection/particle_proj.txt");
+//		data_io.WriteData(part_proj);
+//		delete[] particle_res;
+//		delete[] part_proj;
+//	}
+
 }
 
 // returns the coefficients of quadratic passing through 3 points

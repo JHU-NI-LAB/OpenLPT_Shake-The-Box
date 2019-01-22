@@ -269,6 +269,7 @@ Frame Calibration::Stereomatch(const deque<Frame>& iframes, int framenumber, int
 		deque<Position> corrpos;
 		deque<Position> corrpos_Pixel;
 		Frame::const_iterator fitend = iframes[i].end();
+		//int n = 0;
 		for (Frame::const_iterator fit = iframes[i].begin(); fit != fitend; ++fit) {
 			/*
 			 * Modified by Shiyong Tan
@@ -280,6 +281,7 @@ Frame Calibration::Stereomatch(const deque<Frame>& iframes, int framenumber, int
 			corrpos.push_back(cams[camID[i]].UnDistort(*fit));
 			// End
 			corrpos_Pixel.push_back(*fit);
+			//n = n + 1;
 		}
 		corrframes.push_back(Frame(corrpos));
 		corrframes_Pixel.push_back(Frame(corrpos_Pixel));
@@ -330,6 +332,10 @@ Frame Calibration::Stereomatch(const deque<Frame>& iframes, int framenumber, int
 	//for (Frame::const_iterator pA = corrframes[rID[0]].begin(); pA != pAend; ++pA) {
 	for (int i = 0; i < corrframes[rID[0]].NumParticles(); i++) {
 		Frame::const_iterator pA = corrframes[rID[0]].begin() + i;
+//		if (fabs(pA->X() - 445.17794) < 1e-4) {
+//			bool breakpoint = true;
+//		}
+
 		// this particle's coordinates in world space
 		Position pAworld(cams[camID[0]].ImageToWorld(*pA));
 

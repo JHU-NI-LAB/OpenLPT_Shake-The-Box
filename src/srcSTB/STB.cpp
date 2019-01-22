@@ -444,12 +444,12 @@ void STB::ConvergencePhase() {
 				string X5 = "InactiveLongTracks" + s;
 				SaveTrackToTXT(inactiveLongTracks, address + X5);
 				// empty inactiveLongTracks
-				inactiveLongTracks.erase(inactiveLongTracks.begin(), inactiveLongTracks.end());
+				if (nextFrame != endFrame) inactiveLongTracks.erase(inactiveLongTracks.begin(), inactiveLongTracks.end());
 				// save the inactive long tracks
 				string X6 = "ExitTracks" + s;
 				SaveTrackToTXT(exitTracks, address + X6);
 				// empty inactiveLongTracks
-				exitTracks.erase(exitTracks.begin(), exitTracks.end());
+				if (nextFrame != endFrame) exitTracks.erase(exitTracks.begin(), exitTracks.end());
 			}
 		}
 	}
@@ -1067,7 +1067,9 @@ Frame STB::IPRonResidual(Calibration& calib, Tiff2DFinder& t, deque<int**>& pixe
 																								// running IPR by ignoring cameras one by one
 			for (int ignoreCam = 0; ignoreCam < ncams; ignoreCam++) {
 				Frame temp = _ipr.IPRLoop(calibReduced, OTFcalib, camNums, ignoreCam, t.Get_colors(), pixels_orig, pixels_reproj, pixels_res, outerloop);
-				
+//				deque<Position> temp_pos;
+//				temp_pos.insert(temp_pos.end(), temp.begin(), temp.end());
+//				_ipr.SaveParticlePositions(temp_pos, "/home/tanshiyong/Documents/Data/Single-Phase/11.03.17/Run1/ParticlePositions/totalparticles.txt");
 				//if (ignoreCam == 0)																// if the projection of a particle candidate on ignored cam is within its bounds and finds no particle there,
 				//	for (int i = temp.NumParticles()-1; i >= 0 ; i--) 							// then delete the particle candidate						
 				//		if (abs(temp[i].X1() - xlim) <= xlim && abs(temp[i].Y1() - ylim) <= ylim && pixels_orig[0][(int)round(temp[i].Y1())][(int)round(temp[i].X1())] < intensityThresh)
