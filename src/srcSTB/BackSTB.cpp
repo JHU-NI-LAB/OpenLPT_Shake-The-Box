@@ -129,10 +129,16 @@ void BackSTB::UpdateTracks(STB& s) {
 
 			for (deque<Track>::iterator tr = s.bufferTracks.begin(); tr != s.bufferTracks.end(); ) {
 				if (!(tr->Exists(prevFrame)) && tr->Exists(currFrame)) {
-					if (Predictor(s, prevFrame, tr, unlinkedTracks, predictions, intensity)) {
-						++ tr;
-					} else {
+					int case_num = Predictor(s, prevFrame, tr, unlinkedTracks, predictions, intensity);
+					switch (case_num) {
+					case 0:
 						tr = s.bufferTracks.erase(tr); //No track is connected, it is moved to unlinkedTracks temporarily.
+						break;
+					case 1:  // the track is connected to a track after this track
+						++ tr;
+						break;
+					default: // the track is connected to a track before this track
+						break;
 					}
 				} else {
 					++ tr;
@@ -194,7 +200,7 @@ void BackSTB::UpdateTracks(STB& s) {
 			}
 																								// applying ipr on the remaining particles in orig images to obtain particle candidates
 			s._ipr.DoingSTB(true);
-			Frame candidates = s.IPRonResidual(calib, t, pixels_orig, pixels_reproj, pixels_res, predictions);
+			Frame candidates = s.IPRonResidual(calib, t, pixels_orig, pixels_reproj, pixels_res, predictions);  //Todo: put tracked particles in addition to predictions.
 																								// trying to link each activeShortTrack with a particle candidate in prevFrame
 			for (deque<Track>::iterator tr = s.activeShortTracks.begin(); tr != s.activeShortTracks.end(); )
 				MakeShortLinkResidual_backward(s, prevFrame, candidates, tr, 5);
@@ -232,7 +238,7 @@ void BackSTB::UpdateTracks(STB& s) {
 					s.bufferTracks.push_back(*tr); // a new particle is kept and move back to bufferTracks
 				}
 				tr = unlinkedTracks.erase(tr);
-				}
+			}
 			// moving all activeShortTracks longer than 3 particles to activeLongTracks
 			for (deque<Track>::iterator tr = s.activeShortTracks.begin(); tr != s.activeShortTracks.end(); ) {
 				if (tr->Length() > 3) {
@@ -278,12 +284,12 @@ void BackSTB::UpdateTracks(STB& s) {
 						std::remove( (address + "ExitTracks" + to_string(prevFrame + 100) + ".txt").c_str());
 					}
 				} else if (prevFrame == s.first && prevFrame % 100 != 0) {
-					std::remove((address + "ActiveLongTracks" + to_string(100) + ".txt").c_str());
-					std::remove( (address + "ActiveShortTracks" + to_string(100) + ".txt").c_str());
-					std::remove( (address + "BufferTracks" + to_string(100) + ".txt").c_str());
-					if (((int)(prevFrame / 100) * 100) % 500 != 0) {
-						std::remove( (address + "InactiveLongTracks" + to_string(100) + ".txt").c_str());
-						std::remove( (address + "ExitTracks" + to_string(100) + ".txt").c_str());
+					std::remove((address + "ActiveLongTracks" + to_string((int)(prevFrame / 100) * 100 + 100) + ".txt").c_str());
+					std::remove( (address + "ActiveShortTracks" + to_string( (int)(prevFrame / 100) * 100 + 100) + ".txt").c_str());
+					std::remove( (address + "BufferTracks" + to_string((int)(prevFrame / 100) * 100 + 100) + ".txt").c_str());
+					if (((int)(prevFrame / 100) * 100 + 100) % 500 != 0) {
+						std::remove( (address + "InactiveLongTracks" + to_string((int)(prevFrame / 100) * 100 + 100) + ".txt").c_str());
+						std::remove( (address + "ExitTracks" + to_string((int)(prevFrame / 100) * 100 + 100) + ".txt").c_str());
 					}
 				}
 				if (prevFrame % 500 == 0) {
@@ -323,7 +329,7 @@ void BackSTB::UpdateTracks(STB& s) {
 //	cout << "\tTotal time taken for BackSTB: " << (clock() - start) / 1000 << "s" << endl;
 }
 
-bool BackSTB::Predictor(STB& s, int prevFrame, deque<Track>::iterator& Ltr,
+int BackSTB::Predictor(STB& s, int prevFrame, deque<Track>::iterator& Ltr,
 						deque<Track>& unlinkedTracks, Frame& predictions,
 						deque<double>& intensity) {
 																								
@@ -358,7 +364,7 @@ bool BackSTB::Predictor(STB& s, int prevFrame, deque<Track>::iterator& Ltr,
 	}
 	Position estimate(est[0], est[1], est[2]);												// estimated position at prevFrame
 																							// checking if it can link back to any inactive track
-	for (deque<Track>::iterator Itr = Ltr; Itr != s.bufferTracks.end(); ++Itr) {
+	for (deque<Track>::iterator Itr = s.bufferTracks.begin(); Itr != s.bufferTracks.end(); ++Itr) {
 		if (Itr->Exists(prevFrame)) {
 			Position potentialMatch(Itr->GetPos(prevFrame - Itr->GetTime(0)));
 			double distsqr = Distance(estimate, potentialMatch);
@@ -383,7 +389,10 @@ bool BackSTB::Predictor(STB& s, int prevFrame, deque<Track>::iterator& Ltr,
 
 		Ltr->AddFront(*matches.back());														// link the updated inactive track to the beginning of activeTrack and
 		s.bufferTracks.erase(matches.back());												// delete the linked track from active long new Tracks
-		return true; // return true to indicate the track is linked to another track
+		if (matches.back() > Ltr)
+			return 1; // return 1 to indicate the track is linked to another track adter this track
+		else
+			return 2; // the track is connected to a track before it.
 	}
 	else {
 		// if no link is found,
@@ -394,7 +403,7 @@ bool BackSTB::Predictor(STB& s, int prevFrame, deque<Track>::iterator& Ltr,
 		} else { //the track should be put into exit tracks since it is outside the boundary
 			s.exitTracks.push_back(*Ltr);
 		}
-		return false; // return false to indicate no track is connected
+		return 0; // return false to indicate no track is connected
 	}
 }
 

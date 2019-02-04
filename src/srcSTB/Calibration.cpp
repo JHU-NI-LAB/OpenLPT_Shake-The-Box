@@ -538,7 +538,21 @@ Frame Calibration::Stereomatch(const deque<Frame>& iframes, int framenumber, int
 							}
 	}
 						}
-	
+
+//	unsigned int n_match = frame_indices.size();
+//	int* indices_vector = new int[n_match * 4];
+//	for (unsigned int i = 0; i < n_match; ++i) {
+//		indices_vector[i * 4] = frame_indices[i][0];
+//		indices_vector[i * 4 + 1] = frame_indices[i][1];
+//		indices_vector[i * 4 + 2] = frame_indices[i][2];
+//		indices_vector[i * 4 + 3] = frame_indices[i][3];
+//	}
+//
+//	NumDataIO<int> data_io;
+//	data_io.SetTotalNumber(n_match * 4);
+//	data_io.SetFilePath("/home/tanshiyong/Documents/Data/Single-Phase/11.03.17/Run1/Triangulation/match_indices.txt");
+//	data_io.WriteData(indices_vector);
+
 	unsigned int num_match =  matchedPos.size();
 	unsigned int num_particle = 0;
 //	double preference[num_match][2];

@@ -36,7 +36,7 @@ public:
 
 	//############################### FUNCTIONS ##############################
 	void UpdateTracks(STB& s);
-	bool Predictor(STB& s, int prevFrame, deque<Track>::iterator& Ltr,
+	int Predictor(STB& s, int prevFrame, deque<Track>::iterator& Ltr,
 		deque<Track>& unlinkedTracks, Frame& predictions,
 		deque<double>& intensity);
 	double LMSWienerPredictor(Track tracks, string direction, int order);
