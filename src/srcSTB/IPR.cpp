@@ -110,7 +110,7 @@ IPR::IPR(string& fname, int ncams) : ncams(ncams)
 	for (int i = 0; i < ncams; ++i)										// now read in the parameters for each camera
 		camsAll.push_back(Camera(parsed));
 
-	if (ncams >= 4)														// if there are more than 4 cams, reading the first 4 cams into cams4
+	if (ncams >= 4)														// if there are more than 4 cams, reading the first 4 cams into cams4  TODO: Why?
 		for (int i = 0; i < 4; ++i)
 			cams4.push_back(camsAll[i]);
 	else
@@ -182,7 +182,8 @@ Frame IPR::FindPos3D(deque< deque<string> > imgNames, int frameNumber)  {
 
 	//Load_2Dpoints("S:/Projects/Bubble/09.28.17/Bubbles and Particles - 250fps/frame", frame, ALL_CAMS);
 
-	int ncams4 = (ncams > 4) ? 4 : ncams;
+	int ncams4 = (ncams > 4) ? 4 : ncams;  //No idea why it was set like this.
+//	int ncams4 = ncams;
 	Calibration calib(cams4, mindist_2D, mindist_3D, ncams4);
 	OTF OTFcalib(ncams, otfFile);
 

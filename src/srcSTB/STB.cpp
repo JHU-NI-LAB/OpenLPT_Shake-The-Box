@@ -4,6 +4,7 @@
 #include <omp.h>
 #include <chrono>
 #include <cstdio>
+#include "Position.h"
 #include "NumDataIO.h"
 #include "Common.h"
 
@@ -353,6 +354,7 @@ void STB::ConvergencePhase() {
 
 	// PRUNING / ARRANGING THE TRACKS
 			double thresh = 1.5 * largestShift;
+
 			for (deque<Track>::iterator tr = activeLongTracks.begin(); tr != activeLongTracks.end(); ) {
 				double d1 = pow(Distance(tr->Last(), tr->Penultimate()),0.5), d2 = pow(Distance(tr->Penultimate(), tr->Antepenultimate()),0.5);
 				double threshRel = maxRelShiftChange*d2, length = tr->Length();
@@ -381,9 +383,32 @@ void STB::ConvergencePhase() {
 					}
 				}
 
+//				else if (!CheckVelocity(tr)) { // check velocity
+//					tr = activeLongTracks.erase(tr);
+//					s_al++; a_is++;
+//				}
+				else if (!CheckAcceleration(tr)) {
+						tr->DeleteBack();
+						if (length >= 7) {
+							inactiveLongTracks.push_back(*tr);
+						}
+						tr = activeLongTracks.erase(tr);
+						s_al++; a_is++;
+					}
+
+				else if (!CheckLinearFit(tr)) {
+					if (length >= 7) {
+						inactiveLongTracks.push_back(*tr);
+					}
+					tr = activeLongTracks.erase(tr);
+					s_al++; a_is++;
+				}
+
 				else
 					++tr;
 			}
+			GetAccThred(); // Get the threshold for acceleration check
+
 
 			for (Frame::const_iterator pID = candidates.begin(); pID != candidates.end(); ++pID) {		// adding all the untracked candidates to a new short track
 				Track startTrack(*pID, nextFrame);
@@ -1259,6 +1284,182 @@ void STB::MakeShortLinkResidual(int nextFrame, Frame& candidates, deque<Track>::
 
 	}
 }
+
+bool STB::CheckVelocity(deque<Track>::iterator& tr) {
+	int num_track_to_average = 50;
+	double search_radius = 2; // TODO: make it as a configure parameter
+	double threshold_scale = 10;
+
+	vector<double> dist;
+	vector<int> neighbor_track;
+
+	for (int i = 0; i < activeLongTracks.size(); ++i) {
+		double d = pow(Distance(tr->Last(), activeLongTracks[i].Last()), 0.5);
+		if (d < search_radius) {
+			if (neighbor_track.size() <= 50) {
+				dist.push_back(d);
+				neighbor_track.push_back(i);
+			} else { // if the number is larger than 50, then keep the closest 50
+				// get the maximun dist
+				double dist_max = dist[0];
+				int index_max = 0;
+				for (int j = 1; j < neighbor_track.size(); ++j) {
+					if (dist[j] > dist_max) {
+						dist_max = dist[j];
+						index_max = j;
+					}
+				}
+				if (d < dist_max) {
+					dist.erase(dist.begin() + index_max);
+					dist.push_back(d);
+					neighbor_track.erase(neighbor_track.begin() + index_max);
+					neighbor_track.push_back(i);
+				}
+			}
+		}
+	}
+
+	if (neighbor_track.size() == 0) return true; // if no track is found, then return true
+
+	vector<double> velocity;
+	for (int i = 0; i < neighbor_track.size(); ++i) {
+		velocity.push_back(pow(Distance(activeLongTracks[neighbor_track[i]].Last(), activeLongTracks[neighbor_track[i]].Penultimate()), 0.5));
+	}
+
+	double mean_velocity = 0;
+	for (int i = 0; i < velocity.size(); ++i) {
+		mean_velocity = mean_velocity + velocity[i];
+	}
+	mean_velocity = mean_velocity / velocity.size();
+
+	double diff_velocity = 0;
+	for (int i = 0; i < velocity.size(); ++i) {
+		diff_velocity = pow(diff_velocity + (velocity[i] - mean_velocity), 2);
+	}
+	diff_velocity = pow(diff_velocity / velocity.size(), 0.5);
+
+	double velocity_self = pow(Distance(tr->Last(), tr->Penultimate()), 0.5);
+
+	if (fabs(velocity_self - mean_velocity) > 20 * diff_velocity) return false;
+
+	return true;
+}
+
+bool STB::CheckAcceleration(deque<Track>::iterator& tr) {
+	if (!enable_acc_check) return true; // if not enable acceleration check then return true.
+
+	int len = tr->Length();
+	Position point0 = tr->GetPos(len - 1);
+	Position point1 = tr->GetPos(len - 2);
+	Position point2 = tr->GetPos(len - 3);
+	Position point3 = tr->GetPos(len - 4);
+
+	Position vel_1 = point0 - point1;
+	Position vel_2 = point1 - point2;
+	Position vel_3 = point2 - point3;
+
+	double acc_1 = pow(Distance(vel_1, vel_2), 0.5);
+	double acc_2 = pow(Distance(vel_2, vel_3), 0.5);
+
+	if (fabs(acc_1 - acc_2) > acc_diff_thred) return false;
+
+	return true;
+}
+
+void STB::GetAccThred() {
+	vector<double> acc_diff_vec;
+	for (int i = 0; i < activeLongTracks.size(); ++i) {
+		int len = activeLongTracks[i].Length();
+		if (len < 20) continue; // only tracks of which the length is longer than 20 are considered as good tracks
+		int num_frame_to_average = 5; // average the acceleration difference for the last 10 frames
+		double acc_diff = 0;
+		for (int j = len - num_frame_to_average; j < len; ++j) {
+			Position point0 = activeLongTracks[i].GetPos(j - 1);
+			Position point1 = activeLongTracks[i].GetPos(j - 2);
+			Position point2 = activeLongTracks[i].GetPos(j - 3);
+			Position point3 = activeLongTracks[i].GetPos(j - 4);
+
+			Position vel_1 = point0 - point1;
+			Position vel_2 = point1 - point2;
+			Position vel_3 = point2 - point3;
+
+			double acc_1 = pow(Distance(vel_1, vel_2), 0.5);
+			double acc_2 = pow(Distance(vel_2, vel_3), 0.5);
+
+			acc_diff = acc_diff + fabs(acc_1 - acc_2);
+		}
+		acc_diff = acc_diff / num_frame_to_average;
+		acc_diff_vec.push_back(acc_diff);
+	}
+	if (acc_diff_vec.size() > 100) { // only calculate the threshold when data is sufficient
+		double acc_diff_ave = 0;
+		for (int i = 0; i < acc_diff_vec.size(); ++i) {
+			acc_diff_ave = acc_diff_ave + acc_diff_vec[i];
+		}
+		acc_diff_ave = acc_diff_ave / acc_diff_vec.size();
+
+		double acc_diff_std = 0;
+		for (int i = 0; i < acc_diff_vec.size(); ++i) {
+			acc_diff_std = acc_diff_std + pow((acc_diff_vec[i] - acc_diff_ave), 2);
+		}
+		acc_diff_std = pow(acc_diff_std / acc_diff_vec.size(), 0.5);
+
+		acc_diff_thred = acc_diff_ave + 10 * acc_diff_std;
+
+		enable_acc_check = true;
+	} else {
+		enable_acc_check = false;
+	}
+}
+
+void SimpleLinearRegression(double* y, double* coeff) {
+	int x[4];
+	for (int i = 0; i < 4; ++i) x[i] = i + 1;
+    double xsum = 0,x2sum = 0,ysum = 0,xysum = 0;                //variables for sums/sigma of xi,yi,xi^2,xiyi etc
+    for (int i=0; i < 4; ++i) {
+        xsum = xsum + x[i];                        //calculate sigma(xi)
+        ysum = ysum + y[i];                        //calculate sigma(yi)
+        x2sum = x2sum + pow(x[i], 2);                //calculate sigma(x^2i)
+        xysum = xysum + x[i] * y[i];                    //calculate sigma(xi*yi)
+    }
+    coeff[0] = (4 * xysum - xsum * ysum) / (4 * x2sum - xsum * xsum);            //calculate slope
+    coeff[1] = (x2sum * ysum - xsum * xysum) / (x2sum * 4 - xsum * xsum);            //calculate intercept
+
+}
+
+bool STB::CheckLinearFit(deque<Track>::iterator& tr) {
+	int len = tr->Length();
+
+	Position point0 = tr->GetPos(len - 4);
+	Position point1 = tr->GetPos(len - 3);
+	Position point2 = tr->GetPos(len - 2);
+	Position point3 = tr->GetPos(len - 1);
+
+	double y[4];
+	y[0] = point0.X(); y[1] = point1.X(); y[2] = point2.X(); y[3] = point3.X();
+	double coeff[2];
+	SimpleLinearRegression(y, coeff);
+	double x_fit = coeff[0] * 4 + coeff[1];
+
+	y[0] = point0.Y(); y[1] = point1.Y(); y[2] = point2.Y(); y[3] = point3.Y();
+	SimpleLinearRegression(y, coeff);
+	double y_fit = coeff[0] * 4 + coeff[1];
+
+	y[0] = point0.Z(); y[1] = point1.Z(); y[2] = point2.Z(); y[3] = point3.Z();
+	SimpleLinearRegression(y, coeff);
+	double z_fit = coeff[0] * 4 + coeff[1];
+
+	Position point3_fit(x_fit, y_fit, z_fit);
+
+	double del_pos = pow(Distance(point3, point3_fit), 0.5);
+
+	if (del_pos > 0.05) return false;
+
+	return true;
+
+}
+
+
 
 //########################### MAT / TXT FILES ###################################
 

@@ -88,6 +88,11 @@ public:
 	void MakeShortLinkResidual(int nextFrame, Frame& candidates, deque<Track>::iterator& tr, int iterations, bool* erase, bool* candidate_used);
 	void MakeShortLinkResidual(int nextFrame, Frame& candidates, deque<Track>::iterator& tr, int iterations);
 
+	bool CheckVelocity(deque<Track>::iterator& tr);
+	bool CheckAcceleration(deque<Track>::iterator& tr);
+	void GetAccThred();
+	bool CheckLinearFit(deque<Track>::iterator& tr);
+
 	void MatTracksSave(string addres, string s, bool is_back_STB);
 	void MatfileSave(deque<Track> tracks, string address, string name, int size);
 	void SaveTrackToTXT(deque<Track> tracks, string address);
@@ -136,6 +141,8 @@ public:
 	int it_innerloop;											// no. of innerloop iterations
 	double maxAbsShiftChange;									// maximum allowed change in particle shift accross 2 frames
 	double maxRelShiftChange;									// maximum allowed relative achange in particle shift accross 2 frames
+	double acc_diff_thred = 0;
+	bool enable_acc_check = false;
 
 	// camera parameters
 	std::deque<int> camID;
