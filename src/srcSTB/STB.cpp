@@ -387,14 +387,14 @@ void STB::ConvergencePhase() {
 //					tr = activeLongTracks.erase(tr);
 //					s_al++; a_is++;
 //				}
-				else if (!CheckAcceleration(tr)) {
-						tr->DeleteBack();
-						if (length >= 7) {
-							inactiveLongTracks.push_back(*tr);
-						}
-						tr = activeLongTracks.erase(tr);
-						s_al++; a_is++;
-					}
+//				else if (!CheckAcceleration(tr)) {
+//						tr->DeleteBack();
+//						if (length >= 7) {
+//							inactiveLongTracks.push_back(*tr);
+//						}
+//						tr = activeLongTracks.erase(tr);
+//						s_al++; a_is++;
+//					}
 
 				else if (!CheckLinearFit(tr)) {
 					if (length >= 7) {
@@ -407,7 +407,7 @@ void STB::ConvergencePhase() {
 				else
 					++tr;
 			}
-			GetAccThred(); // Get the threshold for acceleration check
+//			GetAccThred(); // Get the threshold for acceleration check
 
 
 			for (Frame::const_iterator pID = candidates.begin(); pID != candidates.end(); ++pID) {		// adding all the untracked candidates to a new short track
