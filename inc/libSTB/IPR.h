@@ -53,6 +53,8 @@ public:
 	// a fuction that takes all the 3D positions and gives reprojected images: (I_proj)
 	void ReprojImage(Frame matched3D, OTF& OTFcalib, deque<int**>& pixels_reproj, bool STB);
 
+	void ReprojImage(Frame matched3D, OTF& OTFcalib, deque<int**>& pixels_reproj, double projsize);
+
 	// gives the intensity of reprojection at pixel (x,y): (I_p(x,y))
 	double PixelReproj(Position& particle2Dcenter, vector<double>& otfParam, int x, int y);
 

@@ -3,3 +3,4 @@ Debug
 /Debug-Unparallel/
 /Debug-Parallel/
 /Release/
+/Release-SingleCore/

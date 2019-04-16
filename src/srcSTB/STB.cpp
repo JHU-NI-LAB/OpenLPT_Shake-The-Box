@@ -4,6 +4,7 @@
 #include <omp.h>
 #include <chrono>
 #include <cstdio>
+#include <utility> // to use smart pointer
 #include "Position.h"
 #include "NumDataIO.h"
 #include "Common.h"
@@ -45,6 +46,10 @@ STB::STB(int firstFrame, int lastFrame, string pfieldfile, string iprfile, int n
 			pixels_res[n][i] = new int[Npixw] {};
 		}
 	}
+
+//	for (int i = 0; i < 100; ++i) {
+//		linear_fit_error[i] = 0;
+//	}
 
 	it_innerloop = _ipr.it_innerloop;
 	tiffaddress = _ipr.tiffaddress;
@@ -226,8 +231,11 @@ void STB::ConvergencePhase() {
 		} else {
 			// initializing some variables
 			int c1 = activeShortTracks.size(), c2 = activeLongTracks.size(), c3 = inactiveTracks.size(), c4 = inactiveLongTracks.size();
-			a_as = 0; a_al = 0; a_is = 0; s_as1 = 0; a_as2 = 0; s_as3 = 0; s_al = 0; a_il = 0;
+			a_as = 0; a_al = 0; a_is = 0; s_as1 = 0; s_as2 = 0; s_as3 = 0; s_as4 = 0; s_al = 0; a_il = 0;
 
+//			for (int i = 0; i < 100; ++i) {
+//					linear_fit_error[i] = 0;
+//				}
 
 			int nextFrame = currFrame + 1;
 			cout << "\tSTB convergence phase tracking at frame: " << nextFrame << endl;
@@ -256,6 +264,7 @@ void STB::ConvergencePhase() {
 			cout<<"Done.\n";
 			/* TESTING */ tempPredictions = estPos;
 
+
 	// SHAKING THE PREDICTIONS
 			start =std::chrono::system_clock::now();
 			Shake(estPos, estInt);																		// correcting the predicted positions by shaking, removing wrong / ambiguous predictions and updating the residual images
@@ -275,12 +284,52 @@ void STB::ConvergencePhase() {
 //			cout << "Done (" << (clock() - start2)/(double) CLOCKS_PER_SEC << "s)" << endl << "\t\t\tShort tracks from residuals: ";
 			cout<<"Done.\n";
 
+
+//			NumDataIO<int> data_io;
+//			for (int n = 0; n < ncams; n++) {
+//				data_io.SetFilePath("/home/tanshiyong/Documents/Data/Single-Phase/SD50000/Residual_image_code/cam" + to_string(n) + "/frame" + to_string(nextFrame) + ".txt");
+//				int* pixel_vector = new int[Npixh * Npixw];
+//				for (int i = 0; i < Npixh; i++)
+//					for (int j = 0; j < Npixw; j++) {
+//						pixel_vector[i * Npixw + j] = pixels_orig[n][j][i];
+//					}
+//				data_io.SetTotalNumber(Npixw * Npixh);
+//				data_io.WriteData(pixel_vector);
+//				delete[] pixel_vector;
+//			}
+
+//			NumDataIO<int> data_io;
+//			for (int n = 0; n < ncams; n++) {
+//				data_io.SetFilePath("/home/tanshiyong/Documents/Data/Single-Phase/SD50000/Residual_image_code/cam" + to_string(n+1) + "/frame" + to_string(nextFrame) + ".txt");
+//				int* pixel_vector = new int[Npixh * Npixw];
+//				for (int i = 0; i < Npixh; i++)
+//					for (int j = 0; j < Npixw; j++) {
+//						pixel_vector[i * Npixw + j] = pixels_orig[n][i][j];
+//					}
+//				data_io.SetTotalNumber(Npixw * Npixh);
+//				data_io.WriteData(pixel_vector);
+//				delete[] pixel_vector;
+//			}
+
+
 	// IPR ON RESIDUALS
 			start =std::chrono::system_clock::now();
 			_ipr.SetFrameNumber(currFrame + 1);  // frame number is used for debug.
 			_ipr.DoingSTB(true);  // to indicate the IPR is called by STB.
 			Frame candidates = IPRonResidual(calib, t, pixels_orig, pixels_reproj, pixels_res, estPos);	// applying ipr on residual images to obtain particle candidates
 			cout<<"IPR time:"<<std::chrono::duration_cast<std::chrono::seconds>(std::chrono::system_clock::now() - start) .count() << "s" << endl;
+			cout<<"Total particles:" << candidates.NumParticles()<<endl;
+
+//			NumDataIO<double> data_io;
+//			double* pos_vec = new double[candidates.NumParticles() * 3];
+//			for (int i = 0; i < candidates.NumParticles(); ++i) {
+//				pos_vec[i * 3] = candidates[i].X();
+//				pos_vec[i * 3 + 1] = candidates[i].Y();
+//				pos_vec[i * 3 + 2] = candidates[i].Z();
+//			}
+//			data_io.SetFilePath("/home/tanshiyong/Documents/Data/Single-Phase/SD50000/frame" + to_string(nextFrame) + ".txt");
+//			data_io.SetTotalNumber(candidates.NumParticles() * 3);
+//			data_io.WriteData(pos_vec);
 
 	// TESTING IPR AND TRACKING FROM RESIDUALS
 //			if (nextFrame % 100 == 97 || nextFrame % 100 == 98 || nextFrame % 100 == 99 || nextFrame % 100 == 0)
@@ -335,78 +384,187 @@ void STB::ConvergencePhase() {
 //				MakeShortLinkResidual(nextFrame, candidates, tr, 5);
 			// END
 
-			cout<<"linking shrot track time:"<<std::chrono::duration_cast<std::chrono::seconds>(std::chrono::system_clock::now()- start) .count() << "s" << endl;
+			cout<<"linking short track time:"<<std::chrono::duration_cast<std::chrono::seconds>(std::chrono::system_clock::now()- start) .count() << "s" << endl;
 			start = std::chrono::system_clock::now();
 																										// moving all activeShortTracks longer than 3 particles to activeLongTracks
 			for (deque<Track>::iterator tr = activeShortTracks.begin(); tr != activeShortTracks.end(); ) {
+
 				if (tr->Length() > 3) {
 					activeLongTracks.push_back(*tr);
 					tr = activeShortTracks.erase(tr);
-					s_as3++; a_al++;
+					s_as4++; a_al++;
 				}
 				else
 					++tr;
 			}
-
 //			start4 = clock();
 //			cout << "Done (" << (clock() - start3) / (double) CLOCKS_PER_SEC << "s)" << endl << "\t\t\tPruning the tracks: ";
 			cout<<"Done.\n";
 
 	// PRUNING / ARRANGING THE TRACKS
 			double thresh = 1.5 * largestShift;
+//			int p = 0;
+			int r1 =0, r2 = 0, r3 = 0, r4 = 0;
+			unsigned int num_longtrack = activeLongTracks.size();
+			erase_vector  = new bool[num_longtrack];
+			for (unsigned int i = 0; i < num_longtrack; ++i) erase_vector[i] = false;
 
-			for (deque<Track>::iterator tr = activeLongTracks.begin(); tr != activeLongTracks.end(); ) {
-				double d1 = pow(Distance(tr->Last(), tr->Penultimate()),0.5), d2 = pow(Distance(tr->Penultimate(), tr->Antepenultimate()),0.5);
-				double threshRel = maxRelShiftChange*d2, length = tr->Length();
-																										// moving all activeLongTracks with displacement more than LargestExp shift to inactiveTracks
-				if (d1 > thresh) {
-//					inactiveTracks.push_back(*tr);
-					tr->DeleteBack();
-					if (length >= 7) {
-						inactiveLongTracks.push_back(*tr);
-					}
-					tr = activeLongTracks.erase(tr);
-					s_al++; a_is++;
-				}
-																										// moving all activeLongTracks with large change in particle shift to inactive/inactiveLong tracks
-				else if (abs(d1 - d2) > maxAbsShiftChange || abs(d1 - d2) > threshRel) {
-					tr->DeleteBack();
-					if (length >= 7) {
-						inactiveLongTracks.push_back(*tr);
-						tr = activeLongTracks.erase(tr);
-						s_al++; a_il++;
-					}
-					else {
-//						inactiveTracks.push_back(*tr);
-						tr = activeLongTracks.erase(tr);
-						s_al++; a_is++;
-					}
-				}
-
-//				else if (!CheckVelocity(tr)) { // check velocity
-//					tr = activeLongTracks.erase(tr);
-//					s_al++; a_is++;
+//			start = std::chrono::system_clock::now();
+////			unique_ptr<double> dist_map (new double(num_longtrack * num_longtrack));
+//			double* dist_map = new double[num_longtrack * num_longtrack];
+//			double search_radius = 5;
+//			for (unsigned int i = 0; i < num_longtrack; ++ i) {
+//				Position last = activeLongTracks[i].Last();
+//				double x_l = last.X() - search_radius, x_u = last.X() + search_radius;
+//				double y_l = last.Y() - search_radius, y_u = last.Y() + search_radius;
+//				double z_l = last.Z() - search_radius, z_u = last.Z() + search_radius;
+//
+//			#pragma omp parallel //num_threads(8)
+//									{
+//			#pragma omp for
+//				for (unsigned int j = i; j < num_longtrack; ++j) {
+//					dist_map[i * num_longtrack + j] = -1;
+//					dist_map[j * num_longtrack + i] = -1;
+//					double x_test = activeLongTracks[j].Last().X();
+//
+//			//		double d = pow(Distance(tr->Last(), activeLongTracks[i].Last()), 0.5);
+//			//		if (fabs(tr.Last().X() - activeLongTracks[i].Last().X()) < search_radius)
+//			//			if (fabs(tr.Last().Y() - activeLongTracks[i].Last().Y()) < search_radius)
+//			//				if (fabs(tr.Last().Z() - activeLongTracks[i].Last().Z()) < search_radius) {
+//					if (x_test > x_l && x_test < x_u) {
+//						double y_test = activeLongTracks[j].Last().Y();
+//							if (y_test > y_l && y_test < y_u) {
+//								double z_test = activeLongTracks[j].Last().Z();
+//								if (z_test > z_l && z_test < z_u ) {
+//									double d = pow(Distance(last, activeLongTracks[i].Last()), 0.5);
+//									dist_map[i * num_longtrack + j] = d;
+//									dist_map[j * num_longtrack + i] = d;
+//								}
+//							}
+//					}
 //				}
-//				else if (!CheckAcceleration(tr)) {
-//						tr->DeleteBack();
-//						if (length >= 7) {
-//							inactiveLongTracks.push_back(*tr);
-//						}
+//									}
+//			}
+//			cout<<"Calculating dist map:"<<std::chrono::duration_cast<std::chrono::seconds>(std::chrono::system_clock::now()- start) .count() << "s" << endl;
+
+#pragma omp parallel
+			{
+#pragma omp for
+			for (unsigned int i = 0; i < num_longtrack; ++ i) {
+				double d1 = pow(Distance(activeLongTracks[i].Last(), activeLongTracks[i].Penultimate()),0.5),
+						d2 = pow(Distance(activeLongTracks[i].Penultimate(), activeLongTracks[i].Antepenultimate()),0.5);
+				double threshRel = maxRelShiftChange * d2; //, length = activeLongTracks[i].Length();
+				if (d1 > thresh) {
+					erase_vector[i] = true;
+					++ r1;
+				}
+				else if (fabs(d1 - d2) > maxAbsShiftChange || fabs(d1 - d2) > threshRel) {
+					erase_vector[i] = true;
+					++ r2;
+				}
+//				if (!CheckVelocity(activeLongTracks[i])) {
+//					erase_vector[i] = true;
+//					++ r1;
+//				}
+				else if (!CheckLinearFit(activeLongTracks[i])) {
+					++ r3;
+					erase_vector[i] = true;
+				}
+			}
+			}
+
+			shift = 0;
+			for (unsigned int i = 0; i < num_longtrack; ++ i) {
+				deque<Track>::iterator tr = activeLongTracks.begin();
+				if (erase_vector[i]) {
+					if (activeLongTracks[i - shift].Length() >= 7) {
+						inactiveLongTracks.push_back(activeLongTracks[i]);
+						activeLongTracks.erase(tr + i - shift);
+						s_al++; a_il++;
+						++ shift;
+					} else {
+						activeLongTracks.erase(tr + i - shift);
+						s_al++; a_is++;
+						++ shift;
+					}
+				}
+			}
+			delete[] erase_vector;
+
+//			for (deque<Track>::iterator tr = activeLongTracks.begin(); tr != activeLongTracks.end(); ) {
+////				p ++;
+////				cout<<p<<endl;
+//				double d1 = pow(Distance(tr->Last(), tr->Penultimate()),0.5), d2 = pow(Distance(tr->Penultimate(), tr->Antepenultimate()),0.5);
+//				double threshRel = maxRelShiftChange*d2, length = tr->Length();
+//																										// moving all activeLongTracks with displacement more than LargestExp shift to inactiveTracks
+//				if (d1 > thresh) {
+////					inactiveTracks.push_back(*tr);
+//					tr->DeleteBack();
+//					if (length >= 7) {
+//						inactiveLongTracks.push_back(*tr);
+//						tr = activeLongTracks.erase(tr);
+//						s_al++; a_il++;
+//					} else {
 //						tr = activeLongTracks.erase(tr);
 //						s_al++; a_is++;
 //					}
-
-				else if (!CheckLinearFit(tr)) {
-					if (length >= 7) {
-						inactiveLongTracks.push_back(*tr);
-					}
-					tr = activeLongTracks.erase(tr);
-					s_al++; a_is++;
-				}
-
-				else
-					++tr;
-			}
+//					r1 ++;
+//					continue;
+//				}
+//																										// moving all activeLongTracks with large change in particle shift to inactive/inactiveLong tracks
+//				else if (fabs(d1 - d2) > maxAbsShiftChange || fabs(d1 - d2) > threshRel) {
+//					tr->DeleteBack();
+//					if (length >= 7) {
+//						inactiveLongTracks.push_back(*tr);
+//						tr = activeLongTracks.erase(tr);
+//						s_al++; a_il++;
+//					}
+//					else {
+////						inactiveTracks.push_back(*tr);
+//						tr = activeLongTracks.erase(tr);
+//						s_al++; a_is++;
+//					}
+//					r2 ++;
+//					continue;
+//				}
+//
+//				if (!CheckVelocity(tr)) { // check velocity
+//					if (length >= 7) {
+//						inactiveLongTracks.push_back(*tr);
+//						tr = activeLongTracks.erase(tr);
+//						s_al++; a_il++;
+//					} else {
+//						tr = activeLongTracks.erase(tr);
+//						s_al++; a_is++;
+//					}
+//					r4 ++;
+//					continue;
+//				}
+////				else if (!CheckAcceleration(tr)) {
+////						tr->DeleteBack();
+////						if (length >= 7) {
+////							inactiveLongTracks.push_back(*tr);
+////						}
+////						tr = activeLongTracks.erase(tr);
+////						s_al++; a_is++;
+////					}
+//
+//				else if (!CheckLinearFit(tr)) {
+//					if (length >= 7) {
+//						inactiveLongTracks.push_back(*tr);
+//						tr = activeLongTracks.erase(tr);
+//						s_al++; a_il++;
+//					} else {
+//						tr = activeLongTracks.erase(tr);
+//						s_al++; a_is++;
+//					}
+//					r3 ++;
+//					continue;
+//				}
+//
+//				else
+//					++tr;
+//			}
 //			GetAccThred(); // Get the threshold for acceleration check
 
 
@@ -418,8 +576,9 @@ void STB::ConvergencePhase() {
 
 //			cout << "Done (" << (clock() - start4) / (double) CLOCKS_PER_SEC << "s)" << endl;
 
-			cout << "\t\tNo. of active Short tracks:	" << c1 << " + " << a_as << " - (" << s_as1 << " + " << a_as2 << " + " << s_as3 << ") = " << activeShortTracks.size() << endl;
+			cout << "\t\tNo. of active Short tracks:	" << c1 << " + " << a_as << " - (" << s_as1 << " + " << s_as2 << " + " << s_as3 << " + " << s_as4 << ") = " << activeShortTracks.size() << endl;
 			cout << "\t\tNo. of active Long tracks:	" << c2 << " + " << a_al << " - " << s_al << " = " << activeLongTracks.size() << endl;
+			cout << r1 << "+" << r2 << "+" << r3 << endl;
 			cout << "\t\tNo. of exited tracks:		 = " << exitTracks.size() << endl;
 //			cout << "\t\tNo. of inactive tracks:		" << c3 << " + " << a_is << " = " << inactiveTracks.size() << endl;
 			cout << "\t\tNo. of inactive Long tracks:	" << c4 << " + " << a_il << " = " << inactiveLongTracks.size() << endl;
@@ -693,6 +852,7 @@ void STB::Prediction(int frame, Frame& estPos, deque<double>& estInt) {
 		} else { //the track should be put into exit tracks since it is outside the boundary
 			exitTracks.push_back(*tr);
 			tr = activeLongTracks.erase(tr);
+			s_al ++;
 		}
 		//End
 	}
@@ -871,7 +1031,8 @@ void STB::Shake(Frame& estimate, deque<double>& intensity) {
 			else if (loopInner < 5)  del = config.shaking_shift / pow(2,loopInner - 1);//_ipr.mindist_2D/10;	// normal shakes TODO
 			else  del = config.shaking_shift/100;
 
-			_ipr.ReprojImage(estimate, OTFcalib, pixels_reproj, STBflag);					// adding the estimated particles to the reprojected image
+			_ipr.ReprojImage(estimate, OTFcalib, pixels_reproj, STBflag);
+//			_ipr.ReprojImage(estimate, OTFcalib, pixels_reproj, 1.0);					// adding the estimated particles to the reprojected image
 
 			for (int n = 0; n < ncams; n++) 												// updating the residual image by removing the estimates
 				for (int i = 0; i < Npixh; i++)
@@ -921,6 +1082,7 @@ void STB::Shake(Frame& estimate, deque<double>& intensity) {
 		Rem(estimate, intensity, _ipr.mindist_3D);											// removing ambiguous particles and particles that did not find a match on the actual images
 
 		_ipr.ReprojImage(estimate, OTFcalib, pixels_reproj, STBflag);						// updating the reprojected image
+//		_ipr.ReprojImage(estimate, OTFcalib, pixels_reproj, 2.0);
 
 		for (int n = 0; n < ncams; n++) 													// updating the residual image
 			for (int i = 0; i < Npixh; i++)
@@ -928,6 +1090,8 @@ void STB::Shake(Frame& estimate, deque<double>& intensity) {
 					int residual = (pixels_orig[n][i][j] - fpt*pixels_reproj[n][i][j]);		// using the multiplying factor (fpt) to remove all traces of tracked particles
 					pixels_orig[n][i][j] = (residual < 0) ? 0 : residual;
 				}
+
+
 	}
 	
 }
@@ -941,11 +1105,14 @@ deque<int> STB::Rem(Frame& pos3D, deque<double>& int3D, double mindist_3D) {
 			if (Distance(pos3D[i], pos3D[j]) < thresh3D) {
 				pos3D.Delete(j); int3D.erase(int3D.begin() + j); tempPredictions.Delete(j);
 //				inactiveTracks.push_back(activeLongTracks[j]); TODO					// shifting the corresponding activeLongTrack to inactiveTracks
-				if (activeLongTracks.at(j).Length() > 7) {
+				if (activeLongTracks.at(j).Length() >= 7) {
 					inactiveLongTracks.push_back(activeLongTracks.at(j));
+					activeLongTracks.erase(activeLongTracks.begin() + j);
+					s_al++; a_il++;
+				} else {
+					activeLongTracks.erase(activeLongTracks.begin() + j);
+					s_al++; a_is++;
 				}
-				activeLongTracks.erase(activeLongTracks.begin() + j);
-				s_al++; a_is++;
 			}
 			else
 				j++;
@@ -973,7 +1140,7 @@ deque<int> STB::Rem(Frame& pos3D, deque<double>& int3D, double mindist_3D) {
 			//ghost3D.push_back(pos3D[index]); 
 			pos3D.Delete(index); int3D.erase(int3D.begin() + index); tempPredictions.Delete(index);
 																						// shifting the corresponding activeLongTrack to inactiveLong or inactiveTracks
-			if (activeLongTracks[index].Length() >= 7 && Distance(activeLongTracks[index].Last(), activeLongTracks[index].Penultimate()) < threshShift) {
+			if (activeLongTracks[index].Length() >= 7) { // && Distance(activeLongTracks[index].Last(), activeLongTracks[index].Penultimate()) < threshShift) {
 				inactiveLongTracks.push_back(activeLongTracks[index]);
 				a_il++;
 			}
@@ -1002,40 +1169,41 @@ deque<int> STB::Rem(Frame& pos3D, deque<double>& int3D, double mindist_3D) {
 		if (abs(pos3D[i].X1() - xlim) > xlim || abs(pos3D[i].Y1() - ylim) > ylim) {
 			leftcams++; ignoreCam[i] = 0;
 		}
-		else if (pixels_orig[0][(int)round(pos3D[i].Y1())][(int)round(pos3D[i].X1())] < intensityThresh) {
-			belowIntensity++; ignoreCam[i] = 0;
-		}
+//		else if (pixels_orig[0][(int)round(pos3D[i].Y1())][(int)round(pos3D[i].X1())] < intensityThresh) {
+//			belowIntensity++; ignoreCam[i] = 0;
+//		}
 
 		if (abs(pos3D[i].X2() - xlim) > xlim || abs(pos3D[i].Y2() - ylim) > ylim) {
 			leftcams++; ignoreCam[i] = 1;
 		}
-		else if (pixels_orig[1][(int)round(pos3D[i].Y2())][(int)round(pos3D[i].X2())] < intensityThresh) {
-			belowIntensity++; ignoreCam[i] = 1;
-		}
+//		else if (pixels_orig[1][(int)round(pos3D[i].Y2())][(int)round(pos3D[i].X2())] < intensityThresh) {
+//			belowIntensity++; ignoreCam[i] = 1;
+//		}
 
 		if (abs(pos3D[i].X3() - xlim) > xlim || abs(pos3D[i].Y3() - ylim) > ylim) {
 			leftcams++; ignoreCam[i] = 2;
 		}
-		else if (pixels_orig[2][(int)round(pos3D[i].Y3())][(int)round(pos3D[i].X3())] < intensityThresh) {
-			belowIntensity++; ignoreCam[i] = 2;
-		}
+//		else if (pixels_orig[2][(int)round(pos3D[i].Y3())][(int)round(pos3D[i].X3())] < intensityThresh) {
+//			belowIntensity++; ignoreCam[i] = 2;
+//		}
 
 		if (abs(pos3D[i].X4() - xlim) > xlim || abs(pos3D[i].Y4() - ylim) > ylim) {
 			leftcams++; ignoreCam[i] = 3;
 		}
-		else if (pixels_orig[3][(int)round(pos3D[i].Y4())][(int)round(pos3D[i].X4())] < intensityThresh) {
-			belowIntensity++; ignoreCam[i] = 3;
-		}
+//		else if (pixels_orig[3][(int)round(pos3D[i].Y4())][(int)round(pos3D[i].X4())] < intensityThresh) {
+//			belowIntensity++; ignoreCam[i] = 3;
+//		}
 
 		if (leftcams >= 2) {											// if the particle disappears on at least 2 cams (out of bounds only)
 			pos3D.Delete(i); int3D.erase(int3D.begin() + i); tempPredictions.Delete(i);	// delete the particle and
 																						// if the particles' translation b/w frames is within the threshold of largestParticleShift
-			if (Distance(activeLongTracks[i].Last(), activeLongTracks[i].Penultimate()) <= shiftThreshold && Distance(activeLongTracks[i].Penultimate(), activeLongTracks[i].Antepenultimate()) <= shiftThreshold)
+//			if (Distance(activeLongTracks[i].Last(), activeLongTracks[i].Penultimate()) <= shiftThreshold && Distance(activeLongTracks[i].Penultimate(), activeLongTracks[i].Antepenultimate()) <= shiftThreshold)
+			if (activeLongTracks[i].Length() >= 7)
 				exitTracks.push_back(activeLongTracks[i]);								// shift the corresponding activeLongTrack to exitTracks (or)
-			else {
+//			else {
 //				inactiveTracks.push_back(activeLongTracks[i]);							// shift the corresponding activeLongTrack to inactiveTracks
-				a_is++;
-			}
+//				a_is++;
+//			}
 			
 			activeLongTracks.erase(activeLongTracks.begin() + i); s_al++;
 			ignoreCam[i] = 100;
@@ -1080,6 +1248,8 @@ Frame STB::IPRonResidual(Calibration& calib, Tiff2DFinder& t, deque<int**>& pixe
 		// running IPR on the residual images
 		Frame temp = _ipr.IPRLoop(calib, OTFcalib, camNums, ALL_CAMS, t.Get_colors(), pixels_orig, pixels_reproj, pixels_res, outerloop);
 		candidates.insert(candidates.end(), temp.begin(), temp.end());
+		cout << "\t# of particles detected in outerloop" << outerloop << ": " << temp.NumParticles() << endl;
+		cout << "\tTotal particles (" << candidates.size() << ")" << endl;
 	}
 
 	if (_ipr.reducedCams) {																		// ipr with reduced cams
@@ -1116,7 +1286,9 @@ Frame STB::IPRonResidual(Calibration& calib, Tiff2DFinder& t, deque<int**>& pixe
 				//			temp.Delete(i);
 					
 				candidates.insert(candidates.end(), temp.begin(), temp.end());
+				cout << "\t# of particles detected in outerloop" << outerloop << ", ignoring cam" << ignoreCam << ": " << temp.NumParticles() << endl;
 			}
+			cout << "\tTotal particles (" << candidates.size() << ")" << endl;
 		}
 
 	}
@@ -1124,13 +1296,25 @@ Frame STB::IPRonResidual(Calibration& calib, Tiff2DFinder& t, deque<int**>& pixe
 	for (int i = 0; i < candidates.size(); i++) {												// removing a candidate if it's within 1 pixel of tracked particles
 		double X1 = candidates[i].X1(), X2 = candidates[i].X2(), X3 = candidates[i].X3(), X4 = candidates[i].X4();
 		double Y1 = candidates[i].Y1(), Y2 = candidates[i].Y2(), Y3 = candidates[i].Y3(), Y4 = candidates[i].Y4();
-		for (int j = 0; j < estimates.NumParticles(); j++)
-			if ((abs(X1 - estimates[j].X1()) < 1 && abs(Y1 - estimates[j].Y1()) < 1) ||
-				(abs(X2 - estimates[j].X2()) < 1 && abs(Y2 - estimates[j].Y2()) < 1) ||
-				(abs(X3 - estimates[j].X3()) < 1 && abs(Y3 - estimates[j].Y3()) < 1) ||
-				(abs(X4 - estimates[j].X4()) < 1 && abs(Y4 - estimates[j].Y4()) < 1))
+
+		for (int j = 0; j < estimates.NumParticles(); j++) {
+			int num_overlap = 0;
+			int dist_thred = _ipr.Get_psize() / 2;
+			if (fabs(X1 - estimates[j].X1()) <= dist_thred && fabs(Y1 - estimates[j].Y1()) <= dist_thred) num_overlap ++;
+			if (fabs(X2 - estimates[j].X2()) <= dist_thred && fabs(Y2 - estimates[j].Y2()) <= dist_thred) num_overlap ++;
+			if (fabs(X3 - estimates[j].X3()) <= dist_thred && fabs(Y3 - estimates[j].Y3()) <= dist_thred) num_overlap ++;
+			if (fabs(X4 - estimates[j].X4()) <= dist_thred && fabs(Y4 - estimates[j].Y4()) <= dist_thred) num_overlap ++;
+//			if ((abs(X1 - estimates[j].X1()) < 1 && abs(Y1 - estimates[j].Y1()) < 1) &&
+//				(abs(X2 - estimates[j].X2()) < 1 && abs(Y2 - estimates[j].Y2()) < 1) &&
+//				(abs(X3 - estimates[j].X3()) < 1 && abs(Y3 - estimates[j].Y3()) < 1) &&
+//				(abs(X4 - estimates[j].X4()) < 1 && abs(Y4 - estimates[j].Y4()) < 1))
+			if (num_overlap >= 3) {
 				candidates.erase(candidates.begin() + i);
+				break;
+			}
+		}
 	}
+	cout << "\tTotal particles after removing close particles (" << candidates.size() << ")" << endl;
 
 	return Frame(candidates);
 }
@@ -1154,6 +1338,8 @@ void STB::MakeShortLinkResidual(int nextFrame, Frame& candidates, deque<Track>::
 //#pragma omp for
 		for (int j = 0; j < activeLongTracks.size(); ++j) {										// identifying the neighbouring tracks (using 3*avg interparticle dist.) and getting their particle velocities
 			double dsqr = Distance(tr->Last(), activeLongTracks[j].Penultimate());
+
+
 			if (dsqr < rsqr && dsqr > 0) {
 				d = pow(dsqr, 0.5);
 				totalDist = totalDist + d;
@@ -1167,16 +1353,38 @@ void STB::MakeShortLinkResidual(int nextFrame, Frame& candidates, deque<Track>::
 		}
 
 		if (dist.size() > 0) {															// if it finds neighbouring tracks
+			deque<double> anti_dist;
+			double max_dist = dist[0];
+			for (int j = 0; j < dist.size(); j++) {
+				if (max_dist < dist[j])
+					max_dist = dist[j];
+			}
+			for (int j = 0; j < dist.size(); j++) {
+				anti_dist.push_back(max_dist / dist[j]);
+			}
+			double total_anti_dist;
+			for (int j = 0; j < dist.size(); j++) {
+				total_anti_dist = total_anti_dist + anti_dist[j];
+			}
 			for (int j = 0; j < dist.size(); j++) {												// perform Gaussian wt. avg. to get velocity field
 				double weight = (dist[j] / totalDist);
+//				double weight = (anti_dist[j] / total_anti_dist);
 				vel.Set_X(vel.X() + weight*disp[j].X());
 				vel.Set_Y(vel.Y() + weight*disp[j].Y());
 				vel.Set_Z(vel.Z() + weight*disp[j].Z());
 			}
 
-			Position estimate = tr->Last() + vel;	
-																								// finding a link for this short track using the velocity field
+			Position estimate = tr->Last() + vel;
+//			if (fabs(tr->Last().X() - 2.2104) < 0.01 ) {
+//							int catch_label = 1;
+//						}																					// finding a link for this short track using the velocity field
 			cost = ComputeCost(candidates, candidates, searchRadiusSTB, estimate, vel, vel, true, candidate_used);
+
+			if (cost.second == UNLINKED) {
+				Position estimate = tr->Last();														// using nearest neighbour to make a link
+				cost = ComputeCost(candidates, candidates, shift, estimate, vel, vel, true, candidate_used);
+			}
+
 		}
 
 		else {																			// if no neighbouring tracks are identified
@@ -1201,7 +1409,7 @@ void STB::MakeShortLinkResidual(int nextFrame, Frame& candidates, deque<Track>::
 		if (tr->Length() == 1)
 			s_as1++;
 		else if (tr->Length() == 2)
-			a_as2++;
+			s_as2++;
 		else if (tr->Length() == 3)
 			s_as3++;
 
@@ -1276,7 +1484,7 @@ void STB::MakeShortLinkResidual(int nextFrame, Frame& candidates, deque<Track>::
 		if (tr->Length() == 1)
 			s_as1++;
 		else if (tr->Length() == 2)
-			a_as2++;
+			s_as2++;
 		else if (tr->Length() == 3)
 			s_as3++;
 
@@ -1285,44 +1493,102 @@ void STB::MakeShortLinkResidual(int nextFrame, Frame& candidates, deque<Track>::
 	}
 }
 
-bool STB::CheckVelocity(deque<Track>::iterator& tr) {
-	int num_track_to_average = 50;
-	double search_radius = 2; // TODO: make it as a configure parameter
-	double threshold_scale = 10;
+bool STB::CheckVelocity(Track& tr) {
+	int num_track_to_average = 25;
+	double search_radius = designated_search_radius; // TODO: make it as a configure parameter
+//	double threshold_scale = 5;
+	if (particle_search_radius > 0) search_radius = particle_search_radius;
+	double threshold_scale = 5 + 10 * search_radius / designated_search_radius;
 
-	vector<double> dist;
-	vector<int> neighbor_track;
+//	vector<double> dist;
+//	vector<int> neighbor_track;
+	double dist[num_track_to_average];
+	int neighbor_track[num_track_to_average];
 
+	Position last = tr.Last();
+	double x_l = last.X() - search_radius, x_u = last.X() + search_radius;
+	double y_l = last.Y() - search_radius, y_u = last.Y() + search_radius;
+	double z_l = last.Z() - search_radius, z_u = last.Z() + search_radius;
+
+	int num_track = 0;
+
+#pragma omp parallel shared(num_track) //num_threads(8)
+						{
+#pragma omp for
 	for (int i = 0; i < activeLongTracks.size(); ++i) {
-		double d = pow(Distance(tr->Last(), activeLongTracks[i].Last()), 0.5);
-		if (d < search_radius) {
-			if (neighbor_track.size() <= 50) {
-				dist.push_back(d);
-				neighbor_track.push_back(i);
-			} else { // if the number is larger than 50, then keep the closest 50
-				// get the maximun dist
-				double dist_max = dist[0];
-				int index_max = 0;
-				for (int j = 1; j < neighbor_track.size(); ++j) {
-					if (dist[j] > dist_max) {
-						dist_max = dist[j];
-						index_max = j;
+		double x_test = activeLongTracks[i].Last().X();
+
+//		double d = pow(Distance(tr->Last(), activeLongTracks[i].Last()), 0.5);
+//		if (fabs(tr.Last().X() - activeLongTracks[i].Last().X()) < search_radius)
+//			if (fabs(tr.Last().Y() - activeLongTracks[i].Last().Y()) < search_radius)
+//				if (fabs(tr.Last().Z() - activeLongTracks[i].Last().Z()) < search_radius) {
+		if (x_test > x_l && x_test < x_u) {
+			double y_test = activeLongTracks[i].Last().Y();
+				if (y_test > y_l && y_test < y_u) {
+					double z_test = activeLongTracks[i].Last().Z();
+					if (z_test > z_l && z_test < z_u ) {
+						double d = pow(Distance(tr.Last(), activeLongTracks[i].Last()), 0.5);
+	//		if (d < search_radius) {
+	//			if (neighbor_track.size() <= 50) {
+	#pragma omp critical(num_track)
+								{
+				if (num_track < num_track_to_average) {
+					dist[num_track] = d;
+					neighbor_track[num_track] = i;
+					++ num_track;
+	//				dist.push_back(d);
+	//				neighbor_track.push_back(i);
+				} else { // if the number is larger than 50, then keep the closest 50
+					// get the maximun dist
+					double dist_max = dist[0];
+					int index_max = 0;
+	//				for (int j = 1; j < neighbor_track.size(); ++j) {
+					for (int j = 1; j < num_track_to_average; ++j) {
+						if (dist[j] > dist_max) {
+							dist_max = dist[j];
+							index_max = j;
+						}
+					}
+					if (d < dist_max) {
+	//					dist.erase(dist.begin() + index_max);
+	//					dist.push_back(d);
+	//					neighbor_track.erase(neighbor_track.begin() + index_max);
+	//					neighbor_track.push_back(i);
+						dist[index_max] = d;
+						neighbor_track[index_max] = i;
 					}
 				}
-				if (d < dist_max) {
-					dist.erase(dist.begin() + index_max);
-					dist.push_back(d);
-					neighbor_track.erase(neighbor_track.begin() + index_max);
-					neighbor_track.push_back(i);
+								}
+					}
 				}
-			}
 		}
 	}
+						}
 
-	if (neighbor_track.size() == 0) return true; // if no track is found, then return true
+//	if (neighbor_track.size() < 10) return true; // if less than 10 track is found, then return true
+	if (num_track < 0) return true;
+
+	if (num_track == num_track_to_average) {
+		double mean_radius = 0;
+		for (int i = 1; i < num_track_to_average; ++i) {
+			mean_radius += dist[i];
+		}
+		mean_radius /= num_track_to_average;
+		particle_search_radius = mean_radius;
+	}
+
+	// get the minimum radius
+//	double min_radius =  dist[0];
+//	for (int i = 1; i < neighbor_track.size(); ++i) {
+//		if (dist[i] < min_radius) {
+//			min_radius = dist[i];
+//		}
+//	}
+//	particle_dist = min_radius;
 
 	vector<double> velocity;
-	for (int i = 0; i < neighbor_track.size(); ++i) {
+//	for (int i = 0; i < neighbor_track.size(); ++i) {
+	for (int i = 0; i < num_track; ++i) {
 		velocity.push_back(pow(Distance(activeLongTracks[neighbor_track[i]].Last(), activeLongTracks[neighbor_track[i]].Penultimate()), 0.5));
 	}
 
@@ -1334,13 +1600,13 @@ bool STB::CheckVelocity(deque<Track>::iterator& tr) {
 
 	double diff_velocity = 0;
 	for (int i = 0; i < velocity.size(); ++i) {
-		diff_velocity = pow(diff_velocity + (velocity[i] - mean_velocity), 2);
+		diff_velocity = diff_velocity + pow((velocity[i] - mean_velocity), 2);
 	}
 	diff_velocity = pow(diff_velocity / velocity.size(), 0.5);
 
-	double velocity_self = pow(Distance(tr->Last(), tr->Penultimate()), 0.5);
+	double velocity_self = pow(Distance(tr.Last(), tr.Penultimate()), 0.5);
 
-	if (fabs(velocity_self - mean_velocity) > 20 * diff_velocity) return false;
+	if (fabs(velocity_self - mean_velocity) > threshold_scale * diff_velocity) return false;
 
 	return true;
 }
@@ -1427,13 +1693,14 @@ void SimpleLinearRegression(double* y, double* coeff) {
 
 }
 
-bool STB::CheckLinearFit(deque<Track>::iterator& tr) {
-	int len = tr->Length();
+//bool STB::CheckLinearFit(deque<Track>::iterator& tr) {
+bool STB::CheckLinearFit(Track& tr) {
+	int len = tr.Length();
 
-	Position point0 = tr->GetPos(len - 4);
-	Position point1 = tr->GetPos(len - 3);
-	Position point2 = tr->GetPos(len - 2);
-	Position point3 = tr->GetPos(len - 1);
+	Position point0 = tr.GetPos(len - 4);
+	Position point1 = tr.GetPos(len - 3);
+	Position point2 = tr.GetPos(len - 2);
+	Position point3 = tr.GetPos(len - 1);
 
 	double y[4];
 	y[0] = point0.X(); y[1] = point1.X(); y[2] = point2.X(); y[3] = point3.X();
@@ -1453,7 +1720,37 @@ bool STB::CheckLinearFit(deque<Track>::iterator& tr) {
 
 	double del_pos = pow(Distance(point3, point3_fit), 0.5);
 
-	if (del_pos > 0.05) return false;
+	double error_thred = .05;
+//	if (linear_fit_error[99] == 1) {
+//		error_thred = linear_fit_error[0];
+//	}
+
+	if (del_pos > error_thred) return false;
+
+//	if (linear_fit_error[99] == 0) {
+//		int num_sample =0;
+//		for (int i = 0; i < 99; ++i) {
+//			if (linear_fit_error[i] == 0) {
+//				linear_fit_error[i] = del_pos;
+//				break;
+//			}
+//			++ num_sample;
+//		}
+//		if (num_sample == 99) {
+//			double fit_error = 0;
+//			for (int i = 0; i < 99; ++i) {
+//				fit_error += linear_fit_error[i];
+//			}
+//			fit_error /= 99;
+//			double fit_std = 0;
+//			for (int i = 0; i < 99; ++i) {
+//				fit_std += pow(fit_error - linear_fit_error[i], 2);
+//			}
+//			fit_std = pow(fit_std / 99, .5);
+//			linear_fit_error[0] = fit_error + fit_std * 5;
+//			linear_fit_error[99] = 1;
+//		}
+//	}
 
 	return true;
 

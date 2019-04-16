@@ -402,6 +402,7 @@ Frame IPR::IPRLoop(Calibration& calib, OTF& OTFcalib,  deque<int> camNums, int i
 
 						// Creating the reprojected images (pixels_reproj) by reprojecting the 3D particles onto all cameras using Gaussian ellipse.
 						ReprojImage(pos3Dnew, OTFcalib, reproj, IPRflag);
+//						ReprojImage(pos3Dnew, OTFcalib, reproj, 1.0);
 
 						// residual image
 						//NumDataIO<int> data_io;
@@ -486,6 +487,7 @@ Frame IPR::IPRLoop(Calibration& calib, OTF& OTFcalib,  deque<int> camNums, int i
 		}
 
 		if (pos3Dnew.NumParticles() != 0) {
+//			cout <<  "Number of particles after shaking:" <<pos3Dnew.NumParticles()<<endl;
 			// save the 3D position, 3D intensity and their correspoding 2D positions
 			for (int index = 0; index < pos3Dnew.NumParticles(); index++) 
 				FullData(pos3Dnew[index], intensity3Dnew[index], camNums.size(), ignoreCam);		
@@ -495,12 +497,13 @@ Frame IPR::IPRLoop(Calibration& calib, OTF& OTFcalib,  deque<int> camNums, int i
 
 			// updating the reprojected image
 			ReprojImage(pos3Dnew, OTFcalib, reproj, IPRflag);
+//			ReprojImage(pos3Dnew, OTFcalib, reproj, 2.0);
 
 			// updating the original image by removing correctly identified 3D particles
 			for (int n = 0; n < camNums.size(); n++)
 				for (int i = 0; i < Npixh; i++) {
 					for (int j = 0; j < Npixw; j++) {
-						int residual = (orig[camNums[n]][i][j] - reproj[camNums[n]][i][j]);
+						int residual = (orig[camNums[n]][i][j] - config.fpt * reproj[camNums[n]][i][j]);
 						orig[camNums[n]][i][j] = (residual < 0) ? 0 : residual;
 					}
 				}
@@ -510,7 +513,8 @@ Frame IPR::IPRLoop(Calibration& calib, OTF& OTFcalib,  deque<int> camNums, int i
 	return pos3Dnew;
 }
 
-// a fuction that takes all the 3D positions and gives reprojected images
+
+
 void IPR::ReprojImage(Frame matched3D, OTF& OTFcalib, deque<int**>& pixels_reproj, bool STB) {
 	int size = psize;
 	// doubling the area of reprojection for STB
@@ -530,7 +534,7 @@ void IPR::ReprojImage(Frame matched3D, OTF& OTFcalib, deque<int**>& pixels_repro
 	Frame::const_iterator pIDend = matched3D.end();
 	int p = 0;
 	for (Frame::const_iterator pID = matched3D.begin(); pID != pIDend; ++pID) {
-		
+
 		// stores the particle's center on each camera image
 		deque<Position> particle2Dcenters;
 
@@ -560,6 +564,57 @@ void IPR::ReprojImage(Frame matched3D, OTF& OTFcalib, deque<int**>& pixels_repro
 		p++;
 	}
 
+}
+
+void IPR::ReprojImage(Frame matched3D, OTF& OTFcalib, deque<int**>& pixels_reproj, double projsize) {
+//	int size = psize;
+//	// doubling the area of reprojection for STB
+//	// also double for IPR for consistency with Shaking.
+////	if (STB)
+//		size = 2 * psize;
+	projsize = projsize * psize;
+
+	// intializing pixel_reproj to 0
+	for (int camID = 0; camID < ncams; camID++) {
+		for (int i = 0; i < Npixh; i++) {
+			for (int j = 0; j < Npixw; j++) {
+				pixels_reproj[camID][i][j] = 0;
+			}
+		}
+	}
+
+	Frame::const_iterator pIDend = matched3D.end();
+	int p = 0;
+	for (Frame::const_iterator pID = matched3D.begin(); pID != pIDend; ++pID) {
+
+		// stores the particle's center on each camera image
+		deque<Position> particle2Dcenters;
+
+		for (int n = 0; n < ncams; n++) {
+			// Use OTFparam matrix and interpolate (trilinear) to get the parameters at the current 3D particle location
+			vector <double> otfParam = OTFcalib.OTFgrid(n, matched3D[p]); // otfParam contains a,b,c and alpha for camera 'n' at 3D position 'pos'
+			// finding the 2D center
+			Position pos2Dmm = camsAll[n].WorldToImage(*pID); pos2Dmm.Set_Z(0);
+			particle2Dcenters.push_back(camsAll[n].Distort(pos2Dmm));
+
+			// *Reporjecting* //
+			// pixel range for each particle
+			int xmin = max(1, (int)floor(particle2Dcenters[n].X() - projsize / 2));
+			int ymin = max(1, (int)floor(particle2Dcenters[n].Y() - projsize / 2));
+			int xmax = min(Npixw, (int)floor(particle2Dcenters[n].X() + projsize / 2));
+			int ymax = min(Npixh, (int)floor(particle2Dcenters[n].Y() + projsize / 2));
+
+			for (int x = xmin ; x < xmax; x++) {
+				for (int y = ymin ; y < ymax; y++) {
+					// reprojecting the particle using Gaussian ellipse
+					int proj = round(PixelReproj(particle2Dcenters[n], otfParam, x, y));
+					pixels_reproj[n][y][x] = max(pixels_reproj[n][y][x], proj);
+					// important comment: Not sure max is the right thing to use here for overlapping particles
+				}
+			}
+		}
+		p++;
+	}
 }
 
 // a function for Gaussian ellipse reprojection at position (x,y)

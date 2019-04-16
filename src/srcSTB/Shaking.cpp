@@ -27,6 +27,14 @@ Shaking::Shaking(int Ncams, int ignoredCam, OTF& otfcalib, int NpixW, int NpixH,
 			pixels_Part[i][j] = new int[2 * psize];
 		}
 	}
+//	for (int i = 0; i < rcams; i++) {
+//		pixels_PartAugRes[i] = new int*[psize];
+//		pixels_Part[i] = new int*[psize];
+//		for (int j = 0; j < psize; j++) {
+//			pixels_PartAugRes[i][j] = new int[psize];
+//			pixels_Part[i][j] = new int[psize];
+//		}
+//	}
 
 	//Getting the pixel 2D centers and its range around the center on each camera
 	pair< deque<PixelRange>, deque<Position> > pOld = PixRange(pos3Dold);
@@ -38,9 +46,12 @@ Shaking::Shaking(int Ncams, int ignoredCam, OTF& otfcalib, int NpixW, int NpixH,
 		if (camID != ignoreCam) {
 			// OTF parameters at old 3D position
 			otfParamold = OTFcalib.OTFgrid(camID, pos3Dold);
-			for (int x = pRangeOld[id].xmin2; x < pRangeOld[id].xmax2; x++) {
-				for (int y = pRangeOld[id].ymin2; y < pRangeOld[id].ymax2; y++) {
+//			for (int x = pRangeOld[id].xmin1; x < pRangeOld[id].xmax1; x++) {
+//				for (int y = pRangeOld[id].ymin1; y < pRangeOld[id].ymax1; y++) {
+					for (int x = pRangeOld[id].xmin2; x < pRangeOld[id].xmax2; x++) {
+						for (int y = pRangeOld[id].ymin2; y < pRangeOld[id].ymax2; y++) {
 					int X = x - pRangeOld[id].xmin2; int Y = y - pRangeOld[id].ymin2;
+//					int X = x - pRangeOld[id].xmin1; int Y = y - pRangeOld[id].ymin1;
 					pixels_Part[id][Y][X] = round(PartReproj(pos2Dold[id], otfParamold, x, y));
 				}
 			}
@@ -76,6 +87,7 @@ Shaking::Shaking(int Ncams, int ignoredCam, OTF& otfcalib, int NpixW, int NpixH,
 	// pixel range on the cameras around the updated particle centers
 	pair< deque<PixelRange>, deque<Position> > pNew = PixRange(pos3Dnew);
 	pRangeNew = pNew.first; pos2Dnew = pNew.second;
+
 	// updating the 3D intensity
 	Int();
 }
@@ -184,6 +196,9 @@ double Shaking::Res(Position posnew) {
 			for (int x = pRangeOld[id].xmin2; x < pRangeOld[id].xmax2; x++) {
 				for (int y = pRangeOld[id].ymin2; y < pRangeOld[id].ymax2; y++) {
 					int X = x - pRangeOld[id].xmin2, Y = y - pRangeOld[id].ymin2;
+//			for (int x = pRangeOld[id].xmin1; x < pRangeOld[id].xmax1; x++) {
+//				for (int y = pRangeOld[id].ymin1; y < pRangeOld[id].ymax1; y++) {
+//					int X = x - pRangeOld[id].xmin1, Y = y - pRangeOld[id].ymin1;
 					R = R + pow((pixels_PartAugRes[id][Y][X] - round(PartReproj(particle2Dnew[id], otfParamnew, x, y))), 2);
 					//pixels_partaugres[X * (pRangeOld[id].ymax2 - pRangeOld[id].ymin2) + Y] = pixels_PartAugRes[id][Y][X];
 					//part_proj[X * (pRangeOld[id].ymax2 - pRangeOld[id].ymin2) + Y] = round(PartReproj(particle2Dnew[id], otfParamnew, x, y));
@@ -248,7 +263,10 @@ void Shaking::PartAugResImage(int camID, int id, PixelRange p) {
 	//}
 	for (int x = p.xmin2; x < p.xmax2; x++) {
 		for (int y = p.ymin2; y < p.ymax2; y++) {
-			int X = x - p.xmin2, Y = y - p.ymin2;
+	int X = x - p.xmin2, Y = y - p.ymin2;
+//	for (int x = p.xmin1; x < p.xmax1; x++) {
+//		for (int y = p.ymin1; y < p.ymax1; y++) {
+//			int X = x - p.xmin1, Y = y - p.ymin1;
 //			cout<<x<<","<<y<<",";
 //			cout<<pixels_Res[camID][y][x]<<",";
 //			cout<<pixels_Part[id][Y][X]<<",";
@@ -301,6 +319,7 @@ void Shaking::Int() {
 			for (int x = xmin; x < xmax; x++) {
 				for (int y = ymin; y < ymax; y++) {
 					int X = x - pRangeOld[id].xmin2, Y = y - pRangeOld[id].ymin2;
+//					int X = x - pRangeOld[id].xmin1, Y = y - pRangeOld[id].ymin1;
 					peakIntensity[id] = max(peakIntensity[id], PartReproj(pos2Dnew[id], otfparam[id], x, y));
 				}
 			}
@@ -310,7 +329,10 @@ void Shaking::Int() {
 
 	// updating particle intensity (ignoring the camera with highest local peak intensity)
 	double ignore = IndexofLargestElement(peakIntensity, rcams);
+//	double ratio = 255;
+//	int nonzero_proj = 0;
 	for (int ID = 0; ID < rcams; ID++) {
+//		int num_single = 0;
 		if (ID != ignore) {
 //			int xmin = max(pRangeOld[ID].xmin1, pRangeNew[ID].xmin1), xmax = min(pRangeNew[ID].xmax1, pRangeOld[ID].xmax1);
 //			int ymin = max(pRangeOld[ID].ymin1, pRangeNew[ID].ymin1), ymax = min(pRangeNew[ID].ymax1, pRangeOld[ID].ymax1);
@@ -319,20 +341,49 @@ void Shaking::Int() {
 			for (int x = xmin; x < xmax; x++) {
 				for (int y = ymin; y < ymax; y++) {
 					int X = x - pRangeOld[ID].xmin2, Y = y - pRangeOld[ID].ymin2;
+//					int X = x - pRangeOld[ID].xmin1, Y = y - pRangeOld[ID].ymin1;
 //					int X = x - xmin, Y = y - ymin;
-					if (Y < psize * 2 && Y >= 0 && X < psize * 2 && X >= 0) {
+					if (Y < 2 * psize && Y >= 0 && X < 2 * psize && X >= 0) {
 						num = num + pixels_PartAugRes[ID][Y][X];
+//						num_single = num_single + pixels_PartAugRes[ID][Y][X];
 					} else {
 						num = num + pixels_Res[ID][y][x];
+//						num_single = num_single + pixels_PartAugRes[ID][Y][X];
 					}
-					denum = denum + round(PartReproj(pos2Dnew[ID], otfparam[ID], x, y));
+					int pixel_proj = round(PartReproj(pos2Dnew[ID], otfparam[ID], x, y));
+					denum = denum + pixel_proj;
+//					if (pixel_proj > 0 && pixels_PartAugRes[ID][Y][X] / pixel_proj < ratio) {
+//						ratio = pixels_PartAugRes[ID][Y][X] / pixel_proj;
+//					}
 				}
 			}
+//			if (num_single > 30) nonzero_proj ++;
+//			int centerx = round((pRangeNew[ID].xmin1 + pRangeNew[ID].xmax1) / 2);
+//			int centery = round((pRangeNew[ID].ymin1 + pRangeNew[ID].ymax1) / 2);
+//			int proj_center = round(PartReproj(pos2Dnew[ID], otfparam[ID], centerx, centery));
+//			if (proj_center > 0) {
+//				int X = centerx - pRangeOld[ID].xmin2, Y = centery - pRangeOld[ID].ymin2;
+//				double r = 255;
+//				if (Y < psize * 2 && Y >= 0 && X < psize * 2 && X >= 0) {
+//					r = pixels_PartAugRes[ID][Y][X] / proj_center;
+//				} else {
+//					r = pixels_Res[ID][centery][centerx] / proj_center;
+//				}
+//				if (r < ratio) {
+//					ratio = r;
+//				}
+//			}
 		}
 	}
+
+
 	delete[] peakIntensity;
 	//cout << ignore << "," << num << "," << denum << endl;
-	int3D = int3D * sqrt(abs(num / denum));
+//	if (int3D == 0) int3D = 1;
+	int3D = int3D * sqrt(abs(num / denum));// * ratio;
+//	if (nonzero_proj < 2) {  // change to 2 because one camera with highest intensity has been ignore.
+//		int3D = 0;  // indicate this particle disappears in at least two cameras.
+//	}
 }
 
 // returns index of smallest element

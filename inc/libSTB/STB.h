@@ -88,10 +88,12 @@ public:
 	void MakeShortLinkResidual(int nextFrame, Frame& candidates, deque<Track>::iterator& tr, int iterations, bool* erase, bool* candidate_used);
 	void MakeShortLinkResidual(int nextFrame, Frame& candidates, deque<Track>::iterator& tr, int iterations);
 
-	bool CheckVelocity(deque<Track>::iterator& tr);
+//	bool CheckVelocity(deque<Track>::iterator& tr);
+	bool CheckVelocity(Track& tr);
 	bool CheckAcceleration(deque<Track>::iterator& tr);
 	void GetAccThred();
-	bool CheckLinearFit(deque<Track>::iterator& tr);
+//	bool CheckLinearFit(deque<Track>::iterator& tr);
+	bool CheckLinearFit(Track& tr);
 
 	void MatTracksSave(string addres, string s, bool is_back_STB);
 	void MatfileSave(deque<Track> tracks, string address, string name, int size);
@@ -161,9 +163,12 @@ public:
 
 	void Load_Tracks(string path, TrackType trackType);
 	// dummy variables to identify the no. of tracks added and subtracted 
-	int a_as = 0, a_al = 0, a_is = 0, s_as1 = 0, a_as2 = 0, s_as3 = 0, s_al = 0, a_il = 0;
+	int a_as = 0, a_al = 0, a_is = 0, s_as1 = 0, s_as2 = 0, s_as3 = 0, s_as4 = 0, s_al = 0, a_il = 0;
 	//TESTING
 	Frame tempPredictions;
+	double particle_search_radius = 0;
+	double designated_search_radius = 5;
+	double linear_fit_error[100];
 };
 
 inline STB::STB(STB& s) {
