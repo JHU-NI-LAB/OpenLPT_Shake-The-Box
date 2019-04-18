@@ -451,22 +451,22 @@ void STB::ConvergencePhase() {
 			{
 #pragma omp for
 			for (unsigned int i = 0; i < num_longtrack; ++ i) {
-				double d1 = pow(Distance(activeLongTracks[i].Last(), activeLongTracks[i].Penultimate()),0.5),
-						d2 = pow(Distance(activeLongTracks[i].Penultimate(), activeLongTracks[i].Antepenultimate()),0.5);
-				double threshRel = maxRelShiftChange * d2; //, length = activeLongTracks[i].Length();
-				if (d1 > thresh) {
-					erase_vector[i] = true;
-					++ r1;
-				}
-				else if (fabs(d1 - d2) > maxAbsShiftChange || fabs(d1 - d2) > threshRel) {
-					erase_vector[i] = true;
-					++ r2;
-				}
+//				double d1 = pow(Distance(activeLongTracks[i].Last(), activeLongTracks[i].Penultimate()),0.5),
+//						d2 = pow(Distance(activeLongTracks[i].Penultimate(), activeLongTracks[i].Antepenultimate()),0.5);
+//				double threshRel = maxRelShiftChange * d2; //, length = activeLongTracks[i].Length();
+//				if (d1 > thresh) {
+//					erase_vector[i] = true;
+//					++ r1;
+//				}
+//				else if (fabs(d1 - d2) > maxAbsShiftChange || fabs(d1 - d2) > threshRel) {
+//					erase_vector[i] = true;
+//					++ r2;
+//				}
 //				if (!CheckVelocity(activeLongTracks[i])) {
 //					erase_vector[i] = true;
 //					++ r1;
 //				}
-				else if (!CheckLinearFit(activeLongTracks[i])) {
+				 if (!CheckLinearFit(activeLongTracks[i])) {
 					++ r3;
 					erase_vector[i] = true;
 				}
@@ -1032,7 +1032,7 @@ void STB::Shake(Frame& estimate, deque<double>& intensity) {
 			else  del = config.shaking_shift/100;
 
 			_ipr.ReprojImage(estimate, OTFcalib, pixels_reproj, STBflag);
-//			_ipr.ReprojImage(estimate, OTFcalib, pixels_reproj, 1.0);					// adding the estimated particles to the reprojected image
+//			_ipr.ReprojImage(estimate, OTFcalib, pixels_reproj, 0.5);					// adding the estimated particles to the reprojected image
 
 			for (int n = 0; n < ncams; n++) 												// updating the residual image by removing the estimates
 				for (int i = 0; i < Npixh; i++)
@@ -1082,7 +1082,7 @@ void STB::Shake(Frame& estimate, deque<double>& intensity) {
 		Rem(estimate, intensity, _ipr.mindist_3D);											// removing ambiguous particles and particles that did not find a match on the actual images
 
 		_ipr.ReprojImage(estimate, OTFcalib, pixels_reproj, STBflag);						// updating the reprojected image
-//		_ipr.ReprojImage(estimate, OTFcalib, pixels_reproj, 2.0);
+//		_ipr.ReprojImage(estimate, OTFcalib, pixels_reproj, 1.5);
 
 		for (int n = 0; n < ncams; n++) 													// updating the residual image
 			for (int i = 0; i < Npixh; i++)
@@ -1697,35 +1697,57 @@ void SimpleLinearRegression(double* y, double* coeff) {
 bool STB::CheckLinearFit(Track& tr) {
 	int len = tr.Length();
 
-	Position point0 = tr.GetPos(len - 4);
-	Position point1 = tr.GetPos(len - 3);
-	Position point2 = tr.GetPos(len - 2);
-	Position point3 = tr.GetPos(len - 1);
+//	Position point0 = tr.GetPos(len - 4);
+//	Position point1 = tr.GetPos(len - 3);
+//	Position point2 = tr.GetPos(len - 2);
+//	Position point3 = tr.GetPos(len - 1);
+
+	Position point[4];
+	for (int i = 0; i < 4; ++ i) {
+		point[i] = tr.GetPos(len - 4 + i);
+	}
 
 	double y[4];
-	y[0] = point0.X(); y[1] = point1.X(); y[2] = point2.X(); y[3] = point3.X();
-	double coeff[2];
-	SimpleLinearRegression(y, coeff);
-	double x_fit = coeff[0] * 4 + coeff[1];
+	y[0] = point[0].X(); y[1] = point[1].X(); y[2] = point[2].X(); y[3] = point[3].X();
+	double coeffx[2];
+	SimpleLinearRegression(y, coeffx);
+	double x_fit = coeffx[0] * 4 + coeffx[1];
 
-	y[0] = point0.Y(); y[1] = point1.Y(); y[2] = point2.Y(); y[3] = point3.Y();
-	SimpleLinearRegression(y, coeff);
-	double y_fit = coeff[0] * 4 + coeff[1];
+	y[0] = point[0].Y(); y[1] = point[1].Y(); y[2] = point[2].Y(); y[3] = point[3].Y();
+	double coeffy[2];
+	SimpleLinearRegression(y, coeffy);
+	double y_fit = coeffy[0] * 4 + coeffy[1];
 
-	y[0] = point0.Z(); y[1] = point1.Z(); y[2] = point2.Z(); y[3] = point3.Z();
-	SimpleLinearRegression(y, coeff);
-	double z_fit = coeff[0] * 4 + coeff[1];
+	y[0] = point[0].Z(); y[1] = point[1].Z(); y[2] = point[2].Z(); y[3] = point[3].Z();
+	double coeffz[2];
+	SimpleLinearRegression(y, coeffz);
+	double z_fit = coeffz[0] * 4 + coeffz[1];
 
-	Position point3_fit(x_fit, y_fit, z_fit);
+	Position point_fit(x_fit, y_fit, z_fit);
 
-	double del_pos = pow(Distance(point3, point3_fit), 0.5);
+	double del_pos[4];
+	del_pos[3] = pow(Distance(point[3], point_fit), 0.5);
 
 	double error_thred = .05;
 //	if (linear_fit_error[99] == 1) {
 //		error_thred = linear_fit_error[0];
 //	}
 
-	if (del_pos > error_thred) return false;
+	if (del_pos[3] > error_thred) return false;
+
+	if (del_pos[3] > error_thred * 0.6) {  //For those tracks that are at the edge of being deleted, check the whole track to see whether its error is large also
+		double total_del = del_pos[3];
+		for (int i = 0; i < 3; ++ i) {
+			x_fit = coeffx[0] * i + coeffx[1];
+			y_fit = coeffy[0] * i + coeffy[1];
+			z_fit = coeffz[0] * i + coeffz[1];
+			Position point_fit(x_fit, y_fit, z_fit);
+			del_pos[i] = pow(Distance(point[i], point_fit), 0.5);
+			if (del_pos[i] > error_thred * 0.6) return false;
+			total_del += del_pos[i];
+		}
+		if (total_del / 4 > error_thred * 0.6) return false;
+	}
 
 //	if (linear_fit_error[99] == 0) {
 //		int num_sample =0;

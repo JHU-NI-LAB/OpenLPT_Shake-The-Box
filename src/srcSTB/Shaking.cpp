@@ -33,6 +33,10 @@ Shaking::Shaking(int Ncams, int ignoredCam, OTF& otfcalib, int NpixW, int NpixH,
 //		for (int j = 0; j < psize; j++) {
 //			pixels_PartAugRes[i][j] = new int[psize];
 //			pixels_Part[i][j] = new int[psize];
+//			for (int k = 0; k < psize; k++) {
+//				pixels_Part[i][j][k] = 0;
+//				pixels_PartAugRes[i][j][k] = 0; //initialize
+//			}
 //		}
 //	}
 
@@ -48,10 +52,10 @@ Shaking::Shaking(int Ncams, int ignoredCam, OTF& otfcalib, int NpixW, int NpixH,
 			otfParamold = OTFcalib.OTFgrid(camID, pos3Dold);
 //			for (int x = pRangeOld[id].xmin1; x < pRangeOld[id].xmax1; x++) {
 //				for (int y = pRangeOld[id].ymin1; y < pRangeOld[id].ymax1; y++) {
+//					int X = x - pRangeOld[id].xmin1; int Y = y - pRangeOld[id].ymin1;
 					for (int x = pRangeOld[id].xmin2; x < pRangeOld[id].xmax2; x++) {
 						for (int y = pRangeOld[id].ymin2; y < pRangeOld[id].ymax2; y++) {
 					int X = x - pRangeOld[id].xmin2; int Y = y - pRangeOld[id].ymin2;
-//					int X = x - pRangeOld[id].xmin1; int Y = y - pRangeOld[id].ymin1;
 					pixels_Part[id][Y][X] = round(PartReproj(pos2Dold[id], otfParamold, x, y));
 				}
 			}
@@ -234,6 +238,10 @@ pair< deque<Shaking::PixelRange>, deque<Position> > Shaking::PixRange(Position p
 			int ymin1 = max(1, (int)floor(pos2D[id].Y() - psize / 2));	 int ymin2 = max(1, (int)floor(ymin1 - psize / 2));
 			int xmax1 = min(Npixw, (int)floor(pos2D[id].X() + psize / 2)); int xmax2 = min(Npixw, (int)ceil(xmax1 + psize / 2));
 			int ymax1 = min(Npixh, (int)floor(pos2D[id].Y() + psize / 2)); int ymax2 = min(Npixh, (int)ceil(ymax1 + psize / 2));
+//			int xmin1 = max(1, (int)floor(pos2D[id].X() - psize / 4));	 int xmin2 = max(1, (int)floor(xmin1 - psize / 4));
+//			int ymin1 = max(1, (int)floor(pos2D[id].Y() - psize / 4));	 int ymin2 = max(1, (int)floor(ymin1 - psize / 4));
+//			int xmax1 = min(Npixw, (int)floor(pos2D[id].X() + psize / 4)); int xmax2 = min(Npixw, (int)ceil(xmax1 + psize / 4));
+//			int ymax1 = min(Npixh, (int)floor(pos2D[id].Y() + psize / 4)); int ymax2 = min(Npixh, (int)ceil(ymax1 + psize / 4));
 			PixelRange pixRange(xmin1, xmin2, xmax1, xmax2, ymin1, ymin2, ymax1, ymax2);
 			pRange.push_back(pixRange);
 			id++;
@@ -344,6 +352,7 @@ void Shaking::Int() {
 //					int X = x - pRangeOld[ID].xmin1, Y = y - pRangeOld[ID].ymin1;
 //					int X = x - xmin, Y = y - ymin;
 					if (Y < 2 * psize && Y >= 0 && X < 2 * psize && X >= 0) {
+//					if (Y < psize && Y >= 0 && X < psize && X >= 0) {
 						num = num + pixels_PartAugRes[ID][Y][X];
 //						num_single = num_single + pixels_PartAugRes[ID][Y][X];
 					} else {

@@ -29,6 +29,7 @@ public:
 	~Shaking() {
 		for (int n = 0; n < rcams; n++) {
 			for (int i = 0; i < 2 * psize; i++) {
+//			for (int i = 0; i < psize; i++) {
 				delete[] pixels_Part[n][i];
 				delete[] pixels_PartAugRes[n][i];
 			}

@@ -402,7 +402,7 @@ Frame IPR::IPRLoop(Calibration& calib, OTF& OTFcalib,  deque<int> camNums, int i
 
 						// Creating the reprojected images (pixels_reproj) by reprojecting the 3D particles onto all cameras using Gaussian ellipse.
 						ReprojImage(pos3Dnew, OTFcalib, reproj, IPRflag);
-//						ReprojImage(pos3Dnew, OTFcalib, reproj, 1.0);
+//						ReprojImage(pos3Dnew, OTFcalib, reproj, 0.5);
 
 						// residual image
 						//NumDataIO<int> data_io;
@@ -497,7 +497,7 @@ Frame IPR::IPRLoop(Calibration& calib, OTF& OTFcalib,  deque<int> camNums, int i
 
 			// updating the reprojected image
 			ReprojImage(pos3Dnew, OTFcalib, reproj, IPRflag);
-//			ReprojImage(pos3Dnew, OTFcalib, reproj, 2.0);
+//			ReprojImage(pos3Dnew, OTFcalib, reproj, 1.5);
 
 			// updating the original image by removing correctly identified 3D particles
 			for (int n = 0; n < camNums.size(); n++)
