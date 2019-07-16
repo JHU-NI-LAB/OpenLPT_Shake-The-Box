@@ -19,6 +19,7 @@ cam1/cam1frame00003.tif
 cam1/cam1frame00004.tif
 
 ...
+
 (4) Generate the calibration file. It is highly recommended to use ./Calibration/calibGUI.m to get the calibration file. After getting the file, use ./Data_analysis_process/CalibMatToTXTV2.m to change the calibration mat file to txt file.
 
 (5) Generate the configuration file. You can use the matlab file: ./Data_analysis_process/GenerateConfigFile.m to generate the configuration file. There are four arguments, the path of the project folder, start frame NO, end frame NO., and calibration file name. After generation of configuration files, you can open each of the file and modify the parameters to accomodate your experiments.
