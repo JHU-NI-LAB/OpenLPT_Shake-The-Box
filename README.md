@@ -26,8 +26,8 @@ cam1/cam1frame00004.tif
 
 (6) Compile the C++ code. Use Ecllipse to set up the ShakeTheBox project with the folder ./inc and ./src. Compile the code with g++ compiler, remember to add lable -fopenmp to enable parallelization. The project setting can be found in ./cproject. It is recommended to use ./cproject directly.
 
-(7) Run ShakeTheBox. Go to the compile folder, and run the executable file ShakeTheBox. The argument should be the path of your project folder. After Run the code, you need to key in 0 twice to start the project. There are also other option for development use. 
+(7) Run ShakeTheBox. Go to the compile folder, and run the executable file ShakeTheBox. The argument should be the path of your project folder. After Run the code, you need to key in 0 twice to start the process. There are also other options for development use. 
 
-(8) After data processing, all the tracks are save in the folder Tracks/ConvergedTracks/ under the project folder. You can use ./Data_analysis_process/ReadAllTracks.m to read all the track data to the workspace in MATLAB. The tracks are save in a format as: X, Y, Z, frame NO, track NO.
+(8) After data processing, all the tracks are saved in the folder Tracks/ConvergedTracks/ under the project folder. You can use ./Data_analysis_process/ReadAllTracks.m to read all the track data to the workspace in MATLAB. The tracks are save in a format as: X, Y, Z, frame NO, track NO.
 
-If you have any questions on how to use the code or you are interested in improve the code, please contact me: shiyong.tan@jhu.edu
+If you have any question on how to use the code or you are interested in improving the code, please contact me: shiyong.tan@jhu.edu
