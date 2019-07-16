@@ -3,6 +3,7 @@
 ShakeTheBox provides a C++ code for processing images in order to obtain tracks of particles seeded in the flow. Usually at least three cameras are needed to reconstruct 3D tracks.
 
 Instructions on how to use this code are listed as follows:
+
 (1) Preprocessing images, to make particles more bright and images less noise. A sample code of processing images can be found in  ./Data_analysis_process/PreprocessImage.m. Since different camera gives different images, it is not suggested to use this sample code directly, but to use it as a reference.
 
 (2) Setting up a project folder, and put the images under that folder. It is suggested to set up folder like cam1, cam2, cam3 and so on under the project folder, and place the corresponding processed images beneath each camera folder.
