@@ -9,10 +9,15 @@ Instructions on how to use this code are listed as follows:
 (2) Setting up a project folder, and put the images under that folder. It is suggested to set up folder like cam1, cam2, cam3 and so on under the project folder, and place the corresponding processed images beneath each camera folder.
 
 (3) Creat a camXImageNames.txt under the project folder to list the relative path to the images. For cam1, cam1ImageNames.txt should be like:
+
 cam1/cam1frame00001.tif
+
 cam1/cam1frame00002.tif
+
 cam1/cam1frame00003.tif
+
 cam1/cam1frame00004.tif
+
 ...
 (4) Generate the calibration file. It is highly recommended to use ./Calibration/calibGUI.m to get the calibration file. After getting the file, use ./Data_analysis_process/CalibMatToTXTV2.m to change the calibration mat file to txt file.
 
