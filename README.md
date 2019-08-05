@@ -30,4 +30,4 @@ cam1/cam1frame00004.tif
 
 (8) After data processing, all the tracks are saved in the folder Tracks/ConvergedTracks/ under the project folder. You can use ./Data_analysis_process/ReadAllTracks.m to read all the track data to the workspace in MATLAB. The tracks are save in a format as: X, Y, Z, frame NO, track NO.
 
-If you have any question on how to use the code or you are interested in improving the code, please contact me: shiyong.tan@jhu.edu
+If you have any question on how to use the code or you are interested in improving the code, please contact me: rui.ni@jhu.edu
