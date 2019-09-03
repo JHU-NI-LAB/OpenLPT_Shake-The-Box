@@ -1,6 +1,7 @@
 # ShakeTheBox
 
-ShakeTheBox provides a C++ code for processing images in order to obtain tracks of particles seeded in the flow. Usually at least three cameras are needed to reconstruct 3D tracks.
+ShakeTheBox provides a C++ code for processing images in order to obtain tracks of particles seeded in the flow. Usually at least three cameras are needed to reconstruct 3D tracks. Anyone who uses this code and develop this code for their research should cite the following publication in their work：
+Tan S, Salibindla A, Masuk AUM, Ni R (2019) An open-source Shake-the-Box method and its performance evaluation. In: 13th International Symposium on Particle Image Velocimetry  ISPIV 2019
 
 Instructions on how to use this code are listed as follows:
 
