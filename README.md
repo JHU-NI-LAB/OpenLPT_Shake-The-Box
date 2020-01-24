@@ -2,6 +2,8 @@
 
 ShakeTheBox provides a C++ code for processing images in order to obtain tracks of particles seeded in the flow. Usually at least three cameras are needed to reconstruct 3D tracks. Anyone who uses this code and develop this code for their research should cite the following publication in their work：
 
+Tan, S., Salibindla, A., Masuk, A.U.M. and Ni, R. Introducing OpenLPT: new method of removing ghost particles and high-concentration particle shadow tracking. Exp Fluids 61, 47 (2020). https://doi.org/10.1007/s00348-019-2875-2
+
 Tan, S., Salibindla, A., Masuk, A.U.M. and Ni, R., 2019. An open-source shake-the-box method and its performance evaluation. In 13th International Symposium on Particle Image Velocimetry.
 
 We really welcome any research group that is willing to improve the code with us. Please send us email to join as contributor to the code. 
