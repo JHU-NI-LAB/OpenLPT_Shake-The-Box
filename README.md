@@ -1,5 +1,7 @@
 # ShakeTheBox
 
+NOTICE: Thanks for visiting STB repository. The current version of code can support basic function of STB algorithm. A more functional one will be uploaded at around the first week of Feb, 2020. With the newer version of STB, tutorials and videos will be also uploaded to the github for guiding the use of the code.  
+
 ShakeTheBox provides a C++ code for processing images in order to obtain tracks of particles seeded in the flow. Usually at least three cameras are needed to reconstruct 3D tracks. Anyone who uses this code and develop this code for their research should cite the following publication in their work：
 
 Tan, S., Salibindla, A., Masuk, A.U.M. and Ni, R. Introducing OpenLPT: new method of removing ghost particles and high-concentration particle shadow tracking. Exp Fluids 61, 47 (2020). https://doi.org/10.1007/s00348-019-2875-2
