@@ -3,8 +3,7 @@ function task_id = UploadDataToMARCC(path_file_server, path_marcc)
 % "/E/share2/Projects/1-Bubble/CamConfig_of_07.13.18/Data/07.17.18/Run1_11_of_88_3s"
 % format of path_marcc: "~/scratch/07.17.18/"
 ep1 = 'e92d0fde-2f33-11e7-bc9e-22000b9a448b'; % endpoint for marcc
-% ep2 = '70ddb4b8-bd33-11e8-8c1c-0a1d4c5c824a'; % endpoint for file sever
-ep2 = 'e62dbd9c-cd98-11e8-8c6b-0a1d4c5c824a'; % endpoint for file sever
+ep2 = '70ddb4b8-bd33-11e8-8c1c-0a1d4c5c824a'; % endpoint for file sever
 
 [~,result] = system(['module load globus-cli && ' ...
     'globus login &&' ...

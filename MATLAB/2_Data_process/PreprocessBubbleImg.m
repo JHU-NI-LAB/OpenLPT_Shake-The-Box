@@ -7,7 +7,6 @@ end
 section_no = extractBetween(dirr, '/Bubbles', '/');
 if ~exist('totalImgs', 'var')
     a = dir([dirr 'C001_H001S000' section_no{1} '/*.tif']);
-%     a = dir([dirr 'Cam1' '/*.tif']);
     totalImgs = numel(a) ; 
 end
 
@@ -18,7 +17,7 @@ for i = 1 : 4
     end
 end
 print_dir = {['cam1/'],['cam2/'],['cam3/'],['cam4/'],['cam5/'],['cam6/'] }';
-% ncams = 4;
+ncams = 4;
 
 log_filepath = [dirr 'Log.txt'];
 start = 1;
@@ -35,7 +34,7 @@ if contains(fileread(log_filepath), 'cam1 has been processed!')
 end
     
 %% get the background
-totalImgs_for_background = 500; %500
+totalImgs_for_background = 500;
 ncams = 4;
 Npixh = 1024;
 Npixw = 1024;
@@ -123,7 +122,7 @@ for cam = start : ncams
 %         end
 
         % modifying the mask to remove extra residual around the bubble
-        mask1 = mask;
+%         mask1 = mask;
 %         [row, col] = find(mask == 1);
 %         rows = zeros(size(row,1),20); cols = zeros(size(col,1),20); % extending the radius of bubbles by 10 px
 %         for i = 1:10
@@ -140,14 +139,30 @@ for cam = start : ncams
 %         
 %         img3=img2./max(max(img2)).*255;
 %         img3 = uint8(img3);
-%         img4 = imadjust(img3,[0 threshold(cam)]);
-
+% %         img4 = imadjust(img3,[0 threshold(cam)]);
+%         img4 = LaVision_ImgProcessing(img3);
+        mask1 = mask;
+%         [row, col] = find(mask == 1);
+%         rows = zeros(size(row,1),20); cols = zeros(size(col,1),20); % extending the radius of bubbles by 10 px
+%         for i = 1:10
+%             rows(:,i+10) = min(row + i,1024);
+%             rows(:,i) = max(1,row - i);
+%         end
+%         for i = 1:10
+%             cols(:,i+10) = min(1024,col + i);
+%             cols(:,i) = max(1,col - i);
+%         end
+%         linearInd = sub2ind(size(mask1),rows,cols);
+%         mask1(linearInd) = 1;
         img2 = (double(img1).*(~mask1));
         
         img3=img2./max(max(img2)).*255;
         mask2 = bwareaopen(img3>30,70);
         img3 = (img3.*(~mask2));
+        img3 = uint8(img3);
+%         img4 = imadjust(img3,[0 threshold(cam)]);
         img4 = LaVision_ImgProcessing(img3);
+        
         if (cam == 1 || cam == 2)
             imwrite(img4,[camsave_dir{cam} 'cam' num2str(cam) 'frame' num2str(I - 1 ,'%05.0f') '.tif']);
         else

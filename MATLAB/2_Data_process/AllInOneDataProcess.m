@@ -1,10 +1,11 @@
-function AllInOneDataProcess(data_path, initial_Calib_filepath, job_num)
+function AllInOneDataProcess(data_path, parentfolder, initial_Calib_filepath, job_num)
 % data_path, remember to put '/' after
 %initial_Calib_filepath format: ~/VSC_Calib_XXXXXX, don't include the file
 %extension like: .txt or .mat
+%parentfolder is the folder for the project
 %% Upload data from file server to MARCC
 % create the work path on MARCC
-workpath = extractAfter(data_path, 'Data/');
+workpath = extractAfter(data_path, parentfolder);
 workpathfolder = strsplit(workpath, '/');
 
 bubble_label = 0;
@@ -43,7 +44,7 @@ end
 if ~contains(text, 'TestData has been uploaded to MARCC!')
     data_task_id = UploadDataToMARCC(data_path, marcc_workpath);
     if bubble_label 
-        mask_path = replace(data_path, 'Data', 'Processed_Images_old_version/Processed_Images');
+        mask_path = replace(data_path, 'Data', 'Processed_Images');
         mask_task_id = UploadDataToMARCC(mask_path, marcc_workpath);
     end
 end
@@ -61,7 +62,7 @@ if ~exist(VSC_file_path, 'file')
         VSC_data_task_id = UploadDataToMARCC(VSC_rawimage_path, VSC_folder_path);
         WaitDataTransfer(VSC_data_task_id);
         %Preprocess the image
-        PreprocessImage(VSC_folder_path, VSC_folder_path, 1001);
+        PreprocessImage(VSC_folder_path, 'Cam', '.tiff', VSC_folder_path, 1000);
         file_ID = fopen(log_filepath, 'a');
         fprintf(file_ID, 'VSCData has been uploaded to MARCC and processed!\n');
         %fclose(file_ID);
@@ -126,7 +127,7 @@ end
 %Preprocess the image
 if ~contains(fileread(log_filepath), 'Image preprocessing is complete!')
     if ~bubble_label
-        PreprocessImage(marcc_workpath);
+        PreprocessImage(marcc_workpath, 'Cam', '.tiff');
     else
         PreprocessBubbleImg(marcc_workpath, marcc_workpath);
     end
@@ -135,11 +136,11 @@ if ~contains(fileread(log_filepath), 'Image preprocessing is complete!')
      %fclose(file_ID);
 end
 
-%% Run STB for 100 frames and do VSC and OTF
+%% Run STB for 100 frames and do VSC
 % Generate Configure files
-GenerateConfigFile(marcc_workpath, 1, 100, ['VSC_Calib_' workpathfolder{1} '.txt']);
-% RunSTB VSC for data is complete!
-if ~contains(fileread(log_filepath), 'VSC for data is complete!')
+if ~contains(fileread(log_filepath), 'STB for data VSC is complete!')
+    GenerateConfigFile(marcc_workpath, 1, 100, ['VSC_Calib_' workpathfolder{1} '.txt']);
+    % RunSTB
     if ~exist([marcc_workpath 'result1.txt'], 'file') || ~CheckSTB([marcc_workpath 'result1.txt'])
     %     if ~contains(fileread(log_filepath), 'STB for data VSC is running!')
             RunSTBForVSC(marcc_workpath);
@@ -173,19 +174,24 @@ if ~contains(fileread(log_filepath), 'VSC for data is complete!')
         fprintf(file_ID, 'STB for data VSC is complete!\n');
         %fclose(file_ID);
     end
-    % Do VSC
-    if ~contains(fileread(log_filepath), 'VSC for data is complete!')
-        RunVSC(marcc_workpath, 100, [marcc_workpath 'VSC_Calib_' workpathfolder{1} '.mat'], [workpathfolder{1} '_' workpathfolder{2}]);
-        file_ID = fopen(log_filepath,'a');
-        fprintf(file_ID, 'VSC for data is complete!\n');
-        system(['rm -rf ' marcc_workpath 'Tracks/ConvergedTracks/*.txt']); %delete all the txt file for VSC
-        %fclose(file_ID);
-    end
+end
+% Do VSC
+if ~contains(fileread(log_filepath), 'VSC for data is complete!')
+    RunVSC(marcc_workpath, 100, [marcc_workpath 'VSC_Calib_' workpathfolder{1} '.mat'], [workpathfolder{1} '_' workpathfolder{2}]);
+    file_ID = fopen(log_filepath,'a');
+    fprintf(file_ID, 'VSC for data is complete!\n');
+    system(['rm -rf ' marcc_workpath 'Tracks/ConvergedTracks/*.txt']); %delete all the txt file for VSC
+    %fclose(file_ID);
 end
 
 %% Creat the jobs
 % regenerate config file
-GenerateConfigFile(marcc_workpath, 1, 21841, ['VSC_Calib_' workpathfolder{1} '_' workpathfolder{2} '.txt']);
+ncams = 4;
+for i = 1 : ncams
+    a = dir([marcc_workpath 'cam' num2str(i) '/*.tif']);
+    total_imgs(i) = numel(a);
+end
+GenerateConfigFile(marcc_workpath, 1, min(total_imgs), ['VSC_Calib_' workpathfolder{1} '_' workpathfolder{2} '.txt']);
 GenerateJobs(marcc_workpath, ['PT' workpathfolder{1} '_' workpathfolder{2}], job_num);
 % Submit the jobs
 for i = 1 : job_num

@@ -17,12 +17,8 @@ else
         exit_tracks = ReadTracks(filepath_ET);
 end
 tracks = PackTracks(active_long_tracks, inactive_long_tracks, exit_tracks);
-VolumeSelfCalib(tracks, 66, dir, 1, calibration_file, save_name); 
-% addpath OTF_VSC_Version102717/;
-% x_range = [-30, 30];
-% y_range = [-30, 30];
-% z_range = [-20, 20];
-% VSCOTF(tracks, x_range, y_range, z_range, 100, dir, [dir save_name '.mat']);
+viewsize = max(tracks(:, 3)) - min(tracks(:,3)); 
+VolumeSelfCalib(tracks, viewsize, dir, 1, calibration_file, save_name);
 end
 
 

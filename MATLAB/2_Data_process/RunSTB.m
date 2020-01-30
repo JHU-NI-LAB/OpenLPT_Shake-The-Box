@@ -1,8 +1,6 @@
 function RunSTB(work_dir)
 % dir is the address of data
-home_dir = extractBefore(work_dir, '.edu/');
-dir_code = [home_dir '.edu/work/Code/LocalCode/ShakeTheBox/Release/'];
-% dir_code = '/home-4/stan26@jhu.edu/work/Code/LocalCode/ShakeTheBox/Release/';
+dir_code = '/home-4/stan26@jhu.edu/work/Code/LocalCode/ShakeTheBox/Release/';
 % system(['cd ' dir_code]);
 
 a = dir([work_dir '/Tracks/ConvergedTracks/ActiveLongTracks*.txt']);

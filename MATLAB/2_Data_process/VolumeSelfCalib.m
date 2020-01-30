@@ -74,14 +74,12 @@ end
 % for the number of selected particle is less than the required number,
 % then select them again from the orginal data randomly
 num_left = num_particles - sum(select_label);
-if num_particles < size(tracks, 1)
-    while num_left > 0
-        select_index = datasample(1 : size(select_label, 1), num_left);
-        for i = 1 : num_left
-            if select_label(select_index(i)) == 0
-               select_label(select_index(i)) = 1;
-               num_left = num_left - 1;
-            end
+while num_left > 0
+    select_index = datasample(1 : size(select_label, 1), num_left);
+    for i = 1 : num_left
+        if select_label(select_index(i)) == 0
+           select_label(select_index(i)) = 1;
+           num_left = num_left - 1;
         end
     end
 end
@@ -95,7 +93,7 @@ end
 function particles_info = GetParticleInfo(particles, image_path, calib_path)
 num_particles = size(particles, 1);
 load(calib_path);
-particles_info = zeros(num_particles, 16);
+particles_info = zeros(num_particles, 15);
 
 ii = 1; % index for particles_info
 for i = 1 : num_particles
@@ -110,10 +108,11 @@ for i = 1 : num_particles
 % Get the 2D positions around the projected point
     for j = 1 : 4
         img = imread([image_path 'cam' num2str(j) '/cam' num2str(j) 'frame' num2str(particles(i, 4), '%05.0f') '.tif']);
+        [ymax, xmax] = size(img);
         particle_size = 4;
         search_range = particle_size * 3 / 4; % searching range on the image
-        img_searcharea = img(max(1, floor(yc(j) - search_range)) : min(1024, ceil(yc(j) + search_range)), ...
-            max(1, floor(xc(j) - search_range)) : min(1024, ceil(xc(j) + search_range))); % get the search area
+        img_searcharea = img(max(1, floor(yc(j) - search_range)) : min(ymax, ceil(yc(j) + search_range)), ...
+            max(1, floor(xc(j) - search_range)) : min(xmax, ceil(xc(j) + search_range))); % get the search area
         position2D_candidate = Get2DPosOnImage(img_searcharea);
         if ~isempty(position2D_candidate)
             position2D_candidate(:, 1) = position2D_candidate(:,1) + max(1, floor(xc(j) - search_range)) - 1;
@@ -142,7 +141,7 @@ for i = 1 : num_particles
 % Do triangulation for each combination of 2D positions
     len1 = size(position2D_candidate_1, 1); len2 = size(position2D_candidate_2, 1);
     len3 = size(position2D_candidate_3, 1); len4 = size(position2D_candidate_4, 1);
-    particle = zeros(len1 * len2 * len3 * len4, 16);
+    particle = zeros(len1 * len2 * len3 * len4, 15);
     error = zeros(1, len1 * len2 * len3 * len4);
     for j = 1 : len1
         for k = 1 : len2
@@ -153,7 +152,7 @@ for i = 1 : num_particles
                     [position3D, e] = Triangulation(camParaCalib, position2D);
                     error((j - 1) * len2 * len3 * len4 + (k - 1) * len3 * len4 + (m -1) * len4 + n) = e;
                     particle((j - 1) * len2 * len3 * len4 + (k - 1) * len3 * len4 + (m -1) * len4 + n, :) = ...
-                        [position3D', position2D, norm(position3D' - particles(i, 1:3)), particles(i, 1:4)];
+                        [position3D', position2D, norm(position3D' - particles(i, 1:3)), particles(i, 1:3)];
                     % the last one is the distance from the projected particle
                 end
             end
@@ -161,7 +160,7 @@ for i = 1 : num_particles
     end
     
 % Choose the closest one to the projected particle as the real particle
-    thred_3D = .05; 
+    thred_3D = 2.5; 
     ind = find(error < thred_3D);
     if isempty(ind)
         particles_info(ii, :) = []; % delete the particle since there is no suitable candidate
@@ -173,6 +172,7 @@ for i = 1 : num_particles
     [~, index] = min(particle(:, 12) / mean(particle(:, 12)) ...
         + error' / mean(error)); % combination of goal achieving the minimum distance as well as minimum error
 %     [~, index] = min(error);
+%     [~, index] = min(particle(:, 12));
     particles_info(ii, :) = particle(index, :);
     ii = ii + 1;
     if ~(mod(i, 100)) 
@@ -289,7 +289,7 @@ camParaCalib = camParaCalib([1,2,3,4]);
 
 %% pick data to shake
 data = particles_info;
-data1 = data(1 : end,:);
+data1 = data(1:end,:);
 
 %% all data to test
 cam2d = zeros(size(data1,1),2,ncams);
@@ -366,22 +366,22 @@ end
 %% Check the quality of the final calibration
 [dist3, dist1, pall] = ray_mismatch(calarray,cam2d,ncams);
 
-figure(5);
-hist(dist3,50);
-title('mismatch distribution after optimization on good matches');
-xlabel('mismatch (mm)')
+% figure(5);
+% hist(dist3,50);
+% title('mismatch distribution after optimization on good matches');
+% xlabel('mismatch (mm)')
 allcams = mean(dist3)
 cammismatch2 = zeros(ncams);
 for n1 = 1 : ncams
 cammismatch2(n1) = mean(dist1(n1,:));
 end
 
-[dist3, dist1, pall] = ray_mismatch(calnofix, cam2d, ncams);
+[dist3, dist1, pall] = ray_mismatch(calarray, cam2d_check, ncams);
 
-figure(6);
-hist(dist3, 50);
-title('final mismatch distribution of data not used for the optimization');
-xlabel('mismatch (mm)')
+% figure(6);
+% hist(dist3, 50);
+% title('final mismatch distribution of data not used for the optimization');
+% xlabel('mismatch (mm)')
 allcams_check_with_mismatches = mean(dist3)
 
 
@@ -510,7 +510,6 @@ end
 
 ray3mismatch=ray_mismatch(calarray, cam2d,  ncams);
 
-% deviation = abs(mean(ray3mismatch) - 0.03);
 deviation = mean(ray3mismatch);
 end
 
@@ -541,7 +540,7 @@ for icam = 1:ncams
 end
 
 if (det(M) < 10)
-  det(M)  
+  det(M);  
 end
     % find the point minimizing the distance from all rays
     p = M \ sum(pM,2);  % sums pm x together for all three cameras.  Makes a column vector, then does inv(M)*sum(pM,2)
@@ -731,10 +730,14 @@ function x2D = UnDistort(X2D,camParaCalib)
 end
 
 function tracks = PickGoodTracks(tracks, view_size)
-    num_tracks = max(tracks(:, 1));
-    std_error = view_size / 1024;
+    num_tracks = max(tracks(:, 5));
+    std_error = view_size / 1000;
+    num_good = ceil(num_tracks * .1);
+    if num_tracks * .1 > 1000,  nun_good = 1000; end
+    error_pool = zeros(1, num_good);
+    no_good = 1;
     for i = 1 :  num_tracks
-        track = tracks(tracks(:, 1) == i, 3 : 5);      
+        track = tracks(tracks(:, 5) == i, 1 : 3);      
         if size(track, 1) < 20 
             tracks(tracks(:, 1) == i, :) = []; % delete short tracks
             continue; 
@@ -744,12 +747,20 @@ function tracks = PickGoodTracks(tracks, view_size)
         for j = 1 : 3
             p = polyfit(1:num_fit, track(end - num_fit + 1:end, j)', 3);
             track_est = polyval(p, 1:num_fit);
-            error0(j) = mean(track_est - track(end - num_fit + 1:end, j)');
+            error0(j) = mean(abs(track_est - track(end - num_fit + 1:end, j)'));
         end
         error = norm(error0);
         
         if error > std_error
-            tracks(tracks(:, 1) == i, :) = []; % delete bad tracks
+            tracks(tracks(:, 5) == i, :) = []; % delete bad tracks
+        end
+        
+        if no_good <= num_good
+            error_pool(1, no_good) = error;
+            no_good = no_good + 1;
+        elseif no_good == num_good + 1
+            std_error = mean(error_pool) + 3 *  std(error_pool);
+            no_good = num_good + 1;
         end
             
         if ~(mod(i, 1000))
