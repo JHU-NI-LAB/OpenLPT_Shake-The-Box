@@ -132,8 +132,8 @@ void STB::InitialPhase(string pfieldfile) {
 			if (iprFlag && debug_mode != SKIP_IPR) {
 				Frame all(_ipr.FindPos3D(imgSequence,frame));
 				iprMatched.push_back(all);
-				string IPR_save_path = tiffaddress + "/Tracks/IPRcandidates/" + to_string(frame) +".txt";
-				_ipr.SaveParticlePositions(all.Get_PosDeque(), IPR_save_path);
+//				string IPR_save_path = tiffaddress + "/Tracks/IPRcandidates/" + to_string(frame) +".txt";
+//				_ipr.SaveParticlePositions(all.Get_PosDeque(), IPR_save_path);
 			}
 																
 			else {																						// getting 3D positions from .mat files
@@ -324,8 +324,8 @@ void STB::ConvergencePhase() {
 			cout<<"IPR time:"<<std::chrono::duration_cast<std::chrono::seconds>(std::chrono::system_clock::now() - start) .count() << "s" << endl;
 			cout<<"Total particles:" << candidates.NumParticles()<<endl;
 
-			string IPR_save_path = tiffaddress + "/Tracks/IPRcandidates/" + to_string(currFrame + 1) +".txt";
-			_ipr.SaveParticlePositions(candidates.Get_PosDeque(), IPR_save_path);
+//			string IPR_save_path = tiffaddress + "/Tracks/IPRcandidates/" + to_string(currFrame + 1) +".txt";
+//			_ipr.SaveParticlePositions(candidates.Get_PosDeque(), IPR_save_path);
 
 //			NumDataIO<double> data_io;
 //			double* pos_vec = new double[candidates.NumParticles() * 3];
