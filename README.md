@@ -1,6 +1,6 @@
 # ShakeTheBox
 
-NOTICE: Thanks for visiting STB repository. The current version of code can support basic function of STB algorithm. A more functional one will be uploaded at around the first week of Feb, 2020. With the newer version of STB, tutorials and videos will be also uploaded to the github for guiding the use of the code.  
+NOTICE: Thanks for visiting STB repository. The lastest version of OpenLPT has been uploaded, in addition to a first version of tutorial and the sample data "SD00125". The first version of tutorial introduces how to compile the code on both Windows and Linux system and how to test the code with the sample data set. For later version of tutorial which may be uploaded by the middle of Feburary, we will show how to obtain a better calibration and how to adjust the parameters in the configure file to achieve the best performance of the code.    
 
 ShakeTheBox provides a C++ code for processing images in order to obtain tracks of particles seeded in the flow. Usually at least three cameras are needed to reconstruct 3D tracks. Anyone who uses this code and develop this code for their research should cite the following publication in their work：
 
