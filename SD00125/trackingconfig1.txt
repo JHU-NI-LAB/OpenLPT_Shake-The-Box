@@ -1,0 +1,35 @@
+4 # Number of cameras 
+1 # first camera number 
+2 # second camera number 
+3 # third camera number 
+4 # fourth camera number 
+cam1ImageNames.txt # text file with first camera image names 
+cam2ImageNames.txt # text file with second camera image names 
+cam3ImageNames.txt # text file with third camera image names 
+cam4ImageNames.txt # text file with fourth camera image names 
+[Directory of the sample data]/SD00125/iprconfig.txt # Path to ipr configuration file
+[Directory of the sample data]/SD00125/predictivefield.txt # path to predictive field file
+1 # first frame
+50 #last frame
+./matched.gdf # stereomatched 3D positions 
+./tracks.gdf # 3D tracks output filename 
+########### View area limits ############ 
+-20 # xmin 
+20  # xmax 
+-20 # ymin 
+20  # xmax 
+-20 # zmin 
+20  # zmax 
+	######### Initial Phase ############## 
+1 # Flag for using ipr in initialphase (or use .mat files) 
+10 # searchRadius for finding tracks using predictive field 
+	######### Convergence Phase ############# 
+.25 # Shaking range for prediciton (vox)
+30 # Avg Interparticle spacing. (vox) to identify neighbouring tracks 
+10 # Largest expected particle shift between frames (vox)for nearest neighbour linking of short tracks 
+6 # Maximum absolute change in particle shift (vox) 
+100  # Maximum relative change in particle shift (percent) 
+1 # A multyplying factor on particle intensity in order to ensure the residual has no traces of tracked particles 
+0.01 # lower intensity threshold (xx*avg. Intensity) to eliminate ghost particles while tracking 
+0 # Back STB is on for 1
+3.5 # the distance between two tracks that are supposed to be the same track 

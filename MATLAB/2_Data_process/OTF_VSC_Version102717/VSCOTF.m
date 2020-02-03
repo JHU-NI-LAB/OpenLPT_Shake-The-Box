@@ -1,4 +1,4 @@
-function VSCOTF(data, x_range, y_range, z_range, nframe, image_filepath, calib_filepath)
+function VSCOTF(data)
 % clc,clear, close all
 
 %% OTF User Inputs (for 800 frames)
@@ -7,16 +7,16 @@ function VSCOTF(data, x_range, y_range, z_range, nframe, image_filepath, calib_f
 % x=60;        % [mm] physical x dimension of a volume
 % y=60;        % [mm] physical y dimension of a volume
 % z=50;        % [mm] physical z dimension of a volume
-% x_range = [-80, 80];
-% y_range = [-80, 80];
-% z_range = [-50, 50];
+x_range = [-80, 80];
+y_range = [-80, 80];
+z_range = [-50, 50];
 n=3;         % define the number of subvolume (1D) in each xyz direction
 
 % Gaussian fitting parameters
 x_size=2;    % x range for 2D gaussian fit. so it will be +1 and -1 from the center which gives you 3x3 matrix for fitting
 y_size=2;    % y range for 2D gaussian fit. so it will be +1 and -1 from the center which gives you 3x3 matrix for fitting
 ncam=4;      % Number of camera
-% nframe = 200; % number of frames 
+nframe = 200; % number of frames 
 % name for image, for example: the 4 images from 4 cameras for the first...
 ... frame should be named as frame1temp1, frame1temp2, frame1temp3,frame1temp4
 % Naming of the image files
@@ -26,8 +26,8 @@ ncam=4;      % Number of camera
 % pos3Dname = 'pos3D';
 % Naming for the output file
 outputfiletitle='OTFParameter_frame';
-% image_filepath = '/home/tanshiyong/Documents/Data/Mass-Transfer/2018-11-12/Run1/';
-% calib_filepath = '/home/tanshiyong/Documents/Data/Mass-Transfer/2018-11-12/Run1/VSC_Calib_111218Run1.mat';
+image_filepath = '/home/tanshiyong/Documents/Data/Mass-Transfer/2018-11-12/Run1/';
+calib_filepath = '/home/tanshiyong/Documents/Data/Mass-Transfer/2018-11-12/Run1/VSC_Calib_111218Run1.mat';
 OTF_filepath = [image_filepath 'OTF_files/'];
 averageOTFfilename = [OTF_filepath 'OTFParameters_VSC.txt'];
 camParaCalib = load(calib_filepath);
@@ -73,7 +73,7 @@ fclose(fileID);
 %  showTimeToCompletion; startTime=tic;
 %  percent = parfor_progress(nframe);
 tic
-for i = 1:nframe 
+parfor i = 1:nframe 
 %         percent = parfor_progress;
 %         showTimeToCompletion( percent/100, [], [], startTime );
         int = num2str(i);

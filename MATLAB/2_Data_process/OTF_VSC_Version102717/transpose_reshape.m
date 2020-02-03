@@ -1,4 +1,4 @@
-function x = tranpose_reshape(y)
+function x = transpose_reshape(y)
 [nRows,nCols,nPages]=size(y);
 
 for j = 1:nCols

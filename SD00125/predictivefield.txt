@@ -1,0 +1,9 @@
+########## grid sizes ###############
+50 # xgrid 
+50 # ygrid
+50 # zgrid12.5
+25 # searchRadius
+
+########## mat file ###############
+0 # Flag for geting predictive field from .mat files
+../Release/field # path to predictive field matfile
