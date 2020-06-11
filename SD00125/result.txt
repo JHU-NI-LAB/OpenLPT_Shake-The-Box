@@ -1,0 +1,4105 @@
+Code version: 2.1.041619
+Reading configuration file...
+Select debug mode:
+0. No debug
+1. Load the 2D position 
+2. Load the 3D position before shaking
+3. Load the 3D position after shaking
+4. Load the 3D positions for predictive field 
+5. Load the predictive field 
+6. Load the tracks from the initial phase 
+7. Load the tracks from specific frames 
+8. Load the tracks from specific frames for back STB 
+Enter the NO. of the option:To save data(1):/home/tanshiyong/Documents/Data/SinglePhase/SD00125/Tracks exists
+# of outerloops: 4
+# of innerloops: 6
+IPR on frame 1 of 50
+	The 2D particle number in a image is: 9961
+	Number of matches = 10360
+	Number of matches within tri-error = 9807
+	Number of triangulated particles = 8642
+	# of particles detected in outerloop0: 8642
+	 Time taken for outerloop 0: 30.8301s
+	Total particles (8642)
+	The 2D particle number in a image is: 1592
+	Number of matches = 1614
+	Number of matches within tri-error = 1534
+	Number of triangulated particles = 1294
+	# of particles detected in outerloop1: 1294
+	 Time taken for outerloop 1: 6.57919s
+	Total particles (9936)
+	The 2D particle number in a image is: 389
+	Number of matches = 374
+	Number of matches within tri-error = 360
+	Number of triangulated particles = 313
+	# of particles detected in outerloop2: 313
+	 Time taken for outerloop 2: 3.01253s
+	Total particles (10249)
+	The 2D particle number in a image is: 82
+	Number of matches = 40
+	Number of matches within tri-error = 39
+	Number of triangulated particles = 35
+	# of particles detected in outerloop3: 34
+	 Time taken for outerloop 3: 1.87275s
+	Total particles (10283)
+				 Applying IPR for reduced cams
+	The 2D particle number in a image is: 49
+	Number of matches = 3
+	Number of matches within tri-error = 2
+	Number of triangulated particles = 2
+	 # of particles detected in outerloop0, ignoring cam0: 2
+	The 2D particle number in a image is: 43
+	Number of matches = 3
+	Number of matches within tri-error = 2
+	Number of triangulated particles = 2
+	 # of particles detected in outerloop0, ignoring cam1: 2
+	The 2D particle number in a image is: 41
+	Number of matches = 2
+	Number of matches within tri-error = 2
+	Number of triangulated particles = 2
+	 # of particles detected in outerloop0, ignoring cam2: 2
+	The 2D particle number in a image is: 39
+	Number of matches = 2
+	Number of matches within tri-error = 2
+	Number of triangulated particles = 2
+	 # of particles detected in outerloop0, ignoring cam3: 2
+	 Total particles (10291)
+	The 2D particle number in a image is: 41
+	Number of matches = 0
+	Number of matches within tri-error = 0
+	Number of triangulated particles = 0
+	 # of particles detected in outerloop1, ignoring cam0: 0
+	The 2D particle number in a image is: 37
+	Number of matches = 1
+	Number of matches within tri-error = 0
+	Number of triangulated particles = 0
+	 # of particles detected in outerloop1, ignoring cam1: 0
+	The 2D particle number in a image is: 37
+	Number of matches = 0
+	Number of matches within tri-error = 0
+	Number of triangulated particles = 0
+	 # of particles detected in outerloop1, ignoring cam2: 0
+	The 2D particle number in a image is: 37
+	Number of matches = 0
+	Number of matches within tri-error = 0
+	Number of triangulated particles = 0
+	 # of particles detected in outerloop1, ignoring cam3: 0
+	 Total particles (10291)
+	 Total # of particles detected: 10291
+	 Total time taken by IPR: 49.9855s
+IPR on frame 2 of 50
+	The 2D particle number in a image is: 9967
+	Number of matches = 10502
+	Number of matches within tri-error = 9878
+	Number of triangulated particles = 8662
+	# of particles detected in outerloop0: 8662
+	 Time taken for outerloop 0: 30.8091s
+	Total particles (8662)
+	The 2D particle number in a image is: 1588
+	Number of matches = 1609
+	Number of matches within tri-error = 1530
+	Number of triangulated particles = 1298
+	# of particles detected in outerloop1: 1298
+	 Time taken for outerloop 1: 6.58345s
+	Total particles (9960)
+	The 2D particle number in a image is: 366
+	Number of matches = 346
+	Number of matches within tri-error = 343
+	Number of triangulated particles = 303
+	# of particles detected in outerloop2: 303
+	 Time taken for outerloop 2: 2.89461s
+	Total particles (10263)
+	The 2D particle number in a image is: 75
+	Number of matches = 35
+	Number of matches within tri-error = 35
+	Number of triangulated particles = 28
+	# of particles detected in outerloop3: 28
+	 Time taken for outerloop 3: 1.82562s
+	Total particles (10291)
+				 Applying IPR for reduced cams
+	The 2D particle number in a image is: 52
+	Number of matches = 2
+	Number of matches within tri-error = 1
+	Number of triangulated particles = 1
+	 # of particles detected in outerloop0, ignoring cam0: 1
+	The 2D particle number in a image is: 46
+	Number of matches = 2
+	Number of matches within tri-error = 0
+	Number of triangulated particles = 0
+	 # of particles detected in outerloop0, ignoring cam1: 0
+	The 2D particle number in a image is: 46
+	Number of matches = 1
+	Number of matches within tri-error = 1
+	Number of triangulated particles = 1
+	 # of particles detected in outerloop0, ignoring cam2: 1
+	The 2D particle number in a image is: 45
+	Number of matches = 3
+	Number of matches within tri-error = 2
+	Number of triangulated particles = 2
+	 # of particles detected in outerloop0, ignoring cam3: 2
+	 Total particles (10295)
+	The 2D particle number in a image is: 48
+	Number of matches = 0
+	Number of matches within tri-error = 0
+	Number of triangulated particles = 0
+	 # of particles detected in outerloop1, ignoring cam0: 0
+	The 2D particle number in a image is: 43
+	Number of matches = 1
+	Number of matches within tri-error = 0
+	Number of triangulated particles = 0
+	 # of particles detected in outerloop1, ignoring cam1: 0
+	The 2D particle number in a image is: 43
+	Number of matches = 1
+	Number of matches within tri-error = 0
+	Number of triangulated particles = 0
+	 # of particles detected in outerloop1, ignoring cam2: 0
+	The 2D particle number in a image is: 43
+	Number of matches = 1
+	Number of matches within tri-error = 0
+	Number of triangulated particles = 0
+	 # of particles detected in outerloop1, ignoring cam3: 0
+	 Total particles (10295)
+	 Total # of particles detected: 10295
+	 Total time taken by IPR: 48.1877s
+IPR on frame 3 of 50
+	The 2D particle number in a image is: 9979
+	Number of matches = 10391
+	Number of matches within tri-error = 9855
+	Number of triangulated particles = 8666
+	# of particles detected in outerloop0: 8666
+	 Time taken for outerloop 0: 30.3439s
+	Total particles (8666)
+	The 2D particle number in a image is: 1609
+	Number of matches = 1589
+	Number of matches within tri-error = 1538
+	Number of triangulated particles = 1303
+	# of particles detected in outerloop1: 1303
+	 Time taken for outerloop 1: 6.52318s
+	Total particles (9969)
+	The 2D particle number in a image is: 375
+	Number of matches = 366
+	Number of matches within tri-error = 350
+	Number of triangulated particles = 294
+	# of particles detected in outerloop2: 294
+	 Time taken for outerloop 2: 2.8303s
+	Total particles (10263)
+	The 2D particle number in a image is: 92
+	Number of matches = 47
+	Number of matches within tri-error = 46
+	Number of triangulated particles = 36
+	# of particles detected in outerloop3: 36
+	 Time taken for outerloop 3: 1.75452s
+	Total particles (10299)
+				 Applying IPR for reduced cams
+	The 2D particle number in a image is: 41
+	Number of matches = 6
+	Number of matches within tri-error = 6
+	Number of triangulated particles = 5
+	 # of particles detected in outerloop0, ignoring cam0: 4
+	The 2D particle number in a image is: 55
+	Number of matches = 2
+	Number of matches within tri-error = 2
+	Number of triangulated particles = 2
+	 # of particles detected in outerloop0, ignoring cam1: 2
+	The 2D particle number in a image is: 53
+	Number of matches = 2
+	Number of matches within tri-error = 2
+	Number of triangulated particles = 1
+	 # of particles detected in outerloop0, ignoring cam2: 1
+	The 2D particle number in a image is: 51
+	Number of matches = 2
+	Number of matches within tri-error = 2
+	Number of triangulated particles = 2
+	 # of particles detected in outerloop0, ignoring cam3: 2
+	 Total particles (10308)
+	The 2D particle number in a image is: 32
+	Number of matches = 0
+	Number of matches within tri-error = 0
+	Number of triangulated particles = 0
+	 # of particles detected in outerloop1, ignoring cam0: 0
+	The 2D particle number in a image is: 49
+	Number of matches = 0
+	Number of matches within tri-error = 0
+	Number of triangulated particles = 0
+	 # of particles detected in outerloop1, ignoring cam1: 0
+	The 2D particle number in a image is: 49
+	Number of matches = 0
+	Number of matches within tri-error = 0
+	Number of triangulated particles = 0
+	 # of particles detected in outerloop1, ignoring cam2: 0
+	The 2D particle number in a image is: 49
+	Number of matches = 0
+	Number of matches within tri-error = 0
+	Number of triangulated particles = 0
+	 # of particles detected in outerloop1, ignoring cam3: 0
+	 Total particles (10308)
+	 Total # of particles detected: 10308
+	 Total time taken by IPR: 49.2803s
+IPR on frame 4 of 50
+	The 2D particle number in a image is: 10032
+	Number of matches = 10499
+	Number of matches within tri-error = 9886
+	Number of triangulated particles = 8657
+	# of particles detected in outerloop0: 8657
+	 Time taken for outerloop 0: 30.3861s
+	Total particles (8657)
+	The 2D particle number in a image is: 1633
+	Number of matches = 1668
+	Number of matches within tri-error = 1624
+	Number of triangulated particles = 1337
+	# of particles detected in outerloop1: 1337
+	 Time taken for outerloop 1: 6.9439s
+	Total particles (9994)
+	The 2D particle number in a image is: 366
+	Number of matches = 372
+	Number of matches within tri-error = 355
+	Number of triangulated particles = 313
+	# of particles detected in outerloop2: 311
+	 Time taken for outerloop 2: 2.94517s
+	Total particles (10305)
+	The 2D particle number in a image is: 64
+	Number of matches = 35
+	Number of matches within tri-error = 33
+	Number of triangulated particles = 28
+	# of particles detected in outerloop3: 26
+	 Time taken for outerloop 3: 1.80137s
+	Total particles (10331)
+				 Applying IPR for reduced cams
+	The 2D particle number in a image is: 41
+	Number of matches = 2
+	Number of matches within tri-error = 1
+	Number of triangulated particles = 1
+	 # of particles detected in outerloop0, ignoring cam0: 1
+	The 2D particle number in a image is: 37
+	Number of matches = 1
+	Number of matches within tri-error = 0
+	Number of triangulated particles = 0
+	 # of particles detected in outerloop0, ignoring cam1: 0
+	The 2D particle number in a image is: 37
+	Number of matches = 1
+	Number of matches within tri-error = 1
+	Number of triangulated particles = 1
+	 # of particles detected in outerloop0, ignoring cam2: 1
+	The 2D particle number in a image is: 36
+	Number of matches = 0
+	Number of matches within tri-error = 0
+	Number of triangulated particles = 0
+	 # of particles detected in outerloop0, ignoring cam3: 0
+	 Total particles (10333)
+	The 2D particle number in a image is: 39
+	Number of matches = 1
+	Number of matches within tri-error = 0
+	Number of triangulated particles = 0
+	 # of particles detected in outerloop1, ignoring cam0: 0
+	The 2D particle number in a image is: 36
+	Number of matches = 2
+	Number of matches within tri-error = 0
+	Number of triangulated particles = 0
+	 # of particles detected in outerloop1, ignoring cam1: 0
+	The 2D particle number in a image is: 36
+	Number of matches = 1
+	Number of matches within tri-error = 0
+	Number of triangulated particles = 0
+	 # of particles detected in outerloop1, ignoring cam2: 0
+	The 2D particle number in a image is: 36
+	Number of matches = 1
+	Number of matches within tri-error = 0
+	Number of triangulated particles = 0
+	 # of particles detected in outerloop1, ignoring cam3: 0
+	 Total particles (10333)
+	 Total # of particles detected: 10333
+	 Total time taken by IPR: 46.548s
+STB initial phase tracking b/w frames: 1 & 2
+		Calculating predictive field
+time to get predictive field:3.42747
+time to link particles in two frames:0.493067
+STB initial phase tracking b/w frames: 2 & 3
+		Calculating predictive field
+time to get predictive field:3.44727
+time to link particles in two frames:0.646945
+STB initial phase tracking b/w frames: 3 & 4
+		Calculating predictive field
+time to get predictive field:3.37718
+time to link particles in two frames:0.583788
+Done with initial phase
+
+		No. of active Short tracks:	542
+		No. of active Long tracks:	9835
+		No. of exited tracks:		0
+	STB convergence phase tracking at frame: 5
+			Prediction: Prediction  time:0s
+Done.
+Shaking  time:5s
+Done.
+	The 2D particle number in a image is: 864
+	Number of matches = 623
+	Number of matches within tri-error = 618
+	Number of triangulated particles = 581
+	# of particles detected in outerloop0: 581
+	Total particles (581)
+	The 2D particle number in a image is: 283
+	Number of matches = 21
+	Number of matches within tri-error = 19
+	Number of triangulated particles = 17
+	# of particles detected in outerloop1: 16
+	Total particles (597)
+	The 2D particle number in a image is: 268
+	Number of matches = 4
+	Number of matches within tri-error = 4
+	Number of triangulated particles = 3
+	# of particles detected in outerloop2: 2
+	Total particles (599)
+	The 2D particle number in a image is: 266
+	Number of matches = 3
+	Number of matches within tri-error = 2
+	Number of triangulated particles = 2
+	# of particles detected in outerloop3: 2
+	Total particles (601)
+	The 2D particle number in a image is: 240
+	Number of matches = 1
+	Number of matches within tri-error = 0
+	Number of triangulated particles = 0
+	# of particles detected in outerloop0, ignoring cam0: 0
+	The 2D particle number in a image is: 264
+	Number of matches = 2
+	Number of matches within tri-error = 0
+	Number of triangulated particles = 0
+	# of particles detected in outerloop0, ignoring cam1: 0
+	The 2D particle number in a image is: 264
+	Number of matches = 1
+	Number of matches within tri-error = 1
+	Number of triangulated particles = 1
+	# of particles detected in outerloop0, ignoring cam2: 1
+	The 2D particle number in a image is: 263
+	Number of matches = 0
+	Number of matches within tri-error = 0
+	Number of triangulated particles = 0
+	# of particles detected in outerloop0, ignoring cam3: 0
+	Total particles (602)
+	The 2D particle number in a image is: 239
+	Number of matches = 1
+	Number of matches within tri-error = 0
+	Number of triangulated particles = 0
+	# of particles detected in outerloop1, ignoring cam0: 0
+	The 2D particle number in a image is: 263
+	Number of matches = 4
+	Number of matches within tri-error = 0
+	Number of triangulated particles = 0
+	# of particles detected in outerloop1, ignoring cam1: 0
+	The 2D particle number in a image is: 263
+	Number of matches = 1
+	Number of matches within tri-error = 0
+	Number of triangulated particles = 0
+	# of particles detected in outerloop1, ignoring cam2: 0
+	The 2D particle number in a image is: 263
+	Number of matches = 1
+	Number of matches within tri-error = 0
+	Number of triangulated particles = 0
+	# of particles detected in outerloop1, ignoring cam3: 0
+	Total particles (602)
+	Total particles after removing close particles (602)
+IPR time:2s
+Total particles:602
+linking short track time:0s
+Done.
+Pruning time:0s
+		No. of active Short tracks:	542 + 65 - (3 + 1 + 1 + 174) = 428
+		No. of active Long tracks:	9835 + 174 - 77 = 9932
+0+0+6
+		No. of exited tracks:		 = 8
+		No. of inactive Long tracks:	0 + 0 = 0
+	STB convergence phase tracking at frame: 6
+			Prediction: Prediction  time:0s
+Done.
+Shaking  time:5s
+Done.
+	The 2D particle number in a image is: 746
+	Number of matches = 479
+	Number of matches within tri-error = 475
+	Number of triangulated particles = 449
+	# of particles detected in outerloop0: 449
+	Total particles (449)
+	The 2D particle number in a image is: 295
+	Number of matches = 16
+	Number of matches within tri-error = 16
+	Number of triangulated particles = 13
+	# of particles detected in outerloop1: 13
+	Total particles (462)
+	The 2D particle number in a image is: 282
+	Number of matches = 4
+	Number of matches within tri-error = 4
+	Number of triangulated particles = 4
+	# of particles detected in outerloop2: 3
+	Total particles (465)
+	The 2D particle number in a image is: 281
+	Number of matches = 5
+	Number of matches within tri-error = 5
+	Number of triangulated particles = 3
+	# of particles detected in outerloop3: 3
+	Total particles (468)
+	The 2D particle number in a image is: 239
+	Number of matches = 3
+	Number of matches within tri-error = 0
+	Number of triangulated particles = 0
+	# of particles detected in outerloop0, ignoring cam0: 0
+	The 2D particle number in a image is: 278
+	Number of matches = 0
+	Number of matches within tri-error = 0
+	Number of triangulated particles = 0
+	# of particles detected in outerloop0, ignoring cam1: 0
+	The 2D particle number in a image is: 278
+	Number of matches = 3
+	Number of matches within tri-error = 0
+	Number of triangulated particles = 0
+	# of particles detected in outerloop0, ignoring cam2: 0
+	The 2D particle number in a image is: 278
+	Number of matches = 1
+	Number of matches within tri-error = 1
+	Number of triangulated particles = 1
+	# of particles detected in outerloop0, ignoring cam3: 1
+	Total particles (469)
+	The 2D particle number in a image is: 238
+	Number of matches = 6
+	Number of matches within tri-error = 0
+	Number of triangulated particles = 0
+	# of particles detected in outerloop1, ignoring cam0: 0
+	The 2D particle number in a image is: 277
+	Number of matches = 1
+	Number of matches within tri-error = 0
+	Number of triangulated particles = 0
+	# of particles detected in outerloop1, ignoring cam1: 0
+	The 2D particle number in a image is: 277
+	Number of matches = 3
+	Number of matches within tri-error = 0
+	Number of triangulated particles = 0
+	# of particles detected in outerloop1, ignoring cam2: 0
+	The 2D particle number in a image is: 277
+	Number of matches = 2
+	Number of matches within tri-error = 0
+	Number of triangulated particles = 0
+	# of particles detected in outerloop1, ignoring cam3: 0
+	Total particles (469)
+	Total particles after removing close particles (469)
+IPR time:2s
+Total particles:469
+linking short track time:0s
+Done.
+Pruning time:0s
+		No. of active Short tracks:	428 + 42 - (0 + 1 + 0 + 165) = 304
+		No. of active Long tracks:	9932 + 165 - 30 = 10067
+0+0+1
+		No. of exited tracks:		 = 13
+		No. of inactive Long tracks:	0 + 0 = 0
+	STB convergence phase tracking at frame: 7
+			Prediction: Prediction  time:0s
+Done.
+Shaking  time:5s
+Done.
+	The 2D particle number in a image is: 343
+	Number of matches = 308
+	Number of matches within tri-error = 308
+	Number of triangulated particles = 299
+	# of particles detected in outerloop0: 298
+	Total particles (298)
+	The 2D particle number in a image is: 41
+	Number of matches = 22
+	Number of matches within tri-error = 21
+	Number of triangulated particles = 20
+	# of particles detected in outerloop1: 19
+	Total particles (317)
+	The 2D particle number in a image is: 22
+	Number of matches = 9
+	Number of matches within tri-error = 9
+	Number of triangulated particles = 7
+	# of particles detected in outerloop2: 6
+	Total particles (323)
+	The 2D particle number in a image is: 16
+	Number of matches = 2
+	Number of matches within tri-error = 2
+	Number of triangulated particles = 2
+	# of particles detected in outerloop3: 2
+	Total particles (325)
+	The 2D particle number in a image is: 17
+	Number of matches = 4
+	Number of matches within tri-error = 3
+	Number of triangulated particles = 3
+	# of particles detected in outerloop0, ignoring cam0: 2
+	The 2D particle number in a image is: 14
+	Number of matches = 2
+	Number of matches within tri-error = 2
+	Number of triangulated particles = 2
+	# of particles detected in outerloop0, ignoring cam1: 2
+	The 2D particle number in a image is: 12
+	Number of matches = 5
+	Number of matches within tri-error = 5
+	Number of triangulated particles = 5
+	# of particles detected in outerloop0, ignoring cam2: 5
+	The 2D particle number in a image is: 7
+	Number of matches = 5
+	Number of matches within tri-error = 5
+	Number of triangulated particles = 4
+	# of particles detected in outerloop0, ignoring cam3: 4
+	Total particles (338)
+	The 2D particle number in a image is: 6
+	Number of matches = 2
+	Number of matches within tri-error = 1
+	Number of triangulated particles = 1
+	# of particles detected in outerloop1, ignoring cam0: 1
+	The 2D particle number in a image is: 4
+	Number of matches = 0
+	Number of matches within tri-error = 0
+	Number of triangulated particles = 0
+	# of particles detected in outerloop1, ignoring cam1: 0
+	The 2D particle number in a image is: 4
+	Number of matches = 1
+	Number of matches within tri-error = 0
+	Number of triangulated particles = 0
+	# of particles detected in outerloop1, ignoring cam2: 0
+	The 2D particle number in a image is: 4
+	Number of matches = 1
+	Number of matches within tri-error = 1
+	Number of triangulated particles = 1
+	# of particles detected in outerloop1, ignoring cam3: 1
+	Total particles (340)
+	Total particles after removing close particles (340)
+IPR time:3s
+Total particles:340
+linking short track time:0s
+Done.
+Pruning time:0s
+		No. of active Short tracks:	304 + 40 - (1 + 1 + 2 + 195) = 145
+		No. of active Long tracks:	10067 + 195 - 19 = 10243
+0+0+0
+		No. of exited tracks:		 = 17
+		No. of inactive Long tracks:	0 + 0 = 0
+	STB convergence phase tracking at frame: 8
+			Prediction: Prediction  time:0s
+Done.
+Shaking  time:5s
+Done.
+	The 2D particle number in a image is: 194
+	Number of matches = 178
+	Number of matches within tri-error = 178
+	Number of triangulated particles = 169
+	# of particles detected in outerloop0: 168
+	Total particles (168)
+	The 2D particle number in a image is: 23
+	Number of matches = 8
+	Number of matches within tri-error = 8
+	Number of triangulated particles = 8
+	# of particles detected in outerloop1: 7
+	Total particles (175)
+	The 2D particle number in a image is: 16
+	Number of matches = 2
+	Number of matches within tri-error = 2
+	Number of triangulated particles = 2
+	# of particles detected in outerloop2: 2
+	Total particles (177)
+	The 2D particle number in a image is: 14
+	Number of matches = 0
+	Number of matches within tri-error = 0
+	Number of triangulated particles = 0
+	# of particles detected in outerloop3: 0
+	Total particles (177)
+	The 2D particle number in a image is: 11
+	Number of matches = 1
+	Number of matches within tri-error = 1
+	Number of triangulated particles = 1
+	# of particles detected in outerloop0, ignoring cam0: 1
+	The 2D particle number in a image is: 14
+	Number of matches = 4
+	Number of matches within tri-error = 4
+	Number of triangulated particles = 4
+	# of particles detected in outerloop0, ignoring cam1: 3
+	The 2D particle number in a image is: 11
+	Number of matches = 4
+	Number of matches within tri-error = 4
+	Number of triangulated particles = 3
+	# of particles detected in outerloop0, ignoring cam2: 3
+	The 2D particle number in a image is: 8
+	Number of matches = 3
+	Number of matches within tri-error = 2
+	Number of triangulated particles = 2
+	# of particles detected in outerloop0, ignoring cam3: 2
+	Total particles (186)
+	The 2D particle number in a image is: 5
+	Number of matches = 0
+	Number of matches within tri-error = 0
+	Number of triangulated particles = 0
+	# of particles detected in outerloop1, ignoring cam0: 0
+	The 2D particle number in a image is: 6
+	Number of matches = 1
+	Number of matches within tri-error = 1
+	Number of triangulated particles = 1
+	# of particles detected in outerloop1, ignoring cam1: 1
+	The 2D particle number in a image is: 5
+	Number of matches = 0
+	Number of matches within tri-error = 0
+	Number of triangulated particles = 0
+	# of particles detected in outerloop1, ignoring cam2: 0
+	The 2D particle number in a image is: 5
+	Number of matches = 2
+	Number of matches within tri-error = 0
+	Number of triangulated particles = 0
+	# of particles detected in outerloop1, ignoring cam3: 0
+	Total particles (187)
+	Total particles after removing close particles (187)
+IPR time:3s
+Total particles:187
+linking short track time:0s
+Done.
+Pruning time:0s
+		No. of active Short tracks:	145 + 44 - (1 + 0 + 1 + 63) = 124
+		No. of active Long tracks:	10243 + 63 - 21 = 10285
+0+0+0
+		No. of exited tracks:		 = 26
+		No. of inactive Long tracks:	0 + 12 = 12
+	STB convergence phase tracking at frame: 9
+			Prediction: Prediction  time:0s
+Done.
+Shaking  time:5s
+Done.
+	The 2D particle number in a image is: 162
+	Number of matches = 152
+	Number of matches within tri-error = 150
+	Number of triangulated particles = 144
+	# of particles detected in outerloop0: 143
+	Total particles (143)
+	The 2D particle number in a image is: 15
+	Number of matches = 6
+	Number of matches within tri-error = 6
+	Number of triangulated particles = 6
+	# of particles detected in outerloop1: 5
+	Total particles (148)
+	The 2D particle number in a image is: 10
+	Number of matches = 1
+	Number of matches within tri-error = 1
+	Number of triangulated particles = 1
+	# of particles detected in outerloop2: 1
+	Total particles (149)
+	The 2D particle number in a image is: 9
+	Number of matches = 0
+	Number of matches within tri-error = 0
+	Number of triangulated particles = 0
+	# of particles detected in outerloop3: 0
+	Total particles (149)
+	The 2D particle number in a image is: 12
+	Number of matches = 1
+	Number of matches within tri-error = 1
+	Number of triangulated particles = 1
+	# of particles detected in outerloop0, ignoring cam0: 1
+	The 2D particle number in a image is: 9
+	Number of matches = 2
+	Number of matches within tri-error = 1
+	Number of triangulated particles = 1
+	# of particles detected in outerloop0, ignoring cam1: 1
+	The 2D particle number in a image is: 8
+	Number of matches = 2
+	Number of matches within tri-error = 2
+	Number of triangulated particles = 2
+	# of particles detected in outerloop0, ignoring cam2: 1
+	The 2D particle number in a image is: 7
+	Number of matches = 3
+	Number of matches within tri-error = 3
+	Number of triangulated particles = 3
+	# of particles detected in outerloop0, ignoring cam3: 2
+	Total particles (154)
+	The 2D particle number in a image is: 8
+	Number of matches = 2
+	Number of matches within tri-error = 0
+	Number of triangulated particles = 0
+	# of particles detected in outerloop1, ignoring cam0: 0
+	The 2D particle number in a image is: 5
+	Number of matches = 1
+	Number of matches within tri-error = 0
+	Number of triangulated particles = 0
+	# of particles detected in outerloop1, ignoring cam1: 0
+	The 2D particle number in a image is: 5
+	Number of matches = 2
+	Number of matches within tri-error = 1
+	Number of triangulated particles = 1
+	# of particles detected in outerloop1, ignoring cam2: 1
+	The 2D particle number in a image is: 4
+	Number of matches = 2
+	Number of matches within tri-error = 1
+	Number of triangulated particles = 1
+	# of particles detected in outerloop1, ignoring cam3: 1
+	Total particles (156)
+	Total particles after removing close particles (156)
+IPR time:3s
+Total particles:156
+linking short track time:0s
+Done.
+Pruning time:0s
+		No. of active Short tracks:	124 + 35 - (2 + 0 + 1 + 40) = 116
+		No. of active Long tracks:	10285 + 40 - 20 = 10305
+0+0+0
+		No. of exited tracks:		 = 33
+		No. of inactive Long tracks:	12 + 12 = 24
+	STB convergence phase tracking at frame: 10
+			Prediction: Prediction  time:0s
+Done.
+Shaking  time:5s
+Done.
+	The 2D particle number in a image is: 160
+	Number of matches = 138
+	Number of matches within tri-error = 138
+	Number of triangulated particles = 130
+	# of particles detected in outerloop0: 129
+	Total particles (129)
+	The 2D particle number in a image is: 28
+	Number of matches = 13
+	Number of matches within tri-error = 12
+	Number of triangulated particles = 12
+	# of particles detected in outerloop1: 11
+	Total particles (140)
+	The 2D particle number in a image is: 17
+	Number of matches = 3
+	Number of matches within tri-error = 3
+	Number of triangulated particles = 3
+	# of particles detected in outerloop2: 3
+	Total particles (143)
+	The 2D particle number in a image is: 14
+	Number of matches = 0
+	Number of matches within tri-error = 0
+	Number of triangulated particles = 0
+	# of particles detected in outerloop3: 0
+	Total particles (143)
+	The 2D particle number in a image is: 13
+	Number of matches = 0
+	Number of matches within tri-error = 0
+	Number of triangulated particles = 0
+	# of particles detected in outerloop0, ignoring cam0: 0
+	The 2D particle number in a image is: 14
+	Number of matches = 4
+	Number of matches within tri-error = 2
+	Number of triangulated particles = 2
+	# of particles detected in outerloop0, ignoring cam1: 2
+	The 2D particle number in a image is: 12
+	Number of matches = 1
+	Number of matches within tri-error = 1
+	Number of triangulated particles = 1
+	# of particles detected in outerloop0, ignoring cam2: 1
+	The 2D particle number in a image is: 11
+	Number of matches = 7
+	Number of matches within tri-error = 5
+	Number of triangulated particles = 5
+	# of particles detected in outerloop0, ignoring cam3: 3
+	Total particles (149)
+	The 2D particle number in a image is: 9
+	Number of matches = 0
+	Number of matches within tri-error = 0
+	Number of triangulated particles = 0
+	# of particles detected in outerloop1, ignoring cam0: 0
+	The 2D particle number in a image is: 8
+	Number of matches = 2
+	Number of matches within tri-error = 0
+	Number of triangulated particles = 0
+	# of particles detected in outerloop1, ignoring cam1: 0
+	The 2D particle number in a image is: 8
+	Number of matches = 0
+	Number of matches within tri-error = 0
+	Number of triangulated particles = 0
+	# of particles detected in outerloop1, ignoring cam2: 0
+	The 2D particle number in a image is: 8
+	Number of matches = 6
+	Number of matches within tri-error = 2
+	Number of triangulated particles = 2
+	# of particles detected in outerloop1, ignoring cam3: 1
+	Total particles (150)
+	Total particles after removing close particles (150)
+IPR time:2s
+Total particles:150
+linking short track time:0s
+Done.
+Pruning time:0s
+		No. of active Short tracks:	116 + 37 - (1 + 1 + 1 + 38) = 112
+		No. of active Long tracks:	10305 + 38 - 32 = 10311
+0+0+0
+		No. of exited tracks:		 = 43
+		No. of inactive Long tracks:	24 + 22 = 46
+	STB convergence phase tracking at frame: 11
+			Prediction: Prediction  time:0s
+Done.
+Shaking  time:5s
+Done.
+	The 2D particle number in a image is: 155
+	Number of matches = 142
+	Number of matches within tri-error = 142
+	Number of triangulated particles = 138
+	# of particles detected in outerloop0: 138
+	Total particles (138)
+	The 2D particle number in a image is: 17
+	Number of matches = 7
+	Number of matches within tri-error = 7
+	Number of triangulated particles = 7
+	# of particles detected in outerloop1: 7
+	Total particles (145)
+	The 2D particle number in a image is: 10
+	Number of matches = 2
+	Number of matches within tri-error = 2
+	Number of triangulated particles = 2
+	# of particles detected in outerloop2: 2
+	Total particles (147)
+	The 2D particle number in a image is: 8
+	Number of matches = 0
+	Number of matches within tri-error = 0
+	Number of triangulated particles = 0
+	# of particles detected in outerloop3: 0
+	Total particles (147)
+	The 2D particle number in a image is: 4
+	Number of matches = 0
+	Number of matches within tri-error = 0
+	Number of triangulated particles = 0
+	# of particles detected in outerloop0, ignoring cam0: 0
+	The 2D particle number in a image is: 8
+	Number of matches = 1
+	Number of matches within tri-error = 1
+	Number of triangulated particles = 1
+	# of particles detected in outerloop0, ignoring cam1: 1
+	The 2D particle number in a image is: 7
+	Number of matches = 1
+	Number of matches within tri-error = 1
+	Number of triangulated particles = 1
+	# of particles detected in outerloop0, ignoring cam2: 1
+	The 2D particle number in a image is: 6
+	Number of matches = 1
+	Number of matches within tri-error = 1
+	Number of triangulated particles = 1
+	# of particles detected in outerloop0, ignoring cam3: 1
+	Total particles (150)
+	The 2D particle number in a image is: 2
+	Number of matches = 1
+	Number of matches within tri-error = 1
+	Number of triangulated particles = 1
+	# of particles detected in outerloop1, ignoring cam0: 1
+	The 2D particle number in a image is: 5
+	Number of matches = 0
+	Number of matches within tri-error = 0
+	Number of triangulated particles = 0
+	# of particles detected in outerloop1, ignoring cam1: 0
+	The 2D particle number in a image is: 5
+	Number of matches = 0
+	Number of matches within tri-error = 0
+	Number of triangulated particles = 0
+	# of particles detected in outerloop1, ignoring cam2: 0
+	The 2D particle number in a image is: 5
+	Number of matches = 0
+	Number of matches within tri-error = 0
+	Number of triangulated particles = 0
+	# of particles detected in outerloop1, ignoring cam3: 0
+	Total particles (151)
+	Total particles after removing close particles (151)
+IPR time:2s
+Total particles:151
+linking short track time:0s
+Done.
+Pruning time:0s
+		No. of active Short tracks:	112 + 41 - (0 + 2 + 0 + 41) = 110
+		No. of active Long tracks:	10311 + 41 - 26 = 10326
+0+0+0
+		No. of exited tracks:		 = 55
+		No. of inactive Long tracks:	46 + 13 = 59
+	STB convergence phase tracking at frame: 12
+			Prediction: Prediction  time:0s
+Done.
+Shaking  time:5s
+Done.
+	The 2D particle number in a image is: 145
+	Number of matches = 132
+	Number of matches within tri-error = 132
+	Number of triangulated particles = 130
+	# of particles detected in outerloop0: 130
+	Total particles (130)
+	The 2D particle number in a image is: 15
+	Number of matches = 4
+	Number of matches within tri-error = 4
+	Number of triangulated particles = 4
+	# of particles detected in outerloop1: 4
+	Total particles (134)
+	The 2D particle number in a image is: 11
+	Number of matches = 4
+	Number of matches within tri-error = 4
+	Number of triangulated particles = 4
+	# of particles detected in outerloop2: 4
+	Total particles (138)
+	The 2D particle number in a image is: 7
+	Number of matches = 0
+	Number of matches within tri-error = 0
+	Number of triangulated particles = 0
+	# of particles detected in outerloop3: 0
+	Total particles (138)
+	The 2D particle number in a image is: 9
+	Number of matches = 1
+	Number of matches within tri-error = 1
+	Number of triangulated particles = 1
+	# of particles detected in outerloop0, ignoring cam0: 1
+	The 2D particle number in a image is: 7
+	Number of matches = 0
+	Number of matches within tri-error = 0
+	Number of triangulated particles = 0
+	# of particles detected in outerloop0, ignoring cam1: 0
+	The 2D particle number in a image is: 7
+	Number of matches = 0
+	Number of matches within tri-error = 0
+	Number of triangulated particles = 0
+	# of particles detected in outerloop0, ignoring cam2: 0
+	The 2D particle number in a image is: 7
+	Number of matches = 4
+	Number of matches within tri-error = 4
+	Number of triangulated particles = 4
+	# of particles detected in outerloop0, ignoring cam3: 2
+	Total particles (141)
+	The 2D particle number in a image is: 6
+	Number of matches = 0
+	Number of matches within tri-error = 0
+	Number of triangulated particles = 0
+	# of particles detected in outerloop1, ignoring cam0: 0
+	The 2D particle number in a image is: 5
+	Number of matches = 1
+	Number of matches within tri-error = 0
+	Number of triangulated particles = 0
+	# of particles detected in outerloop1, ignoring cam1: 0
+	The 2D particle number in a image is: 5
+	Number of matches = 1
+	Number of matches within tri-error = 0
+	Number of triangulated particles = 0
+	# of particles detected in outerloop1, ignoring cam2: 0
+	The 2D particle number in a image is: 5
+	Number of matches = 3
+	Number of matches within tri-error = 2
+	Number of triangulated particles = 2
+	# of particles detected in outerloop1, ignoring cam3: 1
+	Total particles (142)
+	Total particles after removing close particles (142)
+IPR time:2s
+Total particles:142
+linking short track time:0s
+Done.
+Pruning time:0s
+		No. of active Short tracks:	110 + 33 - (1 + 0 + 0 + 32) = 110
+		No. of active Long tracks:	10326 + 32 - 21 = 10337
+0+0+0
+		No. of exited tracks:		 = 62
+		No. of inactive Long tracks:	59 + 14 = 73
+	STB convergence phase tracking at frame: 13
+			Prediction: Prediction  time:0s
+Done.
+Shaking  time:5s
+Done.
+	The 2D particle number in a image is: 154
+	Number of matches = 148
+	Number of matches within tri-error = 148
+	Number of triangulated particles = 138
+	# of particles detected in outerloop0: 138
+	Total particles (138)
+	The 2D particle number in a image is: 13
+	Number of matches = 3
+	Number of matches within tri-error = 3
+	Number of triangulated particles = 3
+	# of particles detected in outerloop1: 3
+	Total particles (141)
+	The 2D particle number in a image is: 10
+	Number of matches = 2
+	Number of matches within tri-error = 2
+	Number of triangulated particles = 2
+	# of particles detected in outerloop2: 2
+	Total particles (143)
+	The 2D particle number in a image is: 8
+	Number of matches = 0
+	Number of matches within tri-error = 0
+	Number of triangulated particles = 0
+	# of particles detected in outerloop3: 0
+	Total particles (143)
+	The 2D particle number in a image is: 9
+	Number of matches = 2
+	Number of matches within tri-error = 1
+	Number of triangulated particles = 1
+	# of particles detected in outerloop0, ignoring cam0: 1
+	The 2D particle number in a image is: 8
+	Number of matches = 2
+	Number of matches within tri-error = 1
+	Number of triangulated particles = 1
+	# of particles detected in outerloop0, ignoring cam1: 1
+	The 2D particle number in a image is: 7
+	Number of matches = 2
+	Number of matches within tri-error = 2
+	Number of triangulated particles = 2
+	# of particles detected in outerloop0, ignoring cam2: 2
+	The 2D particle number in a image is: 5
+	Number of matches = 1
+	Number of matches within tri-error = 1
+	Number of triangulated particles = 1
+	# of particles detected in outerloop0, ignoring cam3: 1
+	Total particles (148)
+	The 2D particle number in a image is: 5
+	Number of matches = 1
+	Number of matches within tri-error = 0
+	Number of triangulated particles = 0
+	# of particles detected in outerloop1, ignoring cam0: 0
+	The 2D particle number in a image is: 4
+	Number of matches = 1
+	Number of matches within tri-error = 0
+	Number of triangulated particles = 0
+	# of particles detected in outerloop1, ignoring cam1: 0
+	The 2D particle number in a image is: 4
+	Number of matches = 1
+	Number of matches within tri-error = 0
+	Number of triangulated particles = 0
+	# of particles detected in outerloop1, ignoring cam2: 0
+	The 2D particle number in a image is: 4
+	Number of matches = 0
+	Number of matches within tri-error = 0
+	Number of triangulated particles = 0
+	# of particles detected in outerloop1, ignoring cam3: 0
+	Total particles (148)
+	Total particles after removing close particles (148)
+IPR time:2s
+Total particles:148
+linking short track time:0s
+Done.
+Pruning time:0s
+		No. of active Short tracks:	110 + 41 - (2 + 1 + 0 + 37) = 111
+		No. of active Long tracks:	10337 + 37 - 28 = 10346
+0+0+0
+		No. of exited tracks:		 = 69
+		No. of inactive Long tracks:	73 + 21 = 94
+	STB convergence phase tracking at frame: 14
+			Prediction: Prediction  time:0s
+Done.
+Shaking  time:5s
+Done.
+	The 2D particle number in a image is: 157
+	Number of matches = 146
+	Number of matches within tri-error = 146
+	Number of triangulated particles = 139
+	# of particles detected in outerloop0: 138
+	Total particles (138)
+	The 2D particle number in a image is: 16
+	Number of matches = 9
+	Number of matches within tri-error = 9
+	Number of triangulated particles = 8
+	# of particles detected in outerloop1: 7
+	Total particles (145)
+	The 2D particle number in a image is: 9
+	Number of matches = 2
+	Number of matches within tri-error = 2
+	Number of triangulated particles = 2
+	# of particles detected in outerloop2: 2
+	Total particles (147)
+	The 2D particle number in a image is: 7
+	Number of matches = 0
+	Number of matches within tri-error = 0
+	Number of triangulated particles = 0
+	# of particles detected in outerloop3: 0
+	Total particles (147)
+	The 2D particle number in a image is: 4
+	Number of matches = 1
+	Number of matches within tri-error = 0
+	Number of triangulated particles = 0
+	# of particles detected in outerloop0, ignoring cam0: 0
+	The 2D particle number in a image is: 7
+	Number of matches = 3
+	Number of matches within tri-error = 2
+	Number of triangulated particles = 2
+	# of particles detected in outerloop0, ignoring cam1: 2
+	The 2D particle number in a image is: 5
+	Number of matches = 0
+	Number of matches within tri-error = 0
+	Number of triangulated particles = 0
+	# of particles detected in outerloop0, ignoring cam2: 0
+	The 2D particle number in a image is: 5
+	Number of matches = 1
+	Number of matches within tri-error = 1
+	Number of triangulated particles = 1
+	# of particles detected in outerloop0, ignoring cam3: 1
+	Total particles (150)
+	The 2D particle number in a image is: 2
+	Number of matches = 1
+	Number of matches within tri-error = 0
+	Number of triangulated particles = 0
+	# of particles detected in outerloop1, ignoring cam0: 0
+	The 2D particle number in a image is: 4
+	Number of matches = 2
+	Number of matches within tri-error = 0
+	Number of triangulated particles = 0
+	# of particles detected in outerloop1, ignoring cam1: 0
+	The 2D particle number in a image is: 4
+	Number of matches = 0
+	Number of matches within tri-error = 0
+	Number of triangulated particles = 0
+	# of particles detected in outerloop1, ignoring cam2: 0
+	The 2D particle number in a image is: 4
+	Number of matches = 1
+	Number of matches within tri-error = 0
+	Number of triangulated particles = 0
+	# of particles detected in outerloop1, ignoring cam3: 0
+	Total particles (150)
+	Total particles after removing close particles (150)
+IPR time:2s
+Total particles:150
+linking short track time:0s
+Done.
+Pruning time:0s
+		No. of active Short tracks:	111 + 39 - (0 + 0 + 0 + 39) = 111
+		No. of active Long tracks:	10346 + 39 - 24 = 10361
+0+0+0
+		No. of exited tracks:		 = 73
+		No. of inactive Long tracks:	94 + 20 = 114
+	STB convergence phase tracking at frame: 15
+			Prediction: Prediction  time:0s
+Done.
+Shaking  time:6s
+Done.
+	The 2D particle number in a image is: 141
+	Number of matches = 124
+	Number of matches within tri-error = 124
+	Number of triangulated particles = 121
+	# of particles detected in outerloop0: 121
+	Total particles (121)
+	The 2D particle number in a image is: 18
+	Number of matches = 7
+	Number of matches within tri-error = 7
+	Number of triangulated particles = 7
+	# of particles detected in outerloop1: 7
+	Total particles (128)
+	The 2D particle number in a image is: 11
+	Number of matches = 2
+	Number of matches within tri-error = 2
+	Number of triangulated particles = 2
+	# of particles detected in outerloop2: 2
+	Total particles (130)
+	The 2D particle number in a image is: 9
+	Number of matches = 1
+	Number of matches within tri-error = 1
+	Number of triangulated particles = 1
+	# of particles detected in outerloop3: 1
+	Total particles (131)
+	The 2D particle number in a image is: 10
+	Number of matches = 3
+	Number of matches within tri-error = 3
+	Number of triangulated particles = 3
+	# of particles detected in outerloop0, ignoring cam0: 3
+	The 2D particle number in a image is: 8
+	Number of matches = 3
+	Number of matches within tri-error = 2
+	Number of triangulated particles = 2
+	# of particles detected in outerloop0, ignoring cam1: 2
+	The 2D particle number in a image is: 6
+	Number of matches = 0
+	Number of matches within tri-error = 0
+	Number of triangulated particles = 0
+	# of particles detected in outerloop0, ignoring cam2: 0
+	The 2D particle number in a image is: 6
+	Number of matches = 2
+	Number of matches within tri-error = 2
+	Number of triangulated particles = 1
+	# of particles detected in outerloop0, ignoring cam3: 1
+	Total particles (137)
+	The 2D particle number in a image is: 6
+	Number of matches = 0
+	Number of matches within tri-error = 0
+	Number of triangulated particles = 0
+	# of particles detected in outerloop1, ignoring cam0: 0
+	The 2D particle number in a image is: 5
+	Number of matches = 2
+	Number of matches within tri-error = 0
+	Number of triangulated particles = 0
+	# of particles detected in outerloop1, ignoring cam1: 0
+	The 2D particle number in a image is: 5
+	Number of matches = 2
+	Number of matches within tri-error = 0
+	Number of triangulated particles = 0
+	# of particles detected in outerloop1, ignoring cam2: 0
+	The 2D particle number in a image is: 5
+	Number of matches = 1
+	Number of matches within tri-error = 0
+	Number of triangulated particles = 0
+	# of particles detected in outerloop1, ignoring cam3: 0
+	Total particles (137)
+	Total particles after removing close particles (137)
+IPR time:3s
+Total particles:137
+linking short track time:0s
+Done.
+Pruning time:0s
+		No. of active Short tracks:	111 + 28 - (2 + 0 + 0 + 31) = 106
+		No. of active Long tracks:	10361 + 31 - 27 = 10365
+0+0+0
+		No. of exited tracks:		 = 85
+		No. of inactive Long tracks:	114 + 15 = 129
+	STB convergence phase tracking at frame: 16
+			Prediction: Prediction  time:0s
+Done.
+Shaking  time:5s
+Done.
+	The 2D particle number in a image is: 142
+	Number of matches = 129
+	Number of matches within tri-error = 129
+	Number of triangulated particles = 123
+	# of particles detected in outerloop0: 123
+	Total particles (123)
+	The 2D particle number in a image is: 16
+	Number of matches = 7
+	Number of matches within tri-error = 7
+	Number of triangulated particles = 7
+	# of particles detected in outerloop1: 7
+	Total particles (130)
+	The 2D particle number in a image is: 9
+	Number of matches = 3
+	Number of matches within tri-error = 3
+	Number of triangulated particles = 3
+	# of particles detected in outerloop2: 3
+	Total particles (133)
+	The 2D particle number in a image is: 6
+	Number of matches = 1
+	Number of matches within tri-error = 1
+	Number of triangulated particles = 1
+	# of particles detected in outerloop3: 1
+	Total particles (134)
+	The 2D particle number in a image is: 12
+	Number of matches = 3
+	Number of matches within tri-error = 3
+	Number of triangulated particles = 3
+	# of particles detected in outerloop0, ignoring cam0: 3
+	The 2D particle number in a image is: 5
+	Number of matches = 4
+	Number of matches within tri-error = 3
+	Number of triangulated particles = 3
+	# of particles detected in outerloop0, ignoring cam1: 2
+	The 2D particle number in a image is: 3
+	Number of matches = 0
+	Number of matches within tri-error = 0
+	Number of triangulated particles = 0
+	# of particles detected in outerloop0, ignoring cam2: 0
+	The 2D particle number in a image is: 3
+	Number of matches = 0
+	Number of matches within tri-error = 0
+	Number of triangulated particles = 0
+	# of particles detected in outerloop0, ignoring cam3: 0
+	Total particles (139)
+	The 2D particle number in a image is: 9
+	Number of matches = 2
+	Number of matches within tri-error = 0
+	Number of triangulated particles = 0
+	# of particles detected in outerloop1, ignoring cam0: 0
+	The 2D particle number in a image is: 3
+	Number of matches = 2
+	Number of matches within tri-error = 1
+	Number of triangulated particles = 1
+	# of particles detected in outerloop1, ignoring cam1: 1
+	The 2D particle number in a image is: 2
+	Number of matches = 0
+	Number of matches within tri-error = 0
+	Number of triangulated particles = 0
+	# of particles detected in outerloop1, ignoring cam2: 0
+	The 2D particle number in a image is: 2
+	Number of matches = 0
+	Number of matches within tri-error = 0
+	Number of triangulated particles = 0
+	# of particles detected in outerloop1, ignoring cam3: 0
+	Total particles (140)
+	Total particles after removing close particles (140)
+IPR time:2s
+Total particles:140
+linking short track time:0s
+Done.
+Pruning time:0s
+		No. of active Short tracks:	106 + 35 - (1 + 0 + 0 + 41) = 99
+		No. of active Long tracks:	10365 + 41 - 18 = 10388
+0+0+0
+		No. of exited tracks:		 = 91
+		No. of inactive Long tracks:	129 + 12 = 141
+	STB convergence phase tracking at frame: 17
+			Prediction: Prediction  time:0s
+Done.
+Shaking  time:5s
+Done.
+	The 2D particle number in a image is: 126
+	Number of matches = 119
+	Number of matches within tri-error = 119
+	Number of triangulated particles = 112
+	# of particles detected in outerloop0: 112
+	Total particles (112)
+	The 2D particle number in a image is: 14
+	Number of matches = 6
+	Number of matches within tri-error = 6
+	Number of triangulated particles = 6
+	# of particles detected in outerloop1: 5
+	Total particles (117)
+	The 2D particle number in a image is: 9
+	Number of matches = 1
+	Number of matches within tri-error = 1
+	Number of triangulated particles = 1
+	# of particles detected in outerloop2: 1
+	Total particles (118)
+	The 2D particle number in a image is: 8
+	Number of matches = 1
+	Number of matches within tri-error = 1
+	Number of triangulated particles = 1
+	# of particles detected in outerloop3: 1
+	Total particles (119)
+	The 2D particle number in a image is: 15
+	Number of matches = 3
+	Number of matches within tri-error = 1
+	Number of triangulated particles = 1
+	# of particles detected in outerloop0, ignoring cam0: 1
+	The 2D particle number in a image is: 7
+	Number of matches = 0
+	Number of matches within tri-error = 0
+	Number of triangulated particles = 0
+	# of particles detected in outerloop0, ignoring cam1: 0
+	The 2D particle number in a image is: 7
+	Number of matches = 2
+	Number of matches within tri-error = 1
+	Number of triangulated particles = 1
+	# of particles detected in outerloop0, ignoring cam2: 1
+	The 2D particle number in a image is: 6
+	Number of matches = 1
+	Number of matches within tri-error = 1
+	Number of triangulated particles = 1
+	# of particles detected in outerloop0, ignoring cam3: 1
+	Total particles (122)
+	The 2D particle number in a image is: 12
+	Number of matches = 2
+	Number of matches within tri-error = 0
+	Number of triangulated particles = 0
+	# of particles detected in outerloop1, ignoring cam0: 0
+	The 2D particle number in a image is: 5
+	Number of matches = 0
+	Number of matches within tri-error = 0
+	Number of triangulated particles = 0
+	# of particles detected in outerloop1, ignoring cam1: 0
+	The 2D particle number in a image is: 5
+	Number of matches = 3
+	Number of matches within tri-error = 0
+	Number of triangulated particles = 0
+	# of particles detected in outerloop1, ignoring cam2: 0
+	The 2D particle number in a image is: 5
+	Number of matches = 0
+	Number of matches within tri-error = 0
+	Number of triangulated particles = 0
+	# of particles detected in outerloop1, ignoring cam3: 0
+	Total particles (122)
+	Total particles after removing close particles (122)
+IPR time:2s
+Total particles:122
+linking short track time:0s
+Done.
+Pruning time:0s
+		No. of active Short tracks:	99 + 29 - (3 + 0 + 3 + 34) = 88
+		No. of active Long tracks:	10388 + 34 - 25 = 10397
+0+0+0
+		No. of exited tracks:		 = 98
+		No. of inactive Long tracks:	141 + 18 = 159
+	STB convergence phase tracking at frame: 18
+			Prediction: Prediction  time:0s
+Done.
+Shaking  time:5s
+Done.
+	The 2D particle number in a image is: 133
+	Number of matches = 123
+	Number of matches within tri-error = 123
+	Number of triangulated particles = 119
+	# of particles detected in outerloop0: 119
+	Total particles (119)
+	The 2D particle number in a image is: 13
+	Number of matches = 5
+	Number of matches within tri-error = 5
+	Number of triangulated particles = 5
+	# of particles detected in outerloop1: 4
+	Total particles (123)
+	The 2D particle number in a image is: 9
+	Number of matches = 3
+	Number of matches within tri-error = 3
+	Number of triangulated particles = 3
+	# of particles detected in outerloop2: 3
+	Total particles (126)
+	The 2D particle number in a image is: 6
+	Number of matches = 0
+	Number of matches within tri-error = 0
+	Number of triangulated particles = 0
+	# of particles detected in outerloop3: 0
+	Total particles (126)
+	The 2D particle number in a image is: 11
+	Number of matches = 2
+	Number of matches within tri-error = 2
+	Number of triangulated particles = 2
+	# of particles detected in outerloop0, ignoring cam0: 1
+	The 2D particle number in a image is: 6
+	Number of matches = 0
+	Number of matches within tri-error = 0
+	Number of triangulated particles = 0
+	# of particles detected in outerloop0, ignoring cam1: 0
+	The 2D particle number in a image is: 6
+	Number of matches = 2
+	Number of matches within tri-error = 1
+	Number of triangulated particles = 1
+	# of particles detected in outerloop0, ignoring cam2: 1
+	The 2D particle number in a image is: 5
+	Number of matches = 4
+	Number of matches within tri-error = 3
+	Number of triangulated particles = 3
+	# of particles detected in outerloop0, ignoring cam3: 2
+	Total particles (130)
+	The 2D particle number in a image is: 7
+	Number of matches = 3
+	Number of matches within tri-error = 1
+	Number of triangulated particles = 1
+	# of particles detected in outerloop1, ignoring cam0: 1
+	The 2D particle number in a image is: 3
+	Number of matches = 0
+	Number of matches within tri-error = 0
+	Number of triangulated particles = 0
+	# of particles detected in outerloop1, ignoring cam1: 0
+	The 2D particle number in a image is: 3
+	Number of matches = 1
+	Number of matches within tri-error = 0
+	Number of triangulated particles = 0
+	# of particles detected in outerloop1, ignoring cam2: 0
+	The 2D particle number in a image is: 3
+	Number of matches = 2
+	Number of matches within tri-error = 1
+	Number of triangulated particles = 1
+	# of particles detected in outerloop1, ignoring cam3: 1
+	Total particles (132)
+	Total particles after removing close particles (132)
+IPR time:3s
+Total particles:132
+linking short track time:0s
+Done.
+Pruning time:0s
+		No. of active Short tracks:	88 + 44 - (0 + 0 + 0 + 27) = 105
+		No. of active Long tracks:	10397 + 27 - 39 = 10385
+0+0+0
+		No. of exited tracks:		 = 108
+		No. of inactive Long tracks:	159 + 29 = 188
+	STB convergence phase tracking at frame: 19
+			Prediction: Prediction  time:0s
+Done.
+Shaking  time:5s
+Done.
+	The 2D particle number in a image is: 131
+	Number of matches = 122
+	Number of matches within tri-error = 122
+	Number of triangulated particles = 121
+	# of particles detected in outerloop0: 120
+	Total particles (120)
+	The 2D particle number in a image is: 10
+	Number of matches = 3
+	Number of matches within tri-error = 3
+	Number of triangulated particles = 3
+	# of particles detected in outerloop1: 2
+	Total particles (122)
+	The 2D particle number in a image is: 8
+	Number of matches = 3
+	Number of matches within tri-error = 2
+	Number of triangulated particles = 2
+	# of particles detected in outerloop2: 2
+	Total particles (124)
+	The 2D particle number in a image is: 6
+	Number of matches = 1
+	Number of matches within tri-error = 0
+	Number of triangulated particles = 0
+	# of particles detected in outerloop3: 0
+	Total particles (124)
+	The 2D particle number in a image is: 9
+	Number of matches = 4
+	Number of matches within tri-error = 4
+	Number of triangulated particles = 4
+	# of particles detected in outerloop0, ignoring cam0: 3
+	The 2D particle number in a image is: 6
+	Number of matches = 0
+	Number of matches within tri-error = 0
+	Number of triangulated particles = 0
+	# of particles detected in outerloop0, ignoring cam1: 0
+	The 2D particle number in a image is: 6
+	Number of matches = 2
+	Number of matches within tri-error = 1
+	Number of triangulated particles = 1
+	# of particles detected in outerloop0, ignoring cam2: 1
+	The 2D particle number in a image is: 5
+	Number of matches = 2
+	Number of matches within tri-error = 2
+	Number of triangulated particles = 2
+	# of particles detected in outerloop0, ignoring cam3: 2
+	Total particles (130)
+	The 2D particle number in a image is: 3
+	Number of matches = 1
+	Number of matches within tri-error = 1
+	Number of triangulated particles = 1
+	# of particles detected in outerloop1, ignoring cam0: 1
+	The 2D particle number in a image is: 3
+	Number of matches = 0
+	Number of matches within tri-error = 0
+	Number of triangulated particles = 0
+	# of particles detected in outerloop1, ignoring cam1: 0
+	The 2D particle number in a image is: 3
+	Number of matches = 2
+	Number of matches within tri-error = 0
+	Number of triangulated particles = 0
+	# of particles detected in outerloop1, ignoring cam2: 0
+	The 2D particle number in a image is: 3
+	Number of matches = 0
+	Number of matches within tri-error = 0
+	Number of triangulated particles = 0
+	# of particles detected in outerloop1, ignoring cam3: 0
+	Total particles (131)
+	Total particles after removing close particles (131)
+IPR time:2s
+Total particles:131
+linking short track time:0s
+Done.
+Pruning time:0s
+		No. of active Short tracks:	105 + 29 - (2 + 1 + 0 + 32) = 99
+		No. of active Long tracks:	10385 + 32 - 28 = 10389
+0+0+0
+		No. of exited tracks:		 = 115
+		No. of inactive Long tracks:	188 + 21 = 209
+	STB convergence phase tracking at frame: 20
+			Prediction: Prediction  time:0s
+Done.
+Shaking  time:6s
+Done.
+	The 2D particle number in a image is: 134
+	Number of matches = 123
+	Number of matches within tri-error = 123
+	Number of triangulated particles = 118
+	# of particles detected in outerloop0: 118
+	Total particles (118)
+	The 2D particle number in a image is: 15
+	Number of matches = 6
+	Number of matches within tri-error = 6
+	Number of triangulated particles = 6
+	# of particles detected in outerloop1: 6
+	Total particles (124)
+	The 2D particle number in a image is: 9
+	Number of matches = 2
+	Number of matches within tri-error = 2
+	Number of triangulated particles = 2
+	# of particles detected in outerloop2: 2
+	Total particles (126)
+	The 2D particle number in a image is: 7
+	Number of matches = 1
+	Number of matches within tri-error = 1
+	Number of triangulated particles = 1
+	# of particles detected in outerloop3: 1
+	Total particles (127)
+	The 2D particle number in a image is: 7
+	Number of matches = 2
+	Number of matches within tri-error = 2
+	Number of triangulated particles = 2
+	# of particles detected in outerloop0, ignoring cam0: 2
+	The 2D particle number in a image is: 6
+	Number of matches = 0
+	Number of matches within tri-error = 0
+	Number of triangulated particles = 0
+	# of particles detected in outerloop0, ignoring cam1: 0
+	The 2D particle number in a image is: 6
+	Number of matches = 1
+	Number of matches within tri-error = 1
+	Number of triangulated particles = 1
+	# of particles detected in outerloop0, ignoring cam2: 1
+	The 2D particle number in a image is: 5
+	Number of matches = 1
+	Number of matches within tri-error = 1
+	Number of triangulated particles = 1
+	# of particles detected in outerloop0, ignoring cam3: 1
+	Total particles (131)
+	The 2D particle number in a image is: 3
+	Number of matches = 1
+	Number of matches within tri-error = 0
+	Number of triangulated particles = 0
+	# of particles detected in outerloop1, ignoring cam0: 0
+	The 2D particle number in a image is: 4
+	Number of matches = 0
+	Number of matches within tri-error = 0
+	Number of triangulated particles = 0
+	# of particles detected in outerloop1, ignoring cam1: 0
+	The 2D particle number in a image is: 4
+	Number of matches = 1
+	Number of matches within tri-error = 0
+	Number of triangulated particles = 0
+	# of particles detected in outerloop1, ignoring cam2: 0
+	The 2D particle number in a image is: 4
+	Number of matches = 0
+	Number of matches within tri-error = 0
+	Number of triangulated particles = 0
+	# of particles detected in outerloop1, ignoring cam3: 0
+	Total particles (131)
+	Total particles after removing close particles (131)
+IPR time:3s
+Total particles:131
+linking short track time:0s
+Done.
+Pruning time:0s
+		No. of active Short tracks:	99 + 34 - (2 + 0 + 0 + 28) = 103
+		No. of active Long tracks:	10389 + 28 - 30 = 10387
+0+0+0
+		No. of exited tracks:		 = 122
+		No. of inactive Long tracks:	209 + 22 = 231
+	STB convergence phase tracking at frame: 21
+			Prediction: Prediction  time:0s
+Done.
+Shaking  time:10s
+Done.
+	The 2D particle number in a image is: 152
+	Number of matches = 139
+	Number of matches within tri-error = 139
+	Number of triangulated particles = 131
+	# of particles detected in outerloop0: 131
+	Total particles (131)
+	The 2D particle number in a image is: 19
+	Number of matches = 8
+	Number of matches within tri-error = 8
+	Number of triangulated particles = 6
+	# of particles detected in outerloop1: 6
+	Total particles (137)
+	The 2D particle number in a image is: 13
+	Number of matches = 3
+	Number of matches within tri-error = 3
+	Number of triangulated particles = 3
+	# of particles detected in outerloop2: 3
+	Total particles (140)
+	The 2D particle number in a image is: 10
+	Number of matches = 1
+	Number of matches within tri-error = 1
+	Number of triangulated particles = 1
+	# of particles detected in outerloop3: 1
+	Total particles (141)
+	The 2D particle number in a image is: 3
+	Number of matches = 1
+	Number of matches within tri-error = 0
+	Number of triangulated particles = 0
+	# of particles detected in outerloop0, ignoring cam0: 0
+	The 2D particle number in a image is: 9
+	Number of matches = 3
+	Number of matches within tri-error = 3
+	Number of triangulated particles = 3
+	# of particles detected in outerloop0, ignoring cam1: 2
+	The 2D particle number in a image is: 7
+	Number of matches = 0
+	Number of matches within tri-error = 0
+	Number of triangulated particles = 0
+	# of particles detected in outerloop0, ignoring cam2: 0
+	The 2D particle number in a image is: 7
+	Number of matches = 0
+	Number of matches within tri-error = 0
+	Number of triangulated particles = 0
+	# of particles detected in outerloop0, ignoring cam3: 0
+	Total particles (143)
+	The 2D particle number in a image is: 3
+	Number of matches = 1
+	Number of matches within tri-error = 0
+	Number of triangulated particles = 0
+	# of particles detected in outerloop1, ignoring cam0: 0
+	The 2D particle number in a image is: 7
+	Number of matches = 1
+	Number of matches within tri-error = 1
+	Number of triangulated particles = 1
+	# of particles detected in outerloop1, ignoring cam1: 1
+	The 2D particle number in a image is: 6
+	Number of matches = 1
+	Number of matches within tri-error = 0
+	Number of triangulated particles = 0
+	# of particles detected in outerloop1, ignoring cam2: 0
+	The 2D particle number in a image is: 6
+	Number of matches = 0
+	Number of matches within tri-error = 0
+	Number of triangulated particles = 0
+	# of particles detected in outerloop1, ignoring cam3: 0
+	Total particles (144)
+	Total particles after removing close particles (144)
+IPR time:4s
+Total particles:144
+linking short track time:0s
+Done.
+Pruning time:0s
+		No. of active Short tracks:	103 + 45 - (2 + 1 + 1 + 41) = 103
+		No. of active Long tracks:	10387 + 41 - 31 = 10397
+0+0+0
+		No. of exited tracks:		 = 132
+		No. of inactive Long tracks:	231 + 21 = 252
+	STB convergence phase tracking at frame: 22
+			Prediction: Prediction  time:0s
+Done.
+Shaking  time:10s
+Done.
+	The 2D particle number in a image is: 150
+	Number of matches = 139
+	Number of matches within tri-error = 139
+	Number of triangulated particles = 129
+	# of particles detected in outerloop0: 127
+	Total particles (127)
+	The 2D particle number in a image is: 20
+	Number of matches = 10
+	Number of matches within tri-error = 10
+	Number of triangulated particles = 10
+	# of particles detected in outerloop1: 9
+	Total particles (136)
+	The 2D particle number in a image is: 11
+	Number of matches = 5
+	Number of matches within tri-error = 5
+	Number of triangulated particles = 5
+	# of particles detected in outerloop2: 4
+	Total particles (140)
+	The 2D particle number in a image is: 7
+	Number of matches = 1
+	Number of matches within tri-error = 1
+	Number of triangulated particles = 1
+	# of particles detected in outerloop3: 1
+	Total particles (141)
+	The 2D particle number in a image is: 4
+	Number of matches = 1
+	Number of matches within tri-error = 1
+	Number of triangulated particles = 1
+	# of particles detected in outerloop0, ignoring cam0: 1
+	The 2D particle number in a image is: 6
+	Number of matches = 3
+	Number of matches within tri-error = 3
+	Number of triangulated particles = 3
+	# of particles detected in outerloop0, ignoring cam1: 2
+	The 2D particle number in a image is: 4
+	Number of matches = 0
+	Number of matches within tri-error = 0
+	Number of triangulated particles = 0
+	# of particles detected in outerloop0, ignoring cam2: 0
+	The 2D particle number in a image is: 4
+	Number of matches = 1
+	Number of matches within tri-error = 1
+	Number of triangulated particles = 1
+	# of particles detected in outerloop0, ignoring cam3: 1
+	Total particles (145)
+	The 2D particle number in a image is: 1
+	Number of matches = 0
+	Number of matches within tri-error = 0
+	Number of triangulated particles = 0
+	# of particles detected in outerloop1, ignoring cam0: 0
+	The 2D particle number in a image is: 3
+	Number of matches = 1
+	Number of matches within tri-error = 1
+	Number of triangulated particles = 1
+	# of particles detected in outerloop1, ignoring cam1: 1
+	The 2D particle number in a image is: 2
+	Number of matches = 0
+	Number of matches within tri-error = 0
+	Number of triangulated particles = 0
+	# of particles detected in outerloop1, ignoring cam2: 0
+	The 2D particle number in a image is: 2
+	Number of matches = 0
+	Number of matches within tri-error = 0
+	Number of triangulated particles = 0
+	# of particles detected in outerloop1, ignoring cam3: 0
+	Total particles (146)
+	Total particles after removing close particles (146)
+IPR time:5s
+Total particles:146
+linking short track time:0s
+Done.
+Pruning time:0s
+		No. of active Short tracks:	103 + 45 - (2 + 0 + 0 + 26) = 120
+		No. of active Long tracks:	10397 + 26 - 24 = 10399
+0+0+0
+		No. of exited tracks:		 = 137
+		No. of inactive Long tracks:	252 + 18 = 270
+	STB convergence phase tracking at frame: 23
+			Prediction: Prediction  time:0s
+Done.
+Shaking  time:8s
+Done.
+	The 2D particle number in a image is: 161
+	Number of matches = 150
+	Number of matches within tri-error = 150
+	Number of triangulated particles = 144
+	# of particles detected in outerloop0: 143
+	Total particles (143)
+	The 2D particle number in a image is: 16
+	Number of matches = 4
+	Number of matches within tri-error = 4
+	Number of triangulated particles = 4
+	# of particles detected in outerloop1: 3
+	Total particles (146)
+	The 2D particle number in a image is: 13
+	Number of matches = 3
+	Number of matches within tri-error = 3
+	Number of triangulated particles = 3
+	# of particles detected in outerloop2: 3
+	Total particles (149)
+	The 2D particle number in a image is: 10
+	Number of matches = 1
+	Number of matches within tri-error = 1
+	Number of triangulated particles = 1
+	# of particles detected in outerloop3: 1
+	Total particles (150)
+	The 2D particle number in a image is: 8
+	Number of matches = 3
+	Number of matches within tri-error = 2
+	Number of triangulated particles = 2
+	# of particles detected in outerloop0, ignoring cam0: 2
+	The 2D particle number in a image is: 9
+	Number of matches = 2
+	Number of matches within tri-error = 2
+	Number of triangulated particles = 1
+	# of particles detected in outerloop0, ignoring cam1: 1
+	The 2D particle number in a image is: 8
+	Number of matches = 3
+	Number of matches within tri-error = 2
+	Number of triangulated particles = 2
+	# of particles detected in outerloop0, ignoring cam2: 2
+	The 2D particle number in a image is: 6
+	Number of matches = 0
+	Number of matches within tri-error = 0
+	Number of triangulated particles = 0
+	# of particles detected in outerloop0, ignoring cam3: 0
+	Total particles (155)
+	The 2D particle number in a image is: 4
+	Number of matches = 1
+	Number of matches within tri-error = 0
+	Number of triangulated particles = 0
+	# of particles detected in outerloop1, ignoring cam0: 0
+	The 2D particle number in a image is: 6
+	Number of matches = 1
+	Number of matches within tri-error = 0
+	Number of triangulated particles = 0
+	# of particles detected in outerloop1, ignoring cam1: 0
+	The 2D particle number in a image is: 6
+	Number of matches = 2
+	Number of matches within tri-error = 0
+	Number of triangulated particles = 0
+	# of particles detected in outerloop1, ignoring cam2: 0
+	The 2D particle number in a image is: 6
+	Number of matches = 0
+	Number of matches within tri-error = 0
+	Number of triangulated particles = 0
+	# of particles detected in outerloop1, ignoring cam3: 0
+	Total particles (155)
+	Total particles after removing close particles (155)
+IPR time:6s
+Total particles:155
+linking short track time:0s
+Done.
+Pruning time:0s
+		No. of active Short tracks:	120 + 36 - (0 + 1 + 0 + 32) = 123
+		No. of active Long tracks:	10399 + 32 - 15 = 10416
+0+0+0
+		No. of exited tracks:		 = 142
+		No. of inactive Long tracks:	270 + 10 = 280
+	STB convergence phase tracking at frame: 24
+			Prediction: Prediction  time:0s
+Done.
+Shaking  time:12s
+Done.
+	The 2D particle number in a image is: 156
+	Number of matches = 141
+	Number of matches within tri-error = 141
+	Number of triangulated particles = 136
+	# of particles detected in outerloop0: 136
+	Total particles (136)
+	The 2D particle number in a image is: 18
+	Number of matches = 6
+	Number of matches within tri-error = 6
+	Number of triangulated particles = 6
+	# of particles detected in outerloop1: 6
+	Total particles (142)
+	The 2D particle number in a image is: 12
+	Number of matches = 2
+	Number of matches within tri-error = 2
+	Number of triangulated particles = 2
+	# of particles detected in outerloop2: 2
+	Total particles (144)
+	The 2D particle number in a image is: 10
+	Number of matches = 0
+	Number of matches within tri-error = 0
+	Number of triangulated particles = 0
+	# of particles detected in outerloop3: 0
+	Total particles (144)
+	The 2D particle number in a image is: 13
+	Number of matches = 1
+	Number of matches within tri-error = 0
+	Number of triangulated particles = 0
+	# of particles detected in outerloop0, ignoring cam0: 0
+	The 2D particle number in a image is: 10
+	Number of matches = 1
+	Number of matches within tri-error = 0
+	Number of triangulated particles = 0
+	# of particles detected in outerloop0, ignoring cam1: 0
+	The 2D particle number in a image is: 10
+	Number of matches = 4
+	Number of matches within tri-error = 3
+	Number of triangulated particles = 3
+	# of particles detected in outerloop0, ignoring cam2: 3
+	The 2D particle number in a image is: 7
+	Number of matches = 1
+	Number of matches within tri-error = 1
+	Number of triangulated particles = 1
+	# of particles detected in outerloop0, ignoring cam3: 1
+	Total particles (148)
+	The 2D particle number in a image is: 9
+	Number of matches = 2
+	Number of matches within tri-error = 0
+	Number of triangulated particles = 0
+	# of particles detected in outerloop1, ignoring cam0: 0
+	The 2D particle number in a image is: 6
+	Number of matches = 1
+	Number of matches within tri-error = 0
+	Number of triangulated particles = 0
+	# of particles detected in outerloop1, ignoring cam1: 0
+	The 2D particle number in a image is: 6
+	Number of matches = 1
+	Number of matches within tri-error = 0
+	Number of triangulated particles = 0
+	# of particles detected in outerloop1, ignoring cam2: 0
+	The 2D particle number in a image is: 6
+	Number of matches = 0
+	Number of matches within tri-error = 0
+	Number of triangulated particles = 0
+	# of particles detected in outerloop1, ignoring cam3: 0
+	Total particles (148)
+	Total particles after removing close particles (148)
+IPR time:5s
+Total particles:148
+linking short track time:0s
+Done.
+Pruning time:0s
+		No. of active Short tracks:	123 + 29 - (2 + 2 + 0 + 42) = 106
+		No. of active Long tracks:	10416 + 42 - 15 = 10443
+0+0+0
+		No. of exited tracks:		 = 150
+		No. of inactive Long tracks:	280 + 7 = 287
+	STB convergence phase tracking at frame: 25
+			Prediction: Prediction  time:0s
+Done.
+Shaking  time:8s
+Done.
+	The 2D particle number in a image is: 150
+	Number of matches = 123
+	Number of matches within tri-error = 123
+	Number of triangulated particles = 121
+	# of particles detected in outerloop0: 120
+	Total particles (120)
+	The 2D particle number in a image is: 29
+	Number of matches = 11
+	Number of matches within tri-error = 11
+	Number of triangulated particles = 11
+	# of particles detected in outerloop1: 11
+	Total particles (131)
+	The 2D particle number in a image is: 18
+	Number of matches = 4
+	Number of matches within tri-error = 4
+	Number of triangulated particles = 4
+	# of particles detected in outerloop2: 4
+	Total particles (135)
+	The 2D particle number in a image is: 14
+	Number of matches = 1
+	Number of matches within tri-error = 1
+	Number of triangulated particles = 1
+	# of particles detected in outerloop3: 1
+	Total particles (136)
+	The 2D particle number in a image is: 6
+	Number of matches = 1
+	Number of matches within tri-error = 1
+	Number of triangulated particles = 1
+	# of particles detected in outerloop0, ignoring cam0: 1
+	The 2D particle number in a image is: 13
+	Number of matches = 4
+	Number of matches within tri-error = 3
+	Number of triangulated particles = 3
+	# of particles detected in outerloop0, ignoring cam1: 1
+	The 2D particle number in a image is: 12
+	Number of matches = 2
+	Number of matches within tri-error = 2
+	Number of triangulated particles = 2
+	# of particles detected in outerloop0, ignoring cam2: 2
+	The 2D particle number in a image is: 10
+	Number of matches = 2
+	Number of matches within tri-error = 1
+	Number of triangulated particles = 1
+	# of particles detected in outerloop0, ignoring cam3: 1
+	Total particles (141)
+	The 2D particle number in a image is: 2
+	Number of matches = 0
+	Number of matches within tri-error = 0
+	Number of triangulated particles = 0
+	# of particles detected in outerloop1, ignoring cam0: 0
+	The 2D particle number in a image is: 9
+	Number of matches = 3
+	Number of matches within tri-error = 2
+	Number of triangulated particles = 2
+	# of particles detected in outerloop1, ignoring cam1: 2
+	The 2D particle number in a image is: 7
+	Number of matches = 0
+	Number of matches within tri-error = 0
+	Number of triangulated particles = 0
+	# of particles detected in outerloop1, ignoring cam2: 0
+	The 2D particle number in a image is: 7
+	Number of matches = 1
+	Number of matches within tri-error = 0
+	Number of triangulated particles = 0
+	# of particles detected in outerloop1, ignoring cam3: 0
+	Total particles (143)
+	Total particles after removing close particles (143)
+IPR time:9s
+Total particles:143
+linking short track time:0s
+Done.
+Pruning time:0s
+		No. of active Short tracks:	106 + 37 - (0 + 0 + 0 + 43) = 100
+		No. of active Long tracks:	10443 + 43 - 24 = 10462
+0+0+0
+		No. of exited tracks:		 = 158
+		No. of inactive Long tracks:	287 + 16 = 303
+	STB convergence phase tracking at frame: 26
+			Prediction: Prediction  time:0s
+Done.
+Shaking  time:10s
+Done.
+	The 2D particle number in a image is: 141
+	Number of matches = 129
+	Number of matches within tri-error = 129
+	Number of triangulated particles = 122
+	# of particles detected in outerloop0: 122
+	Total particles (122)
+	The 2D particle number in a image is: 17
+	Number of matches = 6
+	Number of matches within tri-error = 6
+	Number of triangulated particles = 6
+	# of particles detected in outerloop1: 6
+	Total particles (128)
+	The 2D particle number in a image is: 11
+	Number of matches = 2
+	Number of matches within tri-error = 2
+	Number of triangulated particles = 2
+	# of particles detected in outerloop2: 2
+	Total particles (130)
+	The 2D particle number in a image is: 9
+	Number of matches = 0
+	Number of matches within tri-error = 0
+	Number of triangulated particles = 0
+	# of particles detected in outerloop3: 0
+	Total particles (130)
+	The 2D particle number in a image is: 5
+	Number of matches = 1
+	Number of matches within tri-error = 1
+	Number of triangulated particles = 1
+	# of particles detected in outerloop0, ignoring cam0: 1
+	The 2D particle number in a image is: 9
+	Number of matches = 4
+	Number of matches within tri-error = 3
+	Number of triangulated particles = 3
+	# of particles detected in outerloop0, ignoring cam1: 2
+	The 2D particle number in a image is: 7
+	Number of matches = 3
+	Number of matches within tri-error = 3
+	Number of triangulated particles = 2
+	# of particles detected in outerloop0, ignoring cam2: 1
+	The 2D particle number in a image is: 6
+	Number of matches = 1
+	Number of matches within tri-error = 1
+	Number of triangulated particles = 1
+	# of particles detected in outerloop0, ignoring cam3: 1
+	Total particles (135)
+	The 2D particle number in a image is: 2
+	Number of matches = 0
+	Number of matches within tri-error = 0
+	Number of triangulated particles = 0
+	# of particles detected in outerloop1, ignoring cam0: 0
+	The 2D particle number in a image is: 5
+	Number of matches = 2
+	Number of matches within tri-error = 1
+	Number of triangulated particles = 1
+	# of particles detected in outerloop1, ignoring cam1: 1
+	The 2D particle number in a image is: 4
+	Number of matches = 2
+	Number of matches within tri-error = 2
+	Number of triangulated particles = 1
+	# of particles detected in outerloop1, ignoring cam2: 1
+	The 2D particle number in a image is: 3
+	Number of matches = 0
+	Number of matches within tri-error = 0
+	Number of triangulated particles = 0
+	# of particles detected in outerloop1, ignoring cam3: 0
+	Total particles (137)
+	Total particles after removing close particles (137)
+IPR time:6s
+Total particles:137
+linking short track time:0s
+Done.
+Pruning time:0s
+		No. of active Short tracks:	100 + 38 - (1 + 0 + 0 + 34) = 103
+		No. of active Long tracks:	10462 + 34 - 29 = 10467
+0+0+0
+		No. of exited tracks:		 = 165
+		No. of inactive Long tracks:	303 + 22 = 325
+	STB convergence phase tracking at frame: 27
+			Prediction: Prediction  time:0s
+Done.
+Shaking  time:10s
+Done.
+	The 2D particle number in a image is: 149
+	Number of matches = 136
+	Number of matches within tri-error = 135
+	Number of triangulated particles = 129
+	# of particles detected in outerloop0: 128
+	Total particles (128)
+	The 2D particle number in a image is: 20
+	Number of matches = 7
+	Number of matches within tri-error = 7
+	Number of triangulated particles = 6
+	# of particles detected in outerloop1: 5
+	Total particles (133)
+	The 2D particle number in a image is: 15
+	Number of matches = 5
+	Number of matches within tri-error = 5
+	Number of triangulated particles = 5
+	# of particles detected in outerloop2: 4
+	Total particles (137)
+	The 2D particle number in a image is: 11
+	Number of matches = 2
+	Number of matches within tri-error = 2
+	Number of triangulated particles = 2
+	# of particles detected in outerloop3: 2
+	Total particles (139)
+	The 2D particle number in a image is: 8
+	Number of matches = 1
+	Number of matches within tri-error = 1
+	Number of triangulated particles = 1
+	# of particles detected in outerloop0, ignoring cam0: 1
+	The 2D particle number in a image is: 9
+	Number of matches = 4
+	Number of matches within tri-error = 2
+	Number of triangulated particles = 2
+	# of particles detected in outerloop0, ignoring cam1: 1
+	The 2D particle number in a image is: 8
+	Number of matches = 3
+	Number of matches within tri-error = 2
+	Number of triangulated particles = 2
+	# of particles detected in outerloop0, ignoring cam2: 1
+	The 2D particle number in a image is: 7
+	Number of matches = 0
+	Number of matches within tri-error = 0
+	Number of triangulated particles = 0
+	# of particles detected in outerloop0, ignoring cam3: 0
+	Total particles (142)
+	The 2D particle number in a image is: 6
+	Number of matches = 0
+	Number of matches within tri-error = 0
+	Number of triangulated particles = 0
+	# of particles detected in outerloop1, ignoring cam0: 0
+	The 2D particle number in a image is: 7
+	Number of matches = 3
+	Number of matches within tri-error = 1
+	Number of triangulated particles = 1
+	# of particles detected in outerloop1, ignoring cam1: 1
+	The 2D particle number in a image is: 6
+	Number of matches = 2
+	Number of matches within tri-error = 1
+	Number of triangulated particles = 1
+	# of particles detected in outerloop1, ignoring cam2: 1
+	The 2D particle number in a image is: 5
+	Number of matches = 0
+	Number of matches within tri-error = 0
+	Number of triangulated particles = 0
+	# of particles detected in outerloop1, ignoring cam3: 0
+	Total particles (144)
+	Total particles after removing close particles (144)
+IPR time:6s
+Total particles:144
+linking short track time:0s
+Done.
+Pruning time:0s
+		No. of active Short tracks:	103 + 43 - (2 + 0 + 0 + 29) = 115
+		No. of active Long tracks:	10467 + 29 - 21 = 10475
+0+0+0
+		No. of exited tracks:		 = 172
+		No. of inactive Long tracks:	325 + 14 = 339
+	STB convergence phase tracking at frame: 28
+			Prediction: Prediction  time:0s
+Done.
+Shaking  time:9s
+Done.
+	The 2D particle number in a image is: 153
+	Number of matches = 140
+	Number of matches within tri-error = 140
+	Number of triangulated particles = 135
+	# of particles detected in outerloop0: 134
+	Total particles (134)
+	The 2D particle number in a image is: 18
+	Number of matches = 6
+	Number of matches within tri-error = 6
+	Number of triangulated particles = 5
+	# of particles detected in outerloop1: 4
+	Total particles (138)
+	The 2D particle number in a image is: 14
+	Number of matches = 2
+	Number of matches within tri-error = 2
+	Number of triangulated particles = 2
+	# of particles detected in outerloop2: 1
+	Total particles (139)
+	The 2D particle number in a image is: 13
+	Number of matches = 1
+	Number of matches within tri-error = 1
+	Number of triangulated particles = 1
+	# of particles detected in outerloop3: 1
+	Total particles (140)
+	The 2D particle number in a image is: 11
+	Number of matches = 2
+	Number of matches within tri-error = 2
+	Number of triangulated particles = 2
+	# of particles detected in outerloop0, ignoring cam0: 2
+	The 2D particle number in a image is: 12
+	Number of matches = 4
+	Number of matches within tri-error = 3
+	Number of triangulated particles = 3
+	# of particles detected in outerloop0, ignoring cam1: 2
+	The 2D particle number in a image is: 10
+	Number of matches = 2
+	Number of matches within tri-error = 2
+	Number of triangulated particles = 2
+	# of particles detected in outerloop0, ignoring cam2: 2
+	The 2D particle number in a image is: 8
+	Number of matches = 2
+	Number of matches within tri-error = 0
+	Number of triangulated particles = 0
+	# of particles detected in outerloop0, ignoring cam3: 0
+	Total particles (146)
+	The 2D particle number in a image is: 7
+	Number of matches = 0
+	Number of matches within tri-error = 0
+	Number of triangulated particles = 0
+	# of particles detected in outerloop1, ignoring cam0: 0
+	The 2D particle number in a image is: 8
+	Number of matches = 2
+	Number of matches within tri-error = 1
+	Number of triangulated particles = 1
+	# of particles detected in outerloop1, ignoring cam1: 1
+	The 2D particle number in a image is: 7
+	Number of matches = 0
+	Number of matches within tri-error = 0
+	Number of triangulated particles = 0
+	# of particles detected in outerloop1, ignoring cam2: 0
+	The 2D particle number in a image is: 7
+	Number of matches = 3
+	Number of matches within tri-error = 0
+	Number of triangulated particles = 0
+	# of particles detected in outerloop1, ignoring cam3: 0
+	Total particles (147)
+	Total particles after removing close particles (147)
+IPR time:7s
+Total particles:147
+linking short track time:0s
+Done.
+Pruning time:0s
+		No. of active Short tracks:	115 + 34 - (0 + 0 + 2 + 34) = 113
+		No. of active Long tracks:	10475 + 34 - 33 = 10476
+0+0+0
+		No. of exited tracks:		 = 181
+		No. of inactive Long tracks:	339 + 22 = 361
+	STB convergence phase tracking at frame: 29
+			Prediction: Prediction  time:0s
+Done.
+Shaking  time:11s
+Done.
+	The 2D particle number in a image is: 151
+	Number of matches = 135
+	Number of matches within tri-error = 135
+	Number of triangulated particles = 129
+	# of particles detected in outerloop0: 129
+	Total particles (129)
+	The 2D particle number in a image is: 22
+	Number of matches = 7
+	Number of matches within tri-error = 7
+	Number of triangulated particles = 5
+	# of particles detected in outerloop1: 5
+	Total particles (134)
+	The 2D particle number in a image is: 17
+	Number of matches = 5
+	Number of matches within tri-error = 5
+	Number of triangulated particles = 5
+	# of particles detected in outerloop2: 5
+	Total particles (139)
+	The 2D particle number in a image is: 12
+	Number of matches = 0
+	Number of matches within tri-error = 0
+	Number of triangulated particles = 0
+	# of particles detected in outerloop3: 0
+	Total particles (139)
+	The 2D particle number in a image is: 10
+	Number of matches = 1
+	Number of matches within tri-error = 0
+	Number of triangulated particles = 0
+	# of particles detected in outerloop0, ignoring cam0: 0
+	The 2D particle number in a image is: 12
+	Number of matches = 4
+	Number of matches within tri-error = 3
+	Number of triangulated particles = 3
+	# of particles detected in outerloop0, ignoring cam1: 2
+	The 2D particle number in a image is: 10
+	Number of matches = 1
+	Number of matches within tri-error = 1
+	Number of triangulated particles = 1
+	# of particles detected in outerloop0, ignoring cam2: 1
+	The 2D particle number in a image is: 9
+	Number of matches = 5
+	Number of matches within tri-error = 4
+	Number of triangulated particles = 4
+	# of particles detected in outerloop0, ignoring cam3: 2
+	Total particles (144)
+	The 2D particle number in a image is: 7
+	Number of matches = 1
+	Number of matches within tri-error = 0
+	Number of triangulated particles = 0
+	# of particles detected in outerloop1, ignoring cam0: 0
+	The 2D particle number in a image is: 7
+	Number of matches = 2
+	Number of matches within tri-error = 1
+	Number of triangulated particles = 1
+	# of particles detected in outerloop1, ignoring cam1: 1
+	The 2D particle number in a image is: 6
+	Number of matches = 1
+	Number of matches within tri-error = 1
+	Number of triangulated particles = 1
+	# of particles detected in outerloop1, ignoring cam2: 1
+	The 2D particle number in a image is: 5
+	Number of matches = 3
+	Number of matches within tri-error = 2
+	Number of triangulated particles = 2
+	# of particles detected in outerloop1, ignoring cam3: 1
+	Total particles (147)
+	Total particles after removing close particles (147)
+IPR time:4s
+Total particles:147
+linking short track time:0s
+Done.
+Pruning time:0s
+		No. of active Short tracks:	113 + 37 - (1 + 1 + 1 + 35) = 112
+		No. of active Long tracks:	10476 + 35 - 20 = 10491
+0+0+0
+		No. of exited tracks:		 = 185
+		No. of inactive Long tracks:	361 + 15 = 376
+	STB convergence phase tracking at frame: 30
+			Prediction: Prediction  time:0s
+Done.
+Shaking  time:9s
+Done.
+	The 2D particle number in a image is: 146
+	Number of matches = 127
+	Number of matches within tri-error = 127
+	Number of triangulated particles = 123
+	# of particles detected in outerloop0: 120
+	Total particles (120)
+	The 2D particle number in a image is: 24
+	Number of matches = 8
+	Number of matches within tri-error = 8
+	Number of triangulated particles = 8
+	# of particles detected in outerloop1: 7
+	Total particles (127)
+	The 2D particle number in a image is: 17
+	Number of matches = 5
+	Number of matches within tri-error = 5
+	Number of triangulated particles = 5
+	# of particles detected in outerloop2: 4
+	Total particles (131)
+	The 2D particle number in a image is: 13
+	Number of matches = 1
+	Number of matches within tri-error = 1
+	Number of triangulated particles = 1
+	# of particles detected in outerloop3: 1
+	Total particles (132)
+	The 2D particle number in a image is: 11
+	Number of matches = 3
+	Number of matches within tri-error = 1
+	Number of triangulated particles = 1
+	# of particles detected in outerloop0, ignoring cam0: 1
+	The 2D particle number in a image is: 12
+	Number of matches = 3
+	Number of matches within tri-error = 3
+	Number of triangulated particles = 3
+	# of particles detected in outerloop0, ignoring cam1: 3
+	The 2D particle number in a image is: 9
+	Number of matches = 3
+	Number of matches within tri-error = 3
+	Number of triangulated particles = 3
+	# of particles detected in outerloop0, ignoring cam2: 3
+	The 2D particle number in a image is: 6
+	Number of matches = 2
+	Number of matches within tri-error = 2
+	Number of triangulated particles = 2
+	# of particles detected in outerloop0, ignoring cam3: 2
+	Total particles (141)
+	The 2D particle number in a image is: 5
+	Number of matches = 3
+	Number of matches within tri-error = 0
+	Number of triangulated particles = 0
+	# of particles detected in outerloop1, ignoring cam0: 0
+	The 2D particle number in a image is: 4
+	Number of matches = 1
+	Number of matches within tri-error = 0
+	Number of triangulated particles = 0
+	# of particles detected in outerloop1, ignoring cam1: 0
+	The 2D particle number in a image is: 4
+	Number of matches = 1
+	Number of matches within tri-error = 1
+	Number of triangulated particles = 1
+	# of particles detected in outerloop1, ignoring cam2: 1
+	The 2D particle number in a image is: 3
+	Number of matches = 0
+	Number of matches within tri-error = 0
+	Number of triangulated particles = 0
+	# of particles detected in outerloop1, ignoring cam3: 0
+	Total particles (142)
+	Total particles after removing close particles (142)
+IPR time:8s
+Total particles:142
+linking short track time:0s
+Done.
+Pruning time:0s
+		No. of active Short tracks:	112 + 34 - (2 + 2 + 0 + 42) = 100
+		No. of active Long tracks:	10491 + 42 - 26 = 10507
+0+0+0
+		No. of exited tracks:		 = 193
+		No. of inactive Long tracks:	376 + 18 = 394
+	STB convergence phase tracking at frame: 31
+			Prediction: Prediction  time:0s
+Done.
+Shaking  time:9s
+Done.
+	The 2D particle number in a image is: 137
+	Number of matches = 126
+	Number of matches within tri-error = 126
+	Number of triangulated particles = 122
+	# of particles detected in outerloop0: 121
+	Total particles (121)
+	The 2D particle number in a image is: 15
+	Number of matches = 7
+	Number of matches within tri-error = 7
+	Number of triangulated particles = 7
+	# of particles detected in outerloop1: 7
+	Total particles (128)
+	The 2D particle number in a image is: 8
+	Number of matches = 0
+	Number of matches within tri-error = 0
+	Number of triangulated particles = 0
+	# of particles detected in outerloop2: 0
+	Total particles (128)
+	The 2D particle number in a image is: 8
+	Number of matches = 1
+	Number of matches within tri-error = 1
+	Number of triangulated particles = 1
+	# of particles detected in outerloop3: 1
+	Total particles (129)
+	The 2D particle number in a image is: 6
+	Number of matches = 0
+	Number of matches within tri-error = 0
+	Number of triangulated particles = 0
+	# of particles detected in outerloop0, ignoring cam0: 0
+	The 2D particle number in a image is: 7
+	Number of matches = 1
+	Number of matches within tri-error = 1
+	Number of triangulated particles = 1
+	# of particles detected in outerloop0, ignoring cam1: 1
+	The 2D particle number in a image is: 6
+	Number of matches = 3
+	Number of matches within tri-error = 3
+	Number of triangulated particles = 3
+	# of particles detected in outerloop0, ignoring cam2: 2
+	The 2D particle number in a image is: 4
+	Number of matches = 0
+	Number of matches within tri-error = 0
+	Number of triangulated particles = 0
+	# of particles detected in outerloop0, ignoring cam3: 0
+	Total particles (132)
+	The 2D particle number in a image is: 4
+	Number of matches = 0
+	Number of matches within tri-error = 0
+	Number of triangulated particles = 0
+	# of particles detected in outerloop1, ignoring cam0: 0
+	The 2D particle number in a image is: 4
+	Number of matches = 0
+	Number of matches within tri-error = 0
+	Number of triangulated particles = 0
+	# of particles detected in outerloop1, ignoring cam1: 0
+	The 2D particle number in a image is: 4
+	Number of matches = 1
+	Number of matches within tri-error = 1
+	Number of triangulated particles = 1
+	# of particles detected in outerloop1, ignoring cam2: 1
+	The 2D particle number in a image is: 3
+	Number of matches = 0
+	Number of matches within tri-error = 0
+	Number of triangulated particles = 0
+	# of particles detected in outerloop1, ignoring cam3: 0
+	Total particles (133)
+	Total particles after removing close particles (133)
+IPR time:4s
+Total particles:133
+linking short track time:0s
+Done.
+Pruning time:0s
+		No. of active Short tracks:	100 + 35 - (1 + 0 + 1 + 30) = 103
+		No. of active Long tracks:	10507 + 30 - 28 = 10509
+0+0+0
+		No. of exited tracks:		 = 199
+		No. of inactive Long tracks:	394 + 21 = 415
+	STB convergence phase tracking at frame: 32
+			Prediction: Prediction  time:0s
+Done.
+Shaking  time:11s
+Done.
+	The 2D particle number in a image is: 128
+	Number of matches = 114
+	Number of matches within tri-error = 114
+	Number of triangulated particles = 110
+	# of particles detected in outerloop0: 109
+	Total particles (109)
+	The 2D particle number in a image is: 18
+	Number of matches = 7
+	Number of matches within tri-error = 7
+	Number of triangulated particles = 7
+	# of particles detected in outerloop1: 6
+	Total particles (115)
+	The 2D particle number in a image is: 12
+	Number of matches = 3
+	Number of matches within tri-error = 3
+	Number of triangulated particles = 3
+	# of particles detected in outerloop2: 2
+	Total particles (117)
+	The 2D particle number in a image is: 10
+	Number of matches = 1
+	Number of matches within tri-error = 1
+	Number of triangulated particles = 1
+	# of particles detected in outerloop3: 1
+	Total particles (118)
+	The 2D particle number in a image is: 7
+	Number of matches = 1
+	Number of matches within tri-error = 1
+	Number of triangulated particles = 1
+	# of particles detected in outerloop0, ignoring cam0: 1
+	The 2D particle number in a image is: 9
+	Number of matches = 3
+	Number of matches within tri-error = 2
+	Number of triangulated particles = 2
+	# of particles detected in outerloop0, ignoring cam1: 2
+	The 2D particle number in a image is: 7
+	Number of matches = 4
+	Number of matches within tri-error = 4
+	Number of triangulated particles = 4
+	# of particles detected in outerloop0, ignoring cam2: 3
+	The 2D particle number in a image is: 4
+	Number of matches = 1
+	Number of matches within tri-error = 0
+	Number of triangulated particles = 0
+	# of particles detected in outerloop0, ignoring cam3: 0
+	Total particles (124)
+	The 2D particle number in a image is: 3
+	Number of matches = 1
+	Number of matches within tri-error = 1
+	Number of triangulated particles = 1
+	# of particles detected in outerloop1, ignoring cam0: 1
+	The 2D particle number in a image is: 4
+	Number of matches = 1
+	Number of matches within tri-error = 0
+	Number of triangulated particles = 0
+	# of particles detected in outerloop1, ignoring cam1: 0
+	The 2D particle number in a image is: 4
+	Number of matches = 1
+	Number of matches within tri-error = 1
+	Number of triangulated particles = 1
+	# of particles detected in outerloop1, ignoring cam2: 1
+	The 2D particle number in a image is: 3
+	Number of matches = 1
+	Number of matches within tri-error = 0
+	Number of triangulated particles = 0
+	# of particles detected in outerloop1, ignoring cam3: 0
+	Total particles (126)
+	Total particles after removing close particles (126)
+IPR time:6s
+Total particles:126
+linking short track time:0s
+Done.
+Pruning time:0s
+		No. of active Short tracks:	103 + 24 - (0 + 0 + 1 + 34) = 92
+		No. of active Long tracks:	10509 + 34 - 19 = 10524
+0+0+0
+		No. of exited tracks:		 = 203
+		No. of inactive Long tracks:	415 + 15 = 430
+	STB convergence phase tracking at frame: 33
+			Prediction: Prediction  time:0s
+Done.
+Shaking  time:12s
+Done.
+	The 2D particle number in a image is: 131
+	Number of matches = 113
+	Number of matches within tri-error = 113
+	Number of triangulated particles = 110
+	# of particles detected in outerloop0: 110
+	Total particles (110)
+	The 2D particle number in a image is: 20
+	Number of matches = 5
+	Number of matches within tri-error = 5
+	Number of triangulated particles = 5
+	# of particles detected in outerloop1: 5
+	Total particles (115)
+	The 2D particle number in a image is: 15
+	Number of matches = 2
+	Number of matches within tri-error = 2
+	Number of triangulated particles = 2
+	# of particles detected in outerloop2: 2
+	Total particles (117)
+	The 2D particle number in a image is: 13
+	Number of matches = 1
+	Number of matches within tri-error = 1
+	Number of triangulated particles = 1
+	# of particles detected in outerloop3: 1
+	Total particles (118)
+	The 2D particle number in a image is: 10
+	Number of matches = 4
+	Number of matches within tri-error = 3
+	Number of triangulated particles = 3
+	# of particles detected in outerloop0, ignoring cam0: 3
+	The 2D particle number in a image is: 11
+	Number of matches = 5
+	Number of matches within tri-error = 5
+	Number of triangulated particles = 4
+	# of particles detected in outerloop0, ignoring cam1: 1
+	The 2D particle number in a image is: 10
+	Number of matches = 2
+	Number of matches within tri-error = 2
+	Number of triangulated particles = 2
+	# of particles detected in outerloop0, ignoring cam2: 2
+	The 2D particle number in a image is: 8
+	Number of matches = 1
+	Number of matches within tri-error = 1
+	Number of triangulated particles = 1
+	# of particles detected in outerloop0, ignoring cam3: 1
+	Total particles (125)
+	The 2D particle number in a image is: 4
+	Number of matches = 1
+	Number of matches within tri-error = 0
+	Number of triangulated particles = 0
+	# of particles detected in outerloop1, ignoring cam0: 0
+	The 2D particle number in a image is: 7
+	Number of matches = 4
+	Number of matches within tri-error = 4
+	Number of triangulated particles = 3
+	# of particles detected in outerloop1, ignoring cam1: 2
+	The 2D particle number in a image is: 5
+	Number of matches = 0
+	Number of matches within tri-error = 0
+	Number of triangulated particles = 0
+	# of particles detected in outerloop1, ignoring cam2: 0
+	The 2D particle number in a image is: 5
+	Number of matches = 0
+	Number of matches within tri-error = 0
+	Number of triangulated particles = 0
+	# of particles detected in outerloop1, ignoring cam3: 0
+	Total particles (127)
+	Total particles after removing close particles (127)
+IPR time:8s
+Total particles:127
+linking short track time:0s
+Done.
+Pruning time:0s
+		No. of active Short tracks:	92 + 38 - (2 + 1 + 0 + 33) = 94
+		No. of active Long tracks:	10524 + 33 - 28 = 10529
+0+0+0
+		No. of exited tracks:		 = 210
+		No. of inactive Long tracks:	430 + 20 = 450
+	STB convergence phase tracking at frame: 34
+			Prediction: Prediction  time:0s
+Done.
+Shaking  time:9s
+Done.
+	The 2D particle number in a image is: 130
+	Number of matches = 108
+	Number of matches within tri-error = 108
+	Number of triangulated particles = 105
+	# of particles detected in outerloop0: 103
+	Total particles (103)
+	The 2D particle number in a image is: 27
+	Number of matches = 12
+	Number of matches within tri-error = 12
+	Number of triangulated particles = 11
+	# of particles detected in outerloop1: 9
+	Total particles (112)
+	The 2D particle number in a image is: 18
+	Number of matches = 5
+	Number of matches within tri-error = 5
+	Number of triangulated particles = 5
+	# of particles detected in outerloop2: 3
+	Total particles (115)
+	The 2D particle number in a image is: 15
+	Number of matches = 2
+	Number of matches within tri-error = 2
+	Number of triangulated particles = 2
+	# of particles detected in outerloop3: 2
+	Total particles (117)
+	The 2D particle number in a image is: 9
+	Number of matches = 0
+	Number of matches within tri-error = 0
+	Number of triangulated particles = 0
+	# of particles detected in outerloop0, ignoring cam0: 0
+	The 2D particle number in a image is: 13
+	Number of matches = 1
+	Number of matches within tri-error = 1
+	Number of triangulated particles = 1
+	# of particles detected in outerloop0, ignoring cam1: 1
+	The 2D particle number in a image is: 12
+	Number of matches = 2
+	Number of matches within tri-error = 2
+	Number of triangulated particles = 2
+	# of particles detected in outerloop0, ignoring cam2: 1
+	The 2D particle number in a image is: 11
+	Number of matches = 2
+	Number of matches within tri-error = 2
+	Number of triangulated particles = 2
+	# of particles detected in outerloop0, ignoring cam3: 1
+	Total particles (120)
+	The 2D particle number in a image is: 7
+	Number of matches = 2
+	Number of matches within tri-error = 0
+	Number of triangulated particles = 0
+	# of particles detected in outerloop1, ignoring cam0: 0
+	The 2D particle number in a image is: 10
+	Number of matches = 0
+	Number of matches within tri-error = 0
+	Number of triangulated particles = 0
+	# of particles detected in outerloop1, ignoring cam1: 0
+	The 2D particle number in a image is: 10
+	Number of matches = 1
+	Number of matches within tri-error = 1
+	Number of triangulated particles = 1
+	# of particles detected in outerloop1, ignoring cam2: 1
+	The 2D particle number in a image is: 9
+	Number of matches = 2
+	Number of matches within tri-error = 1
+	Number of triangulated particles = 1
+	# of particles detected in outerloop1, ignoring cam3: 1
+	Total particles (122)
+	Total particles after removing close particles (122)
+IPR time:8s
+Total particles:122
+linking short track time:0s
+Done.
+Pruning time:0s
+		No. of active Short tracks:	94 + 30 - (1 + 1 + 0 + 34) = 88
+		No. of active Long tracks:	10529 + 34 - 17 = 10546
+0+0+0
+		No. of exited tracks:		 = 215
+		No. of inactive Long tracks:	450 + 12 = 462
+	STB convergence phase tracking at frame: 35
+			Prediction: Prediction  time:0s
+Done.
+Shaking  time:9s
+Done.
+	The 2D particle number in a image is: 130
+	Number of matches = 116
+	Number of matches within tri-error = 116
+	Number of triangulated particles = 106
+	# of particles detected in outerloop0: 106
+	Total particles (106)
+	The 2D particle number in a image is: 23
+	Number of matches = 5
+	Number of matches within tri-error = 5
+	Number of triangulated particles = 5
+	# of particles detected in outerloop1: 5
+	Total particles (111)
+	The 2D particle number in a image is: 18
+	Number of matches = 5
+	Number of matches within tri-error = 5
+	Number of triangulated particles = 5
+	# of particles detected in outerloop2: 5
+	Total particles (116)
+	The 2D particle number in a image is: 13
+	Number of matches = 0
+	Number of matches within tri-error = 0
+	Number of triangulated particles = 0
+	# of particles detected in outerloop3: 0
+	Total particles (116)
+	The 2D particle number in a image is: 8
+	Number of matches = 1
+	Number of matches within tri-error = 1
+	Number of triangulated particles = 1
+	# of particles detected in outerloop0, ignoring cam0: 1
+	The 2D particle number in a image is: 13
+	Number of matches = 2
+	Number of matches within tri-error = 1
+	Number of triangulated particles = 1
+	# of particles detected in outerloop0, ignoring cam1: 1
+	The 2D particle number in a image is: 12
+	Number of matches = 2
+	Number of matches within tri-error = 2
+	Number of triangulated particles = 2
+	# of particles detected in outerloop0, ignoring cam2: 2
+	The 2D particle number in a image is: 10
+	Number of matches = 4
+	Number of matches within tri-error = 3
+	Number of triangulated particles = 3
+	# of particles detected in outerloop0, ignoring cam3: 1
+	Total particles (121)
+	The 2D particle number in a image is: 4
+	Number of matches = 1
+	Number of matches within tri-error = 1
+	Number of triangulated particles = 1
+	# of particles detected in outerloop1, ignoring cam0: 1
+	The 2D particle number in a image is: 9
+	Number of matches = 2
+	Number of matches within tri-error = 0
+	Number of triangulated particles = 0
+	# of particles detected in outerloop1, ignoring cam1: 0
+	The 2D particle number in a image is: 9
+	Number of matches = 0
+	Number of matches within tri-error = 0
+	Number of triangulated particles = 0
+	# of particles detected in outerloop1, ignoring cam2: 0
+	The 2D particle number in a image is: 9
+	Number of matches = 3
+	Number of matches within tri-error = 2
+	Number of triangulated particles = 2
+	# of particles detected in outerloop1, ignoring cam3: 1
+	Total particles (123)
+	Total particles after removing close particles (123)
+IPR time:6s
+Total particles:123
+linking short track time:0s
+Done.
+Pruning time:0s
+		No. of active Short tracks:	88 + 39 - (3 + 1 + 0 + 21) = 102
+		No. of active Long tracks:	10546 + 21 - 17 = 10550
+0+0+0
+		No. of exited tracks:		 = 218
+		No. of inactive Long tracks:	462 + 14 = 476
+	STB convergence phase tracking at frame: 36
+			Prediction: Prediction  time:0s
+Done.
+Shaking  time:12s
+Done.
+	The 2D particle number in a image is: 133
+	Number of matches = 111
+	Number of matches within tri-error = 110
+	Number of triangulated particles = 106
+	# of particles detected in outerloop0: 105
+	Total particles (105)
+	The 2D particle number in a image is: 28
+	Number of matches = 7
+	Number of matches within tri-error = 7
+	Number of triangulated particles = 7
+	# of particles detected in outerloop1: 7
+	Total particles (112)
+	The 2D particle number in a image is: 21
+	Number of matches = 3
+	Number of matches within tri-error = 3
+	Number of triangulated particles = 3
+	# of particles detected in outerloop2: 3
+	Total particles (115)
+	The 2D particle number in a image is: 18
+	Number of matches = 2
+	Number of matches within tri-error = 2
+	Number of triangulated particles = 2
+	# of particles detected in outerloop3: 2
+	Total particles (117)
+	The 2D particle number in a image is: 10
+	Number of matches = 3
+	Number of matches within tri-error = 3
+	Number of triangulated particles = 3
+	# of particles detected in outerloop0, ignoring cam0: 2
+	The 2D particle number in a image is: 16
+	Number of matches = 9
+	Number of matches within tri-error = 7
+	Number of triangulated particles = 7
+	# of particles detected in outerloop0, ignoring cam1: 5
+	The 2D particle number in a image is: 11
+	Number of matches = 2
+	Number of matches within tri-error = 2
+	Number of triangulated particles = 2
+	# of particles detected in outerloop0, ignoring cam2: 2
+	The 2D particle number in a image is: 9
+	Number of matches = 4
+	Number of matches within tri-error = 4
+	Number of triangulated particles = 4
+	# of particles detected in outerloop0, ignoring cam3: 2
+	Total particles (128)
+	The 2D particle number in a image is: 4
+	Number of matches = 1
+	Number of matches within tri-error = 1
+	Number of triangulated particles = 1
+	# of particles detected in outerloop1, ignoring cam0: 1
+	The 2D particle number in a image is: 7
+	Number of matches = 4
+	Number of matches within tri-error = 2
+	Number of triangulated particles = 2
+	# of particles detected in outerloop1, ignoring cam1: 2
+	The 2D particle number in a image is: 5
+	Number of matches = 0
+	Number of matches within tri-error = 0
+	Number of triangulated particles = 0
+	# of particles detected in outerloop1, ignoring cam2: 0
+	The 2D particle number in a image is: 5
+	Number of matches = 2
+	Number of matches within tri-error = 2
+	Number of triangulated particles = 2
+	# of particles detected in outerloop1, ignoring cam3: 2
+	Total particles (133)
+	Total particles after removing close particles (133)
+IPR time:6s
+Total particles:133
+linking short track time:0s
+Done.
+Pruning time:0s
+		No. of active Short tracks:	102 + 32 - (1 + 0 + 0 + 36) = 97
+		No. of active Long tracks:	10550 + 36 - 15 = 10571
+0+0+0
+		No. of exited tracks:		 = 221
+		No. of inactive Long tracks:	476 + 11 = 487
+	STB convergence phase tracking at frame: 37
+			Prediction: Prediction  time:0s
+Done.
+Shaking  time:10s
+Done.
+	The 2D particle number in a image is: 138
+	Number of matches = 129
+	Number of matches within tri-error = 129
+	Number of triangulated particles = 120
+	# of particles detected in outerloop0: 119
+	Total particles (119)
+	The 2D particle number in a image is: 18
+	Number of matches = 5
+	Number of matches within tri-error = 5
+	Number of triangulated particles = 5
+	# of particles detected in outerloop1: 5
+	Total particles (124)
+	The 2D particle number in a image is: 13
+	Number of matches = 1
+	Number of matches within tri-error = 1
+	Number of triangulated particles = 1
+	# of particles detected in outerloop2: 1
+	Total particles (125)
+	The 2D particle number in a image is: 12
+	Number of matches = 0
+	Number of matches within tri-error = 0
+	Number of triangulated particles = 0
+	# of particles detected in outerloop3: 0
+	Total particles (125)
+	The 2D particle number in a image is: 8
+	Number of matches = 2
+	Number of matches within tri-error = 2
+	Number of triangulated particles = 2
+	# of particles detected in outerloop0, ignoring cam0: 2
+	The 2D particle number in a image is: 12
+	Number of matches = 4
+	Number of matches within tri-error = 4
+	Number of triangulated particles = 4
+	# of particles detected in outerloop0, ignoring cam1: 3
+	The 2D particle number in a image is: 9
+	Number of matches = 2
+	Number of matches within tri-error = 2
+	Number of triangulated particles = 2
+	# of particles detected in outerloop0, ignoring cam2: 1
+	The 2D particle number in a image is: 8
+	Number of matches = 2
+	Number of matches within tri-error = 2
+	Number of triangulated particles = 2
+	# of particles detected in outerloop0, ignoring cam3: 2
+	Total particles (133)
+	The 2D particle number in a image is: 3
+	Number of matches = 0
+	Number of matches within tri-error = 0
+	Number of triangulated particles = 0
+	# of particles detected in outerloop1, ignoring cam0: 0
+	The 2D particle number in a image is: 6
+	Number of matches = 1
+	Number of matches within tri-error = 1
+	Number of triangulated particles = 1
+	# of particles detected in outerloop1, ignoring cam1: 1
+	The 2D particle number in a image is: 5
+	Number of matches = 1
+	Number of matches within tri-error = 1
+	Number of triangulated particles = 1
+	# of particles detected in outerloop1, ignoring cam2: 1
+	The 2D particle number in a image is: 4
+	Number of matches = 0
+	Number of matches within tri-error = 0
+	Number of triangulated particles = 0
+	# of particles detected in outerloop1, ignoring cam3: 0
+	Total particles (135)
+	Total particles after removing close particles (135)
+IPR time:8s
+Total particles:135
+linking short track time:0s
+Done.
+Pruning time:0s
+		No. of active Short tracks:	97 + 40 - (1 + 1 + 0 + 27) = 108
+		No. of active Long tracks:	10571 + 27 - 26 = 10572
+0+0+0
+		No. of exited tracks:		 = 232
+		No. of inactive Long tracks:	487 + 14 = 501
+	STB convergence phase tracking at frame: 38
+			Prediction: Prediction  time:0s
+Done.
+Shaking  time:12s
+Done.
+	The 2D particle number in a image is: 147
+	Number of matches = 126
+	Number of matches within tri-error = 126
+	Number of triangulated particles = 119
+	# of particles detected in outerloop0: 118
+	Total particles (118)
+	The 2D particle number in a image is: 27
+	Number of matches = 12
+	Number of matches within tri-error = 12
+	Number of triangulated particles = 11
+	# of particles detected in outerloop1: 10
+	Total particles (128)
+	The 2D particle number in a image is: 16
+	Number of matches = 6
+	Number of matches within tri-error = 6
+	Number of triangulated particles = 6
+	# of particles detected in outerloop2: 5
+	Total particles (133)
+	The 2D particle number in a image is: 11
+	Number of matches = 1
+	Number of matches within tri-error = 1
+	Number of triangulated particles = 1
+	# of particles detected in outerloop3: 1
+	Total particles (134)
+	The 2D particle number in a image is: 5
+	Number of matches = 0
+	Number of matches within tri-error = 0
+	Number of triangulated particles = 0
+	# of particles detected in outerloop0, ignoring cam0: 0
+	The 2D particle number in a image is: 10
+	Number of matches = 4
+	Number of matches within tri-error = 2
+	Number of triangulated particles = 2
+	# of particles detected in outerloop0, ignoring cam1: 2
+	The 2D particle number in a image is: 8
+	Number of matches = 1
+	Number of matches within tri-error = 1
+	Number of triangulated particles = 1
+	# of particles detected in outerloop0, ignoring cam2: 1
+	The 2D particle number in a image is: 7
+	Number of matches = 3
+	Number of matches within tri-error = 2
+	Number of triangulated particles = 2
+	# of particles detected in outerloop0, ignoring cam3: 2
+	Total particles (139)
+	The 2D particle number in a image is: 2
+	Number of matches = 1
+	Number of matches within tri-error = 0
+	Number of triangulated particles = 0
+	# of particles detected in outerloop1, ignoring cam0: 0
+	The 2D particle number in a image is: 5
+	Number of matches = 2
+	Number of matches within tri-error = 0
+	Number of triangulated particles = 0
+	# of particles detected in outerloop1, ignoring cam1: 0
+	The 2D particle number in a image is: 5
+	Number of matches = 0
+	Number of matches within tri-error = 0
+	Number of triangulated particles = 0
+	# of particles detected in outerloop1, ignoring cam2: 0
+	The 2D particle number in a image is: 5
+	Number of matches = 1
+	Number of matches within tri-error = 0
+	Number of triangulated particles = 0
+	# of particles detected in outerloop1, ignoring cam3: 0
+	Total particles (139)
+	Total particles after removing close particles (139)
+IPR time:4s
+Total particles:139
+linking short track time:0s
+Done.
+Pruning time:0s
+		No. of active Short tracks:	108 + 35 - (2 + 2 + 0 + 37) = 102
+		No. of active Long tracks:	10572 + 37 - 26 = 10583
+0+0+0
+		No. of exited tracks:		 = 240
+		No. of inactive Long tracks:	501 + 18 = 519
+	STB convergence phase tracking at frame: 39
+			Prediction: Prediction  time:0s
+Done.
+Shaking  time:10s
+Done.
+	The 2D particle number in a image is: 144
+	Number of matches = 131
+	Number of matches within tri-error = 130
+	Number of triangulated particles = 121
+	# of particles detected in outerloop0: 121
+	Total particles (121)
+	The 2D particle number in a image is: 21
+	Number of matches = 8
+	Number of matches within tri-error = 8
+	Number of triangulated particles = 8
+	# of particles detected in outerloop1: 7
+	Total particles (128)
+	The 2D particle number in a image is: 14
+	Number of matches = 4
+	Number of matches within tri-error = 4
+	Number of triangulated particles = 3
+	# of particles detected in outerloop2: 3
+	Total particles (131)
+	The 2D particle number in a image is: 11
+	Number of matches = 0
+	Number of matches within tri-error = 0
+	Number of triangulated particles = 0
+	# of particles detected in outerloop3: 0
+	Total particles (131)
+	The 2D particle number in a image is: 11
+	Number of matches = 2
+	Number of matches within tri-error = 2
+	Number of triangulated particles = 2
+	# of particles detected in outerloop0, ignoring cam0: 1
+	The 2D particle number in a image is: 11
+	Number of matches = 3
+	Number of matches within tri-error = 3
+	Number of triangulated particles = 3
+	# of particles detected in outerloop0, ignoring cam1: 2
+	The 2D particle number in a image is: 9
+	Number of matches = 3
+	Number of matches within tri-error = 2
+	Number of triangulated particles = 2
+	# of particles detected in outerloop0, ignoring cam2: 2
+	The 2D particle number in a image is: 7
+	Number of matches = 3
+	Number of matches within tri-error = 3
+	Number of triangulated particles = 3
+	# of particles detected in outerloop0, ignoring cam3: 2
+	Total particles (138)
+	The 2D particle number in a image is: 6
+	Number of matches = 1
+	Number of matches within tri-error = 1
+	Number of triangulated particles = 1
+	# of particles detected in outerloop1, ignoring cam0: 1
+	The 2D particle number in a image is: 5
+	Number of matches = 1
+	Number of matches within tri-error = 1
+	Number of triangulated particles = 1
+	# of particles detected in outerloop1, ignoring cam1: 1
+	The 2D particle number in a image is: 4
+	Number of matches = 1
+	Number of matches within tri-error = 0
+	Number of triangulated particles = 0
+	# of particles detected in outerloop1, ignoring cam2: 0
+	The 2D particle number in a image is: 4
+	Number of matches = 2
+	Number of matches within tri-error = 1
+	Number of triangulated particles = 1
+	# of particles detected in outerloop1, ignoring cam3: 1
+	Total particles (141)
+	Total particles after removing close particles (141)
+IPR time:8s
+Total particles:141
+linking short track time:0s
+Done.
+Pruning time:0s
+		No. of active Short tracks:	102 + 40 - (0 + 1 + 0 + 29) = 112
+		No. of active Long tracks:	10583 + 29 - 29 = 10583
+0+0+0
+		No. of exited tracks:		 = 251
+		No. of inactive Long tracks:	519 + 18 = 537
+	STB convergence phase tracking at frame: 40
+			Prediction: Prediction  time:0s
+Done.
+Shaking  time:11s
+Done.
+	The 2D particle number in a image is: 140
+	Number of matches = 128
+	Number of matches within tri-error = 128
+	Number of triangulated particles = 123
+	# of particles detected in outerloop0: 122
+	Total particles (122)
+	The 2D particle number in a image is: 16
+	Number of matches = 8
+	Number of matches within tri-error = 8
+	Number of triangulated particles = 7
+	# of particles detected in outerloop1: 6
+	Total particles (128)
+	The 2D particle number in a image is: 10
+	Number of matches = 1
+	Number of matches within tri-error = 1
+	Number of triangulated particles = 1
+	# of particles detected in outerloop2: 1
+	Total particles (129)
+	The 2D particle number in a image is: 9
+	Number of matches = 0
+	Number of matches within tri-error = 0
+	Number of triangulated particles = 0
+	# of particles detected in outerloop3: 0
+	Total particles (129)
+	The 2D particle number in a image is: 8
+	Number of matches = 2
+	Number of matches within tri-error = 2
+	Number of triangulated particles = 2
+	# of particles detected in outerloop0, ignoring cam0: 2
+	The 2D particle number in a image is: 9
+	Number of matches = 3
+	Number of matches within tri-error = 2
+	Number of triangulated particles = 2
+	# of particles detected in outerloop0, ignoring cam1: 1
+	The 2D particle number in a image is: 8
+	Number of matches = 2
+	Number of matches within tri-error = 2
+	Number of triangulated particles = 2
+	# of particles detected in outerloop0, ignoring cam2: 2
+	The 2D particle number in a image is: 6
+	Number of matches = 2
+	Number of matches within tri-error = 2
+	Number of triangulated particles = 2
+	# of particles detected in outerloop0, ignoring cam3: 2
+	Total particles (136)
+	The 2D particle number in a image is: 2
+	Number of matches = 1
+	Number of matches within tri-error = 0
+	Number of triangulated particles = 0
+	# of particles detected in outerloop1, ignoring cam0: 0
+	The 2D particle number in a image is: 4
+	Number of matches = 2
+	Number of matches within tri-error = 1
+	Number of triangulated particles = 1
+	# of particles detected in outerloop1, ignoring cam1: 1
+	The 2D particle number in a image is: 3
+	Number of matches = 0
+	Number of matches within tri-error = 0
+	Number of triangulated particles = 0
+	# of particles detected in outerloop1, ignoring cam2: 0
+	The 2D particle number in a image is: 3
+	Number of matches = 0
+	Number of matches within tri-error = 0
+	Number of triangulated particles = 0
+	# of particles detected in outerloop1, ignoring cam3: 0
+	Total particles (137)
+	Total particles after removing close particles (137)
+IPR time:5s
+Total particles:137
+linking short track time:0s
+Done.
+Pruning time:0s
+		No. of active Short tracks:	112 + 26 - (0 + 0 + 1 + 36) = 101
+		No. of active Long tracks:	10583 + 36 - 21 = 10598
+0+0+0
+		No. of exited tracks:		 = 258
+		No. of inactive Long tracks:	537 + 13 = 550
+	STB convergence phase tracking at frame: 41
+			Prediction: Prediction  time:0s
+Done.
+Shaking  time:8s
+Done.
+	The 2D particle number in a image is: 133
+	Number of matches = 124
+	Number of matches within tri-error = 124
+	Number of triangulated particles = 116
+	# of particles detected in outerloop0: 115
+	Total particles (115)
+	The 2D particle number in a image is: 14
+	Number of matches = 5
+	Number of matches within tri-error = 5
+	Number of triangulated particles = 5
+	# of particles detected in outerloop1: 4
+	Total particles (119)
+	The 2D particle number in a image is: 10
+	Number of matches = 1
+	Number of matches within tri-error = 1
+	Number of triangulated particles = 1
+	# of particles detected in outerloop2: 1
+	Total particles (120)
+	The 2D particle number in a image is: 9
+	Number of matches = 0
+	Number of matches within tri-error = 0
+	Number of triangulated particles = 0
+	# of particles detected in outerloop3: 0
+	Total particles (120)
+	The 2D particle number in a image is: 8
+	Number of matches = 2
+	Number of matches within tri-error = 2
+	Number of triangulated particles = 2
+	# of particles detected in outerloop0, ignoring cam0: 2
+	The 2D particle number in a image is: 9
+	Number of matches = 2
+	Number of matches within tri-error = 1
+	Number of triangulated particles = 1
+	# of particles detected in outerloop0, ignoring cam1: 1
+	The 2D particle number in a image is: 8
+	Number of matches = 0
+	Number of matches within tri-error = 0
+	Number of triangulated particles = 0
+	# of particles detected in outerloop0, ignoring cam2: 0
+	The 2D particle number in a image is: 8
+	Number of matches = 3
+	Number of matches within tri-error = 3
+	Number of triangulated particles = 3
+	# of particles detected in outerloop0, ignoring cam3: 3
+	Total particles (126)
+	The 2D particle number in a image is: 3
+	Number of matches = 1
+	Number of matches within tri-error = 0
+	Number of triangulated particles = 0
+	# of particles detected in outerloop1, ignoring cam0: 0
+	The 2D particle number in a image is: 5
+	Number of matches = 1
+	Number of matches within tri-error = 0
+	Number of triangulated particles = 0
+	# of particles detected in outerloop1, ignoring cam1: 0
+	The 2D particle number in a image is: 5
+	Number of matches = 0
+	Number of matches within tri-error = 0
+	Number of triangulated particles = 0
+	# of particles detected in outerloop1, ignoring cam2: 0
+	The 2D particle number in a image is: 5
+	Number of matches = 0
+	Number of matches within tri-error = 0
+	Number of triangulated particles = 0
+	# of particles detected in outerloop1, ignoring cam3: 0
+	Total particles (126)
+	Total particles after removing close particles (126)
+IPR time:4s
+Total particles:126
+linking short track time:0s
+Done.
+Pruning time:0s
+		No. of active Short tracks:	101 + 27 - (0 + 1 + 1 + 34) = 92
+		No. of active Long tracks:	10598 + 34 - 29 = 10603
+0+0+0
+		No. of exited tracks:		 = 269
+		No. of inactive Long tracks:	550 + 18 = 568
+	STB convergence phase tracking at frame: 42
+			Prediction: Prediction  time:0s
+Done.
+Shaking  time:11s
+Done.
+	The 2D particle number in a image is: 127
+	Number of matches = 111
+	Number of matches within tri-error = 111
+	Number of triangulated particles = 106
+	# of particles detected in outerloop0: 105
+	Total particles (105)
+	The 2D particle number in a image is: 19
+	Number of matches = 5
+	Number of matches within tri-error = 5
+	Number of triangulated particles = 5
+	# of particles detected in outerloop1: 4
+	Total particles (109)
+	The 2D particle number in a image is: 15
+	Number of matches = 8
+	Number of matches within tri-error = 8
+	Number of triangulated particles = 7
+	# of particles detected in outerloop2: 4
+	Total particles (113)
+	The 2D particle number in a image is: 11
+	Number of matches = 3
+	Number of matches within tri-error = 3
+	Number of triangulated particles = 3
+	# of particles detected in outerloop3: 3
+	Total particles (116)
+	The 2D particle number in a image is: 6
+	Number of matches = 0
+	Number of matches within tri-error = 0
+	Number of triangulated particles = 0
+	# of particles detected in outerloop0, ignoring cam0: 0
+	The 2D particle number in a image is: 8
+	Number of matches = 2
+	Number of matches within tri-error = 0
+	Number of triangulated particles = 0
+	# of particles detected in outerloop0, ignoring cam1: 0
+	The 2D particle number in a image is: 8
+	Number of matches = 5
+	Number of matches within tri-error = 2
+	Number of triangulated particles = 2
+	# of particles detected in outerloop0, ignoring cam2: 2
+	The 2D particle number in a image is: 6
+	Number of matches = 1
+	Number of matches within tri-error = 1
+	Number of triangulated particles = 1
+	# of particles detected in outerloop0, ignoring cam3: 1
+	Total particles (119)
+	The 2D particle number in a image is: 3
+	Number of matches = 0
+	Number of matches within tri-error = 0
+	Number of triangulated particles = 0
+	# of particles detected in outerloop1, ignoring cam0: 0
+	The 2D particle number in a image is: 5
+	Number of matches = 2
+	Number of matches within tri-error = 0
+	Number of triangulated particles = 0
+	# of particles detected in outerloop1, ignoring cam1: 0
+	The 2D particle number in a image is: 5
+	Number of matches = 3
+	Number of matches within tri-error = 0
+	Number of triangulated particles = 0
+	# of particles detected in outerloop1, ignoring cam2: 0
+	The 2D particle number in a image is: 5
+	Number of matches = 0
+	Number of matches within tri-error = 0
+	Number of triangulated particles = 0
+	# of particles detected in outerloop1, ignoring cam3: 0
+	Total particles (119)
+	Total particles after removing close particles (119)
+IPR time:3s
+Total particles:119
+linking short track time:0s
+Done.
+Pruning time:0s
+		No. of active Short tracks:	92 + 30 - (0 + 1 + 2 + 37) = 82
+		No. of active Long tracks:	10603 + 37 - 28 = 10612
+0+0+0
+		No. of exited tracks:		 = 274
+		No. of inactive Long tracks:	568 + 23 = 591
+	STB convergence phase tracking at frame: 43
+			Prediction: Prediction  time:0s
+Done.
+Shaking  time:8s
+Done.
+	The 2D particle number in a image is: 110
+	Number of matches = 93
+	Number of matches within tri-error = 93
+	Number of triangulated particles = 92
+	# of particles detected in outerloop0: 91
+	Total particles (91)
+	The 2D particle number in a image is: 19
+	Number of matches = 6
+	Number of matches within tri-error = 6
+	Number of triangulated particles = 6
+	# of particles detected in outerloop1: 6
+	Total particles (97)
+	The 2D particle number in a image is: 13
+	Number of matches = 1
+	Number of matches within tri-error = 1
+	Number of triangulated particles = 1
+	# of particles detected in outerloop2: 1
+	Total particles (98)
+	The 2D particle number in a image is: 12
+	Number of matches = 0
+	Number of matches within tri-error = 0
+	Number of triangulated particles = 0
+	# of particles detected in outerloop3: 0
+	Total particles (98)
+	The 2D particle number in a image is: 10
+	Number of matches = 1
+	Number of matches within tri-error = 1
+	Number of triangulated particles = 1
+	# of particles detected in outerloop0, ignoring cam0: 1
+	The 2D particle number in a image is: 12
+	Number of matches = 1
+	Number of matches within tri-error = 0
+	Number of triangulated particles = 0
+	# of particles detected in outerloop0, ignoring cam1: 0
+	The 2D particle number in a image is: 12
+	Number of matches = 3
+	Number of matches within tri-error = 3
+	Number of triangulated particles = 3
+	# of particles detected in outerloop0, ignoring cam2: 2
+	The 2D particle number in a image is: 9
+	Number of matches = 4
+	Number of matches within tri-error = 3
+	Number of triangulated particles = 3
+	# of particles detected in outerloop0, ignoring cam3: 2
+	Total particles (103)
+	The 2D particle number in a image is: 5
+	Number of matches = 1
+	Number of matches within tri-error = 0
+	Number of triangulated particles = 0
+	# of particles detected in outerloop1, ignoring cam0: 0
+	The 2D particle number in a image is: 7
+	Number of matches = 2
+	Number of matches within tri-error = 0
+	Number of triangulated particles = 0
+	# of particles detected in outerloop1, ignoring cam1: 0
+	The 2D particle number in a image is: 7
+	Number of matches = 1
+	Number of matches within tri-error = 1
+	Number of triangulated particles = 1
+	# of particles detected in outerloop1, ignoring cam2: 1
+	The 2D particle number in a image is: 6
+	Number of matches = 2
+	Number of matches within tri-error = 1
+	Number of triangulated particles = 1
+	# of particles detected in outerloop1, ignoring cam3: 1
+	Total particles (105)
+	Total particles after removing close particles (105)
+IPR time:5s
+Total particles:105
+linking short track time:0s
+Done.
+Pruning time:0s
+		No. of active Short tracks:	82 + 26 - (1 + 1 + 1 + 24) = 81
+		No. of active Long tracks:	10612 + 24 - 21 = 10615
+0+0+0
+		No. of exited tracks:		 = 281
+		No. of inactive Long tracks:	591 + 14 = 605
+	STB convergence phase tracking at frame: 44
+			Prediction: Prediction  time:0s
+Done.
+Shaking  time:11s
+Done.
+	The 2D particle number in a image is: 102
+	Number of matches = 89
+	Number of matches within tri-error = 89
+	Number of triangulated particles = 87
+	# of particles detected in outerloop0: 87
+	Total particles (87)
+	The 2D particle number in a image is: 14
+	Number of matches = 2
+	Number of matches within tri-error = 2
+	Number of triangulated particles = 2
+	# of particles detected in outerloop1: 2
+	Total particles (89)
+	The 2D particle number in a image is: 12
+	Number of matches = 5
+	Number of matches within tri-error = 5
+	Number of triangulated particles = 5
+	# of particles detected in outerloop2: 5
+	Total particles (94)
+	The 2D particle number in a image is: 7
+	Number of matches = 2
+	Number of matches within tri-error = 2
+	Number of triangulated particles = 2
+	# of particles detected in outerloop3: 2
+	Total particles (96)
+	The 2D particle number in a image is: 6
+	Number of matches = 1
+	Number of matches within tri-error = 1
+	Number of triangulated particles = 1
+	# of particles detected in outerloop0, ignoring cam0: 1
+	The 2D particle number in a image is: 5
+	Number of matches = 0
+	Number of matches within tri-error = 0
+	Number of triangulated particles = 0
+	# of particles detected in outerloop0, ignoring cam1: 0
+	The 2D particle number in a image is: 5
+	Number of matches = 4
+	Number of matches within tri-error = 4
+	Number of triangulated particles = 3
+	# of particles detected in outerloop0, ignoring cam2: 2
+	The 2D particle number in a image is: 3
+	Number of matches = 0
+	Number of matches within tri-error = 0
+	Number of triangulated particles = 0
+	# of particles detected in outerloop0, ignoring cam3: 0
+	Total particles (99)
+	The 2D particle number in a image is: 3
+	Number of matches = 0
+	Number of matches within tri-error = 0
+	Number of triangulated particles = 0
+	# of particles detected in outerloop1, ignoring cam0: 0
+	The 2D particle number in a image is: 3
+	Number of matches = 0
+	Number of matches within tri-error = 0
+	Number of triangulated particles = 0
+	# of particles detected in outerloop1, ignoring cam1: 0
+	The 2D particle number in a image is: 3
+	Number of matches = 2
+	Number of matches within tri-error = 2
+	Number of triangulated particles = 1
+	# of particles detected in outerloop1, ignoring cam2: 1
+	The 2D particle number in a image is: 2
+	Number of matches = 0
+	Number of matches within tri-error = 0
+	Number of triangulated particles = 0
+	# of particles detected in outerloop1, ignoring cam3: 0
+	Total particles (100)
+	Total particles after removing close particles (100)
+IPR time:6s
+Total particles:100
+linking short track time:0s
+Done.
+Pruning time:0s
+		No. of active Short tracks:	81 + 20 - (1 + 0 + 0 + 26) = 74
+		No. of active Long tracks:	10615 + 26 - 22 = 10619
+0+0+0
+		No. of exited tracks:		 = 287
+		No. of inactive Long tracks:	605 + 15 = 620
+	STB convergence phase tracking at frame: 45
+			Prediction: Prediction  time:0s
+Done.
+Shaking  time:12s
+Done.
+	The 2D particle number in a image is: 104
+	Number of matches = 95
+	Number of matches within tri-error = 95
+	Number of triangulated particles = 92
+	# of particles detected in outerloop0: 88
+	Total particles (88)
+	The 2D particle number in a image is: 15
+	Number of matches = 8
+	Number of matches within tri-error = 8
+	Number of triangulated particles = 8
+	# of particles detected in outerloop1: 8
+	Total particles (96)
+	The 2D particle number in a image is: 7
+	Number of matches = 1
+	Number of matches within tri-error = 1
+	Number of triangulated particles = 1
+	# of particles detected in outerloop2: 1
+	Total particles (97)
+	The 2D particle number in a image is: 6
+	Number of matches = 0
+	Number of matches within tri-error = 0
+	Number of triangulated particles = 0
+	# of particles detected in outerloop3: 0
+	Total particles (97)
+	The 2D particle number in a image is: 8
+	Number of matches = 4
+	Number of matches within tri-error = 4
+	Number of triangulated particles = 4
+	# of particles detected in outerloop0, ignoring cam0: 3
+	The 2D particle number in a image is: 6
+	Number of matches = 2
+	Number of matches within tri-error = 2
+	Number of triangulated particles = 2
+	# of particles detected in outerloop0, ignoring cam1: 1
+	The 2D particle number in a image is: 5
+	Number of matches = 1
+	Number of matches within tri-error = 1
+	Number of triangulated particles = 1
+	# of particles detected in outerloop0, ignoring cam2: 1
+	The 2D particle number in a image is: 4
+	Number of matches = 0
+	Number of matches within tri-error = 0
+	Number of triangulated particles = 0
+	# of particles detected in outerloop0, ignoring cam3: 0
+	Total particles (102)
+	The 2D particle number in a image is: 4
+	Number of matches = 1
+	Number of matches within tri-error = 1
+	Number of triangulated particles = 1
+	# of particles detected in outerloop1, ignoring cam0: 1
+	The 2D particle number in a image is: 4
+	Number of matches = 2
+	Number of matches within tri-error = 1
+	Number of triangulated particles = 1
+	# of particles detected in outerloop1, ignoring cam1: 1
+	The 2D particle number in a image is: 3
+	Number of matches = 0
+	Number of matches within tri-error = 0
+	Number of triangulated particles = 0
+	# of particles detected in outerloop1, ignoring cam2: 0
+	The 2D particle number in a image is: 3
+	Number of matches = 0
+	Number of matches within tri-error = 0
+	Number of triangulated particles = 0
+	# of particles detected in outerloop1, ignoring cam3: 0
+	Total particles (104)
+	Total particles after removing close particles (104)
+IPR time:8s
+Total particles:104
+linking short track time:0s
+Done.
+Pruning time:0s
+		No. of active Short tracks:	74 + 32 - (1 + 1 + 0 + 29) = 75
+		No. of active Long tracks:	10619 + 29 - 21 = 10627
+0+0+0
+		No. of exited tracks:		 = 293
+		No. of inactive Long tracks:	620 + 15 = 635
+	STB convergence phase tracking at frame: 46
+			Prediction: Prediction  time:0s
+Done.
+Shaking  time:8s
+Done.
+	The 2D particle number in a image is: 102
+	Number of matches = 98
+	Number of matches within tri-error = 98
+	Number of triangulated particles = 92
+	# of particles detected in outerloop0: 87
+	Total particles (87)
+	The 2D particle number in a image is: 14
+	Number of matches = 8
+	Number of matches within tri-error = 8
+	Number of triangulated particles = 7
+	# of particles detected in outerloop1: 7
+	Total particles (94)
+	The 2D particle number in a image is: 7
+	Number of matches = 3
+	Number of matches within tri-error = 3
+	Number of triangulated particles = 3
+	# of particles detected in outerloop2: 3
+	Total particles (97)
+	The 2D particle number in a image is: 4
+	Number of matches = 0
+	Number of matches within tri-error = 0
+	Number of triangulated particles = 0
+	# of particles detected in outerloop3: 0
+	Total particles (97)
+	The 2D particle number in a image is: 6
+	Number of matches = 3
+	Number of matches within tri-error = 1
+	Number of triangulated particles = 1
+	# of particles detected in outerloop0, ignoring cam0: 1
+	The 2D particle number in a image is: 4
+	Number of matches = 0
+	Number of matches within tri-error = 0
+	Number of triangulated particles = 0
+	# of particles detected in outerloop0, ignoring cam1: 0
+	The 2D particle number in a image is: 4
+	Number of matches = 1
+	Number of matches within tri-error = 1
+	Number of triangulated particles = 1
+	# of particles detected in outerloop0, ignoring cam2: 1
+	The 2D particle number in a image is: 3
+	Number of matches = 0
+	Number of matches within tri-error = 0
+	Number of triangulated particles = 0
+	# of particles detected in outerloop0, ignoring cam3: 0
+	Total particles (99)
+	The 2D particle number in a image is: 4
+	Number of matches = 2
+	Number of matches within tri-error = 0
+	Number of triangulated particles = 0
+	# of particles detected in outerloop1, ignoring cam0: 0
+	The 2D particle number in a image is: 3
+	Number of matches = 0
+	Number of matches within tri-error = 0
+	Number of triangulated particles = 0
+	# of particles detected in outerloop1, ignoring cam1: 0
+	The 2D particle number in a image is: 3
+	Number of matches = 1
+	Number of matches within tri-error = 0
+	Number of triangulated particles = 0
+	# of particles detected in outerloop1, ignoring cam2: 0
+	The 2D particle number in a image is: 3
+	Number of matches = 0
+	Number of matches within tri-error = 0
+	Number of triangulated particles = 0
+	# of particles detected in outerloop1, ignoring cam3: 0
+	Total particles (99)
+	Total particles after removing close particles (99)
+IPR time:4s
+Total particles:99
+linking short track time:0s
+Done.
+Pruning time:0s
+		No. of active Short tracks:	75 + 28 - (4 + 0 + 0 + 24) = 75
+		No. of active Long tracks:	10627 + 24 - 23 = 10628
+0+0+0
+		No. of exited tracks:		 = 301
+		No. of inactive Long tracks:	635 + 15 = 650
+	STB convergence phase tracking at frame: 47
+			Prediction: Prediction  time:0s
+Done.
+Shaking  time:9s
+Done.
+	The 2D particle number in a image is: 112
+	Number of matches = 100
+	Number of matches within tri-error = 100
+	Number of triangulated particles = 96
+	# of particles detected in outerloop0: 95
+	Total particles (95)
+	The 2D particle number in a image is: 14
+	Number of matches = 3
+	Number of matches within tri-error = 3
+	Number of triangulated particles = 3
+	# of particles detected in outerloop1: 3
+	Total particles (98)
+	The 2D particle number in a image is: 11
+	Number of matches = 2
+	Number of matches within tri-error = 2
+	Number of triangulated particles = 2
+	# of particles detected in outerloop2: 2
+	Total particles (100)
+	The 2D particle number in a image is: 9
+	Number of matches = 0
+	Number of matches within tri-error = 0
+	Number of triangulated particles = 0
+	# of particles detected in outerloop3: 0
+	Total particles (100)
+	The 2D particle number in a image is: 12
+	Number of matches = 3
+	Number of matches within tri-error = 2
+	Number of triangulated particles = 2
+	# of particles detected in outerloop0, ignoring cam0: 1
+	The 2D particle number in a image is: 9
+	Number of matches = 1
+	Number of matches within tri-error = 1
+	Number of triangulated particles = 1
+	# of particles detected in outerloop0, ignoring cam1: 1
+	The 2D particle number in a image is: 8
+	Number of matches = 2
+	Number of matches within tri-error = 2
+	Number of triangulated particles = 2
+	# of particles detected in outerloop0, ignoring cam2: 2
+	The 2D particle number in a image is: 6
+	Number of matches = 1
+	Number of matches within tri-error = 1
+	Number of triangulated particles = 1
+	# of particles detected in outerloop0, ignoring cam3: 1
+	Total particles (105)
+	The 2D particle number in a image is: 8
+	Number of matches = 2
+	Number of matches within tri-error = 1
+	Number of triangulated particles = 1
+	# of particles detected in outerloop1, ignoring cam0: 1
+	The 2D particle number in a image is: 5
+	Number of matches = 0
+	Number of matches within tri-error = 0
+	Number of triangulated particles = 0
+	# of particles detected in outerloop1, ignoring cam1: 0
+	The 2D particle number in a image is: 5
+	Number of matches = 1
+	Number of matches within tri-error = 0
+	Number of triangulated particles = 0
+	# of particles detected in outerloop1, ignoring cam2: 0
+	The 2D particle number in a image is: 5
+	Number of matches = 2
+	Number of matches within tri-error = 0
+	Number of triangulated particles = 0
+	# of particles detected in outerloop1, ignoring cam3: 0
+	Total particles (106)
+	Total particles after removing close particles (106)
+IPR time:7s
+Total particles:106
+linking short track time:0s
+Done.
+Pruning time:0s
+		No. of active Short tracks:	75 + 34 - (1 + 2 + 0 + 19) = 87
+		No. of active Long tracks:	10628 + 19 - 21 = 10626
+0+0+0
+		No. of exited tracks:		 = 309
+		No. of inactive Long tracks:	650 + 12 = 662
+	STB convergence phase tracking at frame: 48
+			Prediction: Prediction  time:0s
+Done.
+Shaking  time:12s
+Done.
+	The 2D particle number in a image is: 120
+	Number of matches = 114
+	Number of matches within tri-error = 114
+	Number of triangulated particles = 106
+	# of particles detected in outerloop0: 105
+	Total particles (105)
+	The 2D particle number in a image is: 14
+	Number of matches = 6
+	Number of matches within tri-error = 6
+	Number of triangulated particles = 5
+	# of particles detected in outerloop1: 4
+	Total particles (109)
+	The 2D particle number in a image is: 10
+	Number of matches = 2
+	Number of matches within tri-error = 2
+	Number of triangulated particles = 2
+	# of particles detected in outerloop2: 1
+	Total particles (110)
+	The 2D particle number in a image is: 9
+	Number of matches = 1
+	Number of matches within tri-error = 1
+	Number of triangulated particles = 1
+	# of particles detected in outerloop3: 1
+	Total particles (111)
+	The 2D particle number in a image is: 13
+	Number of matches = 5
+	Number of matches within tri-error = 4
+	Number of triangulated particles = 4
+	# of particles detected in outerloop0, ignoring cam0: 2
+	The 2D particle number in a image is: 8
+	Number of matches = 3
+	Number of matches within tri-error = 1
+	Number of triangulated particles = 1
+	# of particles detected in outerloop0, ignoring cam1: 1
+	The 2D particle number in a image is: 7
+	Number of matches = 2
+	Number of matches within tri-error = 2
+	Number of triangulated particles = 2
+	# of particles detected in outerloop0, ignoring cam2: 2
+	The 2D particle number in a image is: 5
+	Number of matches = 2
+	Number of matches within tri-error = 1
+	Number of triangulated particles = 1
+	# of particles detected in outerloop0, ignoring cam3: 1
+	Total particles (117)
+	The 2D particle number in a image is: 8
+	Number of matches = 3
+	Number of matches within tri-error = 2
+	Number of triangulated particles = 2
+	# of particles detected in outerloop1, ignoring cam0: 1
+	The 2D particle number in a image is: 4
+	Number of matches = 2
+	Number of matches within tri-error = 0
+	Number of triangulated particles = 0
+	# of particles detected in outerloop1, ignoring cam1: 0
+	The 2D particle number in a image is: 4
+	Number of matches = 0
+	Number of matches within tri-error = 0
+	Number of triangulated particles = 0
+	# of particles detected in outerloop1, ignoring cam2: 0
+	The 2D particle number in a image is: 4
+	Number of matches = 1
+	Number of matches within tri-error = 0
+	Number of triangulated particles = 0
+	# of particles detected in outerloop1, ignoring cam3: 0
+	Total particles (118)
+	Total particles after removing close particles (118)
+IPR time:5s
+Total particles:118
+linking short track time:0s
+Done.
+Pruning time:0s
+		No. of active Short tracks:	87 + 33 - (1 + 0 + 1 + 25) = 93
+		No. of active Long tracks:	10626 + 25 - 19 = 10632
+0+0+0
+		No. of exited tracks:		 = 315
+		No. of inactive Long tracks:	662 + 13 = 675
+	STB convergence phase tracking at frame: 49
+			Prediction: Prediction  time:0s
+Done.
+Shaking  time:10s
+Done.
+	The 2D particle number in a image is: 124
+	Number of matches = 102
+	Number of matches within tri-error = 102
+	Number of triangulated particles = 98
+	# of particles detected in outerloop0: 98
+	Total particles (98)
+	The 2D particle number in a image is: 24
+	Number of matches = 11
+	Number of matches within tri-error = 11
+	Number of triangulated particles = 11
+	# of particles detected in outerloop1: 11
+	Total particles (109)
+	The 2D particle number in a image is: 13
+	Number of matches = 5
+	Number of matches within tri-error = 5
+	Number of triangulated particles = 4
+	# of particles detected in outerloop2: 4
+	Total particles (113)
+	The 2D particle number in a image is: 8
+	Number of matches = 0
+	Number of matches within tri-error = 0
+	Number of triangulated particles = 0
+	# of particles detected in outerloop3: 0
+	Total particles (113)
+	The 2D particle number in a image is: 8
+	Number of matches = 1
+	Number of matches within tri-error = 1
+	Number of triangulated particles = 1
+	# of particles detected in outerloop0, ignoring cam0: 1
+	The 2D particle number in a image is: 8
+	Number of matches = 1
+	Number of matches within tri-error = 1
+	Number of triangulated particles = 1
+	# of particles detected in outerloop0, ignoring cam1: 1
+	The 2D particle number in a image is: 7
+	Number of matches = 1
+	Number of matches within tri-error = 1
+	Number of triangulated particles = 1
+	# of particles detected in outerloop0, ignoring cam2: 1
+	The 2D particle number in a image is: 6
+	Number of matches = 1
+	Number of matches within tri-error = 1
+	Number of triangulated particles = 1
+	# of particles detected in outerloop0, ignoring cam3: 1
+	Total particles (117)
+	The 2D particle number in a image is: 5
+	Number of matches = 1
+	Number of matches within tri-error = 0
+	Number of triangulated particles = 0
+	# of particles detected in outerloop1, ignoring cam0: 0
+	The 2D particle number in a image is: 5
+	Number of matches = 1
+	Number of matches within tri-error = 0
+	Number of triangulated particles = 0
+	# of particles detected in outerloop1, ignoring cam1: 0
+	The 2D particle number in a image is: 5
+	Number of matches = 1
+	Number of matches within tri-error = 1
+	Number of triangulated particles = 1
+	# of particles detected in outerloop1, ignoring cam2: 1
+	The 2D particle number in a image is: 4
+	Number of matches = 0
+	Number of matches within tri-error = 0
+	Number of triangulated particles = 0
+	# of particles detected in outerloop1, ignoring cam3: 0
+	Total particles (118)
+	Total particles after removing close particles (118)
+IPR time:8s
+Total particles:118
+linking short track time:0s
+Done.
+Pruning time:0s
+		No. of active Short tracks:	93 + 26 - (0 + 1 + 0 + 27) = 91
+		No. of active Long tracks:	10632 + 27 - 29 = 10630
+0+0+0
+		No. of exited tracks:		 = 326
+		No. of inactive Long tracks:	675 + 18 = 693
+	STB convergence phase tracking at frame: 50
+			Prediction: Prediction  time:0s
+Done.
+Shaking  time:11s
+Done.
+	The 2D particle number in a image is: 117
+	Number of matches = 107
+	Number of matches within tri-error = 107
+	Number of triangulated particles = 102
+	# of particles detected in outerloop0: 100
+	Total particles (100)
+	The 2D particle number in a image is: 17
+	Number of matches = 10
+	Number of matches within tri-error = 10
+	Number of triangulated particles = 9
+	# of particles detected in outerloop1: 9
+	Total particles (109)
+	The 2D particle number in a image is: 8
+	Number of matches = 2
+	Number of matches within tri-error = 2
+	Number of triangulated particles = 2
+	# of particles detected in outerloop2: 2
+	Total particles (111)
+	The 2D particle number in a image is: 6
+	Number of matches = 1
+	Number of matches within tri-error = 1
+	Number of triangulated particles = 1
+	# of particles detected in outerloop3: 1
+	Total particles (112)
+	The 2D particle number in a image is: 6
+	Number of matches = 0
+	Number of matches within tri-error = 0
+	Number of triangulated particles = 0
+	# of particles detected in outerloop0, ignoring cam0: 0
+	The 2D particle number in a image is: 5
+	Number of matches = 3
+	Number of matches within tri-error = 3
+	Number of triangulated particles = 2
+	# of particles detected in outerloop0, ignoring cam1: 2
+	The 2D particle number in a image is: 3
+	Number of matches = 1
+	Number of matches within tri-error = 0
+	Number of triangulated particles = 0
+	# of particles detected in outerloop0, ignoring cam2: 0
+	The 2D particle number in a image is: 3
+	Number of matches = 1
+	Number of matches within tri-error = 1
+	Number of triangulated particles = 1
+	# of particles detected in outerloop0, ignoring cam3: 1
+	Total particles (115)
+	The 2D particle number in a image is: 5
+	Number of matches = 0
+	Number of matches within tri-error = 0
+	Number of triangulated particles = 0
+	# of particles detected in outerloop1, ignoring cam0: 0
+	The 2D particle number in a image is: 2
+	Number of matches = 0
+	Number of matches within tri-error = 0
+	Number of triangulated particles = 0
+	# of particles detected in outerloop1, ignoring cam1: 0
+	The 2D particle number in a image is: 2
+	Number of matches = 1
+	Number of matches within tri-error = 0
+	Number of triangulated particles = 0
+	# of particles detected in outerloop1, ignoring cam2: 0
+	The 2D particle number in a image is: 2
+	Number of matches = 0
+	Number of matches within tri-error = 0
+	Number of triangulated particles = 0
+	# of particles detected in outerloop1, ignoring cam3: 0
+	Total particles (115)
+	Total particles after removing close particles (115)
+IPR time:4s
+Total particles:115
+linking short track time:0s
+Done.
+Pruning time:0s
+		No. of active Short tracks:	91 + 26 - (2 + 0 + 0 + 32) = 83
+		No. of active Long tracks:	10630 + 32 - 29 = 10633
+0+0+0
+		No. of exited tracks:		 = 333
+		No. of inactive Long tracks:	693 + 22 = 715
+	Saving the tracks
+
+
+	Total time taken by STB convergence phase: 2341.75s
+All of images have been processed!
