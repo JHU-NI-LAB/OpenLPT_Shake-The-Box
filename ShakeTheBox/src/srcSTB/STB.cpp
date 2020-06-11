@@ -1074,7 +1074,7 @@ void STB::Shake(Frame& estimate, deque<double>& intensity) {
 #pragma omp parallel num_threads(24)
 						{
 //							int TID = omp_get_thread_num();
-//							printf("Thread %d is runing\n", TID);
+//							cout<<"Thread %d is runing\n"<<TID<<endl;
 #pragma omp for
 //			for (Frame::const_iterator pID = estimate.begin(); pID != estimate.end(); ++pID) {
 			for (int i = 0; i < estimate.NumParticles(); ++i) {

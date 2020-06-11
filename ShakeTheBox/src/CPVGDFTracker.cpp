@@ -99,26 +99,26 @@ void GetDebugMode() {
 	folder_path.erase(folder_path.size() - 13, 13); //erase iprconfig.txt
 	folder_path = folder_path + "Tracks";
 
-//#ifdef WINDOWS
-//    if( stat( folder_path.c_str(), &info ) != 0 ) {
-//        printf( "cannot access %s\n", folder_path.c_str() );
-//        mkdir(folder_path.c_str());
-//        mkdir((folder_path + "/InitialTracks").c_str());
-//        mkdir((folder_path + "/ConvergedTracks").c_str());
-//        mkdir((folder_path + "/BackSTBTracks").c_str());
-//        printf( "%s have been created!\n", folder_path.c_str() );
-//    }
-//    else if( info.st_mode & S_IFDIR )  // S_ISDIR() doesn't exist on my windows
-//        printf( "%s exists\n", folder_path.c_str() );
-//    else {
-//            mkdir(folder_path.c_str());
-//            mkdir((folder_path + "/InitialTracks").c_str());
-//            mkdir((folder_path + "/ConvergedTracks").c_str());
-//            mkdir((folder_path + "/BackSTBTracks").c_str());
-//            printf( "%s have been created!\n", folder_path.c_str() );
-//    }
+#ifdef WINDOWS
+    if( stat( folder_path.c_str(), &info ) != 0 ) {
+        printf( "cannot access %s\n", folder_path.c_str() );
+        mkdir(folder_path.c_str());
+        mkdir((folder_path + "/InitialTracks").c_str());
+        mkdir((folder_path + "/ConvergedTracks").c_str());
+        mkdir((folder_path + "/BackSTBTracks").c_str());
+        printf( "%s have been created!\n", folder_path.c_str() );
+    }
+    else if( info.st_mode & S_IFDIR )  // S_ISDIR() doesn't exist on my windows
+        printf( "%s exists\n", folder_path.c_str() );
+    else {
+            mkdir(folder_path.c_str());
+            mkdir((folder_path + "/InitialTracks").c_str());
+            mkdir((folder_path + "/ConvergedTracks").c_str());
+            mkdir((folder_path + "/BackSTBTracks").c_str());
+            printf( "%s have been created!\n", folder_path.c_str() );
+    }
 
-//#else
+#else
 	if( stat( folder_path.c_str(), &info ) != 0 ) {
 	    printf( "cannot access %s\n", folder_path.c_str() );
 	    mkdir(folder_path.c_str(), S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH);
@@ -137,7 +137,7 @@ void GetDebugMode() {
 		mkdir((folder_path + "/BackSTBTracks").c_str(), S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH);
 		printf( "%s have been created!\n", folder_path.c_str() );
 	}
-//#endif
+#endif
 
 	// read the camera calibration information
 	//Calibration calib(config.iprfile);
