@@ -505,15 +505,20 @@ void ParticleFinder::SaveParticle2DCenter(string file_path) {
 	data_io.SetFilePath(file_path + "txt");
 	deque<double>::const_iterator xi_end = x.end();
 	deque<double>::const_iterator yi = y.begin();
-	double particle_2Dcenter[x.size()][2];
+//	double particle_2Dcenter[x.size()][2];
+	double* particle_2Dcenter = new double[x.size() * 2];
+//	for (int i = 0; i < x.size(); ++i)
+//		particle_2Dcenter[i] = new double[2];
 	int i = 0;
 	for (deque<double>::const_iterator xi = x.begin(); xi != xi_end; ++xi, ++yi) {
-		particle_2Dcenter[i][0] = *xi;
-		particle_2Dcenter[i][1] = *yi;
+		particle_2Dcenter[2 * i] = *xi;
+		particle_2Dcenter[2 * i + 1] = *yi;
 		i++;
 	}
 	data_io.SetTotalNumber(i * 2);
 	data_io.WriteData((double *) particle_2Dcenter);
+
+	delete[] particle_2Dcenter;
 }
 
 // Read the particle 2D center to txt file
