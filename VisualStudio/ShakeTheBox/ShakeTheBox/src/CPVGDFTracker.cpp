@@ -27,7 +27,6 @@
 #else
 	#include <gnu/libc-version.h>
 #endif
-
 #include "STBCommon.h"
 #include "BoundaryCheck.h"
 

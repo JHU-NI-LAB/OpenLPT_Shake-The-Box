@@ -1,0 +1,394 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Header Files\DataIO">
+      <UniqueIdentifier>{74eb6ab9-a0a4-4fb8-9588-3511d86ca367}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\libMath">
+      <UniqueIdentifier>{45a4c001-a84f-4ddc-add4-b2519ed1b491}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\libSTB">
+      <UniqueIdentifier>{fec025ef-e682-4e81-907d-1ab6916f1604}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\libtiff">
+      <UniqueIdentifier>{5da0ef95-c296-4c69-8c24-3343aff79107}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\srcDataIO">
+      <UniqueIdentifier>{c9995330-d78c-444b-b344-23e5ef7aeeaf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\srcMath">
+      <UniqueIdentifier>{f8fb1dd1-2df9-4069-acf0-b141dd8664ff}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\srcSTB">
+      <UniqueIdentifier>{cab03db6-2d4b-429b-87cb-7c5ce5211443}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="inc\libtiff\tif_aux.c">
+      <Filter>Header Files\libtiff</Filter>
+    </ClCompile>
+    <ClCompile Include="inc\libtiff\tif_close.c">
+      <Filter>Header Files\libtiff</Filter>
+    </ClCompile>
+    <ClCompile Include="inc\libtiff\tif_codec.c">
+      <Filter>Header Files\libtiff</Filter>
+    </ClCompile>
+    <ClCompile Include="inc\libtiff\tif_color.c">
+      <Filter>Header Files\libtiff</Filter>
+    </ClCompile>
+    <ClCompile Include="inc\libtiff\tif_compress.c">
+      <Filter>Header Files\libtiff</Filter>
+    </ClCompile>
+    <ClCompile Include="inc\libtiff\tif_dir.c">
+      <Filter>Header Files\libtiff</Filter>
+    </ClCompile>
+    <ClCompile Include="inc\libtiff\tif_dirinfo.c">
+      <Filter>Header Files\libtiff</Filter>
+    </ClCompile>
+    <ClCompile Include="inc\libtiff\tif_dirread.c">
+      <Filter>Header Files\libtiff</Filter>
+    </ClCompile>
+    <ClCompile Include="inc\libtiff\tif_dirwrite.c">
+      <Filter>Header Files\libtiff</Filter>
+    </ClCompile>
+    <ClCompile Include="inc\libtiff\tif_dumpmode.c">
+      <Filter>Header Files\libtiff</Filter>
+    </ClCompile>
+    <ClCompile Include="inc\libtiff\tif_error.c">
+      <Filter>Header Files\libtiff</Filter>
+    </ClCompile>
+    <ClCompile Include="inc\libtiff\tif_extension.c">
+      <Filter>Header Files\libtiff</Filter>
+    </ClCompile>
+    <ClCompile Include="inc\libtiff\tif_fax3.c">
+      <Filter>Header Files\libtiff</Filter>
+    </ClCompile>
+    <ClCompile Include="inc\libtiff\tif_fax3sm.c">
+      <Filter>Header Files\libtiff</Filter>
+    </ClCompile>
+    <ClCompile Include="inc\libtiff\tif_flush.c">
+      <Filter>Header Files\libtiff</Filter>
+    </ClCompile>
+    <ClCompile Include="inc\libtiff\tif_getimage.c">
+      <Filter>Header Files\libtiff</Filter>
+    </ClCompile>
+    <ClCompile Include="inc\libtiff\tif_jbig.c">
+      <Filter>Header Files\libtiff</Filter>
+    </ClCompile>
+    <ClCompile Include="inc\libtiff\tif_jpeg.c">
+      <Filter>Header Files\libtiff</Filter>
+    </ClCompile>
+    <ClCompile Include="inc\libtiff\tif_jpeg_12.c">
+      <Filter>Header Files\libtiff</Filter>
+    </ClCompile>
+    <ClCompile Include="inc\libtiff\tif_luv.c">
+      <Filter>Header Files\libtiff</Filter>
+    </ClCompile>
+    <ClCompile Include="inc\libtiff\tif_lzma.c">
+      <Filter>Header Files\libtiff</Filter>
+    </ClCompile>
+    <ClCompile Include="inc\libtiff\tif_lzw.c">
+      <Filter>Header Files\libtiff</Filter>
+    </ClCompile>
+    <ClCompile Include="inc\libtiff\tif_next.c">
+      <Filter>Header Files\libtiff</Filter>
+    </ClCompile>
+    <ClCompile Include="inc\libtiff\tif_ojpeg.c">
+      <Filter>Header Files\libtiff</Filter>
+    </ClCompile>
+    <ClCompile Include="inc\libtiff\tif_open.c">
+      <Filter>Header Files\libtiff</Filter>
+    </ClCompile>
+    <ClCompile Include="inc\libtiff\tif_packbits.c">
+      <Filter>Header Files\libtiff</Filter>
+    </ClCompile>
+    <ClCompile Include="inc\libtiff\tif_pixarlog.c">
+      <Filter>Header Files\libtiff</Filter>
+    </ClCompile>
+    <ClCompile Include="inc\libtiff\tif_predict.c">
+      <Filter>Header Files\libtiff</Filter>
+    </ClCompile>
+    <ClCompile Include="inc\libtiff\tif_print.c">
+      <Filter>Header Files\libtiff</Filter>
+    </ClCompile>
+    <ClCompile Include="inc\libtiff\tif_read.c">
+      <Filter>Header Files\libtiff</Filter>
+    </ClCompile>
+    <ClCompile Include="inc\libtiff\tif_stream.cxx">
+      <Filter>Header Files\libtiff</Filter>
+    </ClCompile>
+    <ClCompile Include="inc\libtiff\tif_strip.c">
+      <Filter>Header Files\libtiff</Filter>
+    </ClCompile>
+    <ClCompile Include="inc\libtiff\tif_swab.c">
+      <Filter>Header Files\libtiff</Filter>
+    </ClCompile>
+    <ClCompile Include="inc\libtiff\tif_thunder.c">
+      <Filter>Header Files\libtiff</Filter>
+    </ClCompile>
+    <ClCompile Include="inc\libtiff\tif_tile.c">
+      <Filter>Header Files\libtiff</Filter>
+    </ClCompile>
+    <ClCompile Include="inc\libtiff\tif_unix.c">
+      <Filter>Header Files\libtiff</Filter>
+    </ClCompile>
+    <ClCompile Include="inc\libtiff\tif_version.c">
+      <Filter>Header Files\libtiff</Filter>
+    </ClCompile>
+    <ClCompile Include="inc\libtiff\tif_warning.c">
+      <Filter>Header Files\libtiff</Filter>
+    </ClCompile>
+    <ClCompile Include="inc\libtiff\tif_write.c">
+      <Filter>Header Files\libtiff</Filter>
+    </ClCompile>
+    <ClCompile Include="inc\libtiff\tif_zip.c">
+      <Filter>Header Files\libtiff</Filter>
+    </ClCompile>
+    <ClCompile Include="src\srcDataIO\GDF.cpp">
+      <Filter>Source Files\srcDataIO</Filter>
+    </ClCompile>
+    <ClCompile Include="src\srcDataIO\NumDataIO.cpp">
+      <Filter>Source Files\srcDataIO</Filter>
+    </ClCompile>
+    <ClCompile Include="src\srcMath\Matrix.cpp">
+      <Filter>Source Files\srcMath</Filter>
+    </ClCompile>
+    <ClCompile Include="src\srcSTB\BackSTB.cpp">
+      <Filter>Source Files\srcSTB</Filter>
+    </ClCompile>
+    <ClCompile Include="src\srcSTB\BoundaryCheck.cpp">
+      <Filter>Source Files\srcSTB</Filter>
+    </ClCompile>
+    <ClCompile Include="src\srcSTB\Calibration.cpp">
+      <Filter>Source Files\srcSTB</Filter>
+    </ClCompile>
+    <ClCompile Include="src\srcSTB\Camera.cpp">
+      <Filter>Source Files\srcSTB</Filter>
+    </ClCompile>
+    <ClCompile Include="src\srcSTB\ForwardSTB.cpp">
+      <Filter>Source Files\srcSTB</Filter>
+    </ClCompile>
+    <ClCompile Include="src\srcSTB\Frame.cpp">
+      <Filter>Source Files\srcSTB</Filter>
+    </ClCompile>
+    <ClCompile Include="src\srcSTB\Image.cpp">
+      <Filter>Source Files\srcSTB</Filter>
+    </ClCompile>
+    <ClCompile Include="src\srcSTB\IPR.cpp">
+      <Filter>Source Files\srcSTB</Filter>
+    </ClCompile>
+    <ClCompile Include="src\srcSTB\OTF.cpp">
+      <Filter>Source Files\srcSTB</Filter>
+    </ClCompile>
+    <ClCompile Include="src\srcSTB\ParticleFinder.cpp">
+      <Filter>Source Files\srcSTB</Filter>
+    </ClCompile>
+    <ClCompile Include="src\srcSTB\Position.cpp">
+      <Filter>Source Files\srcSTB</Filter>
+    </ClCompile>
+    <ClCompile Include="src\srcSTB\PredictiveField.cpp">
+      <Filter>Source Files\srcSTB</Filter>
+    </ClCompile>
+    <ClCompile Include="src\srcSTB\Shaking.cpp">
+      <Filter>Source Files\srcSTB</Filter>
+    </ClCompile>
+    <ClCompile Include="src\srcSTB\STB.cpp">
+      <Filter>Source Files\srcSTB</Filter>
+    </ClCompile>
+    <ClCompile Include="src\srcSTB\Tiff2DFinder.cpp">
+      <Filter>Source Files\srcSTB</Filter>
+    </ClCompile>
+    <ClCompile Include="src\srcSTB\Tiffload.cpp">
+      <Filter>Source Files\srcSTB</Filter>
+    </ClCompile>
+    <ClCompile Include="src\srcSTB\Track.cpp">
+      <Filter>Source Files\srcSTB</Filter>
+    </ClCompile>
+    <ClCompile Include="src\srcSTB\WesleyanCPV.cpp">
+      <Filter>Source Files\srcSTB</Filter>
+    </ClCompile>
+    <ClCompile Include="src\CPVGDFTracker.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="inc\DataIO\DataIO.h">
+      <Filter>Header Files\DataIO</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\DataIO\GDF.h">
+      <Filter>Header Files\DataIO</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\DataIO\NumDataIO.h">
+      <Filter>Header Files\DataIO</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\libMath\linterp.h">
+      <Filter>Header Files\libMath</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\libMath\Logs.h">
+      <Filter>Header Files\libMath</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\libMath\Matrix.h">
+      <Filter>Header Files\libMath</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\libMath\MergeSort.h">
+      <Filter>Header Files\libMath</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\libSTB\BackSTB.h">
+      <Filter>Header Files\libSTB</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\libSTB\BoundaryCheck.h">
+      <Filter>Header Files\libSTB</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\libSTB\Calibration.h">
+      <Filter>Header Files\libSTB</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\libSTB\Camera.h">
+      <Filter>Header Files\libSTB</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\libSTB\ForwardSTB.h">
+      <Filter>Header Files\libSTB</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\libSTB\Frame.h">
+      <Filter>Header Files\libSTB</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\libSTB\Image.h">
+      <Filter>Header Files\libSTB</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\libSTB\IPR.h">
+      <Filter>Header Files\libSTB</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\libSTB\OTF.h">
+      <Filter>Header Files\libSTB</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\libSTB\ParticleFinder.h">
+      <Filter>Header Files\libSTB</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\libSTB\Position.h">
+      <Filter>Header Files\libSTB</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\libSTB\PredictiveField.h">
+      <Filter>Header Files\libSTB</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\libSTB\Shaking.h">
+      <Filter>Header Files\libSTB</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\libSTB\STB.h">
+      <Filter>Header Files\libSTB</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\libSTB\Tiff2DFinder.h">
+      <Filter>Header Files\libSTB</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\libSTB\Tiffload.h">
+      <Filter>Header Files\libSTB</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\libSTB\Track.h">
+      <Filter>Header Files\libSTB</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\libSTB\WesleyanCPV.h">
+      <Filter>Header Files\libSTB</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\libtiff\t4.h">
+      <Filter>Header Files\libtiff</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\libtiff\tif_config.h">
+      <Filter>Header Files\libtiff</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\libtiff\tif_config.wince.h">
+      <Filter>Header Files\libtiff</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\libtiff\tif_dir.h">
+      <Filter>Header Files\libtiff</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\libtiff\tif_fax3.h">
+      <Filter>Header Files\libtiff</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\libtiff\tif_predict.h">
+      <Filter>Header Files\libtiff</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\libtiff\tiff.h">
+      <Filter>Header Files\libtiff</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\libtiff\tiffconf.h">
+      <Filter>Header Files\libtiff</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\libtiff\tiffconf.wince.h">
+      <Filter>Header Files\libtiff</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\libtiff\tiffio.h">
+      <Filter>Header Files\libtiff</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\libtiff\tiffio.hxx">
+      <Filter>Header Files\libtiff</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\libtiff\tiffiop.h">
+      <Filter>Header Files\libtiff</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\libtiff\tiffvers.h">
+      <Filter>Header Files\libtiff</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\libtiff\uvcode.h">
+      <Filter>Header Files\libtiff</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\libSTB\STBCommon.h">
+      <Filter>Header Files\libSTB</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="inc\libtiff\CMakeLists.txt">
+      <Filter>Header Files\libtiff</Filter>
+    </Text>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="inc\libtiff\libtiff.def">
+      <Filter>Header Files\libtiff</Filter>
+    </None>
+    <None Include="inc\libtiff\libtiff.map">
+      <Filter>Header Files\libtiff</Filter>
+    </None>
+    <None Include="inc\libtiff\libtiffxx.map">
+      <Filter>Header Files\libtiff</Filter>
+    </None>
+    <None Include="inc\libtiff\Makefile.am">
+      <Filter>Header Files\libtiff</Filter>
+    </None>
+    <None Include="inc\libtiff\Makefile.in">
+      <Filter>Header Files\libtiff</Filter>
+    </None>
+    <None Include="inc\libtiff\Makefile.vc">
+      <Filter>Header Files\libtiff</Filter>
+    </None>
+    <None Include="inc\libtiff\mkg3states.c.tsy">
+      <Filter>Header Files\libtiff</Filter>
+    </None>
+    <None Include="inc\libtiff\SConstruct">
+      <Filter>Header Files\libtiff</Filter>
+    </None>
+    <None Include="inc\libtiff\tif_config.h.cmake.in">
+      <Filter>Header Files\libtiff</Filter>
+    </None>
+    <None Include="inc\libtiff\tif_config.h.in">
+      <Filter>Header Files\libtiff</Filter>
+    </None>
+    <None Include="inc\libtiff\tif_config.h-vms">
+      <Filter>Header Files\libtiff</Filter>
+    </None>
+    <None Include="inc\libtiff\tiffconf.h.cmake.in">
+      <Filter>Header Files\libtiff</Filter>
+    </None>
+    <None Include="inc\libtiff\tiffconf.h.in">
+      <Filter>Header Files\libtiff</Filter>
+    </None>
+  </ItemGroup>
+</Project>
