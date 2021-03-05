@@ -2,6 +2,7 @@
 * Based on STB (Schanz et. al) tracking code,
 *
 * Written 2/28/17 by Ashwanth
+* Improved by Shiyong Tan
 *
 * Latest version: 9/28/2017
 *
@@ -16,9 +17,9 @@
 #include <ratio>
 #include <chrono>
 #include <sys/stat.h>
-#include <GDF.h>
-#include <Frame.h>
-#include <STB.h>
+#include "GDF.h"
+#include "Frame.h"
+#include "STB.h"
 #include "BackSTB.h"
 #ifdef WINDOWS
 	#include <dirent.h>

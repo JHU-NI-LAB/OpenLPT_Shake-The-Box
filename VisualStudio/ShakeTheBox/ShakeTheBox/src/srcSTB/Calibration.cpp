@@ -1074,7 +1074,7 @@ void Calibration::PixelSearchx(CamParam C, ParallelLines P, double ypix, int& Mi
 
 	int XPix_a = x_a;
 			// only considering pixels inside the image bounds
-	if (XPix_a >= 0 || XPix_a < C.Npixw)	{
+	if (XPix_a >= 0 && XPix_a < C.Npixw)	{
 		temp = x_b;
 		temp = max(1, temp);
 		int YPix_b = min(temp, C.Npixw - 1);
@@ -1101,7 +1101,7 @@ void Calibration::PixelSearchy(CamParam C, ParallelLines P, double xpix, int& Mi
 	
 	int YPix_a = y_a;
 		// only considering the pixels_orig inside the image bounds
-	if (YPix_a >= 0 || YPix_a < C.Npixh)	{
+	if (YPix_a >= 0 && YPix_a < C.Npixh)	{
 		temp = y_b;
 		temp = max(1, temp);
 		int YPix_b = min(temp, C.Npixh - 1);
@@ -1246,7 +1246,7 @@ void Calibration::ParticleFinder2to1(int camID, int rID, int camid1, int camid2,
 	double y = m1*x + c1;
 
 	// getting the acute angle between the 2 lines
-	double theta1 = atan(m1)*(180 / PI), theta2 = theta2 = atan(m2) * (180.0 / PI);
+	double theta1 = atan(m1)*(180 / PI), theta2 = atan(m2) * (180.0 / PI);
 	double angle = abs(theta1 - theta2);
 	if (angle > 180)
 		angle = 360 - angle;
@@ -1277,7 +1277,7 @@ void Calibration::ParticleFinder2to1(int camID, int rID, int camid1, int camid2,
 	int xpix1 = floor(pPix1.X());
 	int xpix2 = ceil(pPix2.X());
 	int ypix1 = ceil(pPix1.Y());
-	int ypix2 = floor(pPix2.Y());
+	int ypix2 = floor(pPix2.Y()); // TODO: why?
 
 	// if any of those pixels are within the image bounds, check for particles in those pixels_orig
 	if (((xpix1 >= 0 && xpix1 < Npixw) || (xpix2 >= 0 && xpix2 < Npixw)) || ((ypix1 >= 0 && ypix1 < Npixh) || (ypix2 >= 0 && ypix2 < Npixh)) || (xpix1*xpix2<=0 && ypix1*ypix2<=0))
