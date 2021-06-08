@@ -194,9 +194,11 @@ inline const Position Track::Antepenultimate() const
 
 inline int Track::GetTime(int index) const throw(std::out_of_range)
 {
+	//std::cout << index << std::endl;
   try {
     return time.at(index);
   } catch (std::out_of_range& e) {
+	  //std::cout << index <<" " <<Length()<<std::endl;
     std::cerr << e.what() << std::endl;
     throw std::out_of_range("Caught out_of_range in Track::GetTime()");
   }

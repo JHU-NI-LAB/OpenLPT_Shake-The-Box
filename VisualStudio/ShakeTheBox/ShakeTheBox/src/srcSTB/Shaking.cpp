@@ -435,7 +435,12 @@ void Shaking::Int() {
 	delete[] cam_ID;
 	//cout << ignore << "," << num << "," << denum << endl;
 //	if (int3D == 0) int3D = 1;
-	int3D = int3D * sqrt(abs(num / denum));// * ratio;
+	if (denum > 0) {
+		int3D = int3D * sqrt(abs(num / denum));// * ratio;
+	}
+	else {
+		int3D = int3D;
+	}
 //	if (nonzero_proj < 2) {  // change to 2 because one camera with highest intensity has been ignore.
 //		int3D = 0;  // indicate this particle disappears in at least two cameras.
 //	}

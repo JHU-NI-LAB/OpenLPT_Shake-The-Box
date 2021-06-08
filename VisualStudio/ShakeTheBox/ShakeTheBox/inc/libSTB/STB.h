@@ -164,6 +164,7 @@ public:
 	void Load_Tracks(string path, TrackType trackType);
 	// dummy variables to identify the no. of tracks added and subtracted 
 	int a_as = 0, a_al = 0, a_is = 0, s_as1 = 0, s_as2 = 0, s_as3 = 0, s_as4 = 0, s_al = 0, a_il = 0;
+	int r_obl = 0, r_ct = 0, r_int = 0, r_2cam = 0, r_lf = 0;
 	//TESTING
 	Frame tempPredictions;
 	double particle_search_radius = 0;
