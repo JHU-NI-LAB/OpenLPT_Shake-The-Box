@@ -325,8 +325,8 @@ void STB::ConvergencePhase() {
 			cout<<"IPR time:"<<std::chrono::duration_cast<std::chrono::seconds>(std::chrono::system_clock::now() - start) .count() << "s" << endl;
 			cout<<"Total particles:" << candidates.NumParticles()<<endl;
 
-			string IPR_save_path = tiffaddress + "/Tracks/IPRcandidates/" + to_string(currFrame + 1) +".txt";
-			_ipr.SaveParticlePositions(candidates.Get_PosDeque(), IPR_save_path);
+			//string IPR_save_path = tiffaddress + "/Tracks/IPRcandidates/" + to_string(currFrame + 1) +".txt";
+			//_ipr.SaveParticlePositions(candidates.Get_PosDeque(), IPR_save_path);
 
 			//NumDataIO<double> data_io;
 			//double* pos_vec = new double[candidates.NumParticles() * 3];
@@ -1305,7 +1305,7 @@ Frame STB::IPRonResidual(Calibration& calib, Tiff2DFinder& t, deque<int**>& pixe
 
 	for (int outerloop = 0; outerloop < _ipr.it_outerloop; outerloop++) {						// identify the particle candidates from residual images 
 
-//		calib.Set_min2D(pow(1.1, outerloop)*mindist_2D);
+		//calib.Set_min2D(pow(1.1, outerloop)*mindist_2D);
 		calib.Set_min2D(mindist_2D + pix_length / 4 * outerloop);
 
 		// running IPR on the residual images

@@ -1254,15 +1254,18 @@ void Calibration::ParticleFinder2to1(int camID, int rID, int camid1, int camid2,
 //	double mindist = abs(mindist_1D / sin(PI*angle / 360));
 //	if (mindist > 1.5)
 //		mindist = 1.5;
-	double mindist = abs(mindist_1D / sin(PI*angle / 360));
+	double mindist = abs(mindist_1D / sin(PI*angle / 180));
 	/*
 	 * Modified by Shiyong Tan
 	 * Date: 6.7.18
 	 * Increase the threshold to eliminate the gap
 	 * Start:
 	 */
-	if (mindist > 1200 * config.factor) //1200 voxels
-		mindist = 1200 * config.factor;
+	//if (mindist > 1200 * config.factor) //1200 voxels
+	//	mindist = 1200 * config.factor;
+
+	if (mindist > mindist * 3) //1200 voxels
+		mindist = mindist * 3;
 	// End
 
 	int Npixw = cams[camID].Get_Npixw();
@@ -1332,10 +1335,13 @@ bool Calibration::ParticleCheck2to1(int camid0, int camid1, int camid2, Position
 	 * Increase the threshold to eliminate the gap
 	 * Start:
 	 */
-	double mindist = abs(mindist_1D / sin(PI*angle / 360));
-	if (mindist > 1200 * config.factor) //1200 voxels
-		mindist = 1200 * config.factor;
+	double mindist = abs(mindist_1D / sin(PI*angle / 180));
+	//if (mindist > 1200 * config.factor) //1200 voxels
+	//	mindist = 1200 * config.factor;
 	// END
+
+	if (mindist > mindist * 3) //1200 voxels
+		mindist = mindist * 3;
 
 	bool isMatch = false;
 	double dist = pow((x - (*P0).X()), 2) + pow((y - (*P0).Y()), 2);

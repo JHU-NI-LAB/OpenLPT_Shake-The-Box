@@ -211,7 +211,7 @@ Frame IPR::FindPos3D(deque< deque<string> > imgNames, int frameNumber)  {
 		start = clock();
 
 		// increasing the 2D threshold by 10% in each iteration
-//		calib.Set_min2D(pow(1.1, loopOuter)*mindist_2D);
+		//calib.Set_min2D(pow(1.1, loopOuter)*mindist_2D);
 		calib.Set_min2D(mindist_2D + pix_length / 4 * loopOuter);
 		
 		// update pos3Dnew with 3D particles from IPR of current outerloop
