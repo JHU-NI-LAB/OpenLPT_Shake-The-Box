@@ -59,9 +59,13 @@ IPR::IPR(string& fname, int ncams) : ncams(ncams)
 	if (ipr != 0)
 		IPROnly = true;
 
-	parsed >> calibfile;												// taking the path to calib file
-	parsed >> tiffaddress;												// taking the path to tiff files
-	parsed >> otfFile;													// taking the path to .mat / .txt file with OTF parameters
+	string trash;
+	getline(parsed, trash, '\t');
+	getline(parsed, trash, '\t');
+
+	getline(parsed, calibfile,   '\t');									// taking the path to calib file
+	getline(parsed, tiffaddress, '\t');									// taking the path to tiff files
+	getline(parsed, otfFile,     '\t');									// taking the path to .mat / .txt file with OTF parameters
 	parsed >> psize;													// particle size in x or y direction
 
 	parsed >> it_outerloop;												// # of outer and innerloop iterations

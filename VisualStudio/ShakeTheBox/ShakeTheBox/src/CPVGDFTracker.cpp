@@ -13,6 +13,8 @@
 #include <fstream>
 #include <cstdlib>
 #include <cstring>
+#include <cerrno>
+#include <filesystem>
 #include <vector>
 #include <ratio>
 #include <chrono>
@@ -32,6 +34,8 @@
 
 
 using namespace std;
+using std::cout;
+using std::endl;
 
 #ifdef WINDOWS
 	const char* version = "W2.1.021921"; //Version of this project
@@ -88,6 +92,9 @@ void GetDebugMode() {
 	}
 
 	ImportConfiguration(&config, argv[1]);
+	if (config.ncams < 0) {
+		return 1;
+	}
 
 	boundary_check.SetLimit(config.x_upper_limt, config.x_lower_limit, config.y_upper_limt, config.y_lower_limit,
 			config.z_upper_limt, config.z_lower_limit);
@@ -99,29 +106,34 @@ void GetDebugMode() {
 #endif
 
 	//Create folder to save tracks
-	struct stat info;
+	//struct stat info;
 
 	string folder_path = config.iprfile;
-	folder_path.erase(folder_path.size() - 13, 13); //erase iprconfig.txt
+	folder_path.erase(folder_path.find("iprconfig.txt")); //erase iprconfig.txt
 	folder_path = folder_path + "Tracks";
 
+
+	/*cout << folder_path << endl;
+	TCHAR NPath[MAX_PATH];
+	GetCurrentDirectory(MAX_PATH, NPath);
+	wcout << NPath << endl;*/
 #ifdef WINDOWS
-    if( stat( folder_path.c_str(), &info ) != 0 ) {
-        printf( "cannot access %s\n", folder_path.c_str() );
-        _mkdir(folder_path.c_str());
-        _mkdir((folder_path + "/InitialTracks").c_str());
-        _mkdir((folder_path + "/ConvergedTracks").c_str());
-        _mkdir((folder_path + "/BackSTBTracks").c_str());
-        printf( "%s have been created!\n", folder_path.c_str() );
+    //if( stat( folder_path.c_str(), &info ) != 0 ) {
+	if(_mkdir(folder_path.c_str()) == 0) {
+		printf("cannot access %s\n", folder_path.c_str());
+
+		_mkdir((folder_path + "/InitialTracks").c_str());
+		_mkdir((folder_path + "/ConvergedTracks").c_str());
+		_mkdir((folder_path + "/BackSTBTracks").c_str());
+		printf("%s have been created!\n", folder_path.c_str());
     }
-    else if( info.st_mode & S_IFDIR )  // S_ISDIR() doesn't exist on my windows
-        printf( "%s exists\n", folder_path.c_str() );
+	//else if (info.st_mode & S_IFDIR) {
+	else if (errno == EEXIST) {
+		printf("%s exists\n", folder_path.c_str());
+	}
     else {
-            _mkdir(folder_path.c_str());
-            _mkdir((folder_path + "/InitialTracks").c_str());
-            _mkdir((folder_path + "/ConvergedTracks").c_str());
-            _mkdir((folder_path + "/BackSTBTracks").c_str());
-            printf( "%s have been created!\n", folder_path.c_str() );
+		cout << "given folder path is invalid!! Aborting..." << endl;
+		return 2;
     }
 
 #else
@@ -233,6 +245,11 @@ void GetDebugMode() {
 void ImportConfiguration(struct ConfigFile* config, char* name) {
 		cout << "Reading configuration file..." << endl;
 		ifstream file(name, ios::in);
+		if (file.fail()) {
+			cout << "Unable to open config file!! Aborting..." << endl;
+			config->ncams = -1;
+			return;
+		}
 		string line;
 
 		getline(file, line);
@@ -252,11 +269,11 @@ void ImportConfiguration(struct ConfigFile* config, char* name) {
 		}
 
 		getline(file, line);
-		line.erase(line.find_first_of(' '));
+		line.erase(line.find_first_of('#'));
 		config->iprfile = line;
 
 		getline(file, line);
-		line.erase(line.find_first_of(' '));
+		line.erase(line.find_first_of('#'));
 		config->pfieldfile = line;
 
 		//getline(file, line);
