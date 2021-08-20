@@ -2301,4 +2301,5 @@ void STB::LoadTrackFromTXT(string path, TrackType trackType) {
 			}
 		}
 	}
+	delete[] track_data;
 }

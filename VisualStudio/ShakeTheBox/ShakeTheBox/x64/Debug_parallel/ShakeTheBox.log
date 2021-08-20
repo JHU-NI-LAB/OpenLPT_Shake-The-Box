@@ -1,0 +1,972 @@
+﻿  tif_aux.c
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libtiff\tiffconf.h(56,1): warning C4005: 'TIFF_INT64_T': macro redefinition
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libtiff\tif_config.h(45): message : see previous definition of 'TIFF_INT64_T'
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libtiff\tiffconf.h(69,1): warning C4005: 'TIFF_UINT64_T': macro redefinition
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libtiff\tif_config.h(51): message : see previous definition of 'TIFF_UINT64_T'
+  tif_close.c
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libtiff\tiffconf.h(56,1): warning C4005: 'TIFF_INT64_T': macro redefinition
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libtiff\tif_config.h(45): message : see previous definition of 'TIFF_INT64_T'
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libtiff\tiffconf.h(69,1): warning C4005: 'TIFF_UINT64_T': macro redefinition
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libtiff\tif_config.h(51): message : see previous definition of 'TIFF_UINT64_T'
+  tif_codec.c
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libtiff\tiffconf.h(56,1): warning C4005: 'TIFF_INT64_T': macro redefinition
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libtiff\tif_config.h(45): message : see previous definition of 'TIFF_INT64_T'
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libtiff\tiffconf.h(69,1): warning C4005: 'TIFF_UINT64_T': macro redefinition
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libtiff\tif_config.h(51): message : see previous definition of 'TIFF_UINT64_T'
+  tif_color.c
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libtiff\tiffconf.h(56,1): warning C4005: 'TIFF_INT64_T': macro redefinition
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libtiff\tif_config.h(45): message : see previous definition of 'TIFF_INT64_T'
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libtiff\tiffconf.h(69,1): warning C4005: 'TIFF_UINT64_T': macro redefinition
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libtiff\tif_config.h(51): message : see previous definition of 'TIFF_UINT64_T'
+  tif_compress.c
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libtiff\tiffconf.h(56,1): warning C4005: 'TIFF_INT64_T': macro redefinition
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libtiff\tif_config.h(45): message : see previous definition of 'TIFF_INT64_T'
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libtiff\tiffconf.h(69,1): warning C4005: 'TIFF_UINT64_T': macro redefinition
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libtiff\tif_config.h(51): message : see previous definition of 'TIFF_UINT64_T'
+  tif_dir.c
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libtiff\tiffconf.h(56,1): warning C4005: 'TIFF_INT64_T': macro redefinition
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libtiff\tif_config.h(45): message : see previous definition of 'TIFF_INT64_T'
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libtiff\tiffconf.h(69,1): warning C4005: 'TIFF_UINT64_T': macro redefinition
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libtiff\tif_config.h(51): message : see previous definition of 'TIFF_UINT64_T'
+  tif_dirinfo.c
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libtiff\tiffconf.h(56,1): warning C4005: 'TIFF_INT64_T': macro redefinition
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libtiff\tif_config.h(45): message : see previous definition of 'TIFF_INT64_T'
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libtiff\tiffconf.h(69,1): warning C4005: 'TIFF_UINT64_T': macro redefinition
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libtiff\tif_config.h(51): message : see previous definition of 'TIFF_UINT64_T'
+  tif_dirread.c
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libtiff\tiffconf.h(56,1): warning C4005: 'TIFF_INT64_T': macro redefinition
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libtiff\tif_config.h(45): message : see previous definition of 'TIFF_INT64_T'
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libtiff\tiffconf.h(69,1): warning C4005: 'TIFF_UINT64_T': macro redefinition
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libtiff\tif_config.h(51): message : see previous definition of 'TIFF_UINT64_T'
+  tif_dirwrite.c
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libtiff\tiffconf.h(56,1): warning C4005: 'TIFF_INT64_T': macro redefinition
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libtiff\tif_config.h(45): message : see previous definition of 'TIFF_INT64_T'
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libtiff\tiffconf.h(69,1): warning C4005: 'TIFF_UINT64_T': macro redefinition
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libtiff\tif_config.h(51): message : see previous definition of 'TIFF_UINT64_T'
+  tif_dumpmode.c
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libtiff\tiffconf.h(56,1): warning C4005: 'TIFF_INT64_T': macro redefinition
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libtiff\tif_config.h(45): message : see previous definition of 'TIFF_INT64_T'
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libtiff\tiffconf.h(69,1): warning C4005: 'TIFF_UINT64_T': macro redefinition
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libtiff\tif_config.h(51): message : see previous definition of 'TIFF_UINT64_T'
+  tif_error.c
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libtiff\tiffconf.h(56,1): warning C4005: 'TIFF_INT64_T': macro redefinition
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libtiff\tif_config.h(45): message : see previous definition of 'TIFF_INT64_T'
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libtiff\tiffconf.h(69,1): warning C4005: 'TIFF_UINT64_T': macro redefinition
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libtiff\tif_config.h(51): message : see previous definition of 'TIFF_UINT64_T'
+  tif_extension.c
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libtiff\tiffconf.h(56,1): warning C4005: 'TIFF_INT64_T': macro redefinition
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libtiff\tif_config.h(45): message : see previous definition of 'TIFF_INT64_T'
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libtiff\tiffconf.h(69,1): warning C4005: 'TIFF_UINT64_T': macro redefinition
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libtiff\tif_config.h(51): message : see previous definition of 'TIFF_UINT64_T'
+  tif_fax3.c
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libtiff\tiffconf.h(56,1): warning C4005: 'TIFF_INT64_T': macro redefinition
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libtiff\tif_config.h(45): message : see previous definition of 'TIFF_INT64_T'
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libtiff\tiffconf.h(69,1): warning C4005: 'TIFF_UINT64_T': macro redefinition
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libtiff\tif_config.h(51): message : see previous definition of 'TIFF_UINT64_T'
+  tif_fax3sm.c
+  tif_flush.c
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libtiff\tiffconf.h(56,1): warning C4005: 'TIFF_INT64_T': macro redefinition
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libtiff\tif_config.h(45): message : see previous definition of 'TIFF_INT64_T'
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libtiff\tiffconf.h(69,1): warning C4005: 'TIFF_UINT64_T': macro redefinition
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libtiff\tif_config.h(51): message : see previous definition of 'TIFF_UINT64_T'
+  tif_getimage.c
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libtiff\tiffconf.h(56,1): warning C4005: 'TIFF_INT64_T': macro redefinition
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libtiff\tif_config.h(45): message : see previous definition of 'TIFF_INT64_T'
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libtiff\tiffconf.h(69,1): warning C4005: 'TIFF_UINT64_T': macro redefinition
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libtiff\tif_config.h(51): message : see previous definition of 'TIFF_UINT64_T'
+  tif_jbig.c
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libtiff\tiffconf.h(56,1): warning C4005: 'TIFF_INT64_T': macro redefinition
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libtiff\tif_config.h(45): message : see previous definition of 'TIFF_INT64_T'
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libtiff\tiffconf.h(69,1): warning C4005: 'TIFF_UINT64_T': macro redefinition
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libtiff\tif_config.h(51): message : see previous definition of 'TIFF_UINT64_T'
+  tif_jpeg.c
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libtiff\tiffconf.h(56,1): warning C4005: 'TIFF_INT64_T': macro redefinition
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libtiff\tif_config.h(45): message : see previous definition of 'TIFF_INT64_T'
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libtiff\tiffconf.h(69,1): warning C4005: 'TIFF_UINT64_T': macro redefinition
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libtiff\tif_config.h(51): message : see previous definition of 'TIFF_UINT64_T'
+  tif_jpeg_12.c
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libtiff\tiffconf.h(56,1): warning C4005: 'TIFF_INT64_T': macro redefinition
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libtiff\tif_config.h(45): message : see previous definition of 'TIFF_INT64_T'
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libtiff\tiffconf.h(69,1): warning C4005: 'TIFF_UINT64_T': macro redefinition
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libtiff\tif_config.h(51): message : see previous definition of 'TIFF_UINT64_T'
+  tif_luv.c
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libtiff\tiffconf.h(56,1): warning C4005: 'TIFF_INT64_T': macro redefinition
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libtiff\tif_config.h(45): message : see previous definition of 'TIFF_INT64_T'
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libtiff\tiffconf.h(69,1): warning C4005: 'TIFF_UINT64_T': macro redefinition
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libtiff\tif_config.h(51): message : see previous definition of 'TIFF_UINT64_T'
+  Generating Code...
+  Compiling...
+  tif_lzma.c
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libtiff\tiffconf.h(56,1): warning C4005: 'TIFF_INT64_T': macro redefinition
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libtiff\tif_config.h(45): message : see previous definition of 'TIFF_INT64_T'
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libtiff\tiffconf.h(69,1): warning C4005: 'TIFF_UINT64_T': macro redefinition
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libtiff\tif_config.h(51): message : see previous definition of 'TIFF_UINT64_T'
+  tif_lzw.c
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libtiff\tiffconf.h(56,1): warning C4005: 'TIFF_INT64_T': macro redefinition
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libtiff\tif_config.h(45): message : see previous definition of 'TIFF_INT64_T'
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libtiff\tiffconf.h(69,1): warning C4005: 'TIFF_UINT64_T': macro redefinition
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libtiff\tif_config.h(51): message : see previous definition of 'TIFF_UINT64_T'
+  tif_next.c
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libtiff\tiffconf.h(56,1): warning C4005: 'TIFF_INT64_T': macro redefinition
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libtiff\tif_config.h(45): message : see previous definition of 'TIFF_INT64_T'
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libtiff\tiffconf.h(69,1): warning C4005: 'TIFF_UINT64_T': macro redefinition
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libtiff\tif_config.h(51): message : see previous definition of 'TIFF_UINT64_T'
+  tif_ojpeg.c
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libtiff\tiffconf.h(56,1): warning C4005: 'TIFF_INT64_T': macro redefinition
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libtiff\tif_config.h(45): message : see previous definition of 'TIFF_INT64_T'
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libtiff\tiffconf.h(69,1): warning C4005: 'TIFF_UINT64_T': macro redefinition
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libtiff\tif_config.h(51): message : see previous definition of 'TIFF_UINT64_T'
+  tif_open.c
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libtiff\tiffconf.h(56,1): warning C4005: 'TIFF_INT64_T': macro redefinition
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libtiff\tif_config.h(45): message : see previous definition of 'TIFF_INT64_T'
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libtiff\tiffconf.h(69,1): warning C4005: 'TIFF_UINT64_T': macro redefinition
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libtiff\tif_config.h(51): message : see previous definition of 'TIFF_UINT64_T'
+  tif_packbits.c
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libtiff\tiffconf.h(56,1): warning C4005: 'TIFF_INT64_T': macro redefinition
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libtiff\tif_config.h(45): message : see previous definition of 'TIFF_INT64_T'
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libtiff\tiffconf.h(69,1): warning C4005: 'TIFF_UINT64_T': macro redefinition
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libtiff\tif_config.h(51): message : see previous definition of 'TIFF_UINT64_T'
+  tif_pixarlog.c
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libtiff\tiffconf.h(56,1): warning C4005: 'TIFF_INT64_T': macro redefinition
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libtiff\tif_config.h(45): message : see previous definition of 'TIFF_INT64_T'
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libtiff\tiffconf.h(69,1): warning C4005: 'TIFF_UINT64_T': macro redefinition
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libtiff\tif_config.h(51): message : see previous definition of 'TIFF_UINT64_T'
+  tif_predict.c
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libtiff\tiffconf.h(56,1): warning C4005: 'TIFF_INT64_T': macro redefinition
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libtiff\tif_config.h(45): message : see previous definition of 'TIFF_INT64_T'
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libtiff\tiffconf.h(69,1): warning C4005: 'TIFF_UINT64_T': macro redefinition
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libtiff\tif_config.h(51): message : see previous definition of 'TIFF_UINT64_T'
+  tif_print.c
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libtiff\tiffconf.h(56,1): warning C4005: 'TIFF_INT64_T': macro redefinition
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libtiff\tif_config.h(45): message : see previous definition of 'TIFF_INT64_T'
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libtiff\tiffconf.h(69,1): warning C4005: 'TIFF_UINT64_T': macro redefinition
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libtiff\tif_config.h(51): message : see previous definition of 'TIFF_UINT64_T'
+  tif_read.c
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libtiff\tiffconf.h(56,1): warning C4005: 'TIFF_INT64_T': macro redefinition
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libtiff\tif_config.h(45): message : see previous definition of 'TIFF_INT64_T'
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libtiff\tiffconf.h(69,1): warning C4005: 'TIFF_UINT64_T': macro redefinition
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libtiff\tif_config.h(51): message : see previous definition of 'TIFF_UINT64_T'
+  tif_strip.c
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libtiff\tiffconf.h(56,1): warning C4005: 'TIFF_INT64_T': macro redefinition
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libtiff\tif_config.h(45): message : see previous definition of 'TIFF_INT64_T'
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libtiff\tiffconf.h(69,1): warning C4005: 'TIFF_UINT64_T': macro redefinition
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libtiff\tif_config.h(51): message : see previous definition of 'TIFF_UINT64_T'
+  tif_swab.c
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libtiff\tiffconf.h(56,1): warning C4005: 'TIFF_INT64_T': macro redefinition
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libtiff\tif_config.h(45): message : see previous definition of 'TIFF_INT64_T'
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libtiff\tiffconf.h(69,1): warning C4005: 'TIFF_UINT64_T': macro redefinition
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libtiff\tif_config.h(51): message : see previous definition of 'TIFF_UINT64_T'
+  tif_thunder.c
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libtiff\tiffconf.h(56,1): warning C4005: 'TIFF_INT64_T': macro redefinition
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libtiff\tif_config.h(45): message : see previous definition of 'TIFF_INT64_T'
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libtiff\tiffconf.h(69,1): warning C4005: 'TIFF_UINT64_T': macro redefinition
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libtiff\tif_config.h(51): message : see previous definition of 'TIFF_UINT64_T'
+  tif_tile.c
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libtiff\tiffconf.h(56,1): warning C4005: 'TIFF_INT64_T': macro redefinition
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libtiff\tif_config.h(45): message : see previous definition of 'TIFF_INT64_T'
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libtiff\tiffconf.h(69,1): warning C4005: 'TIFF_UINT64_T': macro redefinition
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libtiff\tif_config.h(51): message : see previous definition of 'TIFF_UINT64_T'
+  tif_unix.c
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libtiff\tiffconf.h(56,1): warning C4005: 'TIFF_INT64_T': macro redefinition
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libtiff\tif_config.h(45): message : see previous definition of 'TIFF_INT64_T'
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libtiff\tiffconf.h(69,1): warning C4005: 'TIFF_UINT64_T': macro redefinition
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libtiff\tif_config.h(51): message : see previous definition of 'TIFF_UINT64_T'
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libtiff\tif_unix.c(87,27): warning C4013: 'read' undefined; assuming extern returning int
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libtiff\tif_unix.c(115,28): warning C4013: 'write' undefined; assuming extern returning int
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libtiff\tif_unix.c(136,17): warning C4013: '_lseeki64' undefined; assuming extern returning int
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libtiff\tif_unix.c(144,14): warning C4013: 'close' undefined; assuming extern returning int
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libtiff\tif_unix.c(240,11): warning C4013: 'open' undefined; assuming extern returning int
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libtiff\tif_unix.c(279,13): warning C4013: '_wopen' undefined; assuming extern returning int
+  tif_version.c
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libtiff\tiffconf.h(56,1): warning C4005: 'TIFF_INT64_T': macro redefinition
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libtiff\tif_config.h(45): message : see previous definition of 'TIFF_INT64_T'
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libtiff\tiffconf.h(69,1): warning C4005: 'TIFF_UINT64_T': macro redefinition
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libtiff\tif_config.h(51): message : see previous definition of 'TIFF_UINT64_T'
+  tif_warning.c
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libtiff\tiffconf.h(56,1): warning C4005: 'TIFF_INT64_T': macro redefinition
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libtiff\tif_config.h(45): message : see previous definition of 'TIFF_INT64_T'
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libtiff\tiffconf.h(69,1): warning C4005: 'TIFF_UINT64_T': macro redefinition
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libtiff\tif_config.h(51): message : see previous definition of 'TIFF_UINT64_T'
+  tif_write.c
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libtiff\tiffconf.h(56,1): warning C4005: 'TIFF_INT64_T': macro redefinition
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libtiff\tif_config.h(45): message : see previous definition of 'TIFF_INT64_T'
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libtiff\tiffconf.h(69,1): warning C4005: 'TIFF_UINT64_T': macro redefinition
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libtiff\tif_config.h(51): message : see previous definition of 'TIFF_UINT64_T'
+  tif_zip.c
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libtiff\tiffconf.h(56,1): warning C4005: 'TIFF_INT64_T': macro redefinition
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libtiff\tif_config.h(45): message : see previous definition of 'TIFF_INT64_T'
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libtiff\tiffconf.h(69,1): warning C4005: 'TIFF_UINT64_T': macro redefinition
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libtiff\tif_config.h(51): message : see previous definition of 'TIFF_UINT64_T'
+  Generating Code...
+  tif_stream.cxx
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libtiff\tiffconf.h(56,1): warning C4005: 'TIFF_INT64_T': macro redefinition
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libtiff\tif_config.h(45): message : see previous definition of 'TIFF_INT64_T'
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libtiff\tiffconf.h(69,1): warning C4005: 'TIFF_UINT64_T': macro redefinition
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libtiff\tif_config.h(51): message : see previous definition of 'TIFF_UINT64_T'
+  CPVGDFTracker.cpp
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libSTB\Frame.h(56,59): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libSTB\Frame.h(128,25): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libSTB\Frame.h(149,23): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libSTB\Frame.h(155,25): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libSTB\Frame.h(160,25): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libSTB\Frame.h(172,72): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libSTB\Frame.h(294,13): warning C4244: 'return': conversion from '__int64' to 'int', possible loss of data
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\DataIO\GDF.h(19,5): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\DataIO\GDF.h(62,18): warning C4267: 'return': conversion from 'size_t' to 'int', possible loss of data
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libSTB\Track.h(70,55): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libSTB\Track.h(72,61): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libSTB\Track.h(195,67): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libSTB\Track.h(207,73): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libSTB\Image.h(29,7): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libSTB\Image.h(30,7): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libSTB\Image.h(33,69): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libSTB\Image.h(40,62): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libSTB\Image.h(52,86): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libSTB\Image.h(66,61): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libSTB\Image.h(87,74): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libSTB\Tiffload.h(24,11): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libSTB\Tiffload.h(30,61): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libSTB\ParticleFinder.h(85,18): warning C4267: 'return': conversion from 'size_t' to 'int', possible loss of data
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libSTB\Tiff2DFinder.h(25,86): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libSTB\Tiff2DFinder.h(26,59): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libSTB\Calibration.h(27,13): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libSTB\Calibration.h(28,13): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libSTB\Calibration.h(55,110): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libSTB\Calibration.h(112,109): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
+  GDF.cpp
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libSTB\Frame.h(56,59): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libSTB\Frame.h(128,25): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libSTB\Frame.h(149,23): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libSTB\Frame.h(155,25): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libSTB\Frame.h(160,25): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libSTB\Frame.h(172,72): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libSTB\Frame.h(294,13): warning C4244: 'return': conversion from '__int64' to 'int', possible loss of data
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\DataIO\GDF.h(19,5): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\DataIO\GDF.h(62,18): warning C4267: 'return': conversion from 'size_t' to 'int', possible loss of data
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libSTB\WesleyanCPV.h(27,13): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libSTB\WesleyanCPV.h(39,90): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libSTB\WesleyanCPV.h(69,38): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\src\srcDataIO\GDF.cpp(19,61): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\src\srcDataIO\GDF.cpp(37,31): warning C4244: '=': conversion from 'std::streamoff' to 'double', possible loss of data
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\src\srcDataIO\GDF.cpp(40,20): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\src\srcDataIO\GDF.cpp(43,32): warning C4244: '=': conversion from 'std::streamoff' to 'double', possible loss of data
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\src\srcDataIO\GDF.cpp(46,21): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\src\srcDataIO\GDF.cpp(51,28): warning C4244: 'argument': conversion from 'double' to '__int64', possible loss of data
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\src\srcDataIO\GDF.cpp(61,36): warning C4244: '=': conversion from 'std::streamoff' to 'double', possible loss of data
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\src\srcDataIO\GDF.cpp(64,23): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\src\srcDataIO\GDF.cpp(72,33): warning C4244: 'argument': conversion from 'double' to '__int64', possible loss of data
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\src\srcDataIO\GDF.cpp(80,33): warning C4244: 'argument': conversion from 'double' to '__int64', possible loss of data
+  NumDataIO.cpp
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\src\srcDataIO\NumDataIO.cpp(51,30): warning C4018: '<': signed/unsigned mismatch
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\src\srcDataIO\NumDataIO.cpp(42): message : while compiling class template member function 'int NumDataIO<int>::ReadData(T *)'
+          with
+          [
+              T=int
+          ]
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\src\srcDataIO\NumDataIO.cpp(91): message : see reference to class template instantiation 'NumDataIO<int>' being compiled
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\src\srcDataIO\NumDataIO.cpp(53,10): warning C4018: '>=': signed/unsigned mismatch
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\src\srcDataIO\NumDataIO.cpp(58,43): warning C4244: '=': conversion from 'double' to 'T', possible loss of data
+          with
+          [
+              T=int
+          ]
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\src\srcDataIO\NumDataIO.cpp(60,38): warning C4101: 'oor': unreferenced local variable
+  Matrix.cpp
+  BackSTB.cpp
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libSTB\Track.h(70,55): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libSTB\Track.h(72,61): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libSTB\Track.h(195,67): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libSTB\Track.h(207,73): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libSTB\Frame.h(56,59): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libSTB\Frame.h(128,25): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libSTB\Frame.h(149,23): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libSTB\Frame.h(155,25): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libSTB\Frame.h(160,25): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libSTB\Frame.h(172,72): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libSTB\Frame.h(294,13): warning C4244: 'return': conversion from '__int64' to 'int', possible loss of data
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libSTB\Image.h(29,7): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libSTB\Image.h(30,7): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libSTB\Image.h(33,69): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libSTB\Image.h(40,62): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libSTB\Image.h(52,86): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libSTB\Image.h(66,61): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libSTB\Image.h(87,74): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libSTB\Tiffload.h(24,11): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libSTB\Tiffload.h(30,61): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libSTB\ParticleFinder.h(85,18): warning C4267: 'return': conversion from 'size_t' to 'int', possible loss of data
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libSTB\Tiff2DFinder.h(25,86): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libSTB\Tiff2DFinder.h(26,59): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libSTB\Calibration.h(27,13): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libSTB\Calibration.h(28,13): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libSTB\Calibration.h(55,110): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libSTB\Calibration.h(112,109): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\src\srcSTB\BackSTB.cpp(93,46): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\src\srcSTB\BackSTB.cpp(99,46): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\src\srcSTB\BackSTB.cpp(177,20): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\src\srcSTB\BackSTB.cpp(197,21): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\src\srcSTB\BackSTB.cpp(416,29): warning C4018: '<': signed/unsigned mismatch
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\src\srcSTB\BackSTB.cpp(431,30): warning C4018: '<': signed/unsigned mismatch
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\src\srcSTB\BackSTB.cpp(437,29): warning C4018: '<': signed/unsigned mismatch
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\src\srcSTB\BackSTB.cpp(440,29): warning C4018: '<': signed/unsigned mismatch
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\src\srcSTB\BackSTB.cpp(446,29): warning C4018: '<': signed/unsigned mismatch
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\src\srcSTB\BackSTB.cpp(453,30): warning C4018: '<': signed/unsigned mismatch
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\src\srcSTB\BackSTB.cpp(458,30): warning C4018: '<': signed/unsigned mismatch
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\src\srcSTB\BackSTB.cpp(464,29): warning C4018: '<': signed/unsigned mismatch
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\src\srcSTB\BackSTB.cpp(593,87): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\src\srcSTB\BackSTB.cpp(611,19): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+  BoundaryCheck.cpp
+  Calibration.cpp
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libSTB\Frame.h(56,59): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libSTB\Frame.h(128,25): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libSTB\Frame.h(149,23): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libSTB\Frame.h(155,25): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libSTB\Frame.h(160,25): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libSTB\Frame.h(172,72): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libSTB\Frame.h(294,13): warning C4244: 'return': conversion from '__int64' to 'int', possible loss of data
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libSTB\Calibration.h(27,13): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libSTB\Calibration.h(28,13): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libSTB\Calibration.h(55,110): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libSTB\Calibration.h(112,109): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\DataIO\GDF.h(19,5): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\DataIO\GDF.h(62,18): warning C4267: 'return': conversion from 'size_t' to 'int', possible loss of data
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\src\srcSTB\Calibration.cpp(63,128): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\src\srcSTB\Calibration.cpp(118,113): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\src\srcSTB\Calibration.cpp(240,118): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\src\srcSTB\Calibration.cpp(373,32): warning C4267: '+=': conversion from 'size_t' to 'int', possible loss of data
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\src\srcSTB\Calibration.cpp(500,55): warning C4267: 'initializing': conversion from 'size_t' to 'unsigned long', possible loss of data
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\src\srcSTB\Calibration.cpp(505,25): warning C4018: '<': signed/unsigned mismatch
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\src\srcSTB\Calibration.cpp(579,45): warning C4267: 'initializing': conversion from 'size_t' to 'unsigned int', possible loss of data
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\src\srcSTB\Calibration.cpp(587,29): warning C4018: '<': signed/unsigned mismatch
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\src\srcSTB\Calibration.cpp(603,20): warning C4018: '<': signed/unsigned mismatch
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\src\srcSTB\Calibration.cpp(638,29): warning C4018: '<': signed/unsigned mismatch
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\src\srcSTB\Calibration.cpp(657,31): warning C4018: '<': signed/unsigned mismatch
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\src\srcSTB\Calibration.cpp(667,34): warning C4018: '<': signed/unsigned mismatch
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\src\srcSTB\Calibration.cpp(687,11): warning C4018: '<': signed/unsigned mismatch
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\src\srcSTB\Calibration.cpp(697,32): warning C4018: '<': signed/unsigned mismatch
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\src\srcSTB\Calibration.cpp(701,34): warning C4018: '<': signed/unsigned mismatch
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\src\srcSTB\Calibration.cpp(916,106): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\src\srcSTB\Calibration.cpp(1027,10): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\src\srcSTB\Calibration.cpp(1028,10): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\src\srcSTB\Calibration.cpp(1075,13): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\src\srcSTB\Calibration.cpp(1078,10): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\src\srcSTB\Calibration.cpp(1081,10): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\src\srcSTB\Calibration.cpp(1102,13): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\src\srcSTB\Calibration.cpp(1105,10): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\src\srcSTB\Calibration.cpp(1108,10): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\src\srcSTB\Calibration.cpp(1280,12): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\src\srcSTB\Calibration.cpp(1281,12): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\src\srcSTB\Calibration.cpp(1282,12): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\src\srcSTB\Calibration.cpp(1283,12): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+  Camera.cpp
+  ForwardSTB.cpp
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libSTB\Track.h(70,55): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libSTB\Track.h(72,61): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libSTB\Track.h(195,67): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libSTB\Track.h(207,73): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libSTB\Frame.h(56,59): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libSTB\Frame.h(128,25): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libSTB\Frame.h(149,23): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libSTB\Frame.h(155,25): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libSTB\Frame.h(160,25): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libSTB\Frame.h(172,72): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libSTB\Frame.h(294,13): warning C4244: 'return': conversion from '__int64' to 'int', possible loss of data
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libSTB\Image.h(29,7): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libSTB\Image.h(30,7): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libSTB\Image.h(33,69): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libSTB\Image.h(40,62): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libSTB\Image.h(52,86): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libSTB\Image.h(66,61): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libSTB\Image.h(87,74): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libSTB\Tiffload.h(24,11): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libSTB\Tiffload.h(30,61): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libSTB\ParticleFinder.h(85,18): warning C4267: 'return': conversion from 'size_t' to 'int', possible loss of data
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libSTB\Tiff2DFinder.h(25,86): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libSTB\Tiff2DFinder.h(26,59): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libSTB\Calibration.h(27,13): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libSTB\Calibration.h(28,13): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libSTB\Calibration.h(55,110): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libSTB\Calibration.h(112,109): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\src\srcSTB\ForwardSTB.cpp(83,19): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\src\srcSTB\ForwardSTB.cpp(100,20): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\src\srcSTB\ForwardSTB.cpp(180,92): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\src\srcSTB\ForwardSTB.cpp(195,19): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\src\srcSTB\ForwardSTB.cpp(222,2): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+  Frame.cpp
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libSTB\Frame.h(56,59): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libSTB\Frame.h(128,25): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libSTB\Frame.h(149,23): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libSTB\Frame.h(155,25): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libSTB\Frame.h(160,25): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libSTB\Frame.h(172,72): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libSTB\Frame.h(294,13): warning C4244: 'return': conversion from '__int64' to 'int', possible loss of data
+  Image.cpp
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libSTB\Image.h(29,7): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libSTB\Image.h(30,7): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libSTB\Image.h(33,69): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libSTB\Image.h(40,62): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libSTB\Image.h(52,86): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libSTB\Image.h(66,61): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libSTB\Image.h(87,74): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\src\srcSTB\Image.cpp(14,63): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
+  IPR.cpp
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libSTB\Frame.h(56,59): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libSTB\Frame.h(128,25): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libSTB\Frame.h(149,23): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libSTB\Frame.h(155,25): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libSTB\Frame.h(160,25): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libSTB\Frame.h(172,72): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libSTB\Frame.h(294,13): warning C4244: 'return': conversion from '__int64' to 'int', possible loss of data
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libSTB\Image.h(29,7): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libSTB\Image.h(30,7): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libSTB\Image.h(33,69): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libSTB\Image.h(40,62): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libSTB\Image.h(52,86): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libSTB\Image.h(66,61): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libSTB\Image.h(87,74): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libSTB\Tiffload.h(24,11): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libSTB\Tiffload.h(30,61): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libSTB\ParticleFinder.h(85,18): warning C4267: 'return': conversion from 'size_t' to 'int', possible loss of data
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libSTB\Tiff2DFinder.h(25,86): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libSTB\Tiff2DFinder.h(26,59): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libSTB\Calibration.h(27,13): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libSTB\Calibration.h(28,13): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libSTB\Calibration.h(55,110): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libSTB\Calibration.h(112,109): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\src\srcSTB\IPR.cpp(316,27): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\src\srcSTB\IPR.cpp(401,31): warning C4018: '<': signed/unsigned mismatch
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\src\srcSTB\IPR.cpp(515,79): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\src\srcSTB\IPR.cpp(528,20): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\src\srcSTB\IPR.cpp(581,15): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\src\srcSTB\IPR.cpp(633,15): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\src\srcSTB\IPR.cpp(678,2): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\src\srcSTB\IPR.cpp(769,41): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\src\srcSTB\IPR.cpp(854,52): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\src\srcSTB\IPR.cpp(974,28): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+  OTF.cpp
+  Info: Boost.Config is older than your compiler version - probably nothing bad will happen - but you may wish to look for an update Boost version.  Define BOOST_CONFIG_SUPPRESS_OUTDATED_MESSAGE to suppress this message.
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libMath\linterp.h(193,1): warning C4267: '=': conversion from 'size_t' to '_Ty', possible loss of data
+          with
+          [
+              _Ty=int
+          ]
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libMath\linterp.h(185): message : while compiling class template member function 'T NDInterpolator<3,T,false,true,ArrayRefCountT,GridRefCountT>::get_f_val(const std::array<int,3> &,const std::array<int,3> &) const'
+          with
+          [
+              T=double,
+              ArrayRefCountT=EmptyClass,
+              GridRefCountT=EmptyClass
+          ]
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libMath\linterp.h(282): message : see reference to function template instantiation 'T NDInterpolator<3,T,false,true,ArrayRefCountT,GridRefCountT>::get_f_val(const std::array<int,3> &,const std::array<int,3> &) const' being compiled
+          with
+          [
+              T=double,
+              ArrayRefCountT=EmptyClass,
+              GridRefCountT=EmptyClass
+          ]
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libMath\linterp.h(222): message : see reference to class template instantiation 'NDInterpolator<3,T,false,true,ArrayRefCountT,GridRefCountT>' being compiled
+          with
+          [
+              T=double,
+              ArrayRefCountT=EmptyClass,
+              GridRefCountT=EmptyClass
+          ]
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libMath\linterp.h(416): message : see reference to class template instantiation 'InterpSimplex<3,double,false,true,EmptyClass,EmptyClass>' being compiled
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libMath\linterp.h(203,1): warning C4267: '=': conversion from 'size_t' to '_Ty', possible loss of data
+          with
+          [
+              _Ty=int
+          ]
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libMath\linterp.h(177,1): warning C4267: 'return': conversion from 'size_t' to 'int', possible loss of data
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libMath\linterp.h(174): message : while compiling class template member function 'int NDInterpolator<3,T,false,true,ArrayRefCountT,GridRefCountT>::find_cell(int,T) const'
+          with
+          [
+              T=double,
+              ArrayRefCountT=EmptyClass,
+              GridRefCountT=EmptyClass
+          ]
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libMath\linterp.h(258): message : see reference to function template instantiation 'int NDInterpolator<3,T,false,true,ArrayRefCountT,GridRefCountT>::find_cell(int,T) const' being compiled
+          with
+          [
+              T=double,
+              ArrayRefCountT=EmptyClass,
+              GridRefCountT=EmptyClass
+          ]
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libMath\linterp.h(180,34): warning C4244: 'return': conversion from '__int64' to 'int', possible loss of data
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libMath\linterp.h(311,11): warning C4244: 'initializing': conversion from 'ptrdiff_t' to 'int', possible loss of data
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libMath\linterp.h(367): message : see reference to function template instantiation 'T InterpMultilinear<3,T,true,true,EmptyClass,EmptyClass>::linterp_nd_unitcube<std::_Vector_iterator<std::_Vector_val<std::_Simple_types<_Ty>>>,std::_Array_iterator<_Ty,3>>(IterT1,IterT1,IterT2,IterT2)' being compiled
+          with
+          [
+              T=double,
+              _Ty=double,
+              IterT1=std::_Vector_iterator<std::_Vector_val<std::_Simple_types<double>>>,
+              IterT2=std::_Array_iterator<double,3>
+          ]
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libMath\linterp.h(367): message : see reference to function template instantiation 'T InterpMultilinear<3,T,true,true,EmptyClass,EmptyClass>::linterp_nd_unitcube<std::_Vector_iterator<std::_Vector_val<std::_Simple_types<_Ty>>>,std::_Array_iterator<_Ty,3>>(IterT1,IterT1,IterT2,IterT2)' being compiled
+          with
+          [
+              T=double,
+              _Ty=double,
+              IterT1=std::_Vector_iterator<std::_Vector_val<std::_Simple_types<double>>>,
+              IterT2=std::_Array_iterator<double,3>
+          ]
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libMath\linterp.h(333): message : see reference to function template instantiation 'void InterpMultilinear<3,double,true,true,EmptyClass,EmptyClass>::interp_vec<std::_Array_iterator<_Ty,3>,std::_Array_iterator<double,1>>(int,IterT1,IterT1,IterT2) const' being compiled
+          with
+          [
+              _Ty=std::array<double,1>,
+              IterT1=std::_Array_iterator<std::array<double,1>,3>,
+              IterT2=std::_Array_iterator<double,1>
+          ]
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libMath\linterp.h(333): message : see reference to function template instantiation 'void InterpMultilinear<3,double,true,true,EmptyClass,EmptyClass>::interp_vec<std::_Array_iterator<_Ty,3>,std::_Array_iterator<double,1>>(int,IterT1,IterT1,IterT2) const' being compiled
+          with
+          [
+              _Ty=std::array<double,1>,
+              IterT1=std::_Array_iterator<std::array<double,1>,3>,
+              IterT2=std::_Array_iterator<double,1>
+          ]
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\src\srcSTB\OTF.cpp(342): message : see reference to function template instantiation 'T InterpMultilinear<3,T,true,true,EmptyClass,EmptyClass>::interp<std::_Array_iterator<_Ty,3>>(IterT) const' being compiled
+          with
+          [
+              T=double,
+              _Ty=double,
+              IterT=std::_Array_iterator<double,3>
+          ]
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\src\srcSTB\OTF.cpp(342): message : see reference to function template instantiation 'T InterpMultilinear<3,T,true,true,EmptyClass,EmptyClass>::interp<std::_Array_iterator<_Ty,3>>(IterT) const' being compiled
+          with
+          [
+              T=double,
+              _Ty=double,
+              IterT=std::_Array_iterator<double,3>
+          ]
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libMath\linterp.h(312,15): warning C4244: 'initializing': conversion from '__int64' to 'int', possible loss of data
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libMath\linterp.h(148,1): warning C4267: '=': conversion from 'size_t' to '_Ty', possible loss of data
+          with
+          [
+              _Ty=int
+          ]
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libMath\linterp.h(109): message : see reference to function template instantiation 'void NDInterpolator<1,T,false,true,ArrayRefCountT,GridRefCountT>::set_f_array<IterT3>(IterT,IterT,bool)' being compiled
+          with
+          [
+              T=double,
+              ArrayRefCountT=EmptyClass,
+              GridRefCountT=EmptyClass,
+              IterT3=double *,
+              IterT=double *
+          ]
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libMath\linterp.h(109): message : see reference to function template instantiation 'void NDInterpolator<1,T,false,true,ArrayRefCountT,GridRefCountT>::set_f_array<IterT3>(IterT,IterT,bool)' being compiled
+          with
+          [
+              T=double,
+              ArrayRefCountT=EmptyClass,
+              GridRefCountT=EmptyClass,
+              IterT3=double *,
+              IterT=double *
+          ]
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libMath\linterp.h(97): message : see reference to function template instantiation 'void NDInterpolator<1,T,false,true,ArrayRefCountT,GridRefCountT>::init<IterT1,IterT2,IterT3>(IterT1,IterT2,IterT3,IterT3)' being compiled
+          with
+          [
+              T=double,
+              ArrayRefCountT=EmptyClass,
+              GridRefCountT=EmptyClass,
+              IterT1=double **,
+              IterT2=int *,
+              IterT3=double *
+          ]
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libMath\linterp.h(97): message : see reference to function template instantiation 'void NDInterpolator<1,T,false,true,ArrayRefCountT,GridRefCountT>::init<IterT1,IterT2,IterT3>(IterT1,IterT2,IterT3,IterT3)' being compiled
+          with
+          [
+              T=double,
+              ArrayRefCountT=EmptyClass,
+              GridRefCountT=EmptyClass,
+              IterT1=double **,
+              IterT2=int *,
+              IterT3=double *
+          ]
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libMath\linterp.h(229): message : see reference to function template instantiation 'NDInterpolator<1,T,false,true,ArrayRefCountT,GridRefCountT>::NDInterpolator<IterT1,IterT2,IterT3>(IterT1,IterT2,IterT3,IterT3)' being compiled
+          with
+          [
+              T=double,
+              ArrayRefCountT=EmptyClass,
+              GridRefCountT=EmptyClass,
+              IterT1=double **,
+              IterT2=int *,
+              IterT3=double *
+          ]
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libMath\linterp.h(228): message : see reference to function template instantiation 'NDInterpolator<1,T,false,true,ArrayRefCountT,GridRefCountT>::NDInterpolator<IterT1,IterT2,IterT3>(IterT1,IterT2,IterT3,IterT3)' being compiled
+          with
+          [
+              T=double,
+              ArrayRefCountT=EmptyClass,
+              GridRefCountT=EmptyClass,
+              IterT1=double **,
+              IterT2=int *,
+              IterT3=double *
+          ]
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libMath\linterp.h(396): message : see reference to function template instantiation 'InterpSimplex<1,double,false,true,EmptyClass,EmptyClass>::InterpSimplex<double**,int*,double*>(IterT1,IterT2,IterT3,IterT3)' being compiled
+          with
+          [
+              IterT1=double **,
+              IterT2=int *,
+              IterT3=double *
+          ]
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libMath\linterp.h(396): message : see reference to function template instantiation 'InterpSimplex<1,double,false,true,EmptyClass,EmptyClass>::InterpSimplex<double**,int*,double*>(IterT1,IterT2,IterT3,IterT3)' being compiled
+          with
+          [
+              IterT1=double **,
+              IterT2=int *,
+              IterT3=double *
+          ]
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libMath\linterp.h(152,12): warning C4244: 'initializing': conversion from '__int64' to 'int', possible loss of data
+  ParticleFinder.cpp
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libSTB\Frame.h(56,59): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libSTB\Frame.h(128,25): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libSTB\Frame.h(149,23): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libSTB\Frame.h(155,25): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libSTB\Frame.h(160,25): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libSTB\Frame.h(172,72): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libSTB\Frame.h(294,13): warning C4244: 'return': conversion from '__int64' to 'int', possible loss of data
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libSTB\ParticleFinder.h(85,18): warning C4267: 'return': conversion from 'size_t' to 'int', possible loss of data
+  Position.cpp
+  PredictiveField.cpp
+  Info: Boost.Config is older than your compiler version - probably nothing bad will happen - but you may wish to look for an update Boost version.  Define BOOST_CONFIG_SUPPRESS_OUTDATED_MESSAGE to suppress this message.
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libSTB\Frame.h(56,59): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libSTB\Frame.h(128,25): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libSTB\Frame.h(149,23): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libSTB\Frame.h(155,25): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libSTB\Frame.h(160,25): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libSTB\Frame.h(172,72): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libSTB\Frame.h(294,13): warning C4244: 'return': conversion from '__int64' to 'int', possible loss of data
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\src\srcSTB\PredictiveField.cpp(112,85): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\src\srcSTB\PredictiveField.cpp(138,30): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\src\srcSTB\PredictiveField.cpp(248,9): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\src\srcSTB\PredictiveField.cpp(248,24): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\src\srcSTB\PredictiveField.cpp(248,39): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\src\srcSTB\PredictiveField.cpp(273,11): warning C4553: '==': result of expression not used; did you intend '='?
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\src\srcSTB\PredictiveField.cpp(280,11): warning C4553: '==': result of expression not used; did you intend '='?
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\src\srcSTB\PredictiveField.cpp(287,11): warning C4553: '==': result of expression not used; did you intend '='?
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\src\srcSTB\PredictiveField.cpp(473,40): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\src\srcSTB\PredictiveField.cpp(529,40): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\src\srcSTB\PredictiveField.cpp(588,40): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libMath\linterp.h(193,1): warning C4267: '=': conversion from 'size_t' to '_Ty', possible loss of data
+          with
+          [
+              _Ty=int
+          ]
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libMath\linterp.h(185): message : while compiling class template member function 'T NDInterpolator<3,T,false,true,ArrayRefCountT,GridRefCountT>::get_f_val(const std::array<int,3> &,const std::array<int,3> &) const'
+          with
+          [
+              T=double,
+              ArrayRefCountT=EmptyClass,
+              GridRefCountT=EmptyClass
+          ]
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libMath\linterp.h(282): message : see reference to function template instantiation 'T NDInterpolator<3,T,false,true,ArrayRefCountT,GridRefCountT>::get_f_val(const std::array<int,3> &,const std::array<int,3> &) const' being compiled
+          with
+          [
+              T=double,
+              ArrayRefCountT=EmptyClass,
+              GridRefCountT=EmptyClass
+          ]
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libMath\linterp.h(222): message : see reference to class template instantiation 'NDInterpolator<3,T,false,true,ArrayRefCountT,GridRefCountT>' being compiled
+          with
+          [
+              T=double,
+              ArrayRefCountT=EmptyClass,
+              GridRefCountT=EmptyClass
+          ]
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libMath\linterp.h(416): message : see reference to class template instantiation 'InterpSimplex<3,double,false,true,EmptyClass,EmptyClass>' being compiled
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libMath\linterp.h(203,1): warning C4267: '=': conversion from 'size_t' to '_Ty', possible loss of data
+          with
+          [
+              _Ty=int
+          ]
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libMath\linterp.h(177,1): warning C4267: 'return': conversion from 'size_t' to 'int', possible loss of data
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libMath\linterp.h(174): message : while compiling class template member function 'int NDInterpolator<3,T,false,true,ArrayRefCountT,GridRefCountT>::find_cell(int,T) const'
+          with
+          [
+              T=double,
+              ArrayRefCountT=EmptyClass,
+              GridRefCountT=EmptyClass
+          ]
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libMath\linterp.h(258): message : see reference to function template instantiation 'int NDInterpolator<3,T,false,true,ArrayRefCountT,GridRefCountT>::find_cell(int,T) const' being compiled
+          with
+          [
+              T=double,
+              ArrayRefCountT=EmptyClass,
+              GridRefCountT=EmptyClass
+          ]
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libMath\linterp.h(180,34): warning C4244: 'return': conversion from '__int64' to 'int', possible loss of data
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libMath\linterp.h(311,11): warning C4244: 'initializing': conversion from 'ptrdiff_t' to 'int', possible loss of data
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libMath\linterp.h(367): message : see reference to function template instantiation 'T InterpMultilinear<3,T,true,true,EmptyClass,EmptyClass>::linterp_nd_unitcube<std::_Vector_iterator<std::_Vector_val<std::_Simple_types<_Ty>>>,std::_Array_iterator<_Ty,3>>(IterT1,IterT1,IterT2,IterT2)' being compiled
+          with
+          [
+              T=double,
+              _Ty=double,
+              IterT1=std::_Vector_iterator<std::_Vector_val<std::_Simple_types<double>>>,
+              IterT2=std::_Array_iterator<double,3>
+          ]
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libMath\linterp.h(367): message : see reference to function template instantiation 'T InterpMultilinear<3,T,true,true,EmptyClass,EmptyClass>::linterp_nd_unitcube<std::_Vector_iterator<std::_Vector_val<std::_Simple_types<_Ty>>>,std::_Array_iterator<_Ty,3>>(IterT1,IterT1,IterT2,IterT2)' being compiled
+          with
+          [
+              T=double,
+              _Ty=double,
+              IterT1=std::_Vector_iterator<std::_Vector_val<std::_Simple_types<double>>>,
+              IterT2=std::_Array_iterator<double,3>
+          ]
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libMath\linterp.h(333): message : see reference to function template instantiation 'void InterpMultilinear<3,double,true,true,EmptyClass,EmptyClass>::interp_vec<std::_Array_iterator<_Ty,3>,std::_Array_iterator<double,1>>(int,IterT1,IterT1,IterT2) const' being compiled
+          with
+          [
+              _Ty=std::array<double,1>,
+              IterT1=std::_Array_iterator<std::array<double,1>,3>,
+              IterT2=std::_Array_iterator<double,1>
+          ]
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libMath\linterp.h(333): message : see reference to function template instantiation 'void InterpMultilinear<3,double,true,true,EmptyClass,EmptyClass>::interp_vec<std::_Array_iterator<_Ty,3>,std::_Array_iterator<double,1>>(int,IterT1,IterT1,IterT2) const' being compiled
+          with
+          [
+              _Ty=std::array<double,1>,
+              IterT1=std::_Array_iterator<std::array<double,1>,3>,
+              IterT2=std::_Array_iterator<double,1>
+          ]
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\src\srcSTB\PredictiveField.cpp(406): message : see reference to function template instantiation 'T InterpMultilinear<3,T,true,true,EmptyClass,EmptyClass>::interp<std::_Array_iterator<_Ty,3>>(IterT) const' being compiled
+          with
+          [
+              T=double,
+              _Ty=double,
+              IterT=std::_Array_iterator<double,3>
+          ]
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\src\srcSTB\PredictiveField.cpp(406): message : see reference to function template instantiation 'T InterpMultilinear<3,T,true,true,EmptyClass,EmptyClass>::interp<std::_Array_iterator<_Ty,3>>(IterT) const' being compiled
+          with
+          [
+              T=double,
+              _Ty=double,
+              IterT=std::_Array_iterator<double,3>
+          ]
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libMath\linterp.h(312,15): warning C4244: 'initializing': conversion from '__int64' to 'int', possible loss of data
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libMath\linterp.h(148,1): warning C4267: '=': conversion from 'size_t' to '_Ty', possible loss of data
+          with
+          [
+              _Ty=int
+          ]
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libMath\linterp.h(109): message : see reference to function template instantiation 'void NDInterpolator<1,T,false,true,ArrayRefCountT,GridRefCountT>::set_f_array<IterT3>(IterT,IterT,bool)' being compiled
+          with
+          [
+              T=double,
+              ArrayRefCountT=EmptyClass,
+              GridRefCountT=EmptyClass,
+              IterT3=double *,
+              IterT=double *
+          ]
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libMath\linterp.h(109): message : see reference to function template instantiation 'void NDInterpolator<1,T,false,true,ArrayRefCountT,GridRefCountT>::set_f_array<IterT3>(IterT,IterT,bool)' being compiled
+          with
+          [
+              T=double,
+              ArrayRefCountT=EmptyClass,
+              GridRefCountT=EmptyClass,
+              IterT3=double *,
+              IterT=double *
+          ]
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libMath\linterp.h(97): message : see reference to function template instantiation 'void NDInterpolator<1,T,false,true,ArrayRefCountT,GridRefCountT>::init<IterT1,IterT2,IterT3>(IterT1,IterT2,IterT3,IterT3)' being compiled
+          with
+          [
+              T=double,
+              ArrayRefCountT=EmptyClass,
+              GridRefCountT=EmptyClass,
+              IterT1=double **,
+              IterT2=int *,
+              IterT3=double *
+          ]
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libMath\linterp.h(97): message : see reference to function template instantiation 'void NDInterpolator<1,T,false,true,ArrayRefCountT,GridRefCountT>::init<IterT1,IterT2,IterT3>(IterT1,IterT2,IterT3,IterT3)' being compiled
+          with
+          [
+              T=double,
+              ArrayRefCountT=EmptyClass,
+              GridRefCountT=EmptyClass,
+              IterT1=double **,
+              IterT2=int *,
+              IterT3=double *
+          ]
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libMath\linterp.h(229): message : see reference to function template instantiation 'NDInterpolator<1,T,false,true,ArrayRefCountT,GridRefCountT>::NDInterpolator<IterT1,IterT2,IterT3>(IterT1,IterT2,IterT3,IterT3)' being compiled
+          with
+          [
+              T=double,
+              ArrayRefCountT=EmptyClass,
+              GridRefCountT=EmptyClass,
+              IterT1=double **,
+              IterT2=int *,
+              IterT3=double *
+          ]
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libMath\linterp.h(228): message : see reference to function template instantiation 'NDInterpolator<1,T,false,true,ArrayRefCountT,GridRefCountT>::NDInterpolator<IterT1,IterT2,IterT3>(IterT1,IterT2,IterT3,IterT3)' being compiled
+          with
+          [
+              T=double,
+              ArrayRefCountT=EmptyClass,
+              GridRefCountT=EmptyClass,
+              IterT1=double **,
+              IterT2=int *,
+              IterT3=double *
+          ]
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libMath\linterp.h(396): message : see reference to function template instantiation 'InterpSimplex<1,double,false,true,EmptyClass,EmptyClass>::InterpSimplex<double**,int*,double*>(IterT1,IterT2,IterT3,IterT3)' being compiled
+          with
+          [
+              IterT1=double **,
+              IterT2=int *,
+              IterT3=double *
+          ]
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libMath\linterp.h(396): message : see reference to function template instantiation 'InterpSimplex<1,double,false,true,EmptyClass,EmptyClass>::InterpSimplex<double**,int*,double*>(IterT1,IterT2,IterT3,IterT3)' being compiled
+          with
+          [
+              IterT1=double **,
+              IterT2=int *,
+              IterT3=double *
+          ]
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libMath\linterp.h(152,12): warning C4244: 'initializing': conversion from '__int64' to 'int', possible loss of data
+  Shaking.cpp
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libSTB\Frame.h(56,59): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libSTB\Frame.h(128,25): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libSTB\Frame.h(149,23): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libSTB\Frame.h(155,25): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libSTB\Frame.h(160,25): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libSTB\Frame.h(172,72): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libSTB\Frame.h(294,13): warning C4244: 'return': conversion from '__int64' to 'int', possible loss of data
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\src\srcSTB\Shaking.cpp(59,35): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\src\srcSTB\Shaking.cpp(376,21): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\src\srcSTB\Shaking.cpp(426,21): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+  STB.cpp
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libSTB\Track.h(70,55): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libSTB\Track.h(72,61): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libSTB\Track.h(195,67): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libSTB\Track.h(207,73): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libSTB\Frame.h(56,59): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libSTB\Frame.h(128,25): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libSTB\Frame.h(149,23): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libSTB\Frame.h(155,25): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libSTB\Frame.h(160,25): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libSTB\Frame.h(172,72): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libSTB\Frame.h(294,13): warning C4244: 'return': conversion from '__int64' to 'int', possible loss of data
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libSTB\Image.h(29,7): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libSTB\Image.h(30,7): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libSTB\Image.h(33,69): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libSTB\Image.h(40,62): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libSTB\Image.h(52,86): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libSTB\Image.h(66,61): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libSTB\Image.h(87,74): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libSTB\Tiffload.h(24,11): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libSTB\Tiffload.h(30,61): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libSTB\ParticleFinder.h(85,18): warning C4267: 'return': conversion from 'size_t' to 'int', possible loss of data
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libSTB\Tiff2DFinder.h(25,86): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libSTB\Tiff2DFinder.h(26,59): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libSTB\Calibration.h(27,13): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libSTB\Calibration.h(28,13): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libSTB\Calibration.h(55,110): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libSTB\Calibration.h(112,109): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\src\srcSTB\STB.cpp(237,37): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\src\srcSTB\STB.cpp(237,67): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\src\srcSTB\STB.cpp(237,95): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\src\srcSTB\STB.cpp(237,127): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\src\srcSTB\STB.cpp(356,58): warning C4267: 'initializing': conversion from 'size_t' to 'unsigned int', possible loss of data
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\src\srcSTB\STB.cpp(364,22): warning C4018: '<': signed/unsigned mismatch
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\src\srcSTB\STB.cpp(374,22): warning C4018: '<': signed/unsigned mismatch
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\src\srcSTB\STB.cpp(384,22): warning C4018: '<': signed/unsigned mismatch
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\src\srcSTB\STB.cpp(416,56): warning C4267: 'initializing': conversion from 'size_t' to 'unsigned int', possible loss of data
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\src\srcSTB\STB.cpp(463,22): warning C4018: '<': signed/unsigned mismatch
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\src\srcSTB\STB.cpp(731,16): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\src\srcSTB\STB.cpp(741,13): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\src\srcSTB\STB.cpp(789,16): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\src\srcSTB\STB.cpp(793,13): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\src\srcSTB\STB.cpp(975,29): warning C4018: '<': signed/unsigned mismatch
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\src\srcSTB\STB.cpp(990,30): warning C4018: '<': signed/unsigned mismatch
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\src\srcSTB\STB.cpp(996,29): warning C4018: '<': signed/unsigned mismatch
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\src\srcSTB\STB.cpp(999,29): warning C4018: '<': signed/unsigned mismatch
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\src\srcSTB\STB.cpp(1005,29): warning C4018: '<': signed/unsigned mismatch
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\src\srcSTB\STB.cpp(1012,30): warning C4018: '<': signed/unsigned mismatch
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\src\srcSTB\STB.cpp(1017,30): warning C4018: '<': signed/unsigned mismatch
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\src\srcSTB\STB.cpp(1023,29): warning C4018: '<': signed/unsigned mismatch
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\src\srcSTB\STB.cpp(1147,19): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\src\srcSTB\STB.cpp(1195,2): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\src\srcSTB\STB.cpp(1366,19): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\src\srcSTB\STB.cpp(2025,22): warning C4244: '=': conversion from 'size_t' to 'double', possible loss of data
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\src\srcSTB\STB.cpp(2039,47): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\src\srcSTB\STB.cpp(2277,26): warning C4244: 'initializing': conversion from 'double' to 'unsigned int', possible loss of data
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\src\srcSTB\STB.cpp(2281,14): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.28.29910\include\utility(249,61): warning C4244: 'initializing': conversion from '_Ty' to '_Ty2', possible loss of data
+          with
+          [
+              _Ty=int
+          ]
+          and
+          [
+              _Ty2=float
+          ]
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\src\srcSTB\STB.cpp(765): message : see reference to function template instantiation 'std::pair<Frame::const_iterator,float>::pair<Frame::const_iterator,int,0>(std::pair<Frame::const_iterator,int> &&) noexcept(false)' being compiled
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\src\srcSTB\STB.cpp(765): message : see reference to function template instantiation 'std::pair<Frame::const_iterator,float>::pair<Frame::const_iterator,int,0>(std::pair<Frame::const_iterator,int> &&) noexcept(false)' being compiled
+  Tiff2DFinder.cpp
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libSTB\Frame.h(56,59): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libSTB\Frame.h(128,25): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libSTB\Frame.h(149,23): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libSTB\Frame.h(155,25): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libSTB\Frame.h(160,25): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libSTB\Frame.h(172,72): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libSTB\Frame.h(294,13): warning C4244: 'return': conversion from '__int64' to 'int', possible loss of data
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libSTB\Image.h(29,7): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libSTB\Image.h(30,7): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libSTB\Image.h(33,69): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libSTB\Image.h(40,62): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libSTB\Image.h(52,86): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libSTB\Image.h(66,61): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libSTB\Image.h(87,74): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libSTB\Tiffload.h(24,11): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libSTB\Tiffload.h(30,61): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libSTB\ParticleFinder.h(85,18): warning C4267: 'return': conversion from 'size_t' to 'int', possible loss of data
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libSTB\Tiff2DFinder.h(25,86): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libSTB\Tiff2DFinder.h(26,59): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\src\srcSTB\Tiff2DFinder.cpp(23,99): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\src\srcSTB\Tiff2DFinder.cpp(88,72): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
+  Generating Code...
+  Compiling...
+  Tiffload.cpp
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libSTB\Image.h(29,7): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libSTB\Image.h(30,7): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libSTB\Image.h(33,69): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libSTB\Image.h(40,62): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libSTB\Image.h(52,86): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libSTB\Image.h(66,61): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libSTB\Image.h(87,74): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libSTB\Tiffload.h(24,11): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libSTB\Tiffload.h(30,61): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\src\srcSTB\Tiffload.cpp(20,67): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\src\srcSTB\Tiffload.cpp(34,60): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\src\srcSTB\Tiffload.cpp(58,28): warning C4244: 'initializing': conversion from 'tsize_t' to 'unsigned long', possible loss of data
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\src\srcSTB\Tiffload.cpp(66,17): warning C4244: 'initializing': conversion from 'tmsize_t' to 'long', possible loss of data
+  Track.cpp
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libSTB\Track.h(70,55): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libSTB\Track.h(72,61): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libSTB\Track.h(195,67): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libSTB\Track.h(207,73): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\src\srcSTB\Track.cpp(23,23): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\src\srcSTB\Track.cpp(31,22): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\src\srcSTB\Track.cpp(98,13): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\src\srcSTB\Track.cpp(100,17): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\src\srcSTB\Track.cpp(102,17): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\src\srcSTB\Track.cpp(106,18): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\src\srcSTB\Track.cpp(108,18): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\src\srcSTB\Track.cpp(110,18): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\src\srcSTB\Track.cpp(112,18): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\src\srcSTB\Track.cpp(114,18): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\src\srcSTB\Track.cpp(116,18): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\src\srcSTB\Track.cpp(118,18): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\src\srcSTB\Track.cpp(120,18): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\src\srcSTB\Track.cpp(122,20): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+  WesleyanCPV.cpp
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libSTB\WesleyanCPV.h(27,13): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libSTB\WesleyanCPV.h(39,90): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\inc\libSTB\WesleyanCPV.h(69,38): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\src\srcSTB\WesleyanCPV.cpp(20,99): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\src\srcSTB\WesleyanCPV.cpp(32,29): warning C4244: '=': conversion from 'std::streamoff' to 'double', possible loss of data
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\src\srcSTB\WesleyanCPV.cpp(39,30): warning C4244: '=': conversion from 'std::streamoff' to 'double', possible loss of data
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\src\srcSTB\WesleyanCPV.cpp(47,26): warning C4244: 'argument': conversion from 'double' to '__int64', possible loss of data
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\src\srcSTB\WesleyanCPV.cpp(60,92): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\src\srcSTB\WesleyanCPV.cpp(64,32): warning C4244: '=': conversion from 'std::streamoff' to 'double', possible loss of data
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\src\srcSTB\WesleyanCPV.cpp(70,28): warning C4244: '=': conversion from 'std::streamoff' to 'double', possible loss of data
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\src\srcSTB\WesleyanCPV.cpp(75,29): warning C4244: 'argument': conversion from 'double' to '__int64', possible loss of data
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\src\srcSTB\WesleyanCPV.cpp(96,26): warning C4244: 'argument': conversion from 'double' to '__int64', possible loss of data
+D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\ShakeTheBox\src\srcSTB\WesleyanCPV.cpp(111,45): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
+  Generating Code...
+  ShakeTheBox.vcxproj -> D:\0.Code\OpenLPT_For_particle\OpenLPT_Shake-The-Box\VisualStudio\ShakeTheBox\x64\Debug_parallel\ShakeTheBox.exe
