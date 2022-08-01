@@ -28,7 +28,7 @@ public:
 	// default constructor
 	STB() {};
 	// constructor
-	STB(int first, int last, string pfieldfile, string iprfile, int ncams, deque<int> camIDs, deque<string> imgNameFiles,
+	STB(int first, int last, string pfieldfile, string iprfile, string track_path, int ncams, deque<int> camIDs, deque<string> imgNameFiles,
 		double InitialRadius, double avgDist, double expShift, double masc, double mrsc, double fpt, double lowerInt, bool iprFlag);
 	// copy constructor
 	STB(STB& s);
@@ -108,6 +108,7 @@ public:
 
 	// tiff image address
 	string tiffaddress;
+	string track_address;
 
 //private:
 

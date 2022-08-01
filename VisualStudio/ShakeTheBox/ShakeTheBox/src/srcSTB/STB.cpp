@@ -20,11 +20,11 @@ using namespace std;
 
 // Remove the 'temp' frame after testing
 
-STB::STB(int firstFrame, int lastFrame, string pfieldfile, string iprfile, int ncams, deque<int> camIDs, 
+STB::STB(int firstFrame, int lastFrame, string pfieldfile, string iprfile, string track_path, int ncams, deque<int> camIDs,
 	deque<string> imageNameFiles, double initialRadius, double avgDist, double expShift, double masc, 
 	double mrsc, double fpt, double lowerInt, bool iprFlag) : 
 
-	first(firstFrame), last(lastFrame), iprfile(iprfile), _ipr(iprfile, ncams), pfieldfile(pfieldfile), ncams(ncams), camID(camIDs),
+	first(firstFrame), last(lastFrame), iprfile(iprfile), _ipr(iprfile, ncams), track_address(track_path), pfieldfile(pfieldfile), ncams(ncams), camID(camIDs),
 	imgNameFiles(imageNameFiles), searchRadiusSTB(initialRadius), avgIPDist(avgDist), largestShift(expShift), maxAbsShiftChange(masc), 
 	maxRelShiftChange(mrsc/100), iprFlag(iprFlag), OTFcalib(ncams, _ipr.otfFile), fpt(fpt), intensityLower(lowerInt)
 { 
@@ -72,7 +72,7 @@ STB::STB(int firstFrame, int lastFrame, string pfieldfile, string iprfile, int n
 			cout << "could not open the image sequence file " << imageNameFiles[i] << endl;
 	}
 
-	string address = tiffaddress + "Tracks/InitialTracks/";
+	string address = track_path + "/InitialTracks/";
 	if ( !((debug_mode == SKIP_PREVIOUS_TRACKS || debug_mode == SKIP_PREVIOUS_BACK_STB) && debug_frame_number >= 4)) {
 		if (debug_mode == SKIP_INITIAL_PHASE ) {
 			LoadAllTracks(address, to_string(firstFrame + 3), 0);
@@ -217,7 +217,7 @@ void STB::ConvergencePhase() {
 	Calibration calib(_ipr.calibfile, ALL_CAMS, _ipr.mindist_2D, _ipr.mindist_3D, ncams);
 
 	for (int currFrame = first + 3; currFrame < endFrame; currFrame++) {							// tracking frame by frame using Wiener / polynomial predictor along with shaking
-		string address = tiffaddress + "Tracks/ConvergedTracks/";
+		string address = track_address + "/ConvergedTracks/";
 		if (debug_mode == SKIP_PREVIOUS_TRACKS && currFrame < debug_frame_number ) {
 			if (currFrame < debug_frame_number - 1) continue; // skip those previous frame
 				LoadAllTracks(address, to_string(debug_frame_number), 0);

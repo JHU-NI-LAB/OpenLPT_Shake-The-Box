@@ -159,7 +159,7 @@ void GetDebugMode() {
 
 	// tracking using STB
 	auto start = std::chrono::system_clock::now();
-	STB s(config.first, config.last, config.pfieldfile, config.iprfile, config.ncams, config.camIDs, config.imgNameFiles,
+	STB s(config.first, config.last, config.pfieldfile, config.iprfile, folder_path, config.ncams, config.camIDs, config.imgNameFiles,
 		config.initialPhaseRadius, config.avgSpace, config.largestShift, config.maxAbsShiftChange,
 		config.maxRelShiftChange, config.fpt, config.lowerInt, config.iprFlag);
 	auto end = std::chrono::system_clock::now();

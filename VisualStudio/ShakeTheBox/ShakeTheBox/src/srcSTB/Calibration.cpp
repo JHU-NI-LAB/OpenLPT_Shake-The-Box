@@ -1014,8 +1014,9 @@ void Calibration::Peak_identifier(int camID, int rID, Frame& f, Frame& f2)
 
 		// setting is_Peak elements to false and is_ParticlePos deques to empty
 		for (int i = 0; i < Npixh; i++)	{
-			memset(Calibration::is_Particle[rID][i], false, Npixh * sizeof(bool));
+			//memset(Calibration::is_Particle[rID][i], false, Npixh * sizeof(bool));
 			for (int j = 0; j < Npixw; j++)	{
+				Calibration::is_Particle[rID][i][j] = false;
 				Calibration::is_ParticlePos[rID][i][j].clear();
 			}
 		}
