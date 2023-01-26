@@ -699,7 +699,7 @@ Frame Calibration::Stereomatch(const deque<Frame>& iframes, int framenumber, int
 					if (match_index != -1) {
 						selection[match_index] = false;
 						for (unsigned int l = 0; l < rcams; ++l) {
-							fill_in[k][frame_indices[match_index][k]] = -1;
+							fill_in[l][frame_indices[match_index][l]] = -1;
 						}
 					}
 					fill_in[k][frame_indices[sequence_math_index][k]] = sequence_math_index; // replace the match index
